@@ -1,16 +1,16 @@
-﻿using System;
+﻿using MultiNotes.Server.Respositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Controllers
 {
-    public class NoteController : ApiController
+    public class SimplyNoteController : ApiController
     {
-        // Sposob uzycia tego repo moze ulec zmianie.
-        private static readonly INoteRepository repo = new NoteRepository();
+        private static readonly INoteRepository repo = new LocalNoteRepository();
 
         // IQueryable zamiast IEnumerable - zwiększona wydajność.
         public IQueryable<Note> Get()
@@ -25,9 +25,10 @@ namespace MultiNotes.Server
 
             Note note = repo.GetNote(id.ToString());
             if (note == null)
+            {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            return note; 
+            }
+            return note;
         }
 
         // POST api/note
@@ -49,7 +50,9 @@ namespace MultiNotes.Server
             // TODO: przemyslec czy tutaj string czy int.
 
             if (!repo.RemoveNote(id.ToString()))
+            {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
     }
 }
