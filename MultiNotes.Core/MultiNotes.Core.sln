@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Android.Android"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Android.iOS", "MultiNotes.Android\MultiNotes.Android.iOS\MultiNotes.Android.iOS.csproj", "{E4BBA020-2E4D-4773-8154-8E4EC3B7AF47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.TESTPROJECT", "MultiNotes.TESTPROJECT\MultiNotes.TESTPROJECT.csproj", "{3CC223ED-C560-4069-9343-12D928CC03C4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.SimplyClient", "MultiNotes.SimplyClient\MultiNotes.SimplyClient.csproj", "{076ABBDE-9ABF-4590-8C61-7344882B3D8F}"
 EndProject
 Global
@@ -142,30 +140,6 @@ Global
 		{E4BBA020-2E4D-4773-8154-8E4EC3B7AF47}.Release|iPhone.Build.0 = Release|iPhone
 		{E4BBA020-2E4D-4773-8154-8E4EC3B7AF47}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{E4BBA020-2E4D-4773-8154-8E4EC3B7AF47}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.AppStore|Any CPU.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.AppStore|iPhone.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.AppStore|iPhone.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Release|iPhone.Build.0 = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{3CC223ED-C560-4069-9343-12D928CC03C4}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{076ABBDE-9ABF-4590-8C61-7344882B3D8F}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
 		{076ABBDE-9ABF-4590-8C61-7344882B3D8F}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
 		{076ABBDE-9ABF-4590-8C61-7344882B3D8F}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU

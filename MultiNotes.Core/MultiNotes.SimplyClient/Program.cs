@@ -12,19 +12,11 @@ namespace MultiNotes.SimplyClient
     {
         public string Id { get; set; }
 
-        // Tutaj byc moze bedzie referencja do wlasciciela notatki.
-
-        // Na razie niepotrzebne.
-        // public string OwnerId { get; set; }
-
         public string Content { get; set; }
-        public DateTime CreateTimestamp { get; }
-        public DateTime LastChangeTimestamp { get; set; }
 
-        public override string ToString()
-        {
-            return Id + " \"" + Content + "\" " + LastChangeTimestamp;
-        }
+        public DateTime CreateTimestamp { get; }
+
+        public DateTime LastChangeTimestamp { get; set; }
     }
 
 
@@ -33,8 +25,15 @@ namespace MultiNotes.SimplyClient
         private static HttpClient httpClient = new HttpClient();
         private static int port;
 
+        private static string ToString(Note note)
+        {
+            return note.Id + " \"" + note.Content + "\" " + note.LastChangeTimestamp;
+        }
+
         public static int Main(string[] args)
         {
+            // Pobranie portu - przydatne, bo nie trzeba będzie zmieniać kodu przy 
+            // każdorazowym uruchomieniu programu.
             try
             {
                 Console.Write("Port: ");
@@ -46,8 +45,11 @@ namespace MultiNotes.SimplyClient
                 return 1;
             }
 
+            // Wywołanie metody, która wykona wszystkie wymagane przez nas operacje.
             RunAsync().Wait();
 
+            // Wciśnij enter by zakończyć :)
+            Console.ReadLine();
             return 0;
         }
 
@@ -57,14 +59,13 @@ namespace MultiNotes.SimplyClient
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            // Operacja GET - pobieram notatkę o Id = 1.
             Note product = await GetProductAsync(httpClient.BaseAddress.ToString() + "api/simplynote/1");
-
-            Console.WriteLine(product);
-
-            Console.ReadLine();
+            Console.WriteLine(ToString(product));
         }
 
-        static async Task<Note> GetProductAsync(string path)
+        // Metoda wykonująca operację GET - pobiera notatkę z podanego adresu API.
+        private static async Task<Note> GetProductAsync(string path)
         {
             Note product = null;
             HttpResponseMessage response = await httpClient.GetAsync(path);
