@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultiNotes.Server.Respositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,10 +10,10 @@ namespace MultiNotes.Server
 {
     public class NoteController : ApiController
     {
-        //sposob uzycia tego repo moze ulec zmianie
-        private static readonly INoteRepository repo = new NoteRepository();
+        // Sposob uzycia tego repo moze ulec zmianie.
+        private static readonly INoteRepository repo = new LocalNoteRepository();
 
-        //queryable zamiast enumerable - zwiększona wydajność
+        // IQueryable zamiast IEnumerable - zwiększona wydajność.
         public IQueryable<Note> Get()
         {
             return repo.GetAllNotes().AsQueryable();
@@ -21,7 +22,7 @@ namespace MultiNotes.Server
         // GET api/note/5
         public Note Get(int id)
         {
-            //todo: przemyslec czy tutaj string czy int
+            // Todo: przemyslec czy tutaj string czy int.
 
             Note note = repo.GetNote(id.ToString());
             if (note == null)
@@ -31,7 +32,7 @@ namespace MultiNotes.Server
         }
 
         // POST api/note
-        //public void Post([FromBody]Note value)
+        // public void Post([FromBody]Note value)
         public Note Post(Note value)
         {
             return repo.AddNote(value);
@@ -46,7 +47,7 @@ namespace MultiNotes.Server
         // DELETE api/note/5
         public void Delete(int id)
         {
-            //todo: przemyslec czy tutaj string czy int
+            // TODO: przemyslec czy tutaj string czy int.
 
             if (!repo.RemoveNote(id.ToString()))
                 throw new HttpResponseException(HttpStatusCode.NotFound);

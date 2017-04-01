@@ -9,8 +9,9 @@ using MongoDB.Bson;
 namespace MultiNotes.Server
 {
     public class MongoDBConfig
-    {   //klasa testowa, nie wiadomo na razie czy zostanie
-        //todo: po ustawieniu uzytkownikow w bazie danych, zmienic tutaj connectionString;
+    {
+        // Klasa testowa, nie wiadomo na razie czy zostanie.
+        // TODO: Po ustawieniu uzytkownikow w bazie danych, zmienic tutaj ConnectionString.
         private static string ConnectionString = "mongodb://localhost:27017";
 
         public static void InitDatabaseConnection()
@@ -36,7 +37,7 @@ namespace MultiNotes.Server
             var database = client.GetDatabase("MultiNotes");
 
             var collection = database.GetCollection<Note>("Notes");
-            collection.InsertOneAsync(new Note { Id = "1", Content = "test1", LastChangeTimestamp=DateTime.Now });
+            collection.InsertOneAsync(new Note { Id = "1", Content = "test1", LastChangeTimestamp = DateTime.Now });
             collection.InsertOneAsync(new Note { Id = "2", Content = "test2", LastChangeTimestamp = DateTime.Now });
         }
 }

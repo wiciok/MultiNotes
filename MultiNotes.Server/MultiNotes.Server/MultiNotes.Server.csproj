@@ -170,6 +170,7 @@
     <Compile Include="Models\Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respositories\INoteRepository.cs" />
+    <Compile Include="Respositories\LocalNoteRepository.cs" />
     <Compile Include="Respositories\NoteRepository.cs" />
   </ItemGroup>
   <ItemGroup>

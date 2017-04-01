@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MultiNotes.Server
 {
-    //todo: tutaj oczywiscie beda zmiany po wprowadzeniu userów
+    // todo: tutaj oczywiscie beda zmiany po wprowadzeniu userów
 
     interface INoteRepository
     {

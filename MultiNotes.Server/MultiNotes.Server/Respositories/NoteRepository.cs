@@ -15,14 +15,14 @@ namespace MultiNotes.Server
 
         public NoteRepository()
         {
-            //wydzielic to gdzies? singleton albo unit of work zrobic
-            _client = new MongoClient(); //todo: do zmiany jesli utworzymy userow
+            // Wydzielic to gdzies? Singleton albo unit of work zrobic.
+            _client = new MongoClient(); // TODO: do zmiany jesli utworzymy userow.
             _database = _client.GetDatabase("MultiNotes");
             _notesCollection = _database.GetCollection<Note>("Notes");
 
         }
 
-        //todo: przemyslec async / await
+        // TODO: przemyslec async / await.
         public IEnumerable<Note> GetAllNotes()
         {
             return _notesCollection.Find(n => true).ToList();
@@ -34,7 +34,7 @@ namespace MultiNotes.Server
         }
         public Note AddNote(Note item)
         {
-            //byc moze do jakichs zmian
+            // Byc moze do jakichs zmian.
             item.LastChangeTimestamp = DateTime.Now;
             item.Id = ObjectId.GenerateNewId().ToString();
 
