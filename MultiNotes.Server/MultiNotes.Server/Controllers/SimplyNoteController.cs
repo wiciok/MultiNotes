@@ -10,12 +10,12 @@ namespace MultiNotes.Server.Controllers
 {
     public class SimplyNoteController : ApiController
     {
-        private static readonly INoteRepository repo = new LocalNoteRepository();
+        private static readonly INoteRepository repository = new LocalNoteRepository();
 
         // IQueryable zamiast IEnumerable - zwiększona wydajność.
         public IQueryable<Note> Get()
         {
-            return repo.GetAllNotes().AsQueryable();
+            return repository.GetAllNotes().AsQueryable();
         }
 
         // GET api/note/5
@@ -23,7 +23,7 @@ namespace MultiNotes.Server.Controllers
         {
             // TODO: przemyslec czy tutaj string czy int.
 
-            Note note = repo.GetNote(id.ToString());
+            Note note = repository.GetNote(id.ToString());
             if (note == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -35,7 +35,7 @@ namespace MultiNotes.Server.Controllers
         // public void Post([FromBody]Note value)
         public Note Post(Note value)
         {
-            return repo.AddNote(value);
+            return repository.AddNote(value);
         }
 
         // PUT api/note/5
@@ -49,7 +49,7 @@ namespace MultiNotes.Server.Controllers
         {
             // TODO: przemyslec czy tutaj string czy int.
 
-            if (!repo.RemoveNote(id.ToString()))
+            if (!repository.RemoveNote(id.ToString()))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
