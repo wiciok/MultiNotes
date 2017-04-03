@@ -63,8 +63,7 @@ namespace MultiNotes.SimplyClient
             Note note = new Note() { Id = "10", Content = "Zjedz śniadanie!", LastChangeTimestamp = DateTime.Now };
 
             // Operacja POST - wysłanie notatki na serwer.
-            Uri uri = await PostProductAsync(note);
-            Console.WriteLine(uri);
+            await PostProductAsync(note);
 
             // Operacja GET - pobieram notatkę wcześniej wstawioną na serwer.
             Note product = await GetProductAsync("api/simplynote/" + note.Id);
@@ -84,11 +83,12 @@ namespace MultiNotes.SimplyClient
         }
 
         // Metoda wykonująca operację POST - wysyła notatke na serwer.
-        private static async Task<Uri> PostProductAsync(Note note)
+        private static async Task<object> PostProductAsync(Note note)
         {
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/simplynote", note);
             response.EnsureSuccessStatusCode();
-            return response.Headers.Location;
+            return null;
+
         }
     }
 }

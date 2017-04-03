@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 // TODO: zastanowic sie czy nie uzyc jednego modelu dla serwera i klienta.
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Models
 {
     public class Note
     {

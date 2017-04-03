@@ -1,11 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MultiNotes.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Respositories
 {
     public class NoteRepository : INoteRepository
     {

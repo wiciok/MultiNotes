@@ -5,6 +5,7 @@ using System.Web;
 using MongoDB;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using MultiNotes.Server.Models;
 
 namespace MultiNotes.Server
 {

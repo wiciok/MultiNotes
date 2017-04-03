@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MultiNotes.Server.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Respositories
 {
     // todo: tutaj oczywiscie beda zmiany po wprowadzeniu userów
 

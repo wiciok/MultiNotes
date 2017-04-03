@@ -1,4 +1,5 @@
-﻿using MultiNotes.Server.Respositories;
+﻿using MultiNotes.Server.Models;
+using MultiNotes.Server.Respositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
