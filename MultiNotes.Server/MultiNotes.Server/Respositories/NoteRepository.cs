@@ -36,8 +36,8 @@ namespace MultiNotes.Server.Respositories
         public Note AddNote(Note item)
         {
             // Byc moze do jakichs zmian.
-            item.LastChangeTimestamp = DateTime.Now;
-            item.Id = ObjectId.GenerateNewId().ToString();
+            //item.LastChangeTimestamp = DateTime.Now;
+            //item.Id = ObjectId.GenerateNewId().ToString();
 
             _notesCollection.InsertOne(item);
             return item;

@@ -21,11 +21,9 @@ namespace MultiNotes.Server
         }
 
         // GET api/note/5
-        public Note Get(int id)
+        public Note Get(string id)
         {
-            // TODO: przemyslec czy tutaj string czy int.
-
-            Note note = repo.GetNote(id.ToString());
+            Note note = repo.GetNote(id);
             if (note == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -46,11 +44,11 @@ namespace MultiNotes.Server
         }
 
         // DELETE api/note/5
-        public void Delete(int id)
+        public void Delete(string id)
         {
             // TODO: przemyslec czy tutaj string czy int.
 
-            if (!repo.RemoveNote(id.ToString()))
+            if (!repo.RemoveNote(id))
                 throw new HttpResponseException(HttpStatusCode.NotFound);
         }
     }

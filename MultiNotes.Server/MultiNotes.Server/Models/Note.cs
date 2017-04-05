@@ -13,12 +13,7 @@ namespace MultiNotes.Server.Models
     {
         [BsonId]
         public string Id { get; set; }
-
-        // Tutaj byc moze bedzie referencja do wlasciciela notatki.
-
-        // Na razie niepotrzebne.
-        // public string OwnerId { get; set; }
-
+        //public string OwnerId { get; set; }
         public string Content { get; set; }
         public DateTime CreateTimestamp { get; }
         public DateTime LastChangeTimestamp { get; set; }

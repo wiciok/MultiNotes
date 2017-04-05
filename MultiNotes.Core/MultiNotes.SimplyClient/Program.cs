@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MultiNotes.SimplyClient
@@ -60,13 +61,17 @@ namespace MultiNotes.SimplyClient
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            Note note = new Note() { Id = "10", Content = "Zjedz śniadanie!", LastChangeTimestamp = DateTime.Now };
+            string BsonId = await GetIdAsync();
+
+            Note note = new Note() { Id = BsonId, Content = "Zjedz śniadanie!", LastChangeTimestamp = DateTime.Now };
+
 
             // Operacja POST - wysłanie notatki na serwer.
             await PostProductAsync(note);
 
+
             // Operacja GET - pobieram notatkę wcześniej wstawioną na serwer.
-            Note product = await GetProductAsync("api/simplynote/" + note.Id);
+            Note product = await GetProductAsync("api/note/" + BsonId);
             Console.WriteLine(ToString(product));
         }
 
@@ -82,10 +87,21 @@ namespace MultiNotes.SimplyClient
             return product;
         }
 
+        private static async Task<string> GetIdAsync()
+        {
+            string product = null;
+            HttpResponseMessage response = await httpClient.GetAsync("api/id/");
+            if (response.IsSuccessStatusCode)
+            {
+                product = await response.Content.ReadAsAsync<string>();
+            }
+            return product;
+        }
+
         // Metoda wykonująca operację POST - wysyła notatke na serwer.
         private static async Task<object> PostProductAsync(Note note)
         {
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/simplynote", note);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/note", note);
             response.EnsureSuccessStatusCode();
             return null;
 
