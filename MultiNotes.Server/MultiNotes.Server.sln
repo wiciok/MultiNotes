@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Server", "MultiNotes.Server\MultiNotes.Server.csproj", "{E8ADFB35-AAB1-48A8-B22E-FDE165A29177}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Server.Tests", "MultiNotes.Server.Tests\MultiNotes.Server.Tests.csproj", "{31871B75-AA78-47B3-B259-869F27873DBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiNotes.Core", "..\MultiNotes.Core\MultiNotes.Core\MultiNotes.Core.csproj", "{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{31871B75-AA78-47B3-B259-869F27873DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31871B75-AA78-47B3-B259-869F27873DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31871B75-AA78-47B3-B259-869F27873DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

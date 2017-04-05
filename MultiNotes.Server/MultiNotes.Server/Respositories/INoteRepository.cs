@@ -1,9 +1,10 @@
-﻿using MultiNotes.Server.Models;
+﻿using MultiNotes.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace MultiNotes.Server.Respositories
 {

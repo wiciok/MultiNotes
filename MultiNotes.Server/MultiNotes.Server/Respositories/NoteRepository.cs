@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using MultiNotes.Server.Models;
+using MultiNotes.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

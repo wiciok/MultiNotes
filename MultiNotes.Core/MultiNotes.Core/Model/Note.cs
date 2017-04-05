@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 
-namespace MultiNotes.Core.Model
+
+namespace MultiNotes.Core
 {
-    class Note
+    public class Note
     {
-
-
+        [BsonId]
+        public string Id { get; set; }
+        public string OwnerId { get; set; }
+        public string Content { get; set; }
+        public DateTime CreateTimestamp { get; }
+        public DateTime LastChangeTimestamp { get; set; }
     }
 }

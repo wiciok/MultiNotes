@@ -6,21 +6,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MultiNotes.Core;
 
 namespace MultiNotes.SimplyClient
 {
-    public class Note
-    {
-        public string Id { get; set; }
-
-        public string Content { get; set; }
-
-        public DateTime CreateTimestamp { get; }
-
-        public DateTime LastChangeTimestamp { get; set; }
-    }
-
-
     public class Program
     {
         private static HttpClient httpClient = new HttpClient();
