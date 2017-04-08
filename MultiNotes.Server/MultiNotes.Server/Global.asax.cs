@@ -20,7 +20,7 @@ namespace MultiNotes.Server
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //MongoDBConfig.InitDatabaseConnection();
             //test:
-            MongoDBConfig.InsertExampleNotes();
+            //MongoDBConfig.InsertExampleNotes();
         }
     }
 }

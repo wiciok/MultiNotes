@@ -17,5 +17,8 @@ namespace MultiNotes.Server.Respositories
         Note AddNote(Note item);
         bool RemoveNote(string id);
         bool UpdateNote(string id, Note item);
+
+        IEnumerable<Note> GetAllNotes(User user);
+        //todo: pozostale metody dla kazdego usera
     }
 }

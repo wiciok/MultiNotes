@@ -7,13 +7,14 @@ using System.Net.Http;
 using System.Web.Http;
 using MultiNotes.Core;
 
-
 namespace MultiNotes.Server
 {
+    //klasa zwraca notatki na podstawie ich id
+    //brak jakiejkolwiek autentykacji - docelowo klasa zostanie usunięta, a dostep bedzie sie odbywal przez /api/token/
+
     public class NoteController : ApiController
     {
-        // Sposob uzycia tego repo moze ulec zmianie.
-        private static readonly INoteRepository repo = new NoteRepository();
+        private static readonly INoteRepository repo = UnitOfWork.Instance.NotesRepository;
 
         // IQueryable zamiast IEnumerable - zwiększona wydajność.
         public IQueryable<Note> Get()

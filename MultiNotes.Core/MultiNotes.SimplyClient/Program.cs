@@ -50,18 +50,27 @@ namespace MultiNotes.SimplyClient
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            //todo: dorobić sensowne liczenie hasza
+            User newUser = new User() { Id = await GetIdAsync(), Login = "test", Name = "test", Surname = "test", PasswordHash = "test" };
+
+
             string BsonId = await GetIdAsync();
 
-            Note note = new Note() { Id = BsonId, Content = "Zjedz śniadanie!", LastChangeTimestamp = DateTime.Now };
+            Note note = new Note() { Id = BsonId, OwnerId=newUser.Id, Content = "Zjedz śniadanie!", LastChangeTimestamp = DateTime.Now };
 
+
+            //utworzenie usera
+            await PostUserAsync(newUser);
 
             // Operacja POST - wysłanie notatki na serwer.
             await PostProductAsync(note);
 
 
             // Operacja GET - pobieram notatkę wcześniej wstawioną na serwer.
+            Console.WriteLine("/api/note:");
             Note product = await GetProductAsync("api/note/" + BsonId);
             Console.WriteLine(ToString(product));
+
         }
 
         // Metoda wykonująca operację GET - pobiera notatkę z podanego adresu API.
@@ -84,16 +93,25 @@ namespace MultiNotes.SimplyClient
             {
                 product = await response.Content.ReadAsAsync<string>();
             }
+
             return product;
         }
 
         // Metoda wykonująca operację POST - wysyła notatke na serwer.
         private static async Task<object> PostProductAsync(Note note)
         {
+            //todo: jesli bedziemy przechowywac referencje do wlasciciela w notatce to tutaj nie moze sie wysylac ta referencja
+            //a moze sie nie wysyla domyslnie? trzeba sprawdzic
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/note", note);
             response.EnsureSuccessStatusCode();
             return null;
+        }
 
+        private static async Task<object> PostUserAsync(User user)
+        {
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
+            response.EnsureSuccessStatusCode();
+            return null;
         }
     }
 }

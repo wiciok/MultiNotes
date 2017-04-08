@@ -10,23 +10,22 @@ namespace MultiNotes.Server.Respositories
 {
     public class NoteRepository : INoteRepository
     {
-        private MongoClient _client;
-        private IMongoDatabase _database;
         private IMongoCollection<Note> _notesCollection;
 
-        public NoteRepository()
+        public NoteRepository(IMongoDatabase database) //dependency injection
         {
-            // Wydzielic to gdzies? Singleton albo unit of work zrobic.
-            _client = new MongoClient(); // TODO: do zmiany jesli utworzymy userow.
-            _database = _client.GetDatabase("MultiNotes");
-            _notesCollection = _database.GetCollection<Note>("Notes");
-
+            _notesCollection = database.GetCollection<Note>("Notes");
         }
 
         // TODO: przemyslec async / await.
         public IEnumerable<Note> GetAllNotes()
         {
             return _notesCollection.Find(n => true).ToList();
+        }
+
+        public IEnumerable<Note> GetAllNotes(User user)
+        {
+            return _notesCollection.Find(n => n.OwnerId==user.Id).ToList();
         }
 
         public Note GetNote(string id)
