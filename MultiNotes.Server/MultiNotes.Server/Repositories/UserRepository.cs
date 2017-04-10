@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MultiNotes.Server.Respositories
+namespace MultiNotes.Server.Repositories
 {
     public class UserRepository : IUserRepository
     {

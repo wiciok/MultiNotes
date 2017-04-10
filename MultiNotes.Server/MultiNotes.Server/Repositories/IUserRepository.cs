@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace MultiNotes.Server.Respositories
+namespace MultiNotes.Server.Repositories
 {
     interface IUserRepository
     {

@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MultiNotes.Server.Respositories
+namespace MultiNotes.Server.Repositories
 {
+    //todo: poprzerabiac te metody jakby find nei zwracalo niczego, bo bedzie rzucony wyjatek!!
+
     public class NoteRepository : INoteRepository
     {
         private IMongoCollection<Note> _notesCollection;
@@ -32,6 +34,12 @@ namespace MultiNotes.Server.Respositories
         {
             return _notesCollection.Find(n => n.Id == id).Single<Note>();
         }
+
+        public Note GetNote(string id, User user)
+        {
+            return _notesCollection.Find(n => n.Id == id).Single<Note>();
+        }
+
         public Note AddNote(Note item)
         {
             // Byc moze do jakichs zmian.

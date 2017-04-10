@@ -24,7 +24,7 @@ namespace MultiNotes.Server.Models
         public static Token AddNewToken(User user)
         {
             Token token = new Token(user);
-            tokenList.Add(token);
+            TokenList.Add(token);
             return token;
         }
 
@@ -32,7 +32,7 @@ namespace MultiNotes.Server.Models
         {
             //todo: mozna rozdzielic reakcje na to ze token wygasl od tego ze go nie ma w ogole
 
-            Token token = tokenList.Find(g => g.GetToken == id);
+            Token token = TokenList.Find(g => g.GetToken == id);
 
             if (token != null)
             {
@@ -42,7 +42,7 @@ namespace MultiNotes.Server.Models
                 }
                 else
                 {
-                    tokenList.Remove(token);
+                    TokenList.Remove(token);
                     return null;
                 } 
             }

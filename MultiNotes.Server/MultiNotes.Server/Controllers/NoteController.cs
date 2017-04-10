@@ -1,4 +1,4 @@
-﻿using MultiNotes.Server.Respositories;
+﻿using MultiNotes.Server.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace MultiNotes.Server
         public Note Get(string id)
         {
             Note note = repo.GetNote(id);
-            if (note == null)
+            if (note == null) //to tak nie dziala, rzuci sie wyjatek zamiast zwrocenia nulla
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return note; 

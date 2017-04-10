@@ -16,8 +16,10 @@ namespace MultiNotes.Server
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
+                 //routeTemplate: "api/{controller}/{id}/{specificID}",
+                 //defaults: new { id = RouteParameter.Optional, specificID=RouteParameter.Optional }
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id=RouteParameter.Optional }
             );
         }
     }

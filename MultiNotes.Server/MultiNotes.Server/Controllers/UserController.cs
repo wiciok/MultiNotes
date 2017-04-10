@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using MultiNotes.Core;
-using MultiNotes.Server.Respositories;
+using MultiNotes.Server.Repositories;
 
 namespace MultiNotes.Server.Controllers
 {

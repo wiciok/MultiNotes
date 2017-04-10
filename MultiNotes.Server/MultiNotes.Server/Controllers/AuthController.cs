@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using MultiNotes.Core;
 using MultiNotes.Server;
@@ -22,7 +21,7 @@ namespace MultiNotes.Server.Controllers
             if(isAuthSuccessful)
             {
                 User user = unitOfWork.UsersRepository.GetUser(userAuthData.UserId);
-                return TokenBase.AddNewToken(user).ToString();
+                return TokenBase.AddNewToken(user).GetToken;
             }
             else
             {

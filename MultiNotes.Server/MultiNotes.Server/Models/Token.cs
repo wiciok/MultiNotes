@@ -9,20 +9,22 @@ namespace MultiNotes.Server.Models
 {
     class Token
     {
-        public static readonly int expireTime = 30;
+        public static readonly int expireTime = 200; //todo: zmniejszyc to, na razie jest tyle dla wygody
 
         private DateTime CreateTimestamp;
         public User User { get; }
+        private string token;
 
         public string GetToken
         {
-            get { return GenerateUniqueToken(); }
+            get { return token; }
         }
 
         public Token(User user)
         {
             this.CreateTimestamp = DateTime.Now;
             this.User = user;
+            this.token = GenerateUniqueToken();
         }
 
         public bool IsValid
@@ -42,6 +44,8 @@ namespace MultiNotes.Server.Models
             string GuidString = Convert.ToBase64String(g.ToByteArray());
             GuidString = GuidString.Replace("=", "");
             GuidString = GuidString.Replace("+", "");
+
+            //string GuidString = "testowytoken";
 
             return GuidString;
         }

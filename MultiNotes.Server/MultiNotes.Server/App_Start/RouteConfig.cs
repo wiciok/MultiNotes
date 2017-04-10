@@ -15,8 +15,8 @@ namespace MultiNotes.Server
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}/{noteId}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, noteId=/*co tutaj */"" }
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

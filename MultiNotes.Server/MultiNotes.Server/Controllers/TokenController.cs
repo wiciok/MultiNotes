@@ -1,5 +1,5 @@
 ﻿using MultiNotes.Core;
-using MultiNotes.Server.Respositories;
+using MultiNotes.Server.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,11 @@ using System.Net.Http;
 using System.Web.Http;
 using MultiNotes.Server.Models;
 
-namespace MultiNotes.Server.Controllers
+namespace MultiNotes.Server
 {
     //todo: zrobic reroute!!!!
 
+    [RoutePrefix("api/token")]
     public class TokenController : ApiController
     {
         private static readonly INoteRepository notesRepo = UnitOfWork.Instance.NotesRepository;
@@ -33,7 +34,8 @@ namespace MultiNotes.Server.Controllers
 
 
         // IQueryable zamiast IEnumerable - zwiększona wydajność.
-        public IQueryable<Note> Get(string token)
+        [Route("{token}")] //bez tego ni uja nie bedzie dzialac, mimo ze w klase NotesController jest tak samo i działa
+        public IQueryable<Note> Get([FromUri]string token)
         {
             if(CheckAuthentication(token)==true)
             {
@@ -43,5 +45,63 @@ namespace MultiNotes.Server.Controllers
             //todo: jakas reakcja inna, np. rzucenie stanu http
             return null;
         }
+
+        //tutaj sytuacja jak wyżej, ael prostsza metoda do testu
+        //nie wiem jak zrobić żeby się to wywoływało, pewnie trzeba w routes pogrzebać
+        //zamiast tej, wywołuje się metoda niżej (bez parametru) o ile nie jest wykomentowana
+
+        /*[Route("{token}")]
+        public string Get([FromUri]string token)
+        {
+            return "testRetzargumentem";
+        }
+
+
+         [Route("")]
+        public string Get()
+        {
+            return "testRetbezargumentu";
+        }*/
+
+
+        //GET /api/token/{token}/{id}
+        [Route("{token}/{id}")]
+        public Note Get(string token, string id)
+        {
+            //calosc jest okropna, zmienic to potem
+
+            if (CheckAuthentication(token) == false)
+                return null;
+
+            Note note;
+            try
+            {
+               note  = notesRepo.GetNote(id);
+            }
+            catch(InvalidOperationException)
+            {
+                return null;
+            }
+
+            if (note.OwnerId == user.Id)
+                return note;
+            else
+                return null;
+        }
+
+
+        /*
+        // POST api/note
+        // public void Post([FromBody]Note value)
+        public Note Post(string token, [FromBody]Note value)
+        {
+            if (CheckAuthentication(token) == true)
+            {
+                
+
+                return notesRepo.GetNote()
+            }
+        }*/
+
     }
 }

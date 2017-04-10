@@ -16,6 +16,11 @@ namespace MultiNotes.Core
         public DateTime CreateTimestamp { get; }
         public DateTime LastChangeTimestamp { get; set; }
 
+        public override string ToString()
+        {
+            return "id: "+Id+"OnwerId: "+OwnerId+" Content: "+Content;
+        }
+
         //todo: do rozwiazania kwestia referencji do wlasciciela notatki - na razie jest ownerid
         /*public User Owner
         {
