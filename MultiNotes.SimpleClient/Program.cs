@@ -34,7 +34,7 @@ namespace MultiNotes.SimplyClient
                 Console.WriteLine(e);
                 return 1;
             }*/
-            port = 55482;
+            port = 63252;
 
             // Wywołanie metody, która wykona wszystkie wymagane przez nas operacje.
 
@@ -52,7 +52,7 @@ namespace MultiNotes.SimplyClient
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             //todo: dorobić sensowne liczenie hasza
-            User newUser = new User() { Id = await GetIdAsync(), Login = "test", Name = "test", Surname = "test", PasswordHash = "test" };
+            User newUser = new User() { Id = await GetIdAsync(), Email = "test", Name = "test", Surname = "test", PasswordHash = "test" };
 
 
             string BsonId = await GetIdAsync();
