@@ -45,7 +45,7 @@ namespace MultiNotes.Server.Controllers
 
         //rejestracja nowego uzytkownika
         // POST api/user
-        [Route("{user}")]
+        //[Route("{user}")]
         [ResponseType(typeof(User))]
         public HttpResponseMessage Post([FromBody]User user)
         {
@@ -69,7 +69,8 @@ namespace MultiNotes.Server.Controllers
 
         // edycja istniejacego uzytkownika
         // PUT api/user/32q2fdrsdfa
-        [Route("{token}/{value}")]
+        //[Route("{token}/{value}")]
+        [Route("{token}")]
         [ResponseType(typeof(User))]
         public HttpResponseMessage Put([FromUri]string token, [FromBody]User value)
         {
@@ -98,7 +99,8 @@ namespace MultiNotes.Server.Controllers
 
         // usuniecie istniejacego uzytkownika (siebie)
         // DELETE api/user/32q2fdrsdfa
-        [Route("{token}/{value}")]
+        //[Route("{token}/{value}")]
+        [Route("{token}")]
         [ResponseType(typeof(User))]
         public HttpResponseMessage Delete([FromUri]string token, [FromBody]User value)
         {
