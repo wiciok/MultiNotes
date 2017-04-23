@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MultiNotes.Core;
+using System.Net;
 
 namespace MultiNotes.Core
 {
@@ -21,17 +22,17 @@ namespace MultiNotes.Core
         {
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/auth", authRecord);
             string token = null;
-            if (response.StatusCode.ToString() == "Created")
+            if (response.StatusCode== HttpStatusCode.OK)
             {
                 token= await response.Content.ReadAsAsync<string>();
             }
-            else if (response.StatusCode.ToString() == "InternalServerError")
+            else if (response.StatusCode== HttpStatusCode.InternalServerError)
             {
 
             }
-            else if (response.StatusCode.ToString() == "Unauthorized")
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                //co tutaj?
+                
             }
             return token;
         }

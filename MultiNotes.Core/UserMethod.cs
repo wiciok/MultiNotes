@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MultiNotes.Core;
+using System.Net;
 
 namespace MultiNotes.Core
 {
@@ -38,21 +39,21 @@ namespace MultiNotes.Core
             user.PasswordHash = passwordHash;
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
-            if (response.StatusCode.ToString() == "Created")
+            if (response.StatusCode == HttpStatusCode.Created)
             {
                 string[] lines = { email, passwordHash};
                 System.IO.File.WriteAllLines("plik.txt", lines);
                 preparedAuthenticationRecord();
             }
-            else if (response.StatusCode.ToString() == "NotFound")
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 //rzuc wyjatek
             }
-            else if (response.StatusCode.ToString() == "InternalServerError")
+            else if (response.StatusCode== HttpStatusCode.InternalServerError)
             {
                 //rzuc wyjatek
             }
-            else if (response.StatusCode.ToString() == "Conflict")
+            else if (response.StatusCode == HttpStatusCode.Conflict)
             {
                 //rzuc wyjatek
             }
@@ -63,7 +64,7 @@ namespace MultiNotes.Core
         }
         public void login(string email, string password)
         {
-            string[] lines = { email, password };
+            string[] lines = { email, Encryption.Sha256(password) };
             System.IO.File.WriteAllLines("plik.txt", lines);
             preparedAuthenticationRecord();
         }
@@ -71,7 +72,7 @@ namespace MultiNotes.Core
         private static async Task<User> getUserInfo(string token,string login)
         {
             User user = null;
-            HttpResponseMessage response = await httpClient.GetAsync("api/token/" + token + "/" + login);
+            HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + login);
             if (response.IsSuccessStatusCode)
             {
                 user = await response.Content.ReadAsAsync<User>();
@@ -94,15 +95,12 @@ namespace MultiNotes.Core
 
         public async Task deleteAccount()
         {
-            try
+            string token = await authenticationToken.PostAuthRecordAsync(Record);
+            var user = getUserInfo(token, Record.Login);
+            HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Id);
+            if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                string token = await authenticationToken.PostAuthRecordAsync(Record);
-                int id = getUserInfo(token, Record.Login).Id;
-                HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + id);
-            }
-            catch(Exception kurwa)
-            {
-                int a = 8;
+                ;
             }
         }
     }

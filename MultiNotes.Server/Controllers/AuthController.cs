@@ -59,7 +59,7 @@ namespace MultiNotes.Server.Controllers
                     return Request.CreateResponse(HttpStatusCode.Unauthorized, err);
                 }
             }
-            catch
+            catch(Exception e)
             {
                 HttpError err = new HttpError("Error while authentication");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
