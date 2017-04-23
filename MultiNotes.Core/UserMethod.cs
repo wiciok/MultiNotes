@@ -72,6 +72,7 @@ namespace MultiNotes.Core
         private static async Task<User> getUserInfo(string token,string login)
         {
             User user = null;
+
             HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + login);
             if (response.IsSuccessStatusCode)
             {
@@ -97,7 +98,7 @@ namespace MultiNotes.Core
         {
             string token = await authenticationToken.PostAuthRecordAsync(Record);
             var user = getUserInfo(token, Record.Login);
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Id);
+            HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 ;

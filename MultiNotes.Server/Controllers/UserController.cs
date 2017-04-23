@@ -19,7 +19,7 @@ namespace MultiNotes.Server.Controllers
 
         //pobieranie danych uzytkownika np. po zalogowaniu w kliencie
         // GET api/user/32q2fdrsdfa/5
-        [Route("{token}/{id}")]
+        [Route("{token}/{login}")]
         [ResponseType(typeof(User))]
         public HttpResponseMessage Get(string token, string login)
         {
