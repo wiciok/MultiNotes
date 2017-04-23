@@ -21,14 +21,14 @@ namespace MultiNotes.Server.Controllers
         // GET api/user/32q2fdrsdfa/5
         [Route("{token}/{id}")]
         [ResponseType(typeof(User))]
-        public HttpResponseMessage Get(string token, string id)
+        public HttpResponseMessage Get(string token, string login)
         {
             try
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    if(authService.currentUser.Id==id)
-                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUser(id));
+                    if(authService.currentUser.Login==login)
+                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUserByLogin(login));
                     else
                         return Request.CreateResponse(HttpStatusCode.Forbidden); //probojemy pobrac dane innego uzytkownika niz my sami
                 }
