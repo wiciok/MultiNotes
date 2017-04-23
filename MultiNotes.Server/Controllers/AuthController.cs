@@ -19,14 +19,14 @@ namespace MultiNotes.Server.Controllers
         {
             User user;
 
-            if (unitOfWork.UsersRepository.CheckForUser(authData.UserId) == false)
+            if (unitOfWork.UsersRepository.CheckForUserByLogin(authData.Login) == false)
             {
                 //throw new Exception("User with specified id doesn't exist");
                 //todo: sensowna obsluga wyjatkow
                 return false;
             }
             else
-                user = unitOfWork.UsersRepository.GetUser(authData.UserId);
+                user = unitOfWork.UsersRepository.GetUserByLogin(authData.Login);
 
             if (authData.PasswordHash == user.PasswordHash)
                 return true;
@@ -43,7 +43,7 @@ namespace MultiNotes.Server.Controllers
             {
                 if (Authenticate(userAuthData)==true) //user istnieje, haslo sie zgadza
                 {
-                    User user = unitOfWork.UsersRepository.GetUser(userAuthData.UserId);
+                    User user = unitOfWork.UsersRepository.GetUserByLogin(userAuthData.Login);
 
                     if(TokenBase.VerifyUserToken(user)==true) //jesli token juz istnieje  i jest ważny - zwracamy go
                     {

@@ -51,7 +51,7 @@ namespace MultiNotes.Server.Controllers
         {
             try
             {
-                if (usersRepo.CheckForUser(user.Id) == false)
+                if (usersRepo.CheckForUser(user.Id) == false && usersRepo.CheckForUserByLogin(user.Login)==false)
                     return Request.CreateResponse<User>(HttpStatusCode.Created, usersRepo.AddUser(user));
                 else
                 {
