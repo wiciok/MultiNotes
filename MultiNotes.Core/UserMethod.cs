@@ -78,7 +78,7 @@ namespace MultiNotes.Core
         public async Task deleteAccount()
         {
             string token= await authenticationToken.PostAuthRecordAsync(Record);
-            HttpResponseMessage response = await httpClient.DeleteAsync(token,user);
+            HttpResponseMessage response = await httpClient.DeleteAsync("api/user/"+token+"/"+"{id_naszego_usera}");
         }
     }
 }
