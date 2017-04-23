@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationRecord.cs" />
+    <Compile Include="AuthenticationToken.cs" />
     <Compile Include="ConnectionApi.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Main.cs" />
