@@ -52,7 +52,7 @@ namespace MultiNotes.SimplyClient
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             //todo: dorobić sensowne liczenie hasza
-            User newUser = new User() { Id = await GetIdAsync(), Email = "test", Name = "test", Surname = "test", PasswordHash = "test" };
+            User newUser = new User() { Id = await GetIdAsync(), Login = "test", Name = "test", Surname = "test", PasswordHash = "test" };
 
 
             string BsonId = await GetIdAsync();

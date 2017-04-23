@@ -21,47 +21,64 @@ namespace MultiNotes.Core
             httpClient = httpClient2;
             authenticationToken = new AuthenticationToken(httpClient);
             Record = new AuthenticationRecord();
+            user = new User();
         }
-        public void preparedAuthenticationRecord(string email, string passwordHash)
+        public void preparedAuthenticationRecord()
         {
-            Record.Login = email;
-            Record.PasswordHash = passwordHash;
+            string[] lines = System.IO.File.ReadAllLines("plik.txt");
+            Record.Login = lines[0];
+            Record.PasswordHash = lines[1];
         }
         public async Task registerAsync(string email, string password)
         {
             string BsonId = await getUniqueBsonId();
             string passwordHash = Encryption.Sha256(password);
-            user.Id= BsonId;
-            user.Email = email;
+            user.Id = BsonId;
+            user.Login = email;
             user.PasswordHash = passwordHash;
 
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", newUser);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
             if (response.StatusCode.ToString() == "Created")
             {
-                preparedAuthenticationRecord(email, passwordHash);
+                string[] lines = { email, passwordHash};
+                System.IO.File.WriteAllLines("plik.txt", lines);
+                preparedAuthenticationRecord();
             }
-            else if(response.StatusCode.ToString() == "NotFound")
+            else if (response.StatusCode.ToString() == "NotFound")
             {
-
+                //rzuc wyjatek
             }
-            else if(response.StatusCode.ToString() == "InternalServerError")
+            else if (response.StatusCode.ToString() == "InternalServerError")
             {
-                
+                //rzuc wyjatek
             }
             else if (response.StatusCode.ToString() == "Conflict")
             {
-
+                //rzuc wyjatek
             }
             else
             {
-
+                //rzuc wyjatek
             }
-            response.EnsureSuccessStatusCode();
         }
-        private static async Task loginAsync(string email, string password)
+        public void login(string email, string password)
         {
-           //to kiedys musi powstac
+            string[] lines = { email, password };
+            System.IO.File.WriteAllLines("plik.txt", lines);
+            preparedAuthenticationRecord();
         }
+
+        private static async Task<User> getUserInfo(string token,string login)
+        {
+            User user = null;
+            HttpResponseMessage response = await httpClient.GetAsync("api/token/" + token + "/" + login);
+            if (response.IsSuccessStatusCode)
+            {
+                user = await response.Content.ReadAsAsync<User>();
+            }
+            return user;
+        }
+
 
         private async Task<string> getUniqueBsonId()
         {
@@ -77,8 +94,16 @@ namespace MultiNotes.Core
 
         public async Task deleteAccount()
         {
-            string token= await authenticationToken.PostAuthRecordAsync(Record);
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/user/"+token+"/"+"{id_naszego_usera}");
+            try
+            {
+                string token = await authenticationToken.PostAuthRecordAsync(Record);
+                int id = getUserInfo(token, Record.Login).Id;
+                HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + id);
+            }
+            catch(Exception kurwa)
+            {
+                int a = 8;
+            }
         }
     }
 }

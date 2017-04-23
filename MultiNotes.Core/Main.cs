@@ -28,6 +28,8 @@ namespace MultiNotes.Core
             ConnectionApi.configure();
             UserMethod a = new UserMethod(ConnectionApi.httpClient);
             await a.registerAsync("aa", "bb");
+            a.login("aa", "bb");
+            await a.deleteAccount();
         }
     }
 }
