@@ -15,23 +15,30 @@ namespace MultiNotes.Core
         private static HttpClient httpClient;
         private AuthenticationToken authenticationToken;
         public AuthenticationRecord Record { get; set; }
+        public User user;
         public UserMethod(HttpClient httpClient2)
         {
             httpClient = httpClient2;
             authenticationToken = new AuthenticationToken(httpClient);
             Record = new AuthenticationRecord();
         }
+        public void preparedAuthenticationRecord(string email, string passwordHash)
+        {
+            Record.Login = email;
+            Record.PasswordHash = passwordHash;
+        }
         public async Task registerAsync(string email, string password)
         {
             string BsonId = await getUniqueBsonId();
             string passwordHash = Encryption.Sha256(password);
-            User newUser = new User(){ Id = BsonId, Email =email, Name = "", Surname = "", PasswordHash = passwordHash };
+            user.Id= BsonId;
+            user.Email = email;
+            user.PasswordHash = passwordHash;
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", newUser);
             if (response.StatusCode.ToString() == "Created")
             {
-                Record.UserId = BsonId;
-                Record.PasswordHash = passwordHash;
+                preparedAuthenticationRecord(email, passwordHash);
             }
             else if(response.StatusCode.ToString() == "NotFound")
             {
@@ -68,11 +75,10 @@ namespace MultiNotes.Core
             return product;
         }
 
-        public async Task deleteAccount(User user)
+        public async Task deleteAccount()
         {
-            AuthenticationRecord authStructure = new AuthenticationRecord { UserId = user.Id, PasswordHash = user.PasswordHash };
-            string token= await authenticationToken.PostAuthRecordAsync(authStructure);
-            HttpResponseMessage response = await httpClient.DeleteAsync(token);
+            string token= await authenticationToken.PostAuthRecordAsync(Record);
+            HttpResponseMessage response = await httpClient.DeleteAsync(token,user);
         }
     }
 }
