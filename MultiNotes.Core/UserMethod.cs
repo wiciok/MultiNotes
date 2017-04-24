@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MultiNotes.Core;
 using System.Net;
+using System.Web.Http;
 
 namespace MultiNotes.Core
 {
@@ -41,25 +42,14 @@ namespace MultiNotes.Core
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
             if (response.StatusCode == HttpStatusCode.Created)
             {
-                string[] lines = { email, passwordHash};
+                string[] lines = { email, passwordHash };
                 System.IO.File.WriteAllLines("plik.txt", lines);
                 preparedAuthenticationRecord();
             }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                //rzuc wyjatek
-            }
-            else if (response.StatusCode== HttpStatusCode.InternalServerError)
-            {
-                //rzuc wyjatek
-            }
-            else if (response.StatusCode == HttpStatusCode.Conflict)
-            {
-                //rzuc wyjatek
-            }
             else
             {
-                //rzuc wyjatek
+                throw new HttpResponseException(response.StatusCode);
+                //Conflict- loginow,InternalServerError
             }
         }
         public void login(string email, string password)
@@ -69,26 +59,35 @@ namespace MultiNotes.Core
             preparedAuthenticationRecord();
         }
 
-        private static async Task<User> getUserInfo(string token,string login)
+        public static async Task<User> getUserInfo(string token,string login)
         {
             User user = null;
-
             HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + login);
-            if (response.IsSuccessStatusCode)
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 user = await response.Content.ReadAsAsync<User>();
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //Forbidden,Unauthorized,InternalServerError
             }
             return user;
         }
 
 
-        private async Task<string> getUniqueBsonId()
+        public async Task<string> getUniqueBsonId()
         {
             string product = null;
             HttpResponseMessage response = await httpClient.GetAsync("api/id/");
-            if (response.IsSuccessStatusCode)
+
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 product = await response.Content.ReadAsAsync<string>();
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
             }
 
             return product;
@@ -99,10 +98,34 @@ namespace MultiNotes.Core
             string token = await authenticationToken.PostAuthRecordAsync(Record);
             var user = getUserInfo(token, Record.Login);
             HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
-            if (response.StatusCode == HttpStatusCode.NotFound)
+
+            if(response.StatusCode == HttpStatusCode.OK)
             {
                 ;
             }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //Forbidden,Unauthorized,InternalServerError
+            }
         }
+
+        public async Task editAccount()
+        {
+            string token = await authenticationToken.PostAuthRecordAsync(Record);
+            var user = getUserInfo(token, Record.Login);
+            HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/user/"+token, user);
+
+            if(response.StatusCode == HttpStatusCode.OK)
+            {
+
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //Forbidden,Unauthorized,InternalServerError
+            }
+        }
+
     }
 }

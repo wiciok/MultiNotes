@@ -67,7 +67,7 @@ namespace MultiNotes.SimplyClient
             //wyslanie notatki - STARE API NOTE, tylko do testu, dopoki nie ma POSTa w tokenie!!!
             await PostNoteAsync(note);
 
-            AuthenticationRecord authStructure = new AuthenticationRecord { UserId = newUser.Id, PasswordHash = newUser.PasswordHash };
+            AuthenticationRecord authStructure = new AuthenticationRecord { Login = newUser.Login, PasswordHash = newUser.PasswordHash };
             //wysłanie authStructure i odebranie tokena w odpowiedzi
             string token = await PostAuthRecordAsync(authStructure);
 
