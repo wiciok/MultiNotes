@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MultiNotes.Core;
 using System.Net;
+using System.Web.Http;
 
 namespace MultiNotes.Core
 {
@@ -26,13 +27,10 @@ namespace MultiNotes.Core
             {
                 token= await response.Content.ReadAsAsync<string>();
             }
-            else if (response.StatusCode== HttpStatusCode.InternalServerError)
+            else
             {
-
-            }
-            else if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                
+                throw new HttpResponseException(response.StatusCode);
+                //Unauthorized,InternalServerError
             }
             return token;
         }
