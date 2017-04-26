@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="MalczuuuTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <!-- Action Bar's color. -->
+    <!--<item name="android:colorPrimary">#2196F3</item>-->
+    <!-- Status Bar's color. -->
+    <!--<item name="android:statusBarColor">#2196F3</item>-->
+    <item name="android:actionMenuTextColor">#FFFFFF</item>
+    
+    <!-- Added in order to remove Action Bar. -->
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowActionBar">false</item>
+  </style>
+</resources>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:id="@+id/MenuEdit"
+    android:icon="@drawable/ic_action_content_create"
+    android:showAsAction="always"
+    android:title="@string/MenuEdit" />
+  <item
+    android:id="@+id/MenuSave"
+    android:icon="@drawable/ic_action_content_save"
+    android:showAsAction="always"
+    android:title="@string/MenuSave" />
+  <item
+    android:foreground="#ffffff"
+    android:id="@+id/MenuMore"
+    android:showAsAction="always"
+    android:title="@string/MenuMore">
+    <menu>
+      <item
+        android:id="@+id/MenuDelete"
+        android:showAsAction="always"
+        android:title="@string/MenuDelete" />
+      <item
+        android:id="@+id/MenuPreferences"
+        android:showAsAction="always"
+        android:title="@string/MenuPreferences" />
+    </menu>
+  </item>
+</menu>
