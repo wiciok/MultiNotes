@@ -11,6 +11,7 @@ using System.Net.Http;
 
 namespace MultiNotes.Server.Controllers
 {
+    [LogWebApiRequest]
     public class AuthController : ApiController
     {
         private IUnitOfWork unitOfWork = UnitOfWork.Instance;

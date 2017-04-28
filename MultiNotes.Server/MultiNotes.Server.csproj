@@ -170,11 +170,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="LogWebApiRequestAttribute.cs" />
+    <Compile Include="LogHttpRequest.cs" />
     <Compile Include="Models\AuthorizationService.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\TokenBase.cs" />
@@ -190,6 +193,7 @@
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

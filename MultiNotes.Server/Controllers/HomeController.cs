@@ -10,8 +10,6 @@ namespace MultiNotes.Server.Controllers
     {
         public string Index()
         {
-            WebApiApplication.GlobalLogger.Info("HomePage entered");
-
             ViewBag.Title = "Home Page";
             return HttpUtility.HtmlEncode("This is MultiNotes application API service. You have no buisness here.");
         }
