@@ -11,7 +11,8 @@ using System.Web.Http.Description;
 
 namespace MultiNotes.Server
 {
-    [RoutePrefix("api/token")]
+    [LogWebApiRequest]
+    [RoutePrefix("api/note")]
     public class NoteController : ApiController
     {
         private static readonly INoteRepository notesRepo = UnitOfWork.Instance.NotesRepository;
@@ -33,8 +34,9 @@ namespace MultiNotes.Server
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while getting all user's notes");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }           

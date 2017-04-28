@@ -23,6 +23,8 @@ namespace MultiNotes.Server
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            GlobalFilters.Filters.Add(new LogHttpRequest());
+
             GlobalLogger.Info("Logging started");
         }
     }
