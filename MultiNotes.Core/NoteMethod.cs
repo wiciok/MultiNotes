@@ -8,6 +8,5 @@ namespace MultiNotes.Core
 {
     public class NoteMethod
     {
-
     }
 }
