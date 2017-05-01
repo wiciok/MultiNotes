@@ -35,7 +35,7 @@ namespace MultiNotes.Core
             //a.user.Name = "nowyname";
             try
             {
-                await a.editAccount();
+                await a.EditAccount();
             }
             catch(HttpResponseException e)
             {

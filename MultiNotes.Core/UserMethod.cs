@@ -25,18 +25,18 @@ namespace MultiNotes.Core
             Record = new AuthenticationRecord();
             user = new User();
         }
-        public void preparedAuthenticationRecord()
+        public void PreparedAuthenticationRecord()
         {
             string[] lines = System.IO.File.ReadAllLines("plik.txt");
             Record.Login = lines[0];
             Record.PasswordHash = lines[1];
         }
-        public async Task registerAsync(string email, string password)
+        public async Task register(string email, string password)
         {
-            string BsonId = await getUniqueBsonId();
+            string BsonId = await UniqueId.GetUniqueBsonId(httpClient);
             string passwordHash = Encryption.Sha256(password);
             user.Id = BsonId;
-            user.Login = email;
+            user.Login = email;        
             user.PasswordHash = passwordHash;
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
@@ -44,7 +44,7 @@ namespace MultiNotes.Core
             {
                 string[] lines = { email, passwordHash };
                 System.IO.File.WriteAllLines("plik.txt", lines);
-                preparedAuthenticationRecord();
+                PreparedAuthenticationRecord();
             }
             else
             {
@@ -56,10 +56,10 @@ namespace MultiNotes.Core
         {
             string[] lines = { email, Encryption.Sha256(password) };
             System.IO.File.WriteAllLines("plik.txt", lines);
-            preparedAuthenticationRecord();
+            PreparedAuthenticationRecord();
         }
 
-        public static async Task<User> getUserInfo(string token,string login)
+        public async Task<User> GetUserInfo(string token,string login)
         {
             User user = null;
             HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + login);
@@ -75,28 +75,10 @@ namespace MultiNotes.Core
             return user;
         }
 
-
-        public async Task<string> getUniqueBsonId()
-        {
-            string product = null;
-            HttpResponseMessage response = await httpClient.GetAsync("api/id/");
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                product = await response.Content.ReadAsAsync<string>();
-            }
-            else
-            {
-                throw new HttpResponseException(response.StatusCode);
-            }
-
-            return product;
-        }
-
-        public async Task deleteAccount()
+        public async Task DeleteAccount()
         {
             string token = await authenticationToken.PostAuthRecordAsync(Record);
-            var user = getUserInfo(token, Record.Login);
+            var user = GetUserInfo(token, Record.Login);
             HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
 
             if(response.StatusCode == HttpStatusCode.OK)
@@ -110,10 +92,10 @@ namespace MultiNotes.Core
             }
         }
 
-        public async Task editAccount()
+        public async Task EditAccount()
         {
             string token = await authenticationToken.PostAuthRecordAsync(Record);
-            var user = getUserInfo(token, Record.Login);
+            var user = GetUserInfo(token, Record.Login);
             HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/user/"+token, user);
 
             if(response.StatusCode == HttpStatusCode.OK)

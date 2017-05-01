@@ -47,6 +47,7 @@
     <Compile Include="Model\Note.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="NoteMethod.cs" />
+    <Compile Include="UniqueId.cs" />
     <Compile Include="UserMethod.cs" />
   </ItemGroup>
   <ItemGroup>
