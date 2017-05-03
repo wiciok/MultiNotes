@@ -52,11 +52,16 @@ namespace MultiNotes.Core
                 //Conflict- loginow,InternalServerError
             }
         }
-        public void login(string email, string password)
+        public async Task login(string email, string password)
         {
+            //logowanie do pliku
             string[] lines = { email, Encryption.Sha256(password) };
             System.IO.File.WriteAllLines("plik.txt", lines);
             PreparedAuthenticationRecord();
+
+            //wypelnienie uzytkownika
+            string token = await authenticationToken.PostAuthRecordAsync(Record);
+            user = await GetUserInfo(token, Record.Login);
         }
 
         public async Task<User> GetUserInfo(string token,string login)

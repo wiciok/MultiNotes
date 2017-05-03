@@ -30,24 +30,12 @@ namespace MultiNotes.Core
             ConnectionApi.configure();
             UserMethod a = new UserMethod(ConnectionApi.httpClient);
             //await a.registerAsync("aa", "bb");
-            // a.login("aa", "bb");
+            await a.login("aa", "bb");
             //await a.deleteAccount();
             //a.user.Name = "nowyname";
-            try
-            {
-                await a.EditAccount();
-            }
-            catch(HttpResponseException e)
-            {
-                if(e.Response.StatusCode== HttpStatusCode.NotFound)
-                {
-                    //jezeli masz not found to zrob to
-                }
-                else
-                {
-                    //inne wyjatki
-                }
-            }
+            NoteMethod test = new NoteMethod(ConnectionApi.httpClient);
+            test.AddNote(a.user.Id, "notatka");
+            int aaaaa = 989;
         }
     }
 }
