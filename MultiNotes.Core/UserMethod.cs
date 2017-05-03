@@ -33,7 +33,9 @@ namespace MultiNotes.Core
         }
         public async Task register(string email, string password)
         {
-            string BsonId = await UniqueId.GetUniqueBsonId(httpClient);
+            string BsonId = null;
+
+            BsonId = await UniqueId.GetUniqueBsonId(httpClient);
             string passwordHash = Encryption.Sha256(password);
             user.Id = BsonId;
             user.Login = email;        

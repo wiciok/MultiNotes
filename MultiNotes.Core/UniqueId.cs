@@ -19,7 +19,7 @@ namespace MultiNotes.Core
             string product = null;
             HttpResponseMessage response = await httpClient.GetAsync("api/id/");
 
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.Created)
             {
                 product = await response.Content.ReadAsAsync<string>();
             }

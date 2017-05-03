@@ -29,8 +29,8 @@ namespace MultiNotes.Core
         {
             ConnectionApi.configure();
             UserMethod a = new UserMethod(ConnectionApi.httpClient);
-            //await a.registerAsync("aa", "bb");
-            await a.login("aa", "bb");
+            await a.register("nowiutki", "nowiutki");
+            await a.login("nowiutki", "nowiutki");
             //await a.deleteAccount();
             //a.user.Name = "nowyname";
             NoteMethod test = new NoteMethod(ConnectionApi.httpClient);
