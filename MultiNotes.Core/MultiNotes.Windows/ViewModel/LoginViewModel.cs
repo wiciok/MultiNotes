@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 using MultiNotes.Core;
 using System.Web.Http;
 using System.Windows;
+using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public MultiNotesLoginWindow loginWindow;
+
+        public LoginViewModel(MultiNotesLoginWindow loginWindow)
+        {
+            this.loginWindow = loginWindow;
+        }
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -20,26 +27,32 @@ namespace MultiNotes.Windows.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public async Task Login()
+        public void MakeLoginTask(string email, string password)
+        {
+            Task.Factory.StartNew(() => Login(email, password).Wait());
+        }
+
+        public async Task Login(string email, string password)
         {
             ConnectionApi.configure();
             UserMethod methods = new UserMethod(ConnectionApi.httpClient);
 
             try
             {
-                await methods.login("nowiutki", "nowiutki");
+                await methods.login(email, password);
             }
-            catch(HttpResponseException e)
+            catch(Exception ex)
             {
-                if(e.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    MessageBox.Show("Error: NotFound");
-                }
+                MessageBox.Show("Wrong username or password");
+                return;
             }
-            catch (Exception ex)
+
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                MessageBox.Show(ex.Message);
-            }
+                MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
+                loginWindow.Close();
+                mainWindow.Show();
+            });
         }
     }
 }

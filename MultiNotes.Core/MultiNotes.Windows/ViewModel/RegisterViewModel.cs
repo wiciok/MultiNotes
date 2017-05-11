@@ -20,18 +20,24 @@ namespace MultiNotes.Windows.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public async Task Register()
+        public void MakeRegisterTask(string email, string password)
+        {
+            Task testTask = new Task(() => Register(email, password).Wait());
+            testTask.Start();
+        }
+
+        public async Task Register(string email, string password)
         {
             ConnectionApi.configure();
             UserMethod methods = new UserMethod(ConnectionApi.httpClient);
 
             try
             {
-                await methods.register("nowiutki", "nowiutki");
+                await methods.register(email, password);
             }
             catch(Exception ex)
             {
-                    MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
     }
