@@ -3,6 +3,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Views;
 using Android.Content.PM;
+using System.Collections.Generic;
 
 namespace MultiNotes.XAndroid
 {
@@ -24,6 +25,29 @@ namespace MultiNotes.XAndroid
             {
                 StartActivity(typeof(SignInActivity));
             };
+
+
+            ListView list = (ListView)FindViewById(Resource.Id.Main_NotesListView);
+
+            string[] cars = new string[]
+            {
+                "Mercedes",
+                "Fiat",
+                "Ferrari",
+                "Aston Martin",
+                "Lamborghini",
+                "Skoda",
+                "Volkswagen",
+                "Audi",
+                "Citroen"
+            };
+
+            List<string> carL = new List<string>();
+            carL.AddRange(cars);
+
+            ArrayAdapter adapter = new ArrayAdapter<string>(this, Resource.Id.Main_NotesListView, carL);
+
+            list.Adapter = adapter);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

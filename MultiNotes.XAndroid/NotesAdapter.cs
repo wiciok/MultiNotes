@@ -12,9 +12,11 @@ using Android.Widget;
 
 namespace MultiNotes.XAndroid
 {
-    class CustomListAdapter : ArrayAdapter
+    class NotesAdapter : BaseAdapter
     {
-        public CustomListAdapter(Context context, int resourceId, System.Collections.IList objects)
+        private List<Note> notesList;
+
+        public NotesAdapter(Context context, int resourceId, System.Collections.IList objects)
             : base(context, resourceId, objects)
         { 
             /*
@@ -26,7 +28,9 @@ namespace MultiNotes.XAndroid
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            /*
             return base.GetView(position, convertView, parent);
+            */
         }
     }
 }

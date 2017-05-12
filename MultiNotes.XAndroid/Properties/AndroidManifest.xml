@@ -1,32 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest 
-  xmlns:android="http://schemas.android.com/apk/res/android" 
-  package="MultiNotes.XAndroid.MultiNotes.XAndroid"
-  android:versionCode="1"
-  android:versionName="1.0" 
-  android:installLocation="auto">
-  <uses-sdk
-    android:targetSdkVersion="23"
-    android:minSdkVersion="16" />
-  <application
-    android:label="MultiNotes" 
-    android:icon="@drawable/NotesIcon"
-    android:theme="@style/MalczuuuTheme">
-    <activity
-      android:name=".AccountActivity"
-      android:configChanges="orientation"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".MainActivity"
-      android:configChanges="orientation"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".SignInActivity"
-      android:configChanges="orientation"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".SignUpActivity"
-      android:configChanges="orientation"
-      android:screenOrientation="portrait" />
-  </application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="MultiNotes.XAndroid.MultiNotes.XAndroid" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
+	<uses-sdk android:targetSdkVersion="23" android:minSdkVersion="16" />
+	<application android:label="MultiNotes" android:icon="@drawable/NotesIcon" android:theme="@style/MalczuuuTheme">
+		<activity android:name=".AccountActivity" android:configChanges="orientation" android:screenOrientation="portrait" />
+		<activity android:name=".MainActivity" android:configChanges="orientation" android:screenOrientation="portrait" />
+		<activity android:name=".SignInActivity" android:configChanges="orientation" android:screenOrientation="portrait" />
+		<activity android:name=".SignUpActivity" android:configChanges="orientation" android:screenOrientation="portrait" />
+	</application>
 </manifest>

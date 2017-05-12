@@ -34,6 +34,7 @@ namespace MultiNotes.XAndroid
             {
                 ChangePasswordButtonOnClick();
             };
+
         }
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
