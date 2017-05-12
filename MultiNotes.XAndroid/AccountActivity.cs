@@ -28,6 +28,12 @@ namespace MultiNotes.XAndroid
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            Button changePasswordButton = (Button)FindViewById(Resource.Id.Account_ChangePasswordButton);
+            changePasswordButton.Click += delegate
+            {
+                ChangePasswordButtonOnClick();
+            };
         }
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
@@ -46,6 +52,12 @@ namespace MultiNotes.XAndroid
         {
             Finish();
             return true;
+        }
+
+        private void ChangePasswordButtonOnClick()
+        {
+            // TODO: Widok zmiany hasła.
+            Toast.MakeText(this, "Tu pojawi się widok zmiany hasła!", ToastLength.Short).Show();
         }
     }
 }

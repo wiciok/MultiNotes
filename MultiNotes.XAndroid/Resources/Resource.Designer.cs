@@ -93,6 +93,9 @@ namespace MultiNotes.XAndroid
 		public partial class Dimension
 		{
 			
+			// aapt resource value: 0x7f050001
+			public const int DefaultMargin100 = 2131034113;
+			
 			// aapt resource value: 0x7f050000
 			public const int DefaultMargin50 = 2131034112;
 			
@@ -143,71 +146,89 @@ namespace MultiNotes.XAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f090001
-			public const int AcountExampleTextView = 2131296257;
-			
-			// aapt resource value: 0x7f090003
-			public const int Main_SignInButton = 2131296259;
-			
-			// aapt resource value: 0x7f090015
-			public const int MenuAccount = 2131296277;
-			
-			// aapt resource value: 0x7f090013
-			public const int MenuEdit = 2131296275;
-			
-			// aapt resource value: 0x7f090014
-			public const int MenuSave = 2131296276;
-			
-			// aapt resource value: 0x7f090006
-			public const int SignIn_EmailAddressEditText = 2131296262;
-			
 			// aapt resource value: 0x7f090005
-			public const int SignIn_EmailAddressTextView = 2131296261;
-			
-			// aapt resource value: 0x7f090008
-			public const int SignIn_PasswordEditText = 2131296264;
+			public const int Account_ChangePasswordButton = 2131296261;
 			
 			// aapt resource value: 0x7f090007
-			public const int SignIn_PasswordTextView = 2131296263;
+			public const int Account_SettingsButton = 2131296263;
+			
+			// aapt resource value: 0x7f090006
+			public const int Account_SettingsSeparatorLineView = 2131296262;
+			
+			// aapt resource value: 0x7f090003
+			public const int Account_UserEmailLabelTextView = 2131296259;
+			
+			// aapt resource value: 0x7f090004
+			public const int Account_UserEmailTextView = 2131296260;
+			
+			// aapt resource value: 0x7f090001
+			public const int Account_UsernameLabelTextView = 2131296257;
+			
+			// aapt resource value: 0x7f090002
+			public const int Account_UsernameTextView = 2131296258;
 			
 			// aapt resource value: 0x7f090009
-			public const int SignIn_SignInButton = 2131296265;
+			public const int Main_SignInButton = 2131296265;
 			
-			// aapt resource value: 0x7f09000a
-			public const int SignIn_SignUpButton = 2131296266;
+			// aapt resource value: 0x7f09001b
+			public const int MenuAccount = 2131296283;
 			
-			// aapt resource value: 0x7f09000d
-			public const int SignUp_EmailAddressEditText = 2131296269;
+			// aapt resource value: 0x7f090019
+			public const int MenuEdit = 2131296281;
+			
+			// aapt resource value: 0x7f09001a
+			public const int MenuSave = 2131296282;
 			
 			// aapt resource value: 0x7f09000c
-			public const int SignUp_EmailAddressTextView = 2131296268;
+			public const int SignIn_EmailAddressEditText = 2131296268;
 			
-			// aapt resource value: 0x7f09000f
-			public const int SignUp_PasswordEditText = 2131296271;
+			// aapt resource value: 0x7f09000b
+			public const int SignIn_EmailAddressTextView = 2131296267;
 			
 			// aapt resource value: 0x7f09000e
-			public const int SignUp_PasswordTextView = 2131296270;
+			public const int SignIn_PasswordEditText = 2131296270;
 			
-			// aapt resource value: 0x7f090011
-			public const int SignUp_RepeatPasswordEditText = 2131296273;
+			// aapt resource value: 0x7f09000d
+			public const int SignIn_PasswordTextView = 2131296269;
+			
+			// aapt resource value: 0x7f09000f
+			public const int SignIn_SignInButton = 2131296271;
 			
 			// aapt resource value: 0x7f090010
-			public const int SignUp_RepeatPasswordTextView = 2131296272;
+			public const int SignIn_SignUpButton = 2131296272;
+			
+			// aapt resource value: 0x7f090013
+			public const int SignUp_EmailAddressEditText = 2131296275;
 			
 			// aapt resource value: 0x7f090012
-			public const int SignUp_SignUpButton = 2131296274;
+			public const int SignUp_EmailAddressTextView = 2131296274;
+			
+			// aapt resource value: 0x7f090015
+			public const int SignUp_PasswordEditText = 2131296277;
+			
+			// aapt resource value: 0x7f090014
+			public const int SignUp_PasswordTextView = 2131296276;
+			
+			// aapt resource value: 0x7f090017
+			public const int SignUp_RepeatPasswordEditText = 2131296279;
+			
+			// aapt resource value: 0x7f090016
+			public const int SignUp_RepeatPasswordTextView = 2131296278;
+			
+			// aapt resource value: 0x7f090018
+			public const int SignUp_SignUpButton = 2131296280;
 			
 			// aapt resource value: 0x7f090000
 			public const int ToolbarAccount = 2131296256;
 			
-			// aapt resource value: 0x7f090002
-			public const int ToolbarMain = 2131296258;
+			// aapt resource value: 0x7f090008
+			public const int ToolbarMain = 2131296264;
 			
-			// aapt resource value: 0x7f090004
-			public const int ToolbarSignIn = 2131296260;
+			// aapt resource value: 0x7f09000a
+			public const int ToolbarSignIn = 2131296266;
 			
-			// aapt resource value: 0x7f09000b
-			public const int ToolbarSignUp = 2131296267;
+			// aapt resource value: 0x7f090011
+			public const int ToolbarSignUp = 2131296273;
 			
 			static Id()
 			{
@@ -266,56 +287,77 @@ namespace MultiNotes.XAndroid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f06000d
-			public const int AcceptRules = 2131099661;
+			// aapt resource value: 0x7f06000f
+			public const int AcceptRules = 2131099663;
 			
-			// aapt resource value: 0x7f060001
-			public const int ApplicationName = 2131099649;
-			
-			// aapt resource value: 0x7f06000a
-			public const int EmailAddressTextView = 2131099658;
-			
-			// aapt resource value: 0x7f060000
-			public const int Hello = 2131099648;
-			
-			// aapt resource value: 0x7f060004
-			public const int MenuAccount = 2131099652;
-			
-			// aapt resource value: 0x7f060006
-			public const int MenuDelete = 2131099654;
-			
-			// aapt resource value: 0x7f060002
-			public const int MenuEdit = 2131099650;
-			
-			// aapt resource value: 0x7f060005
-			public const int MenuMore = 2131099653;
-			
-			// aapt resource value: 0x7f060007
-			public const int MenuPreferences = 2131099655;
+			// aapt resource value: 0x7f060012
+			public const int AccountWelcomeLabelTextView = 2131099666;
 			
 			// aapt resource value: 0x7f060003
-			public const int MenuSave = 2131099651;
+			public const int ApplicationName = 2131099651;
 			
-			// aapt resource value: 0x7f06000b
-			public const int PasswordTextView = 2131099659;
+			// aapt resource value: 0x7f060016
+			public const int ChangePasswordButton = 2131099670;
 			
 			// aapt resource value: 0x7f06000c
-			public const int RepeatPasswordTextView = 2131099660;
+			public const int EmailAddressTextView = 2131099660;
 			
-			// aapt resource value: 0x7f06000e
-			public const int SignInButton = 2131099662;
+			// aapt resource value: 0x7f060000
+			public const int EmptyString = 2131099648;
 			
-			// aapt resource value: 0x7f06000f
-			public const int SignUpButton = 2131099663;
+			// aapt resource value: 0x7f060002
+			public const int Hello = 2131099650;
 			
-			// aapt resource value: 0x7f060010
-			public const int ToolbarAccountTitle = 2131099664;
+			// aapt resource value: 0x7f060006
+			public const int MenuAccount = 2131099654;
 			
 			// aapt resource value: 0x7f060008
-			public const int ToolbarSignInTitle = 2131099656;
+			public const int MenuDelete = 2131099656;
+			
+			// aapt resource value: 0x7f060004
+			public const int MenuEdit = 2131099652;
+			
+			// aapt resource value: 0x7f060007
+			public const int MenuMore = 2131099655;
 			
 			// aapt resource value: 0x7f060009
-			public const int ToolbarSignUpTitle = 2131099657;
+			public const int MenuPreferences = 2131099657;
+			
+			// aapt resource value: 0x7f060005
+			public const int MenuSave = 2131099653;
+			
+			// aapt resource value: 0x7f06000d
+			public const int PasswordTextView = 2131099661;
+			
+			// aapt resource value: 0x7f06000e
+			public const int RepeatPasswordTextView = 2131099662;
+			
+			// aapt resource value: 0x7f060017
+			public const int SettingsButton = 2131099671;
+			
+			// aapt resource value: 0x7f060010
+			public const int SignInButton = 2131099664;
+			
+			// aapt resource value: 0x7f060011
+			public const int SignUpButton = 2131099665;
+			
+			// aapt resource value: 0x7f060001
+			public const int ThreeDotsString = 2131099649;
+			
+			// aapt resource value: 0x7f060013
+			public const int ToolbarAccountTitle = 2131099667;
+			
+			// aapt resource value: 0x7f06000a
+			public const int ToolbarSignInTitle = 2131099658;
+			
+			// aapt resource value: 0x7f06000b
+			public const int ToolbarSignUpTitle = 2131099659;
+			
+			// aapt resource value: 0x7f060015
+			public const int UserEmailLabelTextView = 2131099669;
+			
+			// aapt resource value: 0x7f060014
+			public const int UsernameLabelTextView = 2131099668;
 			
 			static String()
 			{

@@ -54,8 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountActivity.cs" />
+    <Compile Include="CustomListAdapter.cs" />
     <Compile Include="MainActivity.cs" />
-    <AndroidResource Include="Resources\layout\SignIn.axml" />
+    <AndroidResource Include="Resources\layout\SignIn.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="SignInActivity.cs" />

@@ -1,73 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-  
-  <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ToolbarSignIn"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/actionBarSize"
-    android:background="?android:attr/colorPrimary"
-    android:theme="@style/MalczuuuThemeToolbar"
-    android:popupTheme="@style/MalczuuuTheme"
-    android:title="@string/ToolbarSignInTitle" />
-  
-  <TextView
-    android:text="@string/EmailAddressTextView"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/ToolbarSignIn"
-    android:layout_marginTop="@dimen/DefaultMargin50"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:id="@+id/SignIn_EmailAddressTextView" />
-  <EditText
-    android:inputType="textEmailAddress"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/SignIn_EmailAddressTextView"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:layout_marginBottom="@dimen/DefaultMargin50"
-    android:id="@+id/SignIn_EmailAddressEditText" />
-  
-  <TextView
-    android:text="@string/PasswordTextView"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/SignIn_EmailAddressEditText"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:id="@+id/SignIn_PasswordTextView" />
-  <EditText
-    android:inputType="textEmailAddress"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/SignIn_PasswordTextView"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:layout_marginBottom="@dimen/DefaultMargin50"
-    android:id="@+id/SignIn_PasswordEditText" />
-  
-  <Button
-    android:layout_below="@+id/SignIn_PasswordEditText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/SignInButton"
-    android:layout_marginTop="@dimen/DefaultMargin50"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:id="@+id/SignIn_SignInButton" />
-  <Button
-    android:layout_below="@+id/SignIn_SignInButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/SignUpButton"
-    android:layout_marginTop="@dimen/DefaultMargin50"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:id="@+id/SignIn_SignUpButton" />
+    android:layout_height="match_parent">
+    <Toolbar
+        android:id="@+id/ToolbarSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        android:theme="@style/MalczuuuThemeToolbar"
+        android:popupTheme="@style/MalczuuuTheme"
+        android:title="@string/ToolbarSignInTitle" />
+    <TextView
+        android:text="@string/EmailAddressTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ToolbarSignIn"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/SignIn_EmailAddressTextView" />
+    <EditText
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SignIn_EmailAddressTextView"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:layout_marginBottom="@dimen/DefaultMargin50"
+        android:id="@+id/SignIn_EmailAddressEditText" />
+    <TextView
+        android:text="@string/PasswordTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SignIn_EmailAddressEditText"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/SignIn_PasswordTextView" />
+    <EditText
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SignIn_PasswordTextView"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:layout_marginBottom="@dimen/DefaultMargin50"
+        android:id="@+id/SignIn_PasswordEditText" />
+    <Button
+        android:layout_below="@+id/SignIn_PasswordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SignInButton"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/SignIn_SignInButton" />
+    <Button
+        android:layout_below="@+id/SignIn_SignInButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SignUpButton"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/SignIn_SignUpButton" />
 </RelativeLayout>

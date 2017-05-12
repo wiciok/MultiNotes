@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <color name="ToolbarTextColor">#FFFFFF</color>
-  <color name="ToolbarBackgroundColor">#000000</color>
-  
-  
-  <color name="Blue">#FF33B5E5</color>
-  <color name="Purple">#FFAA66CC</color>
-  <color name="Green">#FF99CC00</color>
-  <color name="Orange">#FFFFBB33</color>
-  <color name="Red">#FFFF4444</color>
-  <color name="Darkblue">#FF0099CC</color>
-  <color name="Darkpurple">#FF9933CC</color>
-  <color name="Darkgreen">#FF669900</color>
-  <color name="Darkorange">#FFFF8800</color>
-  <color name="Darkred">#FFCC0000</color>
+    <color name="ToolbarTextColor">#FFFFFF</color>
+    <color name="ToolbarBackgroundColor">#000000</color>
+
+    <color name="Blue">#FF33B5E5</color>
+    <color name="Purple">#FFAA66CC</color>
+    <color name="Green">#FF99CC00</color>
+    <color name="Orange">#FFFFBB33</color>
+    <color name="Red">#FFFF4444</color>
+    <color name="Darkblue">#FF0099CC</color>
+    <color name="Darkpurple">#FF9933CC</color>
+    <color name="Darkgreen">#FF669900</color>
+    <color name="Darkorange">#FFFF8800</color>
+    <color name="Darkred">#FFCC0000</color>
 </resources>

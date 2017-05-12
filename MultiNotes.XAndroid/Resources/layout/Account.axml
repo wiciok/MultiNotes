@@ -1,26 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-  
-  <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ToolbarAccount"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/actionBarSize"
-    android:background="?android:attr/colorPrimary"
-    android:theme="@style/MalczuuuThemeToolbar"
-    android:popupTheme="@style/MalczuuuTheme"
-    android:title="@string/ToolbarAccountTitle" />
-  
-  <TextView
-    android:text="Witaj w panelu użytkownika!"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/ToolbarAccount"
-    android:layout_marginTop="@dimen/DefaultMargin50"
-    android:layout_marginLeft="@dimen/DefaultMargin50"
-    android:layout_marginRight="@dimen/DefaultMargin50"
-    android:id="@+id/AcountExampleTextView" />
+    android:layout_height="match_parent">
+    <Toolbar
+        android:id="@+id/ToolbarAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        android:theme="@style/MalczuuuThemeToolbar"
+        android:popupTheme="@style/MalczuuuTheme"
+        android:title="@string/ToolbarAccountTitle" />
+    <TextView
+        android:text="@string/UsernameLabelTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ToolbarAccount"
+        android:layout_marginTop="@dimen/DefaultMargin100"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/Account_UsernameLabelTextView" />
+    <TextView
+        android:text="@string/ThreeDotsString"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/Account_UsernameLabelTextView"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/Account_UsernameTextView" />
+    <TextView
+        android:text="@string/UserEmailLabelTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Account_UsernameTextView"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/Account_UserEmailLabelTextView" />
+    <TextView
+        android:text="@string/ThreeDotsString"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/Account_UserEmailLabelTextView"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/Account_UserEmailTextView" />
+    <Button
+        android:layout_below="@+id/Account_UserEmailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ChangePasswordButton"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:layout_marginBottom="@dimen/DefaultMargin50"
+        android:id="@+id/Account_ChangePasswordButton" />
+    <View
+        android:layout_below="@+id/Account_ChangePasswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/Account_SettingsSeparatorLineView"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50" />
+    <Button
+        android:layout_below="@+id/Account_SettingsSeparatorLineView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SettingsButton"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:id="@+id/Account_SettingsButton" />
 </RelativeLayout>
