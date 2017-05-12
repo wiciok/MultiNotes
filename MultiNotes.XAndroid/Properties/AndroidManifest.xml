@@ -12,7 +12,11 @@
     android:label="MultiNotes" 
     android:icon="@drawable/NotesIcon"
     android:theme="@style/MalczuuuTheme">
-    <activity 
+    <activity
+      android:name=".AccountActivity"
+      android:configChanges="orientation"
+      android:screenOrientation="portrait" />
+    <activity
       android:name=".MainActivity"
       android:configChanges="orientation"
       android:screenOrientation="portrait" />

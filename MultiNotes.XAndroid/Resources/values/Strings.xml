@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  
   <string name="Hello">Hello World, Click Me!</string>
   <string name="ApplicationName">MultiNotes</string>
   
@@ -19,4 +20,7 @@
   <string name="AcceptRules">Akceptuję regulamin usługi!</string>
   <string name="SignInButton">Zaloguj się!</string>
   <string name="SignUpButton">Zarejestruj się!</string>
+  
+  <string name="ToolbarAccountTitle">Konto użytkownika</string>
+  
 </resources>

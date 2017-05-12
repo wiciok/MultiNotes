@@ -19,11 +19,14 @@ namespace MultiNotes.XAndroid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            // Create your application here.
             SetContentView(Resource.Layout.SignIn);
+
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignIn);
             SetActionBar(toolbar);
 
-            Button moveToSignUpButton = (Button)FindViewById(Resource.Id.MoveToSignUpButton);
+            Button moveToSignUpButton = (Button)FindViewById(Resource.Id.SignIn_SignUpButton);
             moveToSignUpButton.Click += delegate
             {
                 StartActivity(typeof(SignUpActivity));

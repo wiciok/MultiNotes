@@ -6,7 +6,7 @@
     android:id="@+id/ToolbarMain"
     layout="@layout/ToolbarMain" />
   <Button
-    android:id="@+id/SignInButton"
+    android:id="@+id/Main_SignInButton"
     android:layout_below="@+id/ToolbarMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

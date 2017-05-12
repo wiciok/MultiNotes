@@ -9,12 +9,6 @@ namespace MultiNotes.XAndroid
     [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.TopMenus, menu);
-            return base.OnCreateOptionsMenu(menu);
-        }
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -25,21 +19,41 @@ namespace MultiNotes.XAndroid
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarMain);
             SetActionBar(toolbar);
 
-            Button signInButton = (Button)FindViewById(Resource.Id.SignInButton);
+            Button signInButton = (Button)FindViewById(Resource.Id.Main_SignInButton);
             signInButton.Click += delegate
             {
                 StartActivity(typeof(SignInActivity));
             };
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.TopMenus, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
                 ToastLength.Short).Show();
+
             if (item.ItemId == Resource.Id.MenuAccount)
             {
+                return MenuAccountOnClick();
             }
-            return base.OnOptionsItemSelected(item);
+            switch (item.ItemId)
+            {
+                case Resource.Id.MenuAccount:
+                    return MenuAccountOnClick();
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
+
+        private bool MenuAccountOnClick()
+        {
+            StartActivity(typeof(AccountActivity));
+            return true;
         }
     }
 }

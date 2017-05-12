@@ -13,17 +13,17 @@ using Android.Content.PM;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = false, ParentActivity = typeof(SignInActivity), ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SignUpActivity : Activity
+    [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
+    public class AccountActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here.
-            SetContentView(Resource.Layout.SignUp);
+            SetContentView(Resource.Layout.Account);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
+            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);
             SetActionBar(toolbar);
 
             ActionBar.SetHomeButtonEnabled(true);
