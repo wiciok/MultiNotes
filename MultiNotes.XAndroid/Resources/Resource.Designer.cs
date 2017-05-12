@@ -41,11 +41,60 @@ namespace MultiNotes.XAndroid
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f040002
+			public const int Blue = 2130968578;
+			
+			// aapt resource value: 0x7f040007
+			public const int Darkblue = 2130968583;
+			
+			// aapt resource value: 0x7f040009
+			public const int Darkgreen = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int Darkorange = 2130968586;
+			
+			// aapt resource value: 0x7f040008
+			public const int Darkpurple = 2130968584;
+			
+			// aapt resource value: 0x7f04000b
+			public const int Darkred = 2130968587;
+			
+			// aapt resource value: 0x7f040004
+			public const int Green = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int Orange = 2130968581;
+			
+			// aapt resource value: 0x7f040003
+			public const int Purple = 2130968579;
+			
+			// aapt resource value: 0x7f040006
+			public const int Red = 2130968582;
+			
+			// aapt resource value: 0x7f040001
+			public const int ToolbarBackgroundColor = 2130968577;
+			
+			// aapt resource value: 0x7f040000
+			public const int ToolbarTextColor = 2130968576;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Dimension
 		{
 			
-			// aapt resource value: 0x7f040000
-			public const int SignInFormMargin = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int DefaultMargin50 = 2131034112;
 			
 			static Dimension()
 			{
@@ -88,53 +137,50 @@ namespace MultiNotes.XAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080004
-			public const int EmailAddressEditText = 2131230724;
+			// aapt resource value: 0x7f090004
+			public const int EmailAddressEditText = 2131296260;
 			
-			// aapt resource value: 0x7f080003
-			public const int EmailAddressTextView = 2131230723;
+			// aapt resource value: 0x7f090003
+			public const int EmailAddressTextView = 2131296259;
 			
-			// aapt resource value: 0x7f08000f
-			public const int MenuAccount = 2131230735;
+			// aapt resource value: 0x7f09000e
+			public const int MenuAccount = 2131296270;
 			
-			// aapt resource value: 0x7f08000d
-			public const int MenuEdit = 2131230733;
+			// aapt resource value: 0x7f09000c
+			public const int MenuEdit = 2131296268;
 			
-			// aapt resource value: 0x7f08000e
-			public const int MenuSave = 2131230734;
+			// aapt resource value: 0x7f09000d
+			public const int MenuSave = 2131296269;
 			
-			// aapt resource value: 0x7f080008
-			public const int MoveToSignUpButton = 2131230728;
+			// aapt resource value: 0x7f090007
+			public const int MoveToSignUpButton = 2131296263;
 			
-			// aapt resource value: 0x7f080001
-			public const int MyButton = 2131230721;
+			// aapt resource value: 0x7f090006
+			public const int PasswordEditText = 2131296262;
 			
-			// aapt resource value: 0x7f080006
-			public const int PasswordEditText = 2131230726;
+			// aapt resource value: 0x7f090005
+			public const int PasswordTextView = 2131296261;
 			
-			// aapt resource value: 0x7f080005
-			public const int PasswordTextView = 2131230725;
+			// aapt resource value: 0x7f09000a
+			public const int RepeatPasswordEditText = 2131296266;
 			
-			// aapt resource value: 0x7f08000b
-			public const int RepeatPasswordEditText = 2131230731;
+			// aapt resource value: 0x7f090009
+			public const int RepeatPasswordTextView = 2131296265;
 			
-			// aapt resource value: 0x7f08000a
-			public const int RepeatPasswordTextView = 2131230730;
+			// aapt resource value: 0x7f090001
+			public const int SignInButton = 2131296257;
 			
-			// aapt resource value: 0x7f080007
-			public const int SignInButton = 2131230727;
+			// aapt resource value: 0x7f09000b
+			public const int SignUpButton = 2131296267;
 			
-			// aapt resource value: 0x7f08000c
-			public const int SignUpButton = 2131230732;
+			// aapt resource value: 0x7f090000
+			public const int ToolbarMain = 2131296256;
 			
-			// aapt resource value: 0x7f080000
-			public const int ToolbarMain = 2131230720;
+			// aapt resource value: 0x7f090002
+			public const int ToolbarSignIn = 2131296258;
 			
-			// aapt resource value: 0x7f080002
-			public const int ToolbarSignIn = 2131230722;
-			
-			// aapt resource value: 0x7f080009
-			public const int ToolbarSignUp = 2131230729;
+			// aapt resource value: 0x7f090008
+			public const int ToolbarSignUp = 2131296264;
 			
 			static Id()
 			{
@@ -180,8 +226,8 @@ namespace MultiNotes.XAndroid
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f070000
-			public const int TopMenus = 2131165184;
+			// aapt resource value: 0x7f080000
+			public const int TopMenus = 2131230720;
 			
 			static Menu()
 			{
@@ -196,53 +242,53 @@ namespace MultiNotes.XAndroid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f05000d
-			public const int AcceptRules = 2131034125;
+			// aapt resource value: 0x7f06000d
+			public const int AcceptRules = 2131099661;
 			
-			// aapt resource value: 0x7f050001
-			public const int ApplicationName = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int ApplicationName = 2131099649;
 			
-			// aapt resource value: 0x7f05000a
-			public const int EmailAddressTextView = 2131034122;
+			// aapt resource value: 0x7f06000a
+			public const int EmailAddressTextView = 2131099658;
 			
-			// aapt resource value: 0x7f050000
-			public const int Hello = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int Hello = 2131099648;
 			
-			// aapt resource value: 0x7f050004
-			public const int MenuAccount = 2131034116;
+			// aapt resource value: 0x7f060004
+			public const int MenuAccount = 2131099652;
 			
-			// aapt resource value: 0x7f050006
-			public const int MenuDelete = 2131034118;
+			// aapt resource value: 0x7f060006
+			public const int MenuDelete = 2131099654;
 			
-			// aapt resource value: 0x7f050002
-			public const int MenuEdit = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int MenuEdit = 2131099650;
 			
-			// aapt resource value: 0x7f050005
-			public const int MenuMore = 2131034117;
+			// aapt resource value: 0x7f060005
+			public const int MenuMore = 2131099653;
 			
-			// aapt resource value: 0x7f050007
-			public const int MenuPreferences = 2131034119;
+			// aapt resource value: 0x7f060007
+			public const int MenuPreferences = 2131099655;
 			
-			// aapt resource value: 0x7f050003
-			public const int MenuSave = 2131034115;
+			// aapt resource value: 0x7f060003
+			public const int MenuSave = 2131099651;
 			
-			// aapt resource value: 0x7f05000b
-			public const int PasswordTextView = 2131034123;
+			// aapt resource value: 0x7f06000b
+			public const int PasswordTextView = 2131099659;
 			
-			// aapt resource value: 0x7f05000c
-			public const int RepeatPasswordTextView = 2131034124;
+			// aapt resource value: 0x7f06000c
+			public const int RepeatPasswordTextView = 2131099660;
 			
-			// aapt resource value: 0x7f05000e
-			public const int SignInButton = 2131034126;
+			// aapt resource value: 0x7f06000e
+			public const int SignInButton = 2131099662;
 			
-			// aapt resource value: 0x7f05000f
-			public const int SignUpButton = 2131034127;
+			// aapt resource value: 0x7f06000f
+			public const int SignUpButton = 2131099663;
 			
-			// aapt resource value: 0x7f050008
-			public const int ToolbarSignInTitle = 2131034120;
+			// aapt resource value: 0x7f060008
+			public const int ToolbarSignInTitle = 2131099656;
 			
-			// aapt resource value: 0x7f050009
-			public const int ToolbarSignUpTitle = 2131034121;
+			// aapt resource value: 0x7f060009
+			public const int ToolbarSignUpTitle = 2131099657;
 			
 			static String()
 			{
@@ -257,8 +303,11 @@ namespace MultiNotes.XAndroid
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int MalczuuuTheme = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int MalczuuuTheme = 2131165184;
+			
+			// aapt resource value: 0x7f070001
+			public const int MalczuuuThemeToolbar = 2131165185;
 			
 			static Style()
 			{

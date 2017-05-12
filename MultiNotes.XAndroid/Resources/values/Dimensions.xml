@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <dimen name="SignInFormMargin">50px</dimen>
+  <dimen name="DefaultMargin50">50px</dimen>
 </resources>

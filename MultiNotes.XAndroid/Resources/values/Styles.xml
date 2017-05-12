@@ -2,13 +2,16 @@
 <resources>
   <style name="MalczuuuTheme" parent="android:Theme.Material.Light.DarkActionBar">
     <!-- Action Bar's color. -->
-    <!--<item name="android:colorPrimary">#2196F3</item>-->
+    <item name="android:colorPrimary">@color/ToolbarBackgroundColor</item>
     <!-- Status Bar's color. -->
-    <!--<item name="android:statusBarColor">#2196F3</item>-->
-    <item name="android:actionMenuTextColor">#FFFFFF</item>
+    <item name="android:statusBarColor">@color/ToolbarBackgroundColor</item>
+    <item name="android:actionMenuTextColor">@color/ToolbarTextColor</item>
     
     <!-- Added in order to remove Action Bar. -->
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowActionBar">false</item>
+  </style>
+  <style name="MalczuuuThemeToolbar" parent="MalczuuuTheme">
+    <item name="android:textColorSecondary">#FFFFFF</item>
   </style>
 </resources>

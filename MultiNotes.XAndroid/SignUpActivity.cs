@@ -22,6 +22,22 @@ namespace MultiNotes.XAndroid
             SetContentView(Resource.Layout.SignUp);
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
             SetActionBar(toolbar);
+
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem menuItem)
+        {
+            switch (menuItem.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    Finish();
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(menuItem);
+            }
         }
     }
 }

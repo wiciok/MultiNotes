@@ -5,6 +5,6 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/actionBarSize"
     android:background="?android:attr/colorPrimary"
-    android:theme="@style/MalczuuuTheme"
+    android:theme="@style/MalczuuuThemeToolbar"
+    android:popupTheme="@style/MalczuuuTheme"
     android:title="@string/ToolbarSignInTitle" />
-<!-- android:theme="@android:style/ThemeOverlay.Material.ActionBar"-->

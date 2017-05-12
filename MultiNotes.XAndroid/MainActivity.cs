@@ -24,6 +24,12 @@ namespace MultiNotes.XAndroid
 
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarMain);
             SetActionBar(toolbar);
+
+            Button signInButton = (Button)FindViewById(Resource.Id.SignInButton);
+            signInButton.Click += delegate
+            {
+                StartActivity(typeof(SignInActivity));
+            };
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -32,7 +38,6 @@ namespace MultiNotes.XAndroid
                 ToastLength.Short).Show();
             if (item.ItemId == Resource.Id.MenuAccount)
             {
-                StartActivity(typeof(SignInActivity));
             }
             return base.OnOptionsItemSelected(item);
         }
