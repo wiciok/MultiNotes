@@ -2,9 +2,21 @@
 <resources>
   <string name="Hello">Hello World, Click Me!</string>
   <string name="ApplicationName">MultiNotes</string>
+  
   <string name="MenuEdit">Edytuj</string>
   <string name="MenuSave">Zapisz</string>
+  <string name="MenuAccount">Konto</string>
+  
   <string name="MenuMore">Więcej</string>
   <string name="MenuDelete">Usuń</string>
   <string name="MenuPreferences">Ustawienia</string>
+
+  <string name="ToolbarSignInTitle">Logowanie</string>
+  <string name="ToolbarSignUpTitle">Rejestracja</string>
+  <string name="EmailAddressTextView">Adres e-mail:</string>
+  <string name="PasswordTextView">Hasło:</string>
+  <string name="RepeatPasswordTextView">Powtórz hasło:</string>
+  <string name="AcceptRules">Akceptuję regulamin usługi!</string>
+  <string name="SignInButton">Zaloguj się!</string>
+  <string name="SignUpButton">Zarejestruj się!</string>
 </resources>

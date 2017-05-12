@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <include
+    android:id="@+id/ToolbarSignIn"
+    layout="@layout/ToolbarSignIn" />
+  <TextView
+    android:text="@string/EmailAddressTextView"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/ToolbarSignIn"
+    android:layout_marginTop="@dimen/SignInFormMargin"
+    android:layout_marginLeft="@dimen/SignInFormMargin"
+    android:layout_marginRight="@dimen/SignInFormMargin"
+    android:id="@+id/EmailAddressTextView" />
+  <EditText
+    android:inputType="textEmailAddress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/EmailAddressTextView"
+    android:layout_marginLeft="@dimen/SignInFormMargin"
+    android:layout_marginRight="@dimen/SignInFormMargin"
+    android:id="@+id/EmailAddressEditText" />
+  <TextView
+    android:text="@string/PasswordTextView"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/EmailAddressEditText"
+    android:layout_marginLeft="@dimen/SignInFormMargin"
+    android:layout_marginRight="@dimen/SignInFormMargin"
+    android:id="@+id/PasswordTextView" />
+  <EditText
+    android:inputType="textEmailAddress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/PasswordTextView"
+    android:layout_marginLeft="@dimen/SignInFormMargin"
+    android:layout_marginRight="@dimen/SignInFormMargin"
+    android:id="@+id/PasswordEditText" />
+  <Button
+    android:layout_below="@+id/PasswordEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/SignInButton"
+    android:layout_marginTop="@dimen/SignInFormMargin"
+    android:layout_marginLeft="@dimen/SignInFormMargin"
+    android:layout_marginRight="@dimen/SignInFormMargin"
+    android:id="@+id/SignInButton" />
+  <Button
+    android:layout_below="@+id/SignInButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/SignUpButton"
+    android:layout_marginTop="@dimen/SignInFormMargin"
+    android:layout_marginLeft="@dimen/SignInFormMargin"
+    android:layout_marginRight="@dimen/SignInFormMargin"
+    android:id="@+id/MoveToSignUpButton" />
+</RelativeLayout>
