@@ -149,6 +149,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ListItemDefault.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
+      <Project>{cbc99545-269c-4acb-b81d-a9e40d82fe49}</Project>
+      <Name>MultiNotes.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
