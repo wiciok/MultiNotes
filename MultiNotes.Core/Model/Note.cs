@@ -13,7 +13,7 @@ namespace MultiNotes.Core
         public string Id { get; set; }
         public string OwnerId { get; set; }
         public string Content { get; set; }
-        public DateTime CreateTimestamp { get; }
+        public DateTime CreateTimestamp { get; set; }
         public DateTime LastChangeTimestamp { get; set; }
 
         public override string ToString()

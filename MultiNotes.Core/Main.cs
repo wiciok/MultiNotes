@@ -29,13 +29,39 @@ namespace MultiNotes.Core
         {
             ConnectionApi.configure();
             UserMethod a = new UserMethod(ConnectionApi.httpClient);
-            await a.register("nowiutki", "nowiutki");
-            await a.login("nowiutki", "nowiutki");
+            //await a.register("nowiutki", "nowiutki");
+            try
+            {
+                await a.login("nowiutki", "nowiutki");
+            }
+            catch(Exception e)
+            {
+                int asdasd = 2;
+            }
             //await a.deleteAccount();
             //a.user.Name = "nowyname";
             NoteMethod test = new NoteMethod(ConnectionApi.httpClient);
-            test.AddNote(a.user.Id, "notatka");
+            Note mojanotatka = new Note();
+            mojanotatka.Id= await UniqueId.GetUniqueBsonId(ConnectionApi.httpClient);
+            mojanotatka.Content = "aa";
+            mojanotatka.OwnerId = a.user.Id;
+            mojanotatka.LastChangeTimestamp = DateTime.Now;
+            mojanotatka.CreateTimestamp = DateTime.Now;
+
+
+            AuthenticationToken authenticationToken = new AuthenticationToken(ConnectionApi.httpClient);
+            string token = await authenticationToken.PostAuthRecordAsync(a.Record);
+            //test.AddNoteToFile(mojanotatka);
+            IEnumerable<Note>wszystkie = await test.GetAllNotesFromDatabase(token);
+            //test.AddNoteToDatabase(mojanotatka,token);
+            bool usuniete= await test.DeleteNoteByIdFromDatabase(token, "59172a257a4817287c39da18");
+            Note not=await test.GetNoteByIdFromDatabase(token, "591731ba7a4817287c39da2c");
+
+            test.testujemy();
+            
             int aaaaa = 989;
+            int bbb = 1; ;
+            aaaaa = bbb;
         }
     }
 }
