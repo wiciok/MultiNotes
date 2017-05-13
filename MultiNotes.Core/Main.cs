@@ -51,9 +51,12 @@ namespace MultiNotes.Core
 
             AuthenticationToken authenticationToken = new AuthenticationToken(ConnectionApi.httpClient);
             string token = await authenticationToken.PostAuthRecordAsync(a.Record);
-            
-            test.AddNote(mojanotatka,token);
+            test.AddNoteToFile(mojanotatka);
+            test.AddNoteToDatabase(mojanotatka,token);
+            test.testujemy();
             int aaaaa = 989;
+            int bbb = 1; ;
+            aaaaa = bbb;
         }
     }
 }
