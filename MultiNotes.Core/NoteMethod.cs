@@ -24,7 +24,7 @@ namespace MultiNotes.Core
             httpClient = httpClient2;
         }
 
-        public async void AddNoteToFile(Note note)
+        public  void AddNoteToFile(Note note)
         {
             if (!File.Exists(path))
             {
@@ -52,18 +52,79 @@ namespace MultiNotes.Core
             }
         }
 
-        public async void GetAllNotesFromDatabase(Note note, string token)
+        public async Task<IEnumerable<Note>> GetAllNotesFromDatabase(string token)
         {
             //pobranie wszystkich notatek danego uzytkownika      
-            IEnumerable<Note> product = null;
-            HttpResponseMessage response = await httpClient.GetAsync(path);
-            if (response.IsSuccessStatusCode)
+            IEnumerable<Note> allNotes = null;
+
+            HttpResponseMessage response = await httpClient.GetAsync("api/note/" + token);
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                product = await response.Content.ReadAsAsync<IEnumerable<Note>>();
+                allNotes = await response.Content.ReadAsAsync<IEnumerable<Note>>();
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //InternalServerError,Unauthorized
+            }
+
+            return allNotes;
+        }
+
+        public async Task<Note> GetNoteByIdFromDatabase(string token,string id)
+        {
+            //pobranie wszystkich notatek danego uzytkownika      
+            Note newNote = null;
+    
+            HttpResponseMessage response = await httpClient.GetAsync("api/note/" + token+"/"+id);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                newNote = await response.Content.ReadAsAsync<Note>();
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //InternalServerError,Unauthorized,Forbidden,NotFound
+            }
+            return newNote;
+        }
+
+        public async Task<bool>  DeleteNoteByIdFromDatabase(string token, string id)
+        {
+            HttpResponseMessage response = await httpClient.DeleteAsync("api/note/" + token + "/" + id);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if(response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //InternalServerError,Unauthorized,Forbidden,NotFound
             }
         }
 
-
+        public async Task<bool> UpdateNoteByIdFromDatabase(string token, string id, Note newNote)
+        {
+            HttpResponseMessage response = await httpClient.DeleteAsync("api/note/" + token + "/" + id);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {                  
+                AddNoteToDatabase(newNote,token);
+                return true;
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+            else
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //InternalServerError,Unauthorized,Forbidden,NotFound
+            }         
+        }
 
         public async void testujemy()
         {
@@ -181,7 +242,6 @@ namespace MultiNotes.Core
                 }
             }
         }
-
 
     }
 }

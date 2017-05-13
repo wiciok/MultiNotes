@@ -51,9 +51,14 @@ namespace MultiNotes.Core
 
             AuthenticationToken authenticationToken = new AuthenticationToken(ConnectionApi.httpClient);
             string token = await authenticationToken.PostAuthRecordAsync(a.Record);
-            test.AddNoteToFile(mojanotatka);
-            test.AddNoteToDatabase(mojanotatka,token);
+            //test.AddNoteToFile(mojanotatka);
+            IEnumerable<Note>wszystkie = await test.GetAllNotesFromDatabase(token);
+            //test.AddNoteToDatabase(mojanotatka,token);
+            bool usuniete= await test.DeleteNoteByIdFromDatabase(token, "59172a257a4817287c39da18");
+            Note not=await test.GetNoteByIdFromDatabase(token, "591731ba7a4817287c39da2c");
+
             test.testujemy();
+            
             int aaaaa = 989;
             int bbb = 1; ;
             aaaaa = bbb;
