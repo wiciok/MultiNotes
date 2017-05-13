@@ -45,7 +45,7 @@ namespace MultiNotes.Core
             if (response.StatusCode == HttpStatusCode.Created)
             {
                 string[] lines = { email, passwordHash };
-                System.IO.File.WriteAllLines("plik.txt", lines);
+                System.IO.File.WriteAllLines("users.txt", lines);
                 PreparedAuthenticationRecord();
             }
             else
