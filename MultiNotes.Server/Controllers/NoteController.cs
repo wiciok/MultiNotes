@@ -69,8 +69,7 @@ namespace MultiNotes.Server
             }           
         }
 
-        [Route("{token}")]
-        [ResponseType(typeof(Note))]
+        [Route("{note}/{token}")]   
         // POST api/note
         public HttpResponseMessage Post([FromUri]string token, [FromBody]Note value)
         {

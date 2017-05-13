@@ -10,6 +10,7 @@ using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
 using System.IO;
+using System.Web.Script.Serialization;
 
 namespace MultiNotes.Core
 {
@@ -20,21 +21,28 @@ namespace MultiNotes.Core
         {
             httpClient = httpClient2;
         }
-        public async void AddNote(string userId, string text)
+        public async void AddNote(Note note,string token)
         {
-            string BsonId = await UniqueId.GetUniqueBsonId(httpClient);
-            Note note = new Note() { Id = BsonId, OwnerId = userId, Content = text, LastChangeTimestamp = DateTime.Now };
-
-            //save note to file
-            using (var fileStream = File.Open("notes.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            //zapis notatki do pliku
+            string path = "notes.txt";
+            if (!File.Exists(path))
             {
-                using (StreamWriter sw = new StreamWriter("notes.txt", true))
-                {
-                    sw.WriteLine(userId);
-                    sw.WriteLine(text);
-                }
+                var json = new JavaScriptSerializer().Serialize(note);
+                File.WriteAllText(path, json);
             }
-            //save note to database
+            else
+            {
+                var json = new JavaScriptSerializer().Serialize(note);
+                File.AppendAllText(path, json);
+            }
+
+            //zapis notatki do bazy danych        
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/note/"+token, note);
+            if (response.StatusCode != HttpStatusCode.Created)
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //unauthorized,Forbidden,InternalServerError
+            }
         }
 
 

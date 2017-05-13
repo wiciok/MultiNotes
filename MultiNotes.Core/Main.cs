@@ -29,12 +29,30 @@ namespace MultiNotes.Core
         {
             ConnectionApi.configure();
             UserMethod a = new UserMethod(ConnectionApi.httpClient);
-            await a.register("nowiutki", "nowiutki");
-            await a.login("nowiutki", "nowiutki");
+            //await a.register("nowiutki", "nowiutki");
+            try
+            {
+                await a.login("nowiutki", "nowiutki");
+            }
+            catch(Exception e)
+            {
+                int asdasd = 2;
+            }
             //await a.deleteAccount();
             //a.user.Name = "nowyname";
             NoteMethod test = new NoteMethod(ConnectionApi.httpClient);
-            test.AddNote(a.user.Id, "notatka");
+            Note mojanotatka = new Note();
+            mojanotatka.Id= await UniqueId.GetUniqueBsonId(ConnectionApi.httpClient);
+            mojanotatka.Content = "aa";
+            mojanotatka.OwnerId = a.user.Id;
+            mojanotatka.LastChangeTimestamp = DateTime.Now;
+            mojanotatka.CreateTimestamp = DateTime.Now;
+
+
+            AuthenticationToken authenticationToken = new AuthenticationToken(ConnectionApi.httpClient);
+            string token = await authenticationToken.PostAuthRecordAsync(a.Record);
+            
+            test.AddNote(mojanotatka,token);
             int aaaaa = 989;
         }
     }
