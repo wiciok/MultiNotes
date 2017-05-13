@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="EmptyString"> </string>
+    <string name="EmptyString"></string>
     <string name="ThreeDotsString">. . .</string>
 
     <string name="Hello">Hello World, Click Me!</string>
@@ -9,6 +9,7 @@
 
     <string name="MenuEdit">Edytuj</string>
     <string name="MenuSave">Zapisz</string>
+    <string name="MenuSync">Synchronizuj</string>
     <string name="MenuAccount">Konto</string>
 
     <string name="MenuMore">Więcej</string>
@@ -29,6 +30,9 @@
     <string name="UsernameLabelTextView">Nazwa użytkownika:</string>
     <string name="UserEmailLabelTextView">Adres e-mail:</string>
     <string name="ChangePasswordButton">Zmień hasło</string>
+    <string name="SignOutButton">Wyloguj się</string>
     <string name="SettingsButton">Ustawienia</string>
+    
+    <string name="NoteToolbarTitle">Notatka</string>
 
 </resources>

@@ -1,15 +1,27 @@
-﻿using Android.App;
-using Android.Widget;
-using Android.OS;
-using Android.Views;
-using Android.Content.PM;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.Content.PM;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
+        private Button signInButton;
+        private Button showNoteButton;
+        private ListView notesListView;
+        
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -17,61 +29,87 @@ namespace MultiNotes.XAndroid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarMain);
-            SetActionBar(toolbar);
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.ToolbarMain));
+            signInButton = FindViewById<Button>(Resource.Id.Main_SignInButton);
+            showNoteButton = FindViewById<Button>(Resource.Id.Main_ShowNoteButton);
+            notesListView = FindViewById<ListView>(Resource.Id.Main_NotesListView);
 
-            Button signInButton = (Button)FindViewById(Resource.Id.Main_SignInButton);
-            signInButton.Click += delegate
+            signInButton.Click += SignInButtonOnClick;
+            showNoteButton.Click += ShowNoteButtonOnClick;
+            
+            notesListView.Adapter = new NotesAdapter(this);
+            notesListView.ItemClick += NotesListItemOnClick;
+        }
+        
+        private void SignInButtonOnClick(object sender, EventArgs e)
+        {
+            StartActivity(typeof(SignInActivity));
+        }
+
+        private void ShowNoteButtonOnClick(object sender, EventArgs e)
+        {
+            StartActivity(typeof(NoteActivity));
+        }
+
+        private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            NotesAdapter.INoteObject noteObject 
+                = notesListView.Adapter.GetItem(e.Position) as NotesAdapter.INoteObject;
+
+            // If noteObject is null, show alert
+            if (!(noteObject is NotesAdapter.INoteObject))
             {
-                StartActivity(typeof(SignInActivity));
-            };
+                Toast.MakeText(this, "Coś poszło nie tak . . .", ToastLength.Short).Show();
+                return;
+            }
 
-
-            ListView list = (ListView)FindViewById(Resource.Id.Main_NotesListView);
-
-            string[] cars = new string[]
-            {
-                "Mercedes",
-                "Fiat",
-                "Ferrari",
-                "Aston Martin",
-                "Lamborghini",
-                "Skoda",
-                "Volkswagen",
-                "Audi",
-                "Citroen"
-            };
-
-            List<string> carL = new List<string>();
-            carL.AddRange(cars);
-
-            ArrayAdapter adapter = new ArrayAdapter<string>(this, Resource.Id.Main_NotesListView, carL);
-
-            list.Adapter = adapter);
+            // Get our item from the list adapter
+            Note note = noteObject.Note;
+            
+            Toast.MakeText(this, note.Content, ToastLength.Short).Show();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.TopMenus, menu);
+            MenuInflater.Inflate(Resource.Menu.MenuMain, menu);
             return base.OnCreateOptionsMenu(menu);
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+        public override bool OnOptionsItemSelected(IMenuItem menuItem)
         {
-            Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
+            Toast.MakeText(this, "Action selected: " + menuItem.TitleFormatted,
                 ToastLength.Short).Show();
 
-            if (item.ItemId == Resource.Id.MenuAccount)
+            switch (menuItem.ItemId)
             {
-                return MenuAccountOnClick();
-            }
-            switch (item.ItemId)
-            {
-                case Resource.Id.MenuAccount:
+                case Resource.Id.Main_MenuEdit:
+                    return MenuEditOnClick();
+
+                case Resource.Id.Main_MenuSync:
+                    return MenuSyncOnClick();
+
+                case Resource.Id.Main_MenuAccount:
                     return MenuAccountOnClick();
+
                 default:
-                    return base.OnOptionsItemSelected(item);
+                    return base.OnOptionsItemSelected(menuItem);
             }
+        }
+
+        private bool MenuEditOnClick()
+        {
+            return true;
+        }
+
+        private bool MenuSyncOnClick()
+        { 
+            NotesAdapter adapter = FindViewById<ListView>(Resource.Id.Main_NotesListView).Adapter as NotesAdapter;
+            if (adapter == null)
+            {
+                return false;
+            }
+            adapter.Refresh();
+            return true;
         }
 
         private bool MenuAccountOnClick()

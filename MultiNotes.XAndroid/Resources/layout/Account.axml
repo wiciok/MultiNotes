@@ -61,10 +61,19 @@
         android:layout_marginTop="@dimen/DefaultMargin50"
         android:layout_marginLeft="@dimen/DefaultMargin50"
         android:layout_marginRight="@dimen/DefaultMargin50"
-        android:layout_marginBottom="@dimen/DefaultMargin50"
         android:id="@+id/Account_ChangePasswordButton" />
-    <View
+    <Button
         android:layout_below="@+id/Account_ChangePasswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SignOutButton"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:layout_marginBottom="@dimen/DefaultMargin50"
+        android:id="@+id/Account_SignOutButton" />
+    <View
+        android:layout_below="@+id/Account_SignOutButton"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"

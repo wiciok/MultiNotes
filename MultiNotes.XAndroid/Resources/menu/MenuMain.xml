@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-    android:id="@+id/MenuEdit"
-    android:icon="@drawable/ic_action_content_create_2"
+    android:id="@+id/Main_MenuEdit"
+    android:icon="@drawable/ic_action_content_create"
     android:showAsAction="always"
     android:title="@string/MenuEdit" />
   <item
-    android:id="@+id/MenuSave"
-    android:icon="@drawable/ic_action_content_save_2"
+    android:id="@+id/Main_MenuSync"
+    android:icon="@drawable/ic_action_content_sync"
     android:showAsAction="always"
-    android:title="@string/MenuSave" />
+    android:title="@string/MenuSync" />
   <item
-    android:id="@+id/MenuAccount"
+    android:id="@+id/Main_MenuAccount"
     android:icon="@drawable/ic_action_content_account"
     android:showAsAction="always"
     android:title="@string/MenuAccount" />

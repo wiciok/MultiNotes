@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <color name="ToolbarTextColor">#FFFFFF</color>
-    <color name="ToolbarBackgroundColor">#000000</color>
+    <color name="ToolbarBackgroundColor">#008800</color>
 </resources>

@@ -12,12 +12,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/DefaultMargin50"
         android:text="@string/SignInButton" />
-    <!--
-    <ListView
-        android:id="@+id/Main_NotesListView"
+    <Button
+        android:id="@+id/Main_ShowNoteButton"
         android:layout_below="@+id/Main_SignInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/DefaultMargin50" />
-        -->
+        android:layout_margin="@dimen/DefaultMargin50"
+        android:text="Pokaż notatkę" />
+    <ListView
+        android:id="@+id/Main_NotesListView"
+        android:layout_below="@+id/Main_ShowNoteButton"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/DefaultMargin50"
+        android:layout_marginLeft="@dimen/DefaultMargin50"
+        android:layout_marginRight="@dimen/DefaultMargin50"
+        android:layout_marginBottom="@dimen/DefaultMargin50" />
 </RelativeLayout>

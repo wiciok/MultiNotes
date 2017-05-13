@@ -48,7 +48,6 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
-    <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountActivity.cs" />
+    <Compile Include="NoteActivity.cs" />
     <Compile Include="NotesAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\SignIn.axml">
@@ -84,6 +84,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Account.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Note.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -116,18 +119,12 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_action_content_create.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\NotesIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\menu\TopMenus.xml">
+    <AndroidResource Include="Resources\menu\MenuMain.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_action_content_save.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_action_content_account.png" />
@@ -141,19 +138,31 @@
     <AndroidResource Include="Resources\values\Colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_action_content_create_2.png" />
+    <AndroidResource Include="Resources\drawable\ic_action_content_create.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_action_content_save_2.png" />
+    <AndroidResource Include="Resources\drawable\ic_action_content_save.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\ListItemDefault.xml" />
+    <AndroidResource Include="Resources\layout\NotesListItem.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
       <Project>{cbc99545-269c-4acb-b81d-a9e40d82fe49}</Project>
       <Name>MultiNotes.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\MenuNote.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_content_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_content_autorenew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_action_content_sync.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -22,7 +22,8 @@ namespace MultiNotes.XAndroid
         public NotesAdapter(Activity activity)
         {
             this.activity = activity;
-            //FillContacts();
+            notesList = new List<Note>();
+            FillNotes();
         }
 
         public override int Count
@@ -34,7 +35,7 @@ namespace MultiNotes.XAndroid
         {
             // Could wrap a Ntoe in a Java.Lang.Object
             // to return it here if needed.
-            return null;
+            return new NoteObject(notesList[position]);
         }
 
         public override long GetItemId(int position)
@@ -51,33 +52,45 @@ namespace MultiNotes.XAndroid
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            throw new NotImplementedException();
-        }
+            View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.NotesListItem, parent, false);
+            TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.NoteTitle);
 
-        /*
-        public override View GetView(int position, View convertView, ViewGroup parent)
-        {
-            View view = convertView ?? activity.LayoutInflater.Inflate(
-                Resource.Layout.ListItemDefault, parent, false);
-            var contactName = view.FindViewById<TextView>(Resource.Id.ContactName);
-            var contactImage = view.FindViewById<ImageView>(Resource.Id.ContactImage);
-            contactName.Text = notesList[position].Content.Substring(0, 50);
+            notesTitleTextView.Text = 
+                notesList[position].Content.Length > 20 ? 
+                notesList[position].Content.Substring(0, 20) : notesList[position].Content;
 
-            if (_contactList[position].PhotoId == null)
-            {
-                contactImage = view.FindViewById<ImageView>(Resource.Id.ContactImage);
-                contactImage.SetImageResource(Resource.Drawable.contactImage);
-            }
-            else
-            {
-                var contactUri = ContentUris.WithAppendedId(
-                    ContactsContract.Contacts.ContentUri, _contactList[position].Id);
-                var contactPhotoUri = Android.Net.Uri.WithAppendedPath(contactUri,
-                    Contacts.Photos.ContentDirectory);
-                contactImage.SetImageURI(contactPhotoUri);
-            }
             return view;
         }
-        */
+
+        private void FillNotes()
+        {
+            notesList.Add(new Note() { Id = "1", Content = "Cześć!" });
+            notesList.Add(new Note() { Id = "2", Content = "Siema!" });
+            notesList.Add(new Note() { Id = "3", Content = "Eloszki!" });
+            notesList.Add(new Note() { Id = "4", Content = "Pozdro!" });
+        }
+
+        public void Refresh()
+        {
+            notesList.Clear();
+            FillNotes();
+        }
+
+        public interface INoteObject
+        {
+            Note Note { get; }
+        }
+
+        private class NoteObject : Java.Lang.Object, INoteObject
+        {
+            private Note note;
+
+            public NoteObject(Note note)
+            {
+                this.note = note;
+            }
+
+            public Note Note { get { return note; } }
+        }
     }
 }

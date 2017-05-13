@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Toolbar
+        android:id="@+id/ToolbarNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        android:theme="@style/MalczuuuThemeToolbar"
+        android:popupTheme="@style/MalczuuuTheme"
+        android:title="@string/NoteToolbarTitle" />
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="@dimen/DefaultMargin0"
+        android:layout_height="@dimen/DefaultMargin0" />
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ToolbarNote"
+        android:layout_marginTop="@dimen/DefaultMargin0"
+        android:layout_marginLeft="@dimen/DefaultMargin0"
+        android:layout_marginRight="@dimen/DefaultMargin0"
+        android:layout_marginBottom="@dimen/DefaultMargin0"
+        android:gravity="top|left"
+        android:scrollbars="vertical"
+        android:id="@+id/Note_EditText" />
+</LinearLayout>
