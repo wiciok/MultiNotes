@@ -37,8 +37,9 @@ namespace MultiNotes.Server.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while getting user");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
@@ -62,8 +63,9 @@ namespace MultiNotes.Server.Controllers
                     return Request.CreateResponse(HttpStatusCode.Conflict, err);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while creating user");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
@@ -94,8 +96,9 @@ namespace MultiNotes.Server.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while editing user");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
@@ -127,8 +130,9 @@ namespace MultiNotes.Server.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while removing user");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
