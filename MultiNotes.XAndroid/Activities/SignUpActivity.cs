@@ -30,6 +30,7 @@ namespace MultiNotes.XAndroid.Activities
             ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
+
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
         {
             switch (menuItem.ItemId)
@@ -41,6 +42,7 @@ namespace MultiNotes.XAndroid.Activities
                     return base.OnOptionsItemSelected(menuItem);
             }
         }
+
 
         private bool MenuHomeItemOnClick()
         {

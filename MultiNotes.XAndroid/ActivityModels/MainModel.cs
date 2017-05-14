@@ -19,14 +19,23 @@ namespace MultiNotes.XAndroid.ActivityModels
         private IAuthorization authorization;
         private INotesRepository notesRepository;
 
+
         public MainModel()
         {
             authorization = new Authorization();
             notesRepository = new NotesRepository();
         }
 
-        public IAuthorization Authorization { get { return authorization; } }
 
-        public INotesRepository NotesRepository { get { return notesRepository; } }
+        public IAuthorization Authorization
+        {
+            get { return authorization; }
+        }
+
+
+        public INotesRepository NotesRepository
+        {
+            get { return notesRepository; }
+        }
     }
 }

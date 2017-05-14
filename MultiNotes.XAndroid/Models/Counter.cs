@@ -15,6 +15,10 @@ namespace MultiNotes.XAndroid.Models
     public class Counter
     {
         private static int value = 0;
-        public static string Next { get { return (++value).ToString(); } }
+
+        public static string Next
+        {
+            get { return (++value).ToString(); }
+        }
     }
 }
