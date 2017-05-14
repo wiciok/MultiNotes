@@ -14,7 +14,7 @@ using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid.Models
 {
-    internal class NotesBase
+    internal sealed class NotesBase
     {
         private static NotesBase instance = null;
         private static readonly object syncRoot = new object();

@@ -17,5 +17,11 @@ namespace MultiNotes.XAndroid.Activities
     {
         // Each override in this code will cause changes
         // in behavior of all activities in this project.
+
+        protected virtual bool MenuHomeOnClick()
+        {
+            Finish();
+            return true;
+        }
     }
 }

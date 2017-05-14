@@ -60,11 +60,7 @@ namespace MultiNotes.XAndroid.Activities
             }
             // Get our item from the list adapter
             Note note = noteObject.Note;
-
-            Intent intent = new Intent(this, typeof(NoteActivity));
-            intent.PutExtra(NoteActivity.NOTE_ID, note.Id);
-            intent.PutExtra(NoteActivity.NOTE_CONTENT, note.Content);
-            StartActivity(intent);
+            StartNoteActivity(note.Id, note.Content);
         }
 
 
@@ -97,32 +93,20 @@ namespace MultiNotes.XAndroid.Activities
         protected override void OnResume()
         {
             base.OnResume();
-            NotesAdapter adapter = FindViewById<ListView>(Resource.Id.Main_NotesListView).Adapter as NotesAdapter;
-            if (adapter != null)
-            {
-                adapter.NotifyDataSetChanged();
-            }
+            RefreshNotesList();
         }
 
 
         private bool MenuEditOnClick()
         {
-            Intent intent = new Intent(this, typeof(NoteActivity));
-            intent.PutExtra(NoteActivity.NOTE_ID, "");
-            intent.PutExtra(NoteActivity.NOTE_CONTENT, "");
-            StartActivity(intent);
+            StartNoteActivity("", "");
             return true;
         }
 
 
         private bool MenuSyncOnClick()
-        { 
-            NotesAdapter adapter = FindViewById<ListView>(Resource.Id.Main_NotesListView).Adapter as NotesAdapter;
-            if (adapter == null)
-            {
-                return false;
-            }
-            adapter.NotifyDataSetChanged();
+        {
+            RefreshNotesList();
             return true;
         }
 
@@ -131,6 +115,25 @@ namespace MultiNotes.XAndroid.Activities
         {
             StartActivity(typeof(AccountActivity));
             return true;
+        }
+
+
+        private void RefreshNotesList()
+        {
+            NotesAdapter adapter = FindViewById<ListView>(Resource.Id.Main_NotesListView).Adapter as NotesAdapter;
+            if (adapter != null)
+            {
+                adapter.NotifyDataSetChanged();
+            }
+        }
+
+
+        private void StartNoteActivity(string id, string content)
+        {
+            Intent intent = new Intent(this, typeof(NoteActivity));
+            intent.PutExtra(NoteActivity.NOTE_ID, id);
+            intent.PutExtra(NoteActivity.NOTE_CONTENT, content);
+            StartActivity(intent);
         }
     }
 }

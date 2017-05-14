@@ -41,18 +41,11 @@ namespace MultiNotes.XAndroid.Activities
             switch (menuItem.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    return MenuHomeItemOnClick();
+                    return MenuHomeOnClick();
 
                 default:
                     return base.OnOptionsItemSelected(menuItem);
             }
-        }
-
-
-        private bool MenuHomeItemOnClick()
-        {
-            Finish();
-            return true;
         }
 
 

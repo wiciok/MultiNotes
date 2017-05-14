@@ -28,20 +28,20 @@ namespace MultiNotes.XAndroid.ActivityModels
         }
 
 
-        public string NoteId
+        public virtual string NoteId
         {
             get { return noteId; }
         }
 
 
-        public string NoteContent
+        public virtual string NoteContent
         {
             get { return noteContent; }
             set { noteContent = value; }
         }
 
 
-        public void SaveChanges()
+        public virtual void SaveChanges()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().Content = noteContent;
@@ -50,7 +50,7 @@ namespace MultiNotes.XAndroid.ActivityModels
         }
 
 
-        public void DeleteNote()
+        public virtual void DeleteNote()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Remove(notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault());
@@ -58,7 +58,7 @@ namespace MultiNotes.XAndroid.ActivityModels
         }
 
 
-        public void AddNote()
+        public virtual void AddNote()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Add(new Note()

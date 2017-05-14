@@ -71,13 +71,6 @@ namespace MultiNotes.XAndroid.Activities
         }
 
 
-        private bool MenuHomeOnClick()
-        {
-            Finish();
-            return true;
-        }
-
-
         private bool MenuSaveOnClick()
         {
             model.NoteContent = noteEditText.Text;
@@ -92,6 +85,7 @@ namespace MultiNotes.XAndroid.Activities
             }
             else
             {
+                // If NoteId is not set, a new note has to be created
                 model.AddNote();
             }
             Finish();
