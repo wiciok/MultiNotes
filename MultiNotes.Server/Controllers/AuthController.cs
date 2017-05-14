@@ -11,6 +11,7 @@ using System.Net.Http;
 
 namespace MultiNotes.Server.Controllers
 {
+    [LogWebApiRequest]
     public class AuthController : ApiController
     {
         private IUnitOfWork unitOfWork = UnitOfWork.Instance;
@@ -20,11 +21,7 @@ namespace MultiNotes.Server.Controllers
             User user;
 
             if (unitOfWork.UsersRepository.CheckForUserByLogin(authData.Login) == false)
-            {
-                //throw new Exception("User with specified id doesn't exist");
-                //todo: sensowna obsluga wyjatkow
                 return false;
-            }
             else
                 user = unitOfWork.UsersRepository.GetUserByLogin(authData.Login);
 
@@ -37,6 +34,7 @@ namespace MultiNotes.Server.Controllers
 
         [ResponseType(typeof(string))]
         // POST api/auth
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]AuthenticationRecord userAuthData)
         {
             try
