@@ -11,6 +11,7 @@ using System.Net.Http;
 
 namespace MultiNotes.Server.Controllers
 {
+    [LogWebApiRequest]
     public class AuthController : ApiController
     {
         private IUnitOfWork unitOfWork = UnitOfWork.Instance;
@@ -21,6 +22,7 @@ namespace MultiNotes.Server.Controllers
 
             if (unitOfWork.UsersRepository.CheckForUserByLogin(authData.Login) == false)
             {
+                WebApiApplication.GlobalLogger.Warn("User with specified id doesn't exist");
                 //throw new Exception("User with specified id doesn't exist");
                 //todo: sensowna obsluga wyjatkow
                 return false;

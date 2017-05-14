@@ -11,6 +11,7 @@ using MultiNotes.Server.Models;
 
 namespace MultiNotes.Server.Controllers
 {
+    [LogWebApiRequest]
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
