@@ -21,7 +21,7 @@ namespace MultiNotes.XAndroid
             base.OnCreate(savedInstanceState);
 
             // Create your application here.
-            SetContentView(Resource.Layout.Account);
+            SetContentView(Resource.Layout.ActivityAccount);
 
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);
             SetActionBar(toolbar);

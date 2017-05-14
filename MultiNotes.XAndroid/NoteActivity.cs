@@ -13,16 +13,17 @@ using Android.Widget;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = false, ParentActivity = typeof(MainActivity), 
+    [Activity(MainLauncher = false, 
+        ParentActivity = typeof(MainActivity), 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class NoteActivity : Activity
+    public class NoteActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here
-            SetContentView(Resource.Layout.Note);
+            SetContentView(Resource.Layout.ActivityNote);
 
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarNote);
             SetActionBar(toolbar);

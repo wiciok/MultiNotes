@@ -10,15 +10,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 using MultiNotes.Core;
+using MultiNotes.XAndroid.Models;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : Activity
+    [Activity(MainLauncher = true, 
+        ScreenOrientation = ScreenOrientation.Portrait)]
+    public class MainActivity : DefaultActivity
     {
-        private Button signInButton;
-        private Button showNoteButton;
         private ListView notesListView;
         
 
@@ -27,28 +28,18 @@ namespace MultiNotes.XAndroid
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.ActivityMain);
 
             SetActionBar(FindViewById<Toolbar>(Resource.Id.ToolbarMain));
-            signInButton = FindViewById<Button>(Resource.Id.Main_SignInButton);
-            showNoteButton = FindViewById<Button>(Resource.Id.Main_ShowNoteButton);
             notesListView = FindViewById<ListView>(Resource.Id.Main_NotesListView);
-
-            signInButton.Click += SignInButtonOnClick;
-            showNoteButton.Click += ShowNoteButtonOnClick;
             
             notesListView.Adapter = new NotesAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
-        }
-        
-        private void SignInButtonOnClick(object sender, EventArgs e)
-        {
-            StartActivity(typeof(SignInActivity));
-        }
 
-        private void ShowNoteButtonOnClick(object sender, EventArgs e)
-        {
-            StartActivity(typeof(NoteActivity));
+            if (!(new AuthorizationFactory().Create().Successful))
+            {
+                StartActivity(typeof(SignInActivity));
+            }
         }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)

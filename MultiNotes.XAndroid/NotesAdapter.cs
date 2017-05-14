@@ -52,7 +52,7 @@ namespace MultiNotes.XAndroid
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.NotesListItem, parent, false);
+            View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.ListItemNote, parent, false);
             TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.NoteTitle);
 
             notesTitleTextView.Text = 

@@ -13,16 +13,17 @@ using Android.Widget;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = false, ParentActivity = typeof(SignInActivity), 
+    [Activity(MainLauncher = false, 
+        ParentActivity = typeof(SignInActivity), 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SignUpActivity : Activity
+    public class SignUpActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here.
-            SetContentView(Resource.Layout.SignUp);
+            SetContentView(Resource.Layout.ActivitySignUp);
 
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
             SetActionBar(toolbar);
