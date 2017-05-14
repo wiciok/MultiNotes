@@ -10,14 +10,13 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
+using MultiNotes.XAndroid.Models;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels
 {
-    public interface IAuthorization
+    public interface IMainModel
     {
-        bool Successful { get; }
-        User User { get; }
-        bool SignIn(string username, string password);
+        IAuthorization Authorization { get; }
+        INotesRepository NotesRepository { get; }
     }
 }

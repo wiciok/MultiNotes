@@ -13,14 +13,16 @@ using Android.Widget;
 
 using MultiNotes.Core;
 using MultiNotes.XAndroid.Models;
+using MultiNotes.XAndroid.ActivityModels;
 
-namespace MultiNotes.XAndroid
+namespace MultiNotes.XAndroid.Activities
 {
     [Activity(MainLauncher = true, 
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : DefaultActivity
     {
         private ListView notesListView;
+        private IMainModel model;
         
 
         protected override void OnCreate(Bundle bundle)
@@ -28,15 +30,15 @@ namespace MultiNotes.XAndroid
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.ActivityMain);
 
-            NotesFileSystem.Instance.FilesDir = FilesDir;
-
             SetActionBar(FindViewById<Toolbar>(Resource.Id.ToolbarMain));
             notesListView = FindViewById<ListView>(Resource.Id.Main_NotesListView);
             
             notesListView.Adapter = new NotesAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 
-            if (!(new AuthorizationFactory().Create().Successful))
+            model = new MainModel();
+
+            if (!(model.Authorization.Successful))
             {
                 StartActivity(typeof(SignInActivity));
             }
@@ -44,8 +46,13 @@ namespace MultiNotes.XAndroid
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+            NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
+            if (adapter == null)
+            {
+                return;
+            }
             NotesAdapter.INoteWrapper noteObject 
-                = notesListView.Adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
+                = adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
 
             // If noteObject is null, show alert
             if (!(noteObject is NotesAdapter.INoteWrapper))
@@ -56,8 +63,13 @@ namespace MultiNotes.XAndroid
 
             // Get our item from the list adapter
             Note note = noteObject.Note;
+
+            Intent intent = new Intent(this, typeof(NoteActivity));
+            intent.PutExtra(NoteActivity.NOTE_ID, note.Id);
+            intent.PutExtra(NoteActivity.NOTE_CONTENT, note.Content);
+            StartActivity(intent);
             
-            Toast.MakeText(this, note.Content, ToastLength.Short).Show();
+            //Toast.MakeText(this, note.Content, ToastLength.Short).Show();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -87,8 +99,22 @@ namespace MultiNotes.XAndroid
             }
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            NotesAdapter adapter = FindViewById<ListView>(Resource.Id.Main_NotesListView).Adapter as NotesAdapter;
+            if (adapter != null)
+            {
+                adapter.NotifyDataSetChanged();
+            }
+        }
+
         private bool MenuEditOnClick()
         {
+            Intent intent = new Intent(this, typeof(NoteActivity));
+            intent.PutExtra(NoteActivity.NOTE_ID, "");
+            intent.PutExtra(NoteActivity.NOTE_CONTENT, "");
+            StartActivity(intent);
             return true;
         }
 
@@ -99,7 +125,7 @@ namespace MultiNotes.XAndroid
             {
                 return false;
             }
-            adapter.Refresh();
+            adapter.NotifyDataSetChanged();
             return true;
         }
 

@@ -13,7 +13,7 @@ using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
 
-namespace MultiNotes.XAndroid
+namespace MultiNotes.XAndroid.Activities
 {
     [Activity(MainLauncher = false,
         ParentActivity = typeof(MainActivity),
@@ -32,7 +32,7 @@ namespace MultiNotes.XAndroid
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ActivitySignIn);
 
-            model = new AuthorizationFactory().Create();
+            model = new Authorization();
 
             emailAddressEditText = FindViewById<EditText>(Resource.Id.SignIn_EmailAddressEditText);
             passwordEditText = FindViewById<EditText>(Resource.Id.SignIn_PasswordEditText);

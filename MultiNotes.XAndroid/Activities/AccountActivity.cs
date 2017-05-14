@@ -5,35 +5,35 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
-using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 
-namespace MultiNotes.XAndroid
+namespace MultiNotes.XAndroid.Activities
 {
     [Activity(MainLauncher = false, 
-        ParentActivity = typeof(MainActivity), 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class NoteActivity : DefaultActivity
+    public class AccountActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ActivityNote);
+            SetContentView(Resource.Layout.ActivityAccount);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarNote);
+            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);
             SetActionBar(toolbar);
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-        }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.MenuNote, menu);
-            return base.OnCreateOptionsMenu(menu);
+            Button changePasswordButton = (Button)FindViewById(Resource.Id.Account_ChangePasswordButton);
+            changePasswordButton.Click += delegate
+            {
+                ChangePasswordButtonOnClick();
+            };
+
         }
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
@@ -52,6 +52,12 @@ namespace MultiNotes.XAndroid
         {
             Finish();
             return true;
+        }
+
+        private void ChangePasswordButtonOnClick()
+        {
+            // TODO: Widok zmiany hasła.
+            Toast.MakeText(this, "Tu pojawi się widok zmiany hasła!", ToastLength.Short).Show();
         }
     }
 }

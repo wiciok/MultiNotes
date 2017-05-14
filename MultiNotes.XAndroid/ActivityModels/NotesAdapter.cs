@@ -11,36 +11,36 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.Models;
 
-namespace MultiNotes.XAndroid
+namespace MultiNotes.XAndroid.ActivityModels
 {
     public class NotesAdapter : BaseAdapter
     {
-        private List<Note> notesList;
+        private INotesRepository notesRepository;
         private Activity activity;
 
         public NotesAdapter(Activity activity)
         {
             this.activity = activity;
-            notesList = new List<Note>();
-            FillNotes();
+            notesRepository = new NotesRepository();
         }
 
         public override int Count
         {
-            get { return notesList.Count; }
+            get { return notesRepository.NotesList.Count; }
         }
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return new NoteWrapper(notesList[position]);
+            return new NoteWrapper(notesRepository.NotesList[position]);
         }
 
         public override long GetItemId(int position)
         {
             try
             {
-                return long.Parse(notesList[position].Id);
+                return long.Parse(notesRepository.NotesList[position].Id);
             }
             catch (FormatException)
             {
@@ -53,26 +53,15 @@ namespace MultiNotes.XAndroid
             View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.ListItemNote, parent, false);
             TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.NoteTitle);
 
-            notesTitleTextView.Text = 
-                notesList[position].Content.Length > 20 ? 
-                notesList[position].Content.Substring(0, 20) : notesList[position].Content;
+            notesTitleTextView.Text =
+                notesRepository.NotesList[position].Content.Length > 20 ?
+                notesRepository.NotesList[position].Content.Substring(0, 20) : notesRepository.NotesList[position].Content;
 
             return view;
         }
 
-        private void FillNotes()
-        {
-            notesList.Add(new Note() { Id = "1", Content = "Cześć!" });
-            notesList.Add(new Note() { Id = "2", Content = "Siema!" });
-            notesList.Add(new Note() { Id = "3", Content = "Eloszki!" });
-            notesList.Add(new Note() { Id = "4", Content = "Pozdro!" });
-        }
+        public virtual List<Note> NotesList { get { return notesRepository.NotesList; } }
 
-        public void Refresh()
-        {
-            notesList.Clear();
-            FillNotes();
-        }
 
         public interface INoteWrapper
         {

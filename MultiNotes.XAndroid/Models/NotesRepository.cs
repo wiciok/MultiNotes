@@ -10,10 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using MultiNotes.Core;
+
 namespace MultiNotes.XAndroid.Models
 {
-    public interface IAuthorizationFactory
+    public class NotesRepository : INotesRepository
     {
-        IAuthorization Create();
+        public List<Note> NotesList { get { return NotesBase.Instance.NotesList; } }
     }
 }

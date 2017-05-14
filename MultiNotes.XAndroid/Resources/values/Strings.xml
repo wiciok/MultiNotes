@@ -32,7 +32,9 @@
     <string name="ChangePasswordButton">Zmień hasło</string>
     <string name="SignOutButton">Wyloguj się</string>
     <string name="SettingsButton">Ustawienia</string>
-    
+
     <string name="NoteToolbarTitle">Notatka</string>
+
+    <string name="NoteEmptyAlert">Notatka nie może być pusta!</string>
 
 </resources>

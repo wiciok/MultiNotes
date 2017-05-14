@@ -9,16 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Java.IO;
-using MultiNotes.Core;
 
-namespace MultiNotes.XAndroid
+namespace MultiNotes.XAndroid.Models
 {
-    public interface IFileSystem
+    public class Counter
     {
-        File FilesDir { get; set; }
-
-        List<Note> GetSavedNotes();
-        void SaveNotes(List<Note> notes);
+        private static int value = 0;
+        public static string Next { get { return (++value).ToString(); } }
     }
 }

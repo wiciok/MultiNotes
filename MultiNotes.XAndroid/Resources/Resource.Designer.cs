@@ -2114,6 +2114,9 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f07001a
 			public const int MenuSync = 2131165210;
 			
+			// aapt resource value: 0x7f07002f
+			public const int NoteEmptyAlert = 2131165231;
+			
 			// aapt resource value: 0x7f07002e
 			public const int NoteToolbarTitle = 2131165230;
 			

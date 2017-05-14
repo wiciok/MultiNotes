@@ -14,10 +14,8 @@ using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid.Models
 {
-    public interface IAuthorization
+    public interface INotesRepository
     {
-        bool Successful { get; }
-        User User { get; }
-        bool SignIn(string username, string password);
+        List<Note> NotesList { get; }
     }
 }

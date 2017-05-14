@@ -12,12 +12,11 @@ using Android.Widget;
 
 using MultiNotes.Core;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels
 {
-    public interface IAuthorization
+    public interface INoteModel
     {
-        bool Successful { get; }
-        User User { get; }
-        bool SignIn(string username, string password);
+        Note Note { get; set; }
+        void SaveChanges();
     }
 }

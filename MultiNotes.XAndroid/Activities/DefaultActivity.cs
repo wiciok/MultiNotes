@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace MultiNotes.XAndroid
+namespace MultiNotes.XAndroid.Activities
 {
     // Root for all activities in this project.
     public class DefaultActivity : Activity
