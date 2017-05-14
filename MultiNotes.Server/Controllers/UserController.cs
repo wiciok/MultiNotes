@@ -21,6 +21,7 @@ namespace MultiNotes.Server.Controllers
         // GET api/user/32q2fdrsdfa/5
         [Route("{token}/{login}")]
         [ResponseType(typeof(User))]
+        [HttpGet]
         public HttpResponseMessage Get(string token, string login)
         {
             try
@@ -47,6 +48,7 @@ namespace MultiNotes.Server.Controllers
         // POST api/user
         //[Route("{user}")]
         [ResponseType(typeof(User))]
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]User user)
         {
             try
@@ -72,6 +74,7 @@ namespace MultiNotes.Server.Controllers
         //[Route("{token}/{value}")]
         [Route("{token}")]
         [ResponseType(typeof(User))]
+        [HttpPut]
         public HttpResponseMessage Put([FromUri]string token, [FromBody]User value)
         {
             try
@@ -102,6 +105,7 @@ namespace MultiNotes.Server.Controllers
         //[Route("{token}/{value}")]
         [Route("{token}/{id_user}")]
         [ResponseType(typeof(User))]
+        [HttpDelete]
         public HttpResponseMessage Delete([FromUri]string token, [FromUri]string id_user)
         {
             try
