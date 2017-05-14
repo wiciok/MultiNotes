@@ -18,14 +18,24 @@ namespace MultiNotes.XAndroid.Models
     {
         private bool successful;
 
+
         public Authorization()
         {
             successful = false;
         }
 
-        public bool Successful { get { return successful; } }
 
-        public User User { get { return null; } }
+        public bool Successful
+        {
+            get { return successful; }
+        }
+
+
+        public User User
+        {
+            get { return null; }
+        }
+
 
         public bool SignIn(string username, string password)
         {

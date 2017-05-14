@@ -18,6 +18,7 @@ namespace MultiNotes.XAndroid.Models
     {
         private static NotesBase instance = null;
         private static readonly object syncRoot = new object();
+
         public static NotesBase Instance
         {
             get
@@ -30,10 +31,10 @@ namespace MultiNotes.XAndroid.Models
                         {
                             instance = new NotesBase();
 
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #1" });
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #2" });
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #3" });
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #4" });
+                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #1", LastChangeTimestamp = DateTime.Now });
+                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #2", LastChangeTimestamp = DateTime.Now });
+                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #3", LastChangeTimestamp = DateTime.Now });
+                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #4", LastChangeTimestamp = DateTime.Now });
                         }
                     }
                 }
@@ -41,13 +42,26 @@ namespace MultiNotes.XAndroid.Models
             }
         }
 
+
+
         private List<Note> notesList;
+
 
         private NotesBase()
         {
             notesList = new List<Note>();
         }
 
-        public List<Note> NotesList { get { return notesList; } }
+
+        public List<Note> NotesList
+        {
+            get { return notesList; }
+        }
+
+
+        public void Reorder()
+        {
+            notesList = notesList.OrderByDescending(x => x.LastChangeTimestamp).ToList();
+        }
     }
 }

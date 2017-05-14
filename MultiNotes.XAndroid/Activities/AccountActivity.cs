@@ -33,8 +33,8 @@ namespace MultiNotes.XAndroid.Activities
             {
                 ChangePasswordButtonOnClick();
             };
-
         }
+
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
         {
@@ -48,11 +48,13 @@ namespace MultiNotes.XAndroid.Activities
             }
         }
 
+
         private bool MenuHomeItemOnClick()
         {
             Finish();
             return true;
         }
+
 
         private void ChangePasswordButtonOnClick()
         {

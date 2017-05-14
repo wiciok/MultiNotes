@@ -20,21 +20,31 @@ namespace MultiNotes.XAndroid.ActivityModels
         private INotesRepository notesRepository;
         private Activity activity;
 
+
         public NotesAdapter(Activity activity)
         {
             this.activity = activity;
             notesRepository = new NotesRepository();
         }
 
+
         public override int Count
         {
             get { return notesRepository.NotesList.Count; }
         }
 
+
+        public virtual List<Note> NotesList
+        {
+            get { return notesRepository.NotesList; }
+        }
+
+
         public override Java.Lang.Object GetItem(int position)
         {
             return new NoteWrapper(notesRepository.NotesList[position]);
         }
+
 
         public override long GetItemId(int position)
         {
@@ -48,6 +58,7 @@ namespace MultiNotes.XAndroid.ActivityModels
             }
         }
 
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.ListItemNote, parent, false);
@@ -60,13 +71,14 @@ namespace MultiNotes.XAndroid.ActivityModels
             return view;
         }
 
-        public virtual List<Note> NotesList { get { return notesRepository.NotesList; } }
+
 
 
         public interface INoteWrapper
         {
             Note Note { get; }
         }
+
 
         private class NoteWrapper : Java.Lang.Object, INoteWrapper
         {

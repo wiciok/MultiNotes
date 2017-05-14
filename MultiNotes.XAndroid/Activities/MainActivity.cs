@@ -44,6 +44,7 @@ namespace MultiNotes.XAndroid.Activities
             }
         }
 
+
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
@@ -51,16 +52,12 @@ namespace MultiNotes.XAndroid.Activities
             {
                 return;
             }
-            NotesAdapter.INoteWrapper noteObject 
-                = adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
 
-            // If noteObject is null, show alert
-            if (!(noteObject is NotesAdapter.INoteWrapper))
+            NotesAdapter.INoteWrapper noteObject = adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
+            if (noteObject == null)
             {
-                Toast.MakeText(this, "Coś poszło nie tak . . .", ToastLength.Short).Show();
                 return;
             }
-
             // Get our item from the list adapter
             Note note = noteObject.Note;
 
@@ -68,9 +65,8 @@ namespace MultiNotes.XAndroid.Activities
             intent.PutExtra(NoteActivity.NOTE_ID, note.Id);
             intent.PutExtra(NoteActivity.NOTE_CONTENT, note.Content);
             StartActivity(intent);
-            
-            //Toast.MakeText(this, note.Content, ToastLength.Short).Show();
         }
+
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -78,11 +74,9 @@ namespace MultiNotes.XAndroid.Activities
             return base.OnCreateOptionsMenu(menu);
         }
 
+
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
         {
-            Toast.MakeText(this, "Action selected: " + menuItem.TitleFormatted,
-                ToastLength.Short).Show();
-
             switch (menuItem.ItemId)
             {
                 case Resource.Id.Main_MenuEdit:
@@ -99,6 +93,7 @@ namespace MultiNotes.XAndroid.Activities
             }
         }
 
+
         protected override void OnResume()
         {
             base.OnResume();
@@ -109,6 +104,7 @@ namespace MultiNotes.XAndroid.Activities
             }
         }
 
+
         private bool MenuEditOnClick()
         {
             Intent intent = new Intent(this, typeof(NoteActivity));
@@ -117,6 +113,7 @@ namespace MultiNotes.XAndroid.Activities
             StartActivity(intent);
             return true;
         }
+
 
         private bool MenuSyncOnClick()
         { 
@@ -128,6 +125,7 @@ namespace MultiNotes.XAndroid.Activities
             adapter.NotifyDataSetChanged();
             return true;
         }
+
 
         private bool MenuAccountOnClick()
         {

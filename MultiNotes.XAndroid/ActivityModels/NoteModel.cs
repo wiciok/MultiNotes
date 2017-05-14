@@ -20,35 +20,54 @@ namespace MultiNotes.XAndroid.ActivityModels
         private string noteId;
         private string noteContent;
 
+
         public NoteModel(string noteId, string noteContent)
         {
             this.noteId = noteId;
             this.noteContent = noteContent;
         }
 
-        public string NoteId { get { return noteId; } }
+
+        public string NoteId
+        {
+            get { return noteId; }
+        }
+
+
         public string NoteContent
         {
             get { return noteContent; }
             set { noteContent = value; }
         }
 
+
         public void SaveChanges()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().Content = noteContent;
+            notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().LastChangeTimestamp = DateTime.Now;
+            notesRepository.Reorder();
         }
+
 
         public void DeleteNote()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Remove(notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault());
+            notesRepository.Reorder();
         }
+
 
         public void AddNote()
         {
             INotesRepository notesRepository = new NotesRepository();
-            notesRepository.NotesList.Add(new Note() { Id = Counter.Next, Content = noteContent });
+            notesRepository.NotesList.Add(new Note()
+            {
+                Id = Counter.Next,
+                Content = noteContent,
+                LastChangeTimestamp = DateTime.Now
+            });
+            notesRepository.Reorder();
         }
     }
 }

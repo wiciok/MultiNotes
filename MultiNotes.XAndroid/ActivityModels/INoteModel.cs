@@ -16,7 +16,12 @@ namespace MultiNotes.XAndroid.ActivityModels
 {
     public interface INoteModel
     {
-        Note Note { get; set; }
+        Note Note
+        {
+            get;
+            set;
+        }
+
         void SaveChanges();
     }
 }

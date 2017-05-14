@@ -24,8 +24,9 @@ namespace MultiNotes.XAndroid.Activities
         private EditText passwordEditText;
         private Button signInButton;
         private Button signUpButton;
-
+        
         private IAuthorization model;
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -46,6 +47,7 @@ namespace MultiNotes.XAndroid.Activities
             signUpButton.Click += SignUpButtonOnClick;
         }
 
+
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
             if (model.SignIn(emailAddressEditText.Text, passwordEditText.Text))
@@ -54,10 +56,12 @@ namespace MultiNotes.XAndroid.Activities
             }
         }
 
+
         private void SignUpButtonOnClick(object sender, EventArgs e)
         {
             StartActivity(typeof(SignUpActivity));
         }
+
 
         public override void OnBackPressed()
         {

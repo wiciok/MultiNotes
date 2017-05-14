@@ -16,6 +16,11 @@ namespace MultiNotes.XAndroid.Models
 {
     public interface INotesRepository
     {
-        List<Note> NotesList { get; }
+        List<Note> NotesList
+        {
+            get;
+        }
+
+        void Reorder();
     }
 }

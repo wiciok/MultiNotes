@@ -24,8 +24,8 @@ namespace MultiNotes.XAndroid.Activities
         public static readonly string NOTE_CONTENT = "NOTE_CONTENT";
 
         private NoteModel model;
+        private EditText noteEditText;
 
-        EditText noteEditText;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -44,11 +44,13 @@ namespace MultiNotes.XAndroid.Activities
             noteEditText.Text = model.NoteContent;
         }
 
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.MenuNote, menu);
             return base.OnCreateOptionsMenu(menu);
         }
+
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
         {
@@ -68,11 +70,13 @@ namespace MultiNotes.XAndroid.Activities
             }
         }
 
+
         private bool MenuHomeOnClick()
         {
             Finish();
             return true;
         }
+
 
         private bool MenuSaveOnClick()
         {
@@ -82,7 +86,7 @@ namespace MultiNotes.XAndroid.Activities
                 Toast.MakeText(this, Resource.String.NoteEmptyAlert, ToastLength.Short).Show();
                 return false;
             }
-            if (model.NoteId.Length == 0)
+            if (model.NoteId.Length != 0)
             {
                 model.SaveChanges();
             }
@@ -93,6 +97,7 @@ namespace MultiNotes.XAndroid.Activities
             Finish();
             return true;
         }
+
 
         private bool MenuDeleteOnClick()
         {

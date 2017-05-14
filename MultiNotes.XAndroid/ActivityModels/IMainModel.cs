@@ -16,7 +16,14 @@ namespace MultiNotes.XAndroid.ActivityModels
 {
     public interface IMainModel
     {
-        IAuthorization Authorization { get; }
-        INotesRepository NotesRepository { get; }
+        IAuthorization Authorization
+        {
+            get;
+        }
+
+        INotesRepository NotesRepository
+        {
+            get;
+        }
     }
 }
