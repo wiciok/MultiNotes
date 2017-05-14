@@ -14,13 +14,11 @@ using Android.Content.PM;
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false, ScreenOrientation = ScreenOrientation.Portrait)]
-    public class AccountActivity : Activity
+    public class AccountActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your application here.
             SetContentView(Resource.Layout.ActivityAccount);
 
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);

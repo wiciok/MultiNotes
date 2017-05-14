@@ -26,9 +26,9 @@ namespace MultiNotes.XAndroid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.ActivityMain);
+
+            NotesFileSystem.Instance.FilesDir = FilesDir;
 
             SetActionBar(FindViewById<Toolbar>(Resource.Id.ToolbarMain));
             notesListView = FindViewById<ListView>(Resource.Id.Main_NotesListView);
@@ -44,11 +44,11 @@ namespace MultiNotes.XAndroid
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            NotesAdapter.INoteObject noteObject 
-                = notesListView.Adapter.GetItem(e.Position) as NotesAdapter.INoteObject;
+            NotesAdapter.INoteWrapper noteObject 
+                = notesListView.Adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
 
             // If noteObject is null, show alert
-            if (!(noteObject is NotesAdapter.INoteObject))
+            if (!(noteObject is NotesAdapter.INoteWrapper))
             {
                 Toast.MakeText(this, "Coś poszło nie tak . . .", ToastLength.Short).Show();
                 return;

@@ -16,24 +16,26 @@ using MultiNotes.XAndroid.Models;
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
-        ParentActivity = typeof(MainActivity)
+        ParentActivity = typeof(MainActivity),
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class SignInActivity : DefaultActivity
     {
-        Button signInButton;
-        Button signUpButton;
+        private EditText emailAddressEditText;
+        private EditText passwordEditText;
+        private Button signInButton;
+        private Button signUpButton;
 
-        private IAuthorization authorization;
+        private IAuthorization model;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            authorization = new AuthorizationFactory().Create();
-
-            // Create your application here.
             SetContentView(Resource.Layout.ActivitySignIn);
 
+            model = new AuthorizationFactory().Create();
+
+            emailAddressEditText = FindViewById<EditText>(Resource.Id.SignIn_EmailAddressEditText);
+            passwordEditText = FindViewById<EditText>(Resource.Id.SignIn_PasswordEditText);
             signInButton = FindViewById<Button>(Resource.Id.SignIn_SignInButton);
             signUpButton = FindViewById<Button>(Resource.Id.SignIn_SignUpButton);
 
@@ -46,7 +48,7 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            if (authorization.SignIn("", ""))
+            if (model.SignIn(emailAddressEditText.Text, passwordEditText.Text))
             {
                 Finish();
             }

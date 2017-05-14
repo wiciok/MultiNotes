@@ -9,13 +9,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Java.IO;
+using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid
 {
-    // Root for all activities in this project.
-    public class DefaultActivity : Activity
+    public interface IFileSystem
     {
-        // Each override in this code will cause changes
-        // in behavior of all activities in this project.
+        File FilesDir { get; set; }
+
+        List<Note> GetSavedNotes();
+        void SaveNotes(List<Note> notes);
     }
 }

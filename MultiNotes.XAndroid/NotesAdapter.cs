@@ -33,9 +33,7 @@ namespace MultiNotes.XAndroid
 
         public override Java.Lang.Object GetItem(int position)
         {
-            // Could wrap a Ntoe in a Java.Lang.Object
-            // to return it here if needed.
-            return new NoteObject(notesList[position]);
+            return new NoteWrapper(notesList[position]);
         }
 
         public override long GetItemId(int position)
@@ -76,16 +74,16 @@ namespace MultiNotes.XAndroid
             FillNotes();
         }
 
-        public interface INoteObject
+        public interface INoteWrapper
         {
             Note Note { get; }
         }
 
-        private class NoteObject : Java.Lang.Object, INoteObject
+        private class NoteWrapper : Java.Lang.Object, INoteWrapper
         {
             private Note note;
 
-            public NoteObject(Note note)
+            public NoteWrapper(Note note) 
             {
                 this.note = note;
             }
