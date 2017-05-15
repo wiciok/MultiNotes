@@ -5,34 +5,29 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Content.PM;
 
-namespace MultiNotes.XAndroid.Activities
+namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false, 
+        ParentActivity = typeof(SignInActivity), 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class AccountActivity : DefaultActivity
+    public class SignUpActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ActivityAccount);
+            SetContentView(Resource.Layout.ActivitySignUp);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);
+            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
             SetActionBar(toolbar);
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            Button changePasswordButton = (Button)FindViewById(Resource.Id.Account_ChangePasswordButton);
-            changePasswordButton.Click += delegate
-            {
-                ChangePasswordButtonOnClick();
-            };
         }
 
 
@@ -46,13 +41,6 @@ namespace MultiNotes.XAndroid.Activities
                 default:
                     return base.OnOptionsItemSelected(menuItem);
             }
-        }
-
-
-        private void ChangePasswordButtonOnClick()
-        {
-            // TODO: Widok zmiany hasła.
-            Toast.MakeText(this, "Tu pojawi się widok zmiany hasła!", ToastLength.Short).Show();
         }
     }
 }

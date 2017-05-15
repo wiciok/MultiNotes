@@ -30,16 +30,39 @@ namespace MultiNotes.XAndroid.Models
                         if (instance == null)
                         {
                             instance = new NotesBase();
-
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #1", LastChangeTimestamp = DateTime.Now });
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #2", LastChangeTimestamp = DateTime.Now });
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #3", LastChangeTimestamp = DateTime.Now });
-                            instance.NotesList.Add(new Note() { Id = Counter.Next, Content = "Notatka #4", LastChangeTimestamp = DateTime.Now });
+                            InitializeInstance();
                         }
                     }
                 }
                 return instance;
             }
+        }
+
+        private static void InitializeInstance()
+        {
+            instance.NotesList.Add(new Note()
+            {
+                Id = Counter.Next,
+                Content = "Notatka #1",
+                LastChangeTimestamp = DateTime.Now
+            });
+            instance.NotesList.Add(new Note()
+            {
+                Id = Counter.Next,
+                Content = "Notatka #2",
+                LastChangeTimestamp = DateTime.Now
+            });
+            instance.NotesList.Add(new Note() {
+                Id = Counter.Next,
+                Content = "Notatka #3",
+                LastChangeTimestamp = DateTime.Now
+            });
+            instance.NotesList.Add(new Note()
+            {
+                Id = Counter.Next,
+                Content = "Notatka #4",
+                LastChangeTimestamp = DateTime.Now
+            });
         }
 
 

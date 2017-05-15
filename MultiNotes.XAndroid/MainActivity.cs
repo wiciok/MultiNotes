@@ -8,6 +8,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 
@@ -15,13 +16,15 @@ using MultiNotes.Core;
 using MultiNotes.XAndroid.Models;
 using MultiNotes.XAndroid.ActivityModels;
 
-namespace MultiNotes.XAndroid.Activities
+namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = true, 
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : DefaultActivity
     {
         private ListView notesListView;
+        private FloatingActionButton fab;
+
         private IMainModel model;
         
 

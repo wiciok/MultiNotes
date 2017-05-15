@@ -93,29 +93,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\AccountActivity.cs" />
-    <Compile Include="Activities\DefaultActivity.cs" />
-    <Compile Include="ActivityModels\IMainModel.cs" />
-    <Compile Include="ActivityModels\INoteModel.cs" />
-    <Compile Include="ActivityModels\MainModel.cs" />
-    <Compile Include="ActivityModels\NoteModel.cs" />
+    <Compile Include="AccountActivity.cs" />
+    <Compile Include="DefaultActivity.cs" />
+    <Compile Include="Models\IMainModel.cs" />
+    <Compile Include="Models\INoteModel.cs" />
+    <Compile Include="Models\MainModel.cs" />
+    <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\Authorization.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\IAuthorization.cs" />
     <Compile Include="Models\INotesRepository.cs" />
     <Compile Include="Models\IRegistration.cs" />
-    <Compile Include="Activities\NoteActivity.cs" />
+    <Compile Include="NoteActivity.cs" />
     <Compile Include="Models\NotesBase.cs" />
     <Compile Include="Models\NotesRepository.cs" />
-    <Compile Include="ActivityModels\NotesAdapter.cs" />
-    <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Models\NotesAdapter.cs" />
+    <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\ActivitySignIn.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
-    <Compile Include="Activities\SignInActivity.cs" />
-    <Compile Include="Activities\SignUpActivity.cs" />
+    <Compile Include="SignInActivity.cs" />
+    <Compile Include="SignUpActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />

@@ -12,7 +12,7 @@ using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
 
-namespace MultiNotes.XAndroid.ActivityModels
+namespace MultiNotes.XAndroid.Models
 {
     public class MainModel : IMainModel
     {

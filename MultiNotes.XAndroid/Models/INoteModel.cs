@@ -12,7 +12,7 @@ using Android.Widget;
 
 using MultiNotes.Core;
 
-namespace MultiNotes.XAndroid.ActivityModels
+namespace MultiNotes.XAndroid.Models
 {
     public interface INoteModel
     {

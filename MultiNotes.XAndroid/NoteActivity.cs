@@ -13,7 +13,7 @@ using Android.Widget;
 
 using MultiNotes.XAndroid.ActivityModels;
 
-namespace MultiNotes.XAndroid.Activities
+namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false, 
         ParentActivity = typeof(MainActivity), 
