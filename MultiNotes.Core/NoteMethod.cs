@@ -10,7 +10,6 @@ using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
 using System.IO;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 
 namespace MultiNotes.Core
@@ -30,14 +29,14 @@ namespace MultiNotes.Core
             {
                 //var tmpList = new List<Note>();
                 //tmpList.Add(note);
-                var json = new JavaScriptSerializer().Serialize(note);
+                var json = JsonConvert.SerializeObject(note);
                 File.WriteAllText(path, json);
             }
             else
             {
                 //var tmpList = new List<Note>();
                 //.Add(note);
-                var json = new JavaScriptSerializer().Serialize(note);
+                var json = JsonConvert.SerializeObject(note);
                 File.AppendAllText(path, json);
             }
         }
@@ -129,7 +128,7 @@ namespace MultiNotes.Core
         public async void testujemy()
         {
             var a = GetAllNotesFromFile("5909a1977a48172c8049e25c");
-            var bb = GetNoteFromFile("591739a77a48173e1cc59b17", "5909a1977a48172c8049e25c");
+            var bb = GetNoteFromFile("5919f08d7a481747708d28db", "5909a1977a48172c8049e25c");
             //DeleteNoteFromFile("591739a77a48173e1cc59b17");
             int b = 99;
         }
@@ -148,7 +147,7 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 return listNotes.Where(a=>a.OwnerId== userId).ToList();
             }
@@ -173,7 +172,7 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 return listNotes.Where(a=>a.Id==id && a.OwnerId==userId).FirstOrDefault();
             }
@@ -197,14 +196,14 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add( JsonConvert.DeserializeObject<Note>(x));
                 }
                 Note toDelte = listNotes.Where(a => a.Id == id && a.OwnerId== userId).FirstOrDefault();
                 listNotes.Remove(toDelte);
                 File.WriteAllText(path, "");
                 foreach (var x in listNotes)
                 {
-                    var jsonNote = new JavaScriptSerializer().Serialize(x);
+                    var jsonNote = JsonConvert.SerializeObject(x);
                     File.AppendAllText(path, json);
                 }
             }
@@ -224,7 +223,7 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 Note toDelete = listNotes.Where(a => a.Id == id && a.OwnerId==userId).FirstOrDefault();
                 listNotes.Remove(toDelete);
@@ -237,7 +236,7 @@ namespace MultiNotes.Core
                 File.WriteAllText(path, "");
                 foreach (var x in listNotes)
                 {
-                    var jsonNote = new JavaScriptSerializer().Serialize(x);
+                    var jsonNote = JsonConvert.SerializeObject(x);
                     File.AppendAllText(path, json);
                 }
             }
