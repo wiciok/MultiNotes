@@ -28,9 +28,22 @@ namespace MultiNotes.Server.Repositories
             return _usersCollection.Find(n => n.Id == id).Single<User>();
         }
 
+        public User GetUserByLogin(string login)
+        {
+            return _usersCollection.Find(n => n.Login == login).Single<User>();
+        }
+
         public bool CheckForUser(string id)
         {
             if (_usersCollection.Count(n => n.Id == id) == 0)
+                return false;
+            else
+                return true;
+        }
+
+        public bool CheckForUserByLogin(string login)
+        {
+            if (_usersCollection.Count(n => n.Login == login) == 0)
                 return false;
             else
                 return true;

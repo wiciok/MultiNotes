@@ -19,16 +19,16 @@ namespace MultiNotes.Server.Controllers
 
         //pobieranie danych uzytkownika np. po zalogowaniu w kliencie
         // GET api/user/32q2fdrsdfa/5
-        [Route("{token}/{id}")]
+        [Route("{token}/{login}")]
         [ResponseType(typeof(User))]
-        public HttpResponseMessage Get(string token, string id)
+        public HttpResponseMessage Get(string token, string login)
         {
             try
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    if(authService.currentUser.Id==id)
-                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUser(id));
+                    if(authService.currentUser.Login==login)
+                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUserByLogin(login));
                     else
                         return Request.CreateResponse(HttpStatusCode.Forbidden); //probojemy pobrac dane innego uzytkownika niz my sami
                 }
@@ -45,13 +45,13 @@ namespace MultiNotes.Server.Controllers
 
         //rejestracja nowego uzytkownika
         // POST api/user
-        [Route("{user}")]
+        //[Route("{user}")]
         [ResponseType(typeof(User))]
         public HttpResponseMessage Post([FromBody]User user)
         {
             try
             {
-                if (usersRepo.CheckForUser(user.Id) == false)
+                if (usersRepo.CheckForUser(user.Id) == false && usersRepo.CheckForUserByLogin(user.Login)==false)
                     return Request.CreateResponse<User>(HttpStatusCode.Created, usersRepo.AddUser(user));
                 else
                 {
@@ -69,7 +69,8 @@ namespace MultiNotes.Server.Controllers
 
         // edycja istniejacego uzytkownika
         // PUT api/user/32q2fdrsdfa
-        [Route("{token}/{value}")]
+        //[Route("{token}/{value}")]
+        [Route("{token}")]
         [ResponseType(typeof(User))]
         public HttpResponseMessage Put([FromUri]string token, [FromBody]User value)
         {
@@ -98,23 +99,24 @@ namespace MultiNotes.Server.Controllers
 
         // usuniecie istniejacego uzytkownika (siebie)
         // DELETE api/user/32q2fdrsdfa
-        [Route("{token}/{value}")]
+        //[Route("{token}/{value}")]
+        [Route("{token}/{id_user}")]
         [ResponseType(typeof(User))]
-        public HttpResponseMessage Delete([FromUri]string token, [FromBody]User value)
+        public HttpResponseMessage Delete([FromUri]string token, [FromUri]string id_user)
         {
             try
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    if (authService.currentUser.Id != value.Id)
+                    if (authService.currentUser.Id != id_user)
                     {
                         return Request.CreateResponse(HttpStatusCode.Forbidden); //probojemy usunac innego uzytkownika niz my sami
                     }
                     else
                     {
-                        usersRepo.RemoveUser(value.Id);
+                        usersRepo.RemoveUser(id_user);
                         TokenBase.RemoveToken(token); //usunelismy sie = tracimy autentykację
-                        return Request.CreateResponse(HttpStatusCode.OK, value);
+                        return Request.CreateResponse(HttpStatusCode.OK);
                     }
                 }
                 else

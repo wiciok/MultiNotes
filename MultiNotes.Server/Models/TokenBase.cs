@@ -82,13 +82,13 @@ namespace MultiNotes.Server.Models
 
         public static Token GetUserToken(User user)
         {
-            return tokenList.Find(g => g.User.Id == user.Id);
+            return TokenList.Find(g => g.User.Id == user.Id);
         }
 
         //todo: troche to usprawnic bo namieszane jest
         public static bool VerifyUserToken(User user)
         {
-            var retVal = tokenList.Count(g => g.User.Id == user.Id);
+            var retVal = TokenList.Count(g => g.User.Id == user.Id);
 
             if (retVal == 0)
                 return false;

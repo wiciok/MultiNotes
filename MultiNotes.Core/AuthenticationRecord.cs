@@ -8,7 +8,7 @@ namespace MultiNotes.Core
 {
     public class AuthenticationRecord
     {
-        public string UserId { get; set; }
+        public string Login { get; set; }
         public string PasswordHash { get; set; }
     }
 }
