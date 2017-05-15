@@ -16,7 +16,7 @@ namespace MultiNotes.XAndroid
     [Activity(MainLauncher = false, 
         ParentActivity = typeof(SignInActivity), 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SignUpActivity : DefaultActivity
+    public sealed class SignUpActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {

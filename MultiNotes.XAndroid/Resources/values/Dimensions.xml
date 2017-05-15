@@ -4,4 +4,5 @@
     <dimen name="DefaultMargin25">25px</dimen>
     <dimen name="DefaultMargin50">50px</dimen>
     <dimen name="DefaultMargin100">100px</dimen>
+    <dimen name="FabMargin">16dp</dimen>
 </resources>

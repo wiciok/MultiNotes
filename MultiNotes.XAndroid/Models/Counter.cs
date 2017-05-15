@@ -16,9 +16,9 @@ namespace MultiNotes.XAndroid.Models
     {
         private static int value = 0;
 
-        public static string Next
+        public static int Next
         {
-            get { return (++value).ToString(); }
+            get { return ++value; }
         }
     }
 }

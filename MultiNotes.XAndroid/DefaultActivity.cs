@@ -13,7 +13,7 @@ using Android.Widget;
 namespace MultiNotes.XAndroid
 {
     // Root for all activities in this project.
-    public class DefaultActivity : Activity
+    public abstract class DefaultActivity : Activity
     {
         // Each override in this code will cause changes
         // in behavior of all activities in this project.

@@ -11,19 +11,19 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.ActivityModels;
+using MultiNotes.XAndroid.Models;
 
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false, 
         ParentActivity = typeof(MainActivity), 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class NoteActivity : DefaultActivity
+    public sealed class NoteActivity : DefaultActivity
     {
         public static readonly string NOTE_ID = "NOTE_ID";
         public static readonly string NOTE_CONTENT = "NOTE_CONTENT";
 
-        private NoteModel model;
+        private INoteModel model;
         private EditText noteEditText;
 
 

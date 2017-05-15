@@ -42,24 +42,24 @@ namespace MultiNotes.XAndroid.Models
         {
             instance.NotesList.Add(new Note()
             {
-                Id = Counter.Next,
+                Id = Counter.Next.ToString(),
                 Content = "Notatka #1",
                 LastChangeTimestamp = DateTime.Now
             });
             instance.NotesList.Add(new Note()
             {
-                Id = Counter.Next,
+                Id = Counter.Next.ToString(),
                 Content = "Notatka #2",
                 LastChangeTimestamp = DateTime.Now
             });
             instance.NotesList.Add(new Note() {
-                Id = Counter.Next,
+                Id = Counter.Next.ToString(),
                 Content = "Notatka #3",
                 LastChangeTimestamp = DateTime.Now
             });
             instance.NotesList.Add(new Note()
             {
-                Id = Counter.Next,
+                Id = Counter.Next.ToString(),
                 Content = "Notatka #4",
                 LastChangeTimestamp = DateTime.Now
             });

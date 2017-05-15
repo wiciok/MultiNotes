@@ -14,13 +14,12 @@ using Android.Widget;
 
 using MultiNotes.Core;
 using MultiNotes.XAndroid.Models;
-using MultiNotes.XAndroid.ActivityModels;
 
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = true, 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : DefaultActivity
+    public sealed class MainActivity : DefaultActivity
     {
         private ListView notesListView;
         private FloatingActionButton fab;
@@ -102,7 +101,7 @@ namespace MultiNotes.XAndroid
 
         private bool MenuEditOnClick()
         {
-            StartNoteActivity("", "");
+            StartNoteActivity();
             return true;
         }
 
@@ -130,6 +129,11 @@ namespace MultiNotes.XAndroid
             }
         }
 
+
+        private void StartNoteActivity()
+        {
+            StartNoteActivity("", "");
+        }
 
         private void StartNoteActivity(string id, string content)
         {

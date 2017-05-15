@@ -14,7 +14,7 @@ using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid.Models
 {
-    public class NoteModel
+    public class NoteModel : INoteModel
     {
         private string noteId;
         private string noteContent;
@@ -27,20 +27,29 @@ namespace MultiNotes.XAndroid.Models
         }
 
 
-        public virtual string NoteId
+        /**
+         * Implements INoteModel.NoteId { get; }
+         */
+        public string NoteId
         {
             get { return noteId; }
         }
 
 
-        public virtual string NoteContent
+        /**
+         * Implements INoteModel.NoteContent { get; set; }
+         */
+        public string NoteContent
         {
             get { return noteContent; }
             set { noteContent = value; }
         }
 
 
-        public virtual void SaveChanges()
+        /**
+         * Implements INoteModel.SaveChanges()
+         */
+        public void SaveChanges()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().Content = noteContent;
@@ -49,7 +58,10 @@ namespace MultiNotes.XAndroid.Models
         }
 
 
-        public virtual void DeleteNote()
+        /**
+         * Implements INoteModel.DeleteNote()
+         */
+        public void DeleteNote()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Remove(notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault());
@@ -57,12 +69,15 @@ namespace MultiNotes.XAndroid.Models
         }
 
 
-        public virtual void AddNote()
+        /**
+         * Implements INoteModel.AddNote()
+         */
+        public void AddNote()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Add(new Note()
             {
-                Id = Counter.Next,
+                Id = Counter.Next.ToString(),
                 Content = noteContent,
                 LastChangeTimestamp = DateTime.Now
             });

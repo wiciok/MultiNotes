@@ -26,13 +26,19 @@ namespace MultiNotes.XAndroid.Models
             notesRepository = new NotesRepository();
         }
 
-
+        
+        /**
+         * Implements IMainModel.Authorization { get; }
+         */
         public IAuthorization Authorization
         {
             get { return authorization; }
         }
 
 
+        /**
+         * Implements IMainModel.NotesRepository { get; }
+         */
         public INotesRepository NotesRepository
         {
             get { return notesRepository; }

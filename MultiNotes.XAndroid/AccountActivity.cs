@@ -15,7 +15,7 @@ namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false, 
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class AccountActivity : DefaultActivity
+    public sealed class AccountActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {

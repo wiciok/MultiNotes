@@ -25,18 +25,27 @@ namespace MultiNotes.XAndroid.Models
         }
 
 
+        /**
+         * Implements IAuthorization.Successful { get; }
+         */
         public bool Successful
         {
             get { return successful; }
         }
 
 
+        /**
+         * Implements IAuthorization.User { get; }
+         */
         public User User
         {
             get { return null; }
         }
 
 
+        /**
+         * Implements IAuthorization.SignIn()
+         */
         public bool SignIn(string username, string password)
         {
             successful = true;

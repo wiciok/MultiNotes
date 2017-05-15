@@ -18,7 +18,7 @@ namespace MultiNotes.XAndroid
     [Activity(MainLauncher = false,
         ParentActivity = typeof(MainActivity),
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SignInActivity : DefaultActivity
+    public sealed class SignInActivity : DefaultActivity
     {
         private EditText emailAddressEditText;
         private EditText passwordEditText;
