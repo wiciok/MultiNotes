@@ -26,7 +26,6 @@ namespace MultiNotes.Server
             catch(Exception e)
             {
                 WebApiApplication.GlobalLogger.Error(Request.ToString()+e.ToString());
-
                 HttpError err = new HttpError("Error while generating Id");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }

@@ -21,12 +21,7 @@ namespace MultiNotes.Server.Controllers
             User user;
 
             if (unitOfWork.UsersRepository.CheckForUserByLogin(authData.Login) == false)
-            {
-                WebApiApplication.GlobalLogger.Warn("User with specified id doesn't exist");
-                //throw new Exception("User with specified id doesn't exist");
-                //todo: sensowna obsluga wyjatkow
                 return false;
-            }
             else
                 user = unitOfWork.UsersRepository.GetUserByLogin(authData.Login);
 
@@ -39,6 +34,7 @@ namespace MultiNotes.Server.Controllers
 
         [ResponseType(typeof(string))]
         // POST api/auth
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]AuthenticationRecord userAuthData)
         {
             try
