@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 
 namespace MultiNotes.Server
 {
+    [LogWebApiRequest]
     [RoutePrefix("api/note")]
     public class NoteController : ApiController
     {
@@ -34,8 +35,9 @@ namespace MultiNotes.Server
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while getting all user's notes");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }           
@@ -62,8 +64,9 @@ namespace MultiNotes.Server
                 else
                     return Request.CreateResponse(HttpStatusCode.Forbidden);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while getting specific note");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }           
@@ -92,8 +95,9 @@ namespace MultiNotes.Server
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while posting note");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
@@ -124,8 +128,9 @@ namespace MultiNotes.Server
                 else
                     return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while deleting note");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
