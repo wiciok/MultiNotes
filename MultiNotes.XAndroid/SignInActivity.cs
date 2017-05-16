@@ -17,31 +17,32 @@ namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
         ParentActivity = typeof(MainActivity),
-        ScreenOrientation = ScreenOrientation.Portrait)]
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/AppTheme.NoActionBar")]
     public sealed class SignInActivity : DefaultActivity
     {
         private EditText emailAddressEditText;
         private EditText passwordEditText;
         private Button signInButton;
         private Button signUpButton;
-        
+
         private IAuthorization model;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ActivitySignIn);
+            SetContentView(Resource.Layout.activity_sign_in);
 
             model = new Authorization();
 
-            emailAddressEditText = FindViewById<EditText>(Resource.Id.SignIn_EmailAddressEditText);
-            passwordEditText = FindViewById<EditText>(Resource.Id.SignIn_PasswordEditText);
-            signInButton = FindViewById<Button>(Resource.Id.SignIn_SignInButton);
-            signUpButton = FindViewById<Button>(Resource.Id.SignIn_SignUpButton);
+            emailAddressEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_email_address);
+            passwordEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_password);
+            signInButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_in);
+            signUpButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_up);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignIn);
-            SetActionBar(toolbar);
+            // Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignIn);
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_sign_in));
 
             signInButton.Click += SignInButtonOnClick;
             signUpButton.Click += SignUpButtonOnClick;

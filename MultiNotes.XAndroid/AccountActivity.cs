@@ -13,22 +13,23 @@ using Android.Content.PM;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = false, 
-        ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = false,
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/AppTheme.NoActionBar")]
     public sealed class AccountActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ActivityAccount);
+            SetContentView(Resource.Layout.activity_account);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);
-            SetActionBar(toolbar);
+            // Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarAccount);
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_account));
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            Button changePasswordButton = (Button)FindViewById(Resource.Id.Account_ChangePasswordButton);
+            Button changePasswordButton = FindViewById<Button>(Resource.Id.account_button_change_password);
             changePasswordButton.Click += delegate
             {
                 ChangePasswordButtonOnClick();

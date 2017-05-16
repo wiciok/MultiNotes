@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="default_margin_small">25px</dimen>
+    <dimen name="default_margin_medium">50px</dimen>
+    <dimen name="default_margin_large">100px</dimen>
     <dimen name="DefaultMargin0">0px</dimen>
     <dimen name="DefaultMargin25">25px</dimen>
     <dimen name="DefaultMargin50">50px</dimen>

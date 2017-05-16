@@ -60,8 +60,8 @@ namespace MultiNotes.XAndroid.Models
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.ListItemNote, parent, false);
-            TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.NoteTitle);
+            View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.list_item_note, parent, false);
+            TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.note_title);
 
             notesTitleTextView.Text =
                 notesRepository.NotesList[position].Content.Length > 20 ?
@@ -83,7 +83,7 @@ namespace MultiNotes.XAndroid.Models
         {
             private Note note;
 
-            public NoteWrapper(Note note) 
+            public NoteWrapper(Note note)
             {
                 this.note = note;
             }

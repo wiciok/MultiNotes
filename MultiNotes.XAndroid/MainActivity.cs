@@ -17,24 +17,25 @@ using MultiNotes.XAndroid.Models;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = true, 
-        ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = true,
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/AppTheme.NoActionBar")]
     public sealed class MainActivity : DefaultActivity
     {
         private ListView notesListView;
         private FloatingActionButton fab;
 
         private IMainModel model;
-        
+
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.ActivityMain);
+            SetContentView(Resource.Layout.activity_main);
 
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.ToolbarMain));
-            notesListView = FindViewById<ListView>(Resource.Id.Main_NotesListView);
-            
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_main));
+            notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
+
             notesListView.Adapter = new NotesAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 
@@ -68,7 +69,7 @@ namespace MultiNotes.XAndroid
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.MenuMain, menu);
+            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -77,13 +78,13 @@ namespace MultiNotes.XAndroid
         {
             switch (menuItem.ItemId)
             {
-                case Resource.Id.Main_MenuEdit:
+                case Resource.Id.main_menu_edit:
                     return MenuEditOnClick();
 
-                case Resource.Id.Main_MenuSync:
+                case Resource.Id.main_menu_sync:
                     return MenuSyncOnClick();
 
-                case Resource.Id.Main_MenuAccount:
+                case Resource.Id.main_menu_account:
                     return MenuAccountOnClick();
 
                 default:
@@ -122,7 +123,7 @@ namespace MultiNotes.XAndroid
 
         private void RefreshNotesList()
         {
-            NotesAdapter adapter = FindViewById<ListView>(Resource.Id.Main_NotesListView).Adapter as NotesAdapter;
+            NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
             if (adapter != null)
             {
                 adapter.NotifyDataSetChanged();

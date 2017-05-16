@@ -1,17 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="MalczuuuTheme" parent="android:Theme.Material.Light.DarkActionBar">
-    <!-- Action Bar's color. -->
-    <item name="android:colorPrimary">@color/ToolbarBackgroundColor</item>
-    <!-- Status Bar's color. -->
-    <item name="android:statusBarColor">@color/ToolbarBackgroundColor</item>
-    <item name="android:actionMenuTextColor">@color/ToolbarTextColor</item>
+    <!--
+    <style name="MalczuuuTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorPrimary">@color/ToolbarBackgroundColor</item>
+        <item name="android:statusBarColor">@color/ToolbarBackgroundColor</item>
+        <item name="android:actionMenuTextColor">@color/ToolbarTextColor</item>
     
-    <!-- Added in order to remove Action Bar. -->
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowActionBar">false</item>
-  </style>
-  <style name="MalczuuuThemeToolbar" parent="MalczuuuTheme">
-    <item name="android:textColorSecondary">#FFFFFF</item>
-  </style>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+    <style name="MalczuuuThemeToolbar" parent="MalczuuuTheme">
+        <item name="android:textColorSecondary">#FFFFFF</item>
+    </style>
+    -->
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

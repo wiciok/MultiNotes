@@ -13,18 +13,19 @@ using Android.Widget;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = false, 
-        ParentActivity = typeof(SignInActivity), 
-        ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = false,
+        ParentActivity = typeof(SignInActivity),
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/AppTheme.NoActionBar")]
     public sealed class SignUpActivity : DefaultActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ActivitySignUp);
+            SetContentView(Resource.Layout.activity_sign_up);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
-            SetActionBar(toolbar);
+            // Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_note));
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);

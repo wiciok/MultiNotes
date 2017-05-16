@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="MultiNotes.XAndroid.MultiNotes.XAndroid" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
-	<uses-sdk android:targetSdkVersion="23" android:minSdkVersion="19" />
+	<uses-sdk android:targetSdkVersion="25" android:minSdkVersion="19" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:label="MultiNotes" android:icon="@drawable/NotesIcon" android:theme="@style/MalczuuuTheme">
+	<application android:label="MultiNotes" android:icon="@drawable/NotesIcon" android:theme="@style/AppTheme">
 		<activity android:name=".AccountActivity" android:configChanges="orientation" android:screenOrientation="portrait" />
 		<activity android:name=".MainActivity" android:configChanges="orientation" android:screenOrientation="portrait" />
 		<activity android:name=".SignInActivity" android:configChanges="orientation" android:screenOrientation="portrait" />

@@ -15,9 +15,10 @@ using MultiNotes.XAndroid.Models;
 
 namespace MultiNotes.XAndroid
 {
-    [Activity(MainLauncher = false, 
-        ParentActivity = typeof(MainActivity), 
-        ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = false,
+        ParentActivity = typeof(MainActivity),
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/AppTheme.NoActionBar")]
     public sealed class NoteActivity : DefaultActivity
     {
         public static readonly string NOTE_ID = "NOTE_ID";
@@ -30,12 +31,11 @@ namespace MultiNotes.XAndroid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ActivityNote);
+            SetContentView(Resource.Layout.activity_note);
 
-            noteEditText = FindViewById<EditText>(Resource.Id.Note_EditText);
+            noteEditText = FindViewById<EditText>(Resource.Id.note_edit_text);
 
-            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarNote);
-            SetActionBar(toolbar);
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_note));
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -47,7 +47,7 @@ namespace MultiNotes.XAndroid
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.MenuNote, menu);
+            MenuInflater.Inflate(Resource.Menu.menu_note, menu);
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -59,10 +59,10 @@ namespace MultiNotes.XAndroid
                 case Android.Resource.Id.Home:
                     return MenuHomeOnClick();
 
-                case Resource.Id.Note_MenuSave:
+                case Resource.Id.note_menu_save:
                     return MenuSaveOnClick();
 
-                case Resource.Id.Note_MenuDelete:
+                case Resource.Id.note_menu_delete:
                     return MenuDeleteOnClick();
 
                 default:

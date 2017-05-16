@@ -109,7 +109,7 @@
     <Compile Include="Models\NotesRepository.cs" />
     <Compile Include="Models\NotesAdapter.cs" />
     <Compile Include="MainActivity.cs" />
-    <AndroidResource Include="Resources\layout\ActivitySignIn.axml">
+    <AndroidResource Include="Resources\layout\activity_sign_in.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,18 +122,18 @@
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\ActivitySignUp.axml">
+    <AndroidResource Include="Resources\layout\activity_sign_up.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ActivityAccount.axml">
+    <AndroidResource Include="Resources\layout\activity_account.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ActivityNote.axml">
+    <AndroidResource Include="Resources\layout\activity_note.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\ActivityMain.axml">
+    <AndroidResource Include="Resources\layout\activity_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -156,15 +156,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\ToolbarMain.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\NotesIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\menu\MenuMain.xml">
+    <AndroidResource Include="Resources\menu\menu_main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -186,7 +181,7 @@
     <AndroidResource Include="Resources\drawable\ic_action_content_save.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\ListItemNote.xml" />
+    <AndroidResource Include="Resources\layout\list_item_note.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
@@ -195,7 +190,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\menu\MenuNote.xml" />
+    <AndroidResource Include="Resources\menu\menu_note.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_action_content_delete.png" />
