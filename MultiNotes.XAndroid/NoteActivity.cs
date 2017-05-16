@@ -97,20 +97,26 @@ namespace MultiNotes.XAndroid
             if (model.NoteId.Length != 0)
             {
                 new AlertDialog.Builder(this)
-                    // .SetTitle("Potwierdzenie")
-                    .SetMessage("Do you really want to whatever?")
-                    // .SetIcon(Resource.Drawable.ic_dialog_alert)
-                    .SetPositiveButton(Resource.String.confirm_dialog_yes, delegate
-                    {
-                        model.DeleteNote();
-                        Finish();
-                    })
-                    .SetNegativeButton(Resource.String.confirm_dialog_no, delegate
-                    {
-                    // Do nothing!
-                }).Show();
+                    .SetMessage(Resource.String.confirm_delete_note_text)
+                    .SetIcon(Resource.Drawable.ic_warning_black)
+                    .SetPositiveButton(Resource.String.confirm_dialog_yes,
+                                       DeleteNoteConfirmationAlertOnPositive)
+                    .SetNegativeButton(Resource.String.confirm_dialog_no, 
+                                       DeleteNoteConfirmationAlertOnPositive)
+                    .Show();
             }
             return true;
+        }
+        
+        private void DeleteNoteConfirmationAlertOnPositive(object sender, DialogClickEventArgs e)
+        {
+            model.DeleteNote();
+            Finish();
+        }
+
+        private void DeleteNoteConfirmationAlertOnNegative(object sender, DialogClickEventArgs e)
+        {
+            // Do nothing!
         }
     }
 }

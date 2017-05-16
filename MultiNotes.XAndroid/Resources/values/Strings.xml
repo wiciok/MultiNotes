@@ -34,6 +34,8 @@
     <string name="alert_note_empty">Notatka nie może być pusta!</string>
     <string name="confirm_dialog_yes">Tak</string>
     <string name="confirm_dialog_no">Nie</string>
+    <string name="confirm_delete_note_text">Czy na pewno chcesz usunąć tą notatkę?</string>
+    
     
     
     
