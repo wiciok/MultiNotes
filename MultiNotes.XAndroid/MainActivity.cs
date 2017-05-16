@@ -35,6 +35,7 @@ namespace MultiNotes.XAndroid
             SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_main));
 
             notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
+            fab = FindViewById<FloatingActionButton>(Resource.Id.main_fab);
 
             notesListView.Adapter = new NotesAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
@@ -45,8 +46,9 @@ namespace MultiNotes.XAndroid
             {
                 StartActivity(typeof(SignInActivity));
             }
-        }
 
+            fab.Click += FloatinActionButtonOnClick;
+        }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
         {
@@ -118,6 +120,12 @@ namespace MultiNotes.XAndroid
         {
             StartActivity(typeof(AccountActivity));
             return true;
+        }
+
+
+        private void FloatinActionButtonOnClick(object sender, EventArgs e)
+        {
+            StartNoteActivity();
         }
 
 

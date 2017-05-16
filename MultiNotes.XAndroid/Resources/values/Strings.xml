@@ -32,6 +32,9 @@
     <string name="note_title">Notatka</string>
 
     <string name="alert_note_empty">Notatka nie może być pusta!</string>
+    <string name="confirm_dialog_yes">Tak</string>
+    <string name="confirm_dialog_no">Nie</string>
+    
     
     
     <!-- OBSOLETE: -->

@@ -96,9 +96,20 @@ namespace MultiNotes.XAndroid
         {
             if (model.NoteId.Length != 0)
             {
-                model.DeleteNote();
+                new AlertDialog.Builder(this)
+                    // .SetTitle("Potwierdzenie")
+                    .SetMessage("Do you really want to whatever?")
+                    // .SetIcon(Resource.Drawable.ic_dialog_alert)
+                    .SetPositiveButton(Resource.String.confirm_dialog_yes, delegate
+                    {
+                        model.DeleteNote();
+                        Finish();
+                    })
+                    .SetNegativeButton(Resource.String.confirm_dialog_no, delegate
+                    {
+                    // Do nothing!
+                }).Show();
             }
-            Finish();
             return true;
         }
     }

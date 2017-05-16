@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Toolbar
-        android:id="@+id/toolbar_main"
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/colorPrimary"
+            android:title="@string/ApplicationName"
+            android:theme="@style/AppTheme.NoActionBar.Toolbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <ListView
+            android:id="@+id/main_list_view_notes"
+            android:layout_below="@+id/toolbar_main"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:layout_marginBottom="@dimen/default_margin_small" />
+    </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:attr/colorPrimary"
-        android:title="@string/ApplicationName"
-        android:theme="@style/AppTheme.NoActionBar.Toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
-    <ListView
-        android:id="@+id/main_list_view_notes"
-        android:layout_below="@+id/toolbar_main"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:layout_marginBottom="@dimen/default_margin_small" />
-</RelativeLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_action_content_create" 
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:backgroundTint="@color/color_red"/>
+</android.support.design.widget.CoordinatorLayout>
