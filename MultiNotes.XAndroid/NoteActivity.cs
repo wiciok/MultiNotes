@@ -99,10 +99,8 @@ namespace MultiNotes.XAndroid
                 new AlertDialog.Builder(this)
                     .SetMessage(Resource.String.confirm_delete_note_text)
                     .SetIcon(Resource.Drawable.ic_warning_black)
-                    .SetPositiveButton(Resource.String.confirm_dialog_yes,
-                                       DeleteNoteConfirmationAlertOnPositive)
-                    .SetNegativeButton(Resource.String.confirm_dialog_no, 
-                                       DeleteNoteConfirmationAlertOnPositive)
+                    .SetPositiveButton(Resource.String.confirm_dialog_yes,DeleteNoteConfirmationAlertOnPositive)
+                    .SetNegativeButton(Resource.String.confirm_dialog_no, DeleteNoteConfirmationAlertOnNegative)
                     .Show();
             }
             return true;
