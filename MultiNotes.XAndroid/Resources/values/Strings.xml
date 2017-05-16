@@ -10,7 +10,8 @@
     <string name="button_sign_in">Zaloguj się!</string>
     <string name="button_sign_out">Wyloguj się</string>
     <string name="button_sign_up">Zarejestruj się!</string>
-    
+
+    <string name="change_password_title">Zmiana hasła</string>
     <string name="checkbox_accept_rules">Akceptuję regulamin usługi!</string>
     <string name="confirm_dialog_no">Nie</string>
     <string name="confirm_dialog_yes">Tak</string>
@@ -32,6 +33,8 @@
     
     <string name="text_view_account_welcome">Konto użytkownika</string>
     <string name="text_view_email_address">Adres e-mail:</string>
+    <string name="text_view_new_password">Nowe hasło:</string>
+    <string name="text_view_old_password">Stare hasło:</string>
     <string name="text_view_password">Hasło:</string>
     <string name="text_view_repeat_password">Powtórz hasło:</string>
     <string name="text_view_username">Nazwa użytkownika:</string>

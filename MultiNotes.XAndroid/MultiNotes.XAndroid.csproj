@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountActivity.cs" />
+    <Compile Include="ChangePasswordActivity.cs" />
     <Compile Include="DefaultActivity.cs" />
     <Compile Include="Models\IMainModel.cs" />
     <Compile Include="Models\INoteModel.cs" />
@@ -129,6 +130,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_note.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_change_password.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

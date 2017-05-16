@@ -51,8 +51,7 @@ namespace MultiNotes.XAndroid
 
         private void ChangePasswordButtonOnClick()
         {
-            // TODO: Widok zmiany hasła.
-            Toast.MakeText(this, "Tu pojawi się widok zmiany hasła!", ToastLength.Short).Show();
+            StartActivity(typeof(ChangePasswordActivity));
         }
 
     }
