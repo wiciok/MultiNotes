@@ -4,15 +4,15 @@
       android:id="@+id/main_menu_edit"
       android:icon="@drawable/ic_action_content_create"
       android:showAsAction="always"
-      android:title="@string/MenuEdit" />
+      android:title="@string/menu_edit" />
     <item
       android:id="@+id/main_menu_sync"
       android:icon="@drawable/ic_action_content_sync"
       android:showAsAction="always"
-      android:title="@string/MenuSync" />
+      android:title="@string/menu_sync" />
     <item
       android:id="@+id/main_menu_account"
       android:icon="@drawable/ic_action_content_account"
       android:showAsAction="always"
-      android:title="@string/MenuAccount" />
+      android:title="@string/menu_account" />
 </menu>

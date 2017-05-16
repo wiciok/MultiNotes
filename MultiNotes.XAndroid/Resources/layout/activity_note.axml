@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary"
-        android:title="@string/NoteToolbarTitle"
+        android:title="@string/note_title"
         android:theme="@style/AppTheme.NoActionBar.Toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
-    <!-- Dummy element to avoid focus on edit text. -->
+<!-- Dummy element to avoid focus on edit text. -->
     <LinearLayout
         android:focusable="true"
         android:focusableInTouchMode="true"

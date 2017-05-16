@@ -1,80 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="account_title">Konto użytkownika</string>
+    <string name="alert_note_empty">Notatka nie może być pusta!</string>
     <string name="app_name">Multi Notes</string>
-
+    
+    <string name="button_change_password">Zmień hasło</string>
+    <string name="button_settings">Ustawienia</string>
+    <string name="button_sign_in">Zaloguj się!</string>
+    <string name="button_sign_out">Wyloguj się</string>
+    <string name="button_sign_up">Zarejestruj się!</string>
+    
+    <string name="checkbox_accept_rules">Akceptuję regulamin usługi!</string>
+    <string name="confirm_dialog_no">Nie</string>
+    <string name="confirm_dialog_yes">Tak</string>
+    <string name="confirm_delete_note_text">Czy na pewno chcesz usunąć tą notatkę?</string>
+    <string name="confirm_note_not_saved">Notatka nie została zapisana. Czy na pewno chcesz wyjść?</string>
+    
+    <string name="menu_account">Konto</string>
+    <string name="menu_delete">Usuń</string>
     <string name="menu_edit">Edytuj</string>
+    <string name="menu_more">Więcej</string>
+    <string name="menu_preferences">Ustawienia</string>
     <string name="menu_save">Zapisz</string>
     <string name="menu_sync">Synchronizuj</string>
-    <string name="nemu_account">Konto</string>
     
-    <string name="menu_more">Więcej</string>
-    <string name="menu_delete">Usuń</string>
-    <string name="menu_preferences">Ustawienia</string>
+    <string name="note_title">Notatka</string>
     
     <string name="sign_in_title">Logowanie</string>
     <string name="sign_up_title">Rejestracja</string>
+    
+    <string name="text_view_account_welcome">Konto użytkownika</string>
     <string name="text_view_email_address">Adres e-mail:</string>
     <string name="text_view_password">Hasło:</string>
     <string name="text_view_repeat_password">Powtórz hasło:</string>
-    <string name="checkbox_accept_rules">Akceptuję regulamin usługi!</string>
-    <string name="button_sign_in">Zaloguj się!</string>
-    <string name="button_sign_up">Zarejestruj się!</string>
-
-    <string name="account_title">Konto użytkownika</string>
-    <string name="text_view_account_welcome">Konto użytkownika</string>
     <string name="text_view_username">Nazwa użytkownika:</string>
-    <string name="text_view_email_address">Adres e-mail:</string>
-    <string name="button_change_password">Zmień hasło</string>
-    <string name="button_sign_out">Wyloguj się</string>
-    <string name="button_settings">Ustawienia</string>
 
-    <string name="note_title">Notatka</string>
-
-    <string name="alert_note_empty">Notatka nie może być pusta!</string>
-    <string name="confirm_dialog_yes">Tak</string>
-    <string name="confirm_dialog_no">Nie</string>
-    <string name="confirm_delete_note_text">Czy na pewno chcesz usunąć tą notatkę?</string>
-    
-    
-    
-    
-    <!-- OBSOLETE: -->
-
-    <string name="EmptyString"></string>
-    <string name="ThreeDotsString">. . .</string>
-
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">MultiNotes</string>
-
-    <string name="MenuEdit">Edytuj</string>
-    <string name="MenuSave">Zapisz</string>
-    <string name="MenuSync">Synchronizuj</string>
-    <string name="MenuAccount">Konto</string>
-
-    <string name="MenuMore">Więcej</string>
-    <string name="MenuDelete">Usuń</string>
-    <string name="MenuPreferences">Ustawienia</string>
-
-    <string name="ToolbarSignInTitle">Logowanie</string>
-    <string name="ToolbarSignUpTitle">Rejestracja</string>
-    <string name="EmailAddressTextView">Adres e-mail:</string>
-    <string name="PasswordTextView">Hasło:</string>
-    <string name="RepeatPasswordTextView">Powtórz hasło:</string>
-    <string name="AcceptRules">Akceptuję regulamin usługi!</string>
-    <string name="SignInButton">Zaloguj się!</string>
-    <string name="SignUpButton">Zarejestruj się!</string>
-
-    <string name="AccountWelcomeLabelTextView">Konto użytkownika</string>
-    <string name="ToolbarAccountTitle">Konto użytkownika</string>
-    <string name="UsernameLabelTextView">Nazwa użytkownika:</string>
-    <string name="UserEmailLabelTextView">Adres e-mail:</string>
-    <string name="ChangePasswordButton">Zmień hasło</string>
-    <string name="SignOutButton">Wyloguj się</string>
-    <string name="SettingsButton">Ustawienia</string>
-
-    <string name="NoteToolbarTitle">Notatka</string>
-
-    <string name="NoteEmptyAlert">Notatka nie może być pusta!</string>
 
 </resources>

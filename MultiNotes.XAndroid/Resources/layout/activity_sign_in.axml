@@ -8,11 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary"
-        android:title="@string/ToolbarSignInTitle"
+        android:title="@string/sign_in_title"
         android:theme="@style/AppTheme.NoActionBar.Toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
     <TextView
-        android:text="@string/EmailAddressTextView"
+        android:text="@string/text_view_email_address"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_marginBottom="@dimen/DefaultMargin50"
         android:id="@+id/sign_in_edit_text_email_address" />
     <TextView
-        android:text="@string/PasswordTextView"
+        android:text="@string/text_view_password"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_below="@+id/sign_in_edit_text_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/SignInButton"
+        android:text="@string/button_sign_in"
         android:layout_marginTop="@dimen/default_margin_small"
         android:layout_marginLeft="@dimen/default_margin_small"
         android:layout_marginRight="@dimen/default_margin_small"
@@ -61,7 +61,7 @@
         android:layout_below="@+id/sign_in_button_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/SignUpButton"
+        android:text="@string/button_sign_up"
         android:layout_marginTop="@dimen/default_margin_small"
         android:layout_marginLeft="@dimen/default_margin_small"
         android:layout_marginRight="@dimen/default_margin_small"

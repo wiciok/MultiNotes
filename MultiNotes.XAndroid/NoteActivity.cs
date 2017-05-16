@@ -69,14 +69,40 @@ namespace MultiNotes.XAndroid
             }
         }
 
+        public override void OnBackPressed()
+        {
+            if (noteEditText.Text.Trim() != model.NoteContent)
+            {
+                ShowNoteNotSavedAlert(delegate { base.OnBackPressed(); });
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+        }
+
+        protected override bool MenuHomeOnClick()
+        {
+            if (noteEditText.Text.Trim() != model.NoteContent)
+            {
+                bool result = true;
+                ShowNoteNotSavedAlert(delegate { result = base.MenuHomeOnClick(); });
+                return result;
+            }
+            else
+            {
+                return base.MenuHomeOnClick();
+            }
+        }
+
 
         private bool MenuSaveOnClick()
         {
-            model.NoteContent = noteEditText.Text;
+            model.NoteContent = noteEditText.Text.Trim();
             if (model.NoteContent.Length == 0)
             {
-                Toast.MakeText(this, Resource.String.NoteEmptyAlert, ToastLength.Short).Show();
-                return false;
+                Toast.MakeText(this, Resource.String.alert_note_empty, ToastLength.Short).Show();
+                return true;
             }
             if (model.NoteId.Length != 0)
             {
@@ -96,25 +122,52 @@ namespace MultiNotes.XAndroid
         {
             if (model.NoteId.Length != 0)
             {
-                new AlertDialog.Builder(this)
-                    .SetMessage(Resource.String.confirm_delete_note_text)
-                    .SetIcon(Resource.Drawable.ic_warning_black)
-                    .SetPositiveButton(Resource.String.confirm_dialog_yes,DeleteNoteConfirmationAlertOnPositive)
-                    .SetNegativeButton(Resource.String.confirm_dialog_no, DeleteNoteConfirmationAlertOnNegative)
-                    .Show();
+                ShowDeleteNoteAlert(delegate { model.DeleteNote(); Finish(); });
+            }
+            else
+            {
+                if (noteEditText.Text.Length > 0)
+                {
+                    ShowNoteNotSavedAlert(delegate { Finish(); });
+                }
+                else
+                {
+                    Finish();
+                }
             }
             return true;
         }
-        
-        private void DeleteNoteConfirmationAlertOnPositive(object sender, DialogClickEventArgs e)
+
+        private void ShowDeleteNoteAlert(EventHandler<DialogClickEventArgs> onPositive)
         {
-            model.DeleteNote();
-            Finish();
+            ShowDeleteNoteAlert(onPositive, delegate { });
         }
 
-        private void DeleteNoteConfirmationAlertOnNegative(object sender, DialogClickEventArgs e)
+        private void ShowDeleteNoteAlert(EventHandler<DialogClickEventArgs> onPositive, 
+                                         EventHandler<DialogClickEventArgs> onNegative)
         {
-            // Do nothing!
+            new AlertDialog.Builder(this)
+                .SetMessage(Resource.String.confirm_delete_note_text)
+                .SetIcon(Resource.Drawable.ic_warning_black)
+                .SetPositiveButton(Resource.String.confirm_dialog_yes, onPositive)
+                .SetNegativeButton(Resource.String.confirm_dialog_no, onNegative)
+                .Show();
+        }
+
+        private void ShowNoteNotSavedAlert(EventHandler<DialogClickEventArgs> onPositive)
+        {
+            ShowNoteNotSavedAlert(onPositive, delegate { });
+        }
+
+        private void ShowNoteNotSavedAlert(EventHandler<DialogClickEventArgs> onPositive,
+                                           EventHandler<DialogClickEventArgs> onNegative)
+        {
+            new AlertDialog.Builder(this)
+                .SetMessage(Resource.String.confirm_note_not_saved)
+                .SetIcon(Resource.Drawable.ic_warning_black)
+                .SetPositiveButton(Resource.String.confirm_dialog_yes, onPositive)
+                .SetNegativeButton(Resource.String.confirm_dialog_no, onNegative)
+                .Show();
         }
     }
 }
