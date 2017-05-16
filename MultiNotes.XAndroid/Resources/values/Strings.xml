@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Multi Notes</string>
+
+    <string name="menu_edit">Edytuj</string>
+    <string name="menu_save">Zapisz</string>
+    <string name="menu_sync">Synchronizuj</string>
+    <string name="nemu_account">Konto</string>
+    
+    <string name="menu_more">Więcej</string>
+    <string name="menu_delete">Usuń</string>
+    <string name="menu_preferences">Ustawienia</string>
+    
+    <string name="sign_in_title">Logowanie</string>
+    <string name="sign_up_title">Rejestracja</string>
+    <string name="text_view_email_address">Adres e-mail:</string>
+    <string name="text_view_password">Hasło:</string>
+    <string name="text_view_repeat_password">Powtórz hasło:</string>
+    <string name="checkbox_accept_rules">Akceptuję regulamin usługi!</string>
+    <string name="button_sign_in">Zaloguj się!</string>
+    <string name="button_sign_up">Zarejestruj się!</string>
+
+    <string name="account_title">Konto użytkownika</string>
+    <string name="text_view_account_welcome">Konto użytkownika</string>
+    <string name="text_view_username">Nazwa użytkownika:</string>
+    <string name="text_view_email_address">Adres e-mail:</string>
+    <string name="button_change_password">Zmień hasło</string>
+    <string name="button_sign_out">Wyloguj się</string>
+    <string name="button_settings">Ustawienia</string>
+
+    <string name="note_title">Notatka</string>
+
+    <string name="alert_note_empty">Notatka nie może być pusta!</string>
+    
+    
+    <!-- OBSOLETE: -->
+
     <string name="EmptyString"></string>
     <string name="ThreeDotsString">. . .</string>
 
