@@ -32,10 +32,9 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_note);
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_note));
 
             noteEditText = FindViewById<EditText>(Resource.Id.note_edit_text);
-
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_note));
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);

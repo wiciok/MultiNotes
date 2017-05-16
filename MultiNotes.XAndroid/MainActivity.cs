@@ -32,8 +32,8 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.activity_main);
-
             SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_main));
+
             notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
 
             notesListView.Adapter = new NotesAdapter(this);

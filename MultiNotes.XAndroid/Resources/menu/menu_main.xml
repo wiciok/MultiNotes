@@ -15,22 +15,4 @@
       android:icon="@drawable/ic_action_content_account"
       android:showAsAction="always"
       android:title="@string/MenuAccount" />
-    <!--
-  <item
-    android:foreground="#ffffff"
-    android:id="@+id/MenuMore"
-    android:showAsAction="always"
-    android:title="@string/MenuMore">
-    <menu>
-      <item
-        android:id="@+id/MenuDelete"
-        android:showAsAction="always"
-        android:title="@string/MenuDelete" />
-      <item
-        android:id="@+id/MenuPreferences"
-        android:showAsAction="always"
-        android:title="@string/MenuPreferences" />
-    </menu>
-  </item>
-  -->
 </menu>

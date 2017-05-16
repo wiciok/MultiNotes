@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary"
         android:title="@string/ToolbarSignInTitle"
+        android:theme="@style/AppTheme.NoActionBar.Toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
     <TextView
         android:text="@string/EmailAddressTextView"

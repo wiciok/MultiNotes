@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary"
         android:title="@string/NoteToolbarTitle"
+        android:theme="@style/AppTheme.NoActionBar.Toolbar"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
     <!-- Dummy element to avoid focus on edit text. -->
     <LinearLayout

@@ -23,9 +23,7 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_up);
-
-            // Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.ToolbarSignUp);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_note));
+            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_sign_up));
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);

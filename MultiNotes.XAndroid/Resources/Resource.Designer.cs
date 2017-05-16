@@ -3376,14 +3376,17 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f09017a
 			public const int AppTheme = 2131296634;
 			
-			// aapt resource value: 0x7f09017c
-			public const int AppTheme_AppBarOverlay = 2131296636;
+			// aapt resource value: 0x7f09017d
+			public const int AppTheme_AppBarOverlay = 2131296637;
 			
 			// aapt resource value: 0x7f09017b
 			public const int AppTheme_NoActionBar = 2131296635;
 			
-			// aapt resource value: 0x7f09017d
-			public const int AppTheme_PopupOverlay = 2131296637;
+			// aapt resource value: 0x7f09017c
+			public const int AppTheme_NoActionBar_Toolbar = 2131296636;
+			
+			// aapt resource value: 0x7f09017e
+			public const int AppTheme_PopupOverlay = 2131296638;
 			
 			// aapt resource value: 0x7f0900a3
 			public const int Base_AlertDialog_AppCompat = 2131296419;
