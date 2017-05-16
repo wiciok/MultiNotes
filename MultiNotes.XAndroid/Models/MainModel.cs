@@ -16,6 +16,7 @@ namespace MultiNotes.XAndroid.Models
 {
     public class MainModel : IMainModel
     {
+
         private IAuthorization authorization;
         private INotesRepository notesRepository;
 
@@ -43,5 +44,6 @@ namespace MultiNotes.XAndroid.Models
         {
             get { return notesRepository; }
         }
+
     }
 }

@@ -21,6 +21,7 @@ namespace MultiNotes.XAndroid
         Theme = "@style/AppTheme.NoActionBar")]
     public sealed class NoteActivity : DefaultActivity
     {
+
         public static readonly string NOTE_ID = "NOTE_ID";
         public static readonly string NOTE_CONTENT = "NOTE_CONTENT";
 
@@ -40,7 +41,8 @@ namespace MultiNotes.XAndroid
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             model = new NoteModel(Intent.GetStringExtra(NOTE_ID), Intent.GetStringExtra(NOTE_CONTENT));
-            noteEditText.Text = model.NoteContent;
+            noteEditText.Text = "";
+            noteEditText.Append(model.NoteContent);
         }
 
 
@@ -169,5 +171,6 @@ namespace MultiNotes.XAndroid
                 .SetNegativeButton(Resource.String.confirm_dialog_no, onNegative)
                 .Show();
         }
+
     }
 }

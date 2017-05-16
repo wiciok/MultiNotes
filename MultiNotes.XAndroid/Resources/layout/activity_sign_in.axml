@@ -28,7 +28,7 @@
         android:layout_below="@id/sign_in_text_view_email_address"
         android:layout_marginLeft="@dimen/default_margin_small"
         android:layout_marginRight="@dimen/default_margin_small"
-        android:layout_marginBottom="@dimen/DefaultMargin50"
+        android:layout_marginBottom="@dimen/default_margin_small"
         android:id="@+id/sign_in_edit_text_email_address" />
     <TextView
         android:text="@string/text_view_password"

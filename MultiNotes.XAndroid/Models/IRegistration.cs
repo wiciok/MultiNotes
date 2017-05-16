@@ -14,5 +14,8 @@ namespace MultiNotes.XAndroid.Models
 {
     public interface IRegistration
     {
+
+        // TOTO: this interface and registration
+
     }
 }

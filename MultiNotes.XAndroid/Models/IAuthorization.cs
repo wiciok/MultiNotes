@@ -16,8 +16,12 @@ namespace MultiNotes.XAndroid.Models
 {
     public interface IAuthorization
     {
+
         bool Successful { get; }
+
         User User { get; }
+
         bool SignIn(string username, string password);
+
     }
 }

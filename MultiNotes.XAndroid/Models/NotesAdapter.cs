@@ -16,6 +16,7 @@ namespace MultiNotes.XAndroid.Models
 {
     public class NotesAdapter : BaseAdapter
     {
+
         private INotesRepository notesRepository;
         private Activity activity;
 
@@ -90,5 +91,6 @@ namespace MultiNotes.XAndroid.Models
 
             public Note Note { get { return note; } }
         }
+
     }
 }

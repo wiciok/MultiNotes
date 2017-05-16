@@ -58,6 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_change_password"
+        android:background="@color/color_blue"
+        android:textColor="@color/color_white"
         android:layout_marginTop="@dimen/default_margin_small"
         android:layout_marginLeft="@dimen/default_margin_small"
         android:layout_marginRight="@dimen/default_margin_small"

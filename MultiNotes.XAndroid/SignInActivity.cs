@@ -21,6 +21,7 @@ namespace MultiNotes.XAndroid
         Theme = "@style/AppTheme.NoActionBar")]
     public sealed class SignInActivity : DefaultActivity
     {
+
         private EditText emailAddressEditText;
         private EditText passwordEditText;
         private Button signInButton;
@@ -71,5 +72,6 @@ namespace MultiNotes.XAndroid
             // will be MainActivity).
             FinishAffinity();
         }
+
     }
 }

@@ -16,6 +16,7 @@ namespace MultiNotes.XAndroid.Models
 {
     public class Authorization : IAuthorization
     {
+
         private bool successful;
 
 
@@ -51,5 +52,6 @@ namespace MultiNotes.XAndroid.Models
             successful = true;
             return successful;
         }
+
     }
 }

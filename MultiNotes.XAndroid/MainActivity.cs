@@ -22,6 +22,7 @@ namespace MultiNotes.XAndroid
         Theme = "@style/AppTheme.NoActionBar")]
     public sealed class MainActivity : DefaultActivity
     {
+
         private ListView notesListView;
         private FloatingActionButton fab;
 
@@ -151,5 +152,6 @@ namespace MultiNotes.XAndroid
             intent.PutExtra(NoteActivity.NOTE_CONTENT, content);
             StartActivity(intent);
         }
+
     }
 }

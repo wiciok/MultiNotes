@@ -19,6 +19,7 @@ namespace MultiNotes.XAndroid
         Theme = "@style/AppTheme.NoActionBar")]
     public sealed class SignUpActivity : DefaultActivity
     {
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -41,5 +42,6 @@ namespace MultiNotes.XAndroid
                     return base.OnOptionsItemSelected(menuItem);
             }
         }
+
     }
 }

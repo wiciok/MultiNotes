@@ -16,6 +16,7 @@ namespace MultiNotes.XAndroid.Models
 {
     internal sealed class NotesBase
     {
+
         private static NotesBase instance = null;
         private static readonly object syncRoot = new object();
 
@@ -66,6 +67,7 @@ namespace MultiNotes.XAndroid.Models
         }
 
 
+        // Non-static section starts here:
 
         private List<Note> notesList;
 
@@ -86,5 +88,6 @@ namespace MultiNotes.XAndroid.Models
         {
             notesList = notesList.OrderByDescending(x => x.LastChangeTimestamp).ToList();
         }
+
     }
 }

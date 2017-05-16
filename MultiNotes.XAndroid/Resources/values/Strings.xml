@@ -35,6 +35,5 @@
     <string name="text_view_password">Hasło:</string>
     <string name="text_view_repeat_password">Powtórz hasło:</string>
     <string name="text_view_username">Nazwa użytkownika:</string>
-
-
+    
 </resources>

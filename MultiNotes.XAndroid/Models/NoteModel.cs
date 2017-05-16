@@ -16,6 +16,7 @@ namespace MultiNotes.XAndroid.Models
 {
     public class NoteModel : INoteModel
     {
+
         private string noteId;
         private string noteContent;
 
@@ -83,5 +84,6 @@ namespace MultiNotes.XAndroid.Models
             });
             notesRepository.Reorder();
         }
+
     }
 }

@@ -1091,44 +1091,44 @@ namespace MultiNotes.XAndroid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0b004c
-			public const int abc_background_cache_hint_selector_material_dark = 2131427404;
-			
-			// aapt resource value: 0x7f0b004d
-			public const int abc_background_cache_hint_selector_material_light = 2131427405;
-			
 			// aapt resource value: 0x7f0b004e
-			public const int abc_btn_colored_borderless_text_material = 2131427406;
+			public const int abc_background_cache_hint_selector_material_dark = 2131427406;
 			
 			// aapt resource value: 0x7f0b004f
-			public const int abc_btn_colored_text_material = 2131427407;
+			public const int abc_background_cache_hint_selector_material_light = 2131427407;
 			
 			// aapt resource value: 0x7f0b0050
-			public const int abc_color_highlight_material = 2131427408;
+			public const int abc_btn_colored_borderless_text_material = 2131427408;
 			
 			// aapt resource value: 0x7f0b0051
-			public const int abc_hint_foreground_material_dark = 2131427409;
+			public const int abc_btn_colored_text_material = 2131427409;
 			
 			// aapt resource value: 0x7f0b0052
-			public const int abc_hint_foreground_material_light = 2131427410;
+			public const int abc_color_highlight_material = 2131427410;
+			
+			// aapt resource value: 0x7f0b0053
+			public const int abc_hint_foreground_material_dark = 2131427411;
+			
+			// aapt resource value: 0x7f0b0054
+			public const int abc_hint_foreground_material_light = 2131427412;
 			
 			// aapt resource value: 0x7f0b0001
 			public const int abc_input_method_navigation_guard = 2131427329;
 			
-			// aapt resource value: 0x7f0b0053
-			public const int abc_primary_text_disable_only_material_dark = 2131427411;
-			
-			// aapt resource value: 0x7f0b0054
-			public const int abc_primary_text_disable_only_material_light = 2131427412;
-			
 			// aapt resource value: 0x7f0b0055
-			public const int abc_primary_text_material_dark = 2131427413;
+			public const int abc_primary_text_disable_only_material_dark = 2131427413;
 			
 			// aapt resource value: 0x7f0b0056
-			public const int abc_primary_text_material_light = 2131427414;
+			public const int abc_primary_text_disable_only_material_light = 2131427414;
 			
 			// aapt resource value: 0x7f0b0057
-			public const int abc_search_url_text = 2131427415;
+			public const int abc_primary_text_material_dark = 2131427415;
+			
+			// aapt resource value: 0x7f0b0058
+			public const int abc_primary_text_material_light = 2131427416;
+			
+			// aapt resource value: 0x7f0b0059
+			public const int abc_search_url_text = 2131427417;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int abc_search_url_text_normal = 2131427330;
@@ -1139,32 +1139,32 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f0b0004
 			public const int abc_search_url_text_selected = 2131427332;
 			
-			// aapt resource value: 0x7f0b0058
-			public const int abc_secondary_text_material_dark = 2131427416;
-			
-			// aapt resource value: 0x7f0b0059
-			public const int abc_secondary_text_material_light = 2131427417;
-			
 			// aapt resource value: 0x7f0b005a
-			public const int abc_tint_btn_checkable = 2131427418;
+			public const int abc_secondary_text_material_dark = 2131427418;
 			
 			// aapt resource value: 0x7f0b005b
-			public const int abc_tint_default = 2131427419;
+			public const int abc_secondary_text_material_light = 2131427419;
 			
 			// aapt resource value: 0x7f0b005c
-			public const int abc_tint_edittext = 2131427420;
+			public const int abc_tint_btn_checkable = 2131427420;
 			
 			// aapt resource value: 0x7f0b005d
-			public const int abc_tint_seek_thumb = 2131427421;
+			public const int abc_tint_default = 2131427421;
 			
 			// aapt resource value: 0x7f0b005e
-			public const int abc_tint_spinner = 2131427422;
+			public const int abc_tint_edittext = 2131427422;
 			
 			// aapt resource value: 0x7f0b005f
-			public const int abc_tint_switch_thumb = 2131427423;
+			public const int abc_tint_seek_thumb = 2131427423;
 			
 			// aapt resource value: 0x7f0b0060
-			public const int abc_tint_switch_track = 2131427424;
+			public const int abc_tint_spinner = 2131427424;
+			
+			// aapt resource value: 0x7f0b0061
+			public const int abc_tint_switch_thumb = 2131427425;
+			
+			// aapt resource value: 0x7f0b0062
+			public const int abc_tint_switch_track = 2131427426;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int accent_material_dark = 2131427333;
@@ -1211,20 +1211,26 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f0b004a
 			public const int color_accent = 2131427402;
 			
+			// aapt resource value: 0x7f0b004b
+			public const int color_blue = 2131427403;
+			
 			// aapt resource value: 0x7f0b0048
 			public const int color_primary = 2131427400;
 			
 			// aapt resource value: 0x7f0b0049
 			public const int color_primary_dark = 2131427401;
 			
-			// aapt resource value: 0x7f0b004b
-			public const int color_red = 2131427403;
+			// aapt resource value: 0x7f0b004c
+			public const int color_red = 2131427404;
+			
+			// aapt resource value: 0x7f0b004d
+			public const int color_white = 2131427405;
 			
 			// aapt resource value: 0x7f0b003b
 			public const int design_bottom_navigation_shadow_color = 2131427387;
 			
-			// aapt resource value: 0x7f0b0061
-			public const int design_error = 2131427425;
+			// aapt resource value: 0x7f0b0063
+			public const int design_error = 2131427427;
 			
 			// aapt resource value: 0x7f0b003c
 			public const int design_fab_shadow_end_color = 2131427388;
@@ -1256,8 +1262,8 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f0b0045
 			public const int design_textinput_error_color_light = 2131427397;
 			
-			// aapt resource value: 0x7f0b0062
-			public const int design_tint_password_toggle = 2131427426;
+			// aapt resource value: 0x7f0b0064
+			public const int design_tint_password_toggle = 2131427428;
 			
 			// aapt resource value: 0x7f0b0013
 			public const int dim_foreground_disabled_material_dark = 2131427347;
@@ -1376,11 +1382,11 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f0b0038
 			public const int switch_thumb_disabled_material_light = 2131427384;
 			
-			// aapt resource value: 0x7f0b0063
-			public const int switch_thumb_material_dark = 2131427427;
+			// aapt resource value: 0x7f0b0065
+			public const int switch_thumb_material_dark = 2131427429;
 			
-			// aapt resource value: 0x7f0b0064
-			public const int switch_thumb_material_light = 2131427428;
+			// aapt resource value: 0x7f0b0066
+			public const int switch_thumb_material_light = 2131427430;
 			
 			// aapt resource value: 0x7f0b0039
 			public const int switch_thumb_normal_material_dark = 2131427385;
@@ -1406,21 +1412,6 @@ namespace MultiNotes.XAndroid
 		
 		public partial class Dimension
 		{
-			
-			// aapt resource value: 0x7f06008f
-			public const int DefaultMargin0 = 2131099791;
-			
-			// aapt resource value: 0x7f060092
-			public const int DefaultMargin100 = 2131099794;
-			
-			// aapt resource value: 0x7f060090
-			public const int DefaultMargin25 = 2131099792;
-			
-			// aapt resource value: 0x7f060091
-			public const int DefaultMargin50 = 2131099793;
-			
-			// aapt resource value: 0x7f060093
-			public const int FabMargin = 2131099795;
 			
 			// aapt resource value: 0x7f06000f
 			public const int abc_action_bar_content_inset_material = 2131099663;
@@ -2116,26 +2107,26 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020070
-			public const int avd_hide_password_1 = 2130837616;
-			
 			// aapt resource value: 0x7f020071
-			public const int avd_hide_password_2 = 2130837617;
+			public const int avd_hide_password_1 = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int avd_hide_password_3 = 2130837618;
+			public const int avd_hide_password_2 = 2130837618;
+			
+			// aapt resource value: 0x7f020073
+			public const int avd_hide_password_3 = 2130837619;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f020073
-			public const int avd_show_password_1 = 2130837619;
-			
 			// aapt resource value: 0x7f020074
-			public const int avd_show_password_2 = 2130837620;
+			public const int avd_show_password_1 = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int avd_show_password_3 = 2130837621;
+			public const int avd_show_password_2 = 2130837621;
+			
+			// aapt resource value: 0x7f020076
+			public const int avd_show_password_3 = 2130837622;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -2156,67 +2147,70 @@ namespace MultiNotes.XAndroid
 			public const int design_snackbar_background = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int ic_action_content_account = 2130837595;
+			public const int edit_text_border_small = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int ic_action_content_autorenew = 2130837596;
+			public const int ic_action_content_account = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_action_content_create = 2130837597;
+			public const int ic_action_content_autorenew = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int ic_action_content_delete = 2130837598;
+			public const int ic_action_content_create = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int ic_action_content_save = 2130837599;
+			public const int ic_action_content_delete = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int ic_action_content_sync = 2130837600;
+			public const int ic_action_content_save = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int ic_warning_black = 2130837601;
+			public const int ic_action_content_sync = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int multi_notes_icon = 2130837602;
+			public const int ic_warning_black = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int navigation_empty_icon = 2130837603;
+			public const int multi_notes_icon = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int notification_action_background = 2130837604;
+			public const int navigation_empty_icon = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int notification_bg = 2130837605;
+			public const int notification_action_background = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int notification_bg_low = 2130837606;
+			public const int notification_bg = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int notification_bg_low_normal = 2130837607;
+			public const int notification_bg_low = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int notification_bg_low_pressed = 2130837608;
+			public const int notification_bg_low_normal = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int notification_bg_normal = 2130837609;
+			public const int notification_bg_low_pressed = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int notification_bg_normal_pressed = 2130837610;
+			public const int notification_bg_normal = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int notification_icon_background = 2130837611;
-			
-			// aapt resource value: 0x7f02006e
-			public const int notification_template_icon_bg = 2130837614;
-			
-			// aapt resource value: 0x7f02006f
-			public const int notification_template_icon_low_bg = 2130837615;
+			public const int notification_bg_normal_pressed = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int notification_tile_bg = 2130837612;
+			public const int notification_icon_background = 2130837612;
+			
+			// aapt resource value: 0x7f02006f
+			public const int notification_template_icon_bg = 2130837615;
+			
+			// aapt resource value: 0x7f020070
+			public const int notification_template_icon_low_bg = 2130837616;
 			
 			// aapt resource value: 0x7f02006d
-			public const int notify_panel_notification_icon_bg = 2130837613;
+			public const int notification_tile_bg = 2130837613;
+			
+			// aapt resource value: 0x7f02006e
+			public const int notify_panel_notification_icon_bg = 2130837614;
 			
 			static Drawable()
 			{

@@ -18,6 +18,7 @@ namespace MultiNotes.XAndroid
         Theme = "@style/AppTheme.NoActionBar")]
     public sealed class AccountActivity : DefaultActivity
     {
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -53,5 +54,6 @@ namespace MultiNotes.XAndroid
             // TODO: Widok zmiany hasła.
             Toast.MakeText(this, "Tu pojawi się widok zmiany hasła!", ToastLength.Short).Show();
         }
+
     }
 }

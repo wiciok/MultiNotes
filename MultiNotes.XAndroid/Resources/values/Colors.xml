@@ -8,6 +8,8 @@
     <color name="color_primary_dark">#303F9F</color>
     <color name="color_accent">#FF4081</color>
     
+    <color name="color_blue">#4F62C6</color>
     <color name="color_red">#FF0000</color>
+    <color name="color_white">#FFFFFF</color>
     
 </resources>

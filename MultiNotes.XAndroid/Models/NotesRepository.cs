@@ -16,6 +16,7 @@ namespace MultiNotes.XAndroid.Models
 {
     public class NotesRepository : INotesRepository
     {
+
         /**
          * Implements INotesRepository.NotesList { get; }
          */
@@ -24,6 +25,7 @@ namespace MultiNotes.XAndroid.Models
             get { return NotesBase.Instance.NotesList; }
         }
 
+
         /**
          * Implements INotesRepository.Reorder()
          */
@@ -31,5 +33,6 @@ namespace MultiNotes.XAndroid.Models
         {
             NotesBase.Instance.Reorder();
         }
+
     }
 }
