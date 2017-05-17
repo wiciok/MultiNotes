@@ -16,17 +16,17 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
-        ParentActivity = typeof(SignInActivity),
+        ParentActivity = typeof(AccountActivity),
         ScreenOrientation = ScreenOrientation.Portrait,
         Theme = "@style/AppTheme.NoActionBar")]
-    public sealed class SignUpActivity : MultiNotesBaseActivity
+    public class SettingsActivity : MultiNotesBaseActivity
     {
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.activity_sign_up);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_sign_up));
+            SetContentView(Resource.Layout.activity_settings);
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_settings));
 
             EnableSupportToolbarHomeMenu();
         }

@@ -1,69 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Toolbar
-        android:id="@+id/toolbar_sign_in"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/colorPrimary"
-        android:title="@string/sign_in_title"
-        android:theme="@style/AppTheme.NoActionBar.Toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
-    <TextView
-        android:text="@string/text_view_email_address"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_sign_in"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/sign_in_text_view_email_address" />
-    <EditText
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sign_in_text_view_email_address"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:layout_marginBottom="@dimen/default_margin_small"
-        android:id="@+id/sign_in_edit_text_email_address" />
-    <TextView
-        android:text="@string/text_view_password"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sign_in_edit_text_email_address"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/sign_in_text_view_password" />
-    <EditText
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sign_in_text_view_password"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:layout_marginBottom="@dimen/default_margin_small"
-        android:id="@+id/sign_in_edit_text_password" />
-    <Button
-        android:layout_below="@+id/sign_in_edit_text_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_sign_in"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/sign_in_button_sign_in" />
-    <Button
-        android:layout_below="@+id/sign_in_button_sign_in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_sign_up"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/sign_in_button_sign_up" />
-</RelativeLayout>
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_bar_toolbar_sign_in"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/colorPrimary"
+                app:title="@string/sign_in_title"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:text="@string/text_view_email_address"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar_toolbar_sign_in"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:id="@+id/sign_in_text_view_email_address" />
+        <EditText
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sign_in_text_view_email_address"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:layout_marginBottom="@dimen/default_margin_small"
+            android:id="@+id/sign_in_edit_text_email_address" />
+        <TextView
+            android:text="@string/text_view_password"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sign_in_edit_text_email_address"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:id="@+id/sign_in_text_view_password" />
+        <EditText
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sign_in_text_view_password"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:layout_marginBottom="@dimen/default_margin_small"
+            android:id="@+id/sign_in_edit_text_password" />
+        <Button
+            android:layout_below="@+id/sign_in_edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_sign_in"
+            android:background="@color/color_green"
+            android:textColor="@color/color_white"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_medium"
+            android:layout_marginRight="@dimen/default_margin_medium"
+            android:id="@+id/sign_in_button_sign_in" />
+        <Button
+            android:layout_below="@+id/sign_in_button_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_sign_up"
+            android:background="@color/color_green"
+            android:textColor="@color/color_white"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_medium"
+            android:layout_marginRight="@dimen/default_margin_medium"
+            android:id="@+id/sign_in_button_sign_up" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
