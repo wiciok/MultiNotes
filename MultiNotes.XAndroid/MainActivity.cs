@@ -15,6 +15,8 @@ using Android.Widget;
 using MultiNotes.Core;
 using MultiNotes.XAndroid.Models;
 
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = true,
@@ -32,7 +34,7 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.activity_main);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_main));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_main));
 
             notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
 

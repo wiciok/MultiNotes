@@ -12,6 +12,8 @@ using Android.Widget;
 using Android.Content.PM;
 using MultiNotes.XAndroid.Models;
 
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
@@ -27,14 +29,13 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_account);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_account));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_account));
 
             Button changePasswordButton = FindViewById<Button>(Resource.Id.account_button_change_password);
             Button signOutButton = FindViewById<Button>(Resource.Id.account_button_sign_out);
             Button settingsButton = FindViewById<Button>(Resource.Id.account_button_settings);
 
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            EnableSupportToolbarHomeMenu();
 
             changePasswordButton.Click += ChangePasswordButtonOnClick;
             signOutButton.Click += SignOutButtonOnClick;

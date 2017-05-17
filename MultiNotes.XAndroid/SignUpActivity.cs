@@ -11,6 +11,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
@@ -24,9 +26,9 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_up);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_sign_up));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_sign_up));
 
-            EnableToolbarHomeMenu();
+            EnableSupportToolbarHomeMenu();
         }
 
     }

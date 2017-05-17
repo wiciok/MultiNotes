@@ -13,6 +13,8 @@ using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
 
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
@@ -35,11 +37,11 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_note);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_note));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_note));
 
             noteEditText = FindViewById<EditText>(Resource.Id.note_edit_text);
 
-            EnableToolbarHomeMenu();
+            EnableSupportToolbarHomeMenu();
 
             model = new NoteModel(Intent.GetStringExtra(NOTE_ID), Intent.GetStringExtra(NOTE_CONTENT));
             noteEditText.Text = "";

@@ -21,15 +21,22 @@ namespace MultiNotes.XAndroid
 
         protected virtual bool MenuHomeOnClick()
         {
-            Finish();
+            OnBackPressed();
             return true;
         }
 
 
-        protected void EnableToolbarHomeMenu()
+        protected virtual void EnableToolbarHomeMenu()
         {
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
+        }
+
+
+        protected virtual void EnableSupportToolbarHomeMenu()
+        {
+            SupportActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
 

@@ -11,6 +11,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
@@ -29,16 +31,15 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_change_password);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_change_password));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_change_password));
 
             oldPasswordEditText = FindViewById<EditText>(Resource.Id.change_password_edit_text_old_password);
             passwordEditText = FindViewById<EditText>(Resource.Id.change_password_edit_text_password);
             repeatPasswordEditText = FindViewById<EditText>(Resource.Id.change_password_edit_text_repeat_password);
 
             Button changePasswordButton = FindViewById<Button>(Resource.Id.change_password_button_change_password);
-            
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            EnableSupportToolbarHomeMenu();
 
             changePasswordButton.Click += ChangePasswordButtonOnClick;
         }

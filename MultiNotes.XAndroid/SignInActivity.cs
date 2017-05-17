@@ -13,6 +13,8 @@ using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
 
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
@@ -32,7 +34,7 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
-            SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_sign_in));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_sign_in));
 
             model = Authorization.Instance;
 

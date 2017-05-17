@@ -1,98 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Toolbar
-        android:id="@+id/toolbar_account"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/colorPrimary"
-        android:title="@string/account_title"
-        android:theme="@style/AppTheme.NoActionBar.Toolbar"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
-    <TextView
-        android:text="@string/text_view_username"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_account"
-        android:layout_marginTop="@dimen/default_margin_medium"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/account_text_view_username_label" />
-    <TextView
-        android:text=". . ."
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@id/account_text_view_username_label"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/account_text_view_username" />
-    <TextView
-        android:text="@string/text_view_email_address"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/account_text_view_username"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/account_text_view_user_email_label" />
-    <TextView
-        android:text=". . ."
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@id/account_text_view_user_email_label"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small"
-        android:id="@+id/account_text_view_user_email" />
-    <Button
-        android:layout_below="@+id/account_text_view_user_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_change_password"
-        android:background="@color/color_green"
-        android:textColor="@color/color_white"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_medium"
-        android:layout_marginRight="@dimen/default_margin_medium"
-        android:id="@+id/account_button_change_password" />
-    <Button
-        android:layout_below="@+id/account_button_change_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_sign_out"
-        android:background="@color/color_green"
-        android:textColor="@color/color_white"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_medium"
-        android:layout_marginRight="@dimen/default_margin_medium"
-        android:layout_marginBottom="@dimen/default_margin_small"
-        android:id="@+id/account_button_sign_out" />
-    <View
-        android:layout_below="@+id/account_button_sign_out"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/account_view_setting_separator_line"
-        android:layout_marginLeft="@dimen/default_margin_small"
-        android:layout_marginRight="@dimen/default_margin_small" />
-    <Button
-        android:layout_below="@+id/account_view_setting_separator_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_settings"
-        android:background="@color/color_green"
-        android:textColor="@color/color_white"
-        android:layout_marginTop="@dimen/default_margin_small"
-        android:layout_marginLeft="@dimen/default_margin_medium"
-        android:layout_marginRight="@dimen/default_margin_medium"
-        android:id="@+id/account_button_settings" />
-</RelativeLayout>
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_bar_toolbar_account"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/colorPrimary"
+                app:title="@string/account_title"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:text="@string/text_view_username"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar_toolbar_account"
+            android:layout_marginTop="@dimen/default_margin_medium"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:id="@+id/account_text_view_username_label" />
+        <TextView
+            android:text=". . ."
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/account_text_view_username_label"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:id="@+id/account_text_view_username" />
+        <TextView
+            android:text="@string/text_view_email_address"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/account_text_view_username"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:id="@+id/account_text_view_user_email_label" />
+        <TextView
+            android:text=". . ."
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/account_text_view_user_email_label"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small"
+            android:id="@+id/account_text_view_user_email" />
+        <Button
+            android:layout_below="@+id/account_text_view_user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_change_password"
+            android:background="@color/color_green"
+            android:textColor="@color/color_white"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_medium"
+            android:layout_marginRight="@dimen/default_margin_medium"
+            android:id="@+id/account_button_change_password" />
+        <Button
+            android:layout_below="@+id/account_button_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_sign_out"
+            android:background="@color/color_green"
+            android:textColor="@color/color_white"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_medium"
+            android:layout_marginRight="@dimen/default_margin_medium"
+            android:layout_marginBottom="@dimen/default_margin_small"
+            android:id="@+id/account_button_sign_out" />
+        <View
+            android:layout_below="@+id/account_button_sign_out"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/account_view_setting_separator_line"
+            android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_marginRight="@dimen/default_margin_small" />
+        <Button
+            android:layout_below="@+id/account_view_setting_separator_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_settings"
+            android:background="@color/color_green"
+            android:textColor="@color/color_white"
+            android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_marginLeft="@dimen/default_margin_medium"
+            android:layout_marginRight="@dimen/default_margin_medium"
+            android:id="@+id/account_button_settings" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
