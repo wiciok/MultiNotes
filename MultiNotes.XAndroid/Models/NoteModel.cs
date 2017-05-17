@@ -78,7 +78,7 @@ namespace MultiNotes.XAndroid.Models
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Add(new Note()
             {
-                Id = Counter.Next.ToString(),
+                Id = Counter.Default.Next.ToString(),
                 Content = noteContent,
                 LastChangeTimestamp = DateTime.Now
             });

@@ -16,22 +16,43 @@ namespace MultiNotes.XAndroid.Models
 {
     public class Authorization : IAuthorization
     {
-
-        private bool successful;
-
-
-        public Authorization()
+        private static IAuthorization instance = null;
+        private static object syncRoot = new object();
+        public static IAuthorization Instance
         {
-            successful = false;
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new Authorization();
+                        }
+                    }
+                }
+                return instance;
+            }
+        }
+
+
+
+        private bool signedIn;
+
+
+        private Authorization()
+        {
+            signedIn = false;
         }
 
 
         /**
-         * Implements IAuthorization.Successful { get; }
+         * Implements IAuthorization.SignedIn { get; }
          */
-        public bool Successful
+        public bool SignedIn
         {
-            get { return successful; }
+            get { return signedIn; }
         }
 
 
@@ -49,9 +70,17 @@ namespace MultiNotes.XAndroid.Models
          */
         public bool SignIn(string username, string password)
         {
-            successful = true;
-            return successful;
+            signedIn = true;
+            return signedIn;
         }
 
+
+        /**
+         * Implements IAuthorization.SignOut()
+         */
+        public void SignOut()
+        {
+            signedIn = false;
+        }
     }
 }

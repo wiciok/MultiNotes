@@ -27,7 +27,8 @@
     <string name="menu_sync">Synchronizuj</string>
     
     <string name="note_title">Notatka</string>
-    
+
+    <string name="settings_title">Ustawienia</string>
     <string name="sign_in_title">Logowanie</string>
     <string name="sign_up_title">Rejestracja</string>
     

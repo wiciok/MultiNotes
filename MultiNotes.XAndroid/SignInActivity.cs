@@ -19,13 +19,11 @@ namespace MultiNotes.XAndroid
         ParentActivity = typeof(MainActivity),
         ScreenOrientation = ScreenOrientation.Portrait,
         Theme = "@style/AppTheme.NoActionBar")]
-    public sealed class SignInActivity : DefaultActivity
+    public sealed class SignInActivity : MultiNotesBaseActivity
     {
 
         private EditText emailAddressEditText;
         private EditText passwordEditText;
-        private Button signInButton;
-        private Button signUpButton;
 
         private IAuthorization model;
 
@@ -36,12 +34,13 @@ namespace MultiNotes.XAndroid
             SetContentView(Resource.Layout.activity_sign_in);
             SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_sign_in));
 
-            model = new Authorization();
+            model = Authorization.Instance;
 
             emailAddressEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_email_address);
             passwordEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_password);
-            signInButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_in);
-            signUpButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_up);
+
+            Button signInButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_in);
+            Button signUpButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_up);
 
             signInButton.Click += SignInButtonOnClick;
             signUpButton.Click += SignUpButtonOnClick;

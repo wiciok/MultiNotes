@@ -14,15 +14,21 @@ namespace MultiNotes.XAndroid.Models
 {
     public class Counter
     {
+        private static Counter defaultCounter = new Counter();
+        public static Counter Default
+        {
+            get { return defaultCounter; }
+        }
 
-        private static int value = 0;
 
-        public static int Next
+        private int value = 0;
+
+        public int Next
         {
             get { return ++value; }
         }
 
-        public static int Current
+        public int Current
         {
             get { return value; }
         }

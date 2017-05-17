@@ -19,14 +19,16 @@ namespace MultiNotes.XAndroid
         ParentActivity = typeof(MainActivity),
         ScreenOrientation = ScreenOrientation.Portrait,
         Theme = "@style/AppTheme.NoActionBar")]
-    public sealed class NoteActivity : DefaultActivity
+    public sealed class NoteActivity : MultiNotesBaseActivity
     {
 
         public static readonly string NOTE_ID = "NOTE_ID";
         public static readonly string NOTE_CONTENT = "NOTE_CONTENT";
 
-        private INoteModel model;
+
         private EditText noteEditText;
+
+        private INoteModel model;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -37,8 +39,7 @@ namespace MultiNotes.XAndroid
 
             noteEditText = FindViewById<EditText>(Resource.Id.note_edit_text);
 
-            ActionBar.SetHomeButtonEnabled(true);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            EnableToolbarHomeMenu();
 
             model = new NoteModel(Intent.GetStringExtra(NOTE_ID), Intent.GetStringExtra(NOTE_CONTENT));
             noteEditText.Text = "";
@@ -57,9 +58,6 @@ namespace MultiNotes.XAndroid
         {
             switch (menuItem.ItemId)
             {
-                case Android.Resource.Id.Home:
-                    return MenuHomeOnClick();
-
                 case Resource.Id.note_menu_save:
                     return MenuSaveOnClick();
 

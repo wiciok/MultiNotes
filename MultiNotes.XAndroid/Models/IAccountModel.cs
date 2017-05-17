@@ -10,20 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
-
 namespace MultiNotes.XAndroid.Models
 {
-    public interface IAuthorization
+    public interface IAccountModel
     {
 
-        bool SignedIn { get; }
-
-        User User { get; }
-
-        bool SignIn(string username, string password);
-
-        void SignOut();
+        IAuthorization Authorization { get; }
 
     }
 }

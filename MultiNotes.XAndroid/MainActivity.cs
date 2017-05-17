@@ -20,11 +20,10 @@ namespace MultiNotes.XAndroid
     [Activity(MainLauncher = true,
         ScreenOrientation = ScreenOrientation.Portrait,
         Theme = "@style/AppTheme.NoActionBar")]
-    public sealed class MainActivity : DefaultActivity
+    public sealed class MainActivity : MultiNotesBaseActivity
     {
 
         private ListView notesListView;
-        private FloatingActionButton fab;
 
         private IMainModel model;
 
@@ -36,17 +35,13 @@ namespace MultiNotes.XAndroid
             SetActionBar(FindViewById<Toolbar>(Resource.Id.toolbar_main));
 
             notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
-            fab = FindViewById<FloatingActionButton>(Resource.Id.main_fab);
+
+            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.main_fab);
 
             notesListView.Adapter = new NotesAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 
             model = new MainModel();
-
-            if (!(model.Authorization.Successful))
-            {
-                StartActivity(typeof(SignInActivity));
-            }
 
             fab.Click += FloatinActionButtonOnClick;
         }
@@ -99,7 +94,14 @@ namespace MultiNotes.XAndroid
         protected override void OnResume()
         {
             base.OnResume();
-            RefreshNotesList();
+            if (!model.Authorization.SignedIn)
+            {
+                StartActivity(typeof(SignInActivity));
+            }
+            else
+            {
+                RefreshNotesList();
+            }
         }
 
 
