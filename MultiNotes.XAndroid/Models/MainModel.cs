@@ -23,7 +23,9 @@ namespace MultiNotes.XAndroid.Models
 
         public MainModel()
         {
-            authorization = new Authorization();
+            // Important: avoid shadowing of the name "Authorization",
+            // because it's the same as one of the properties
+            authorization = Models.Authorization.Instance;
             notesRepository = new NotesRepository();
         }
 
