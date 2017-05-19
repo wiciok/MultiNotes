@@ -44,9 +44,7 @@ namespace MultiNotes.Server.Models
             string GuidString = Convert.ToBase64String(g.ToByteArray());
             GuidString = GuidString.Replace("=", "");
             GuidString = GuidString.Replace("+", "");
-
-            //string GuidString = "testowytoken";
-
+            GuidString = GuidString.Replace("/", "");
             return GuidString;
         }
     }

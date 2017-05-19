@@ -1,21 +1,17 @@
 ﻿using MultiNotes.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MultiNotes.Server.Repositories
 {
     interface INoteRepository
     {
-        IEnumerable<Note> GetAllNotes();
-        Note GetNote(string id);
-        Note AddNote(Note item);
+        IEnumerable<INote> GetAllNotes();
+        INote GetNote(string id);
+        INote AddNote(INote item);
         void RemoveNote(string id);
-        void UpdateNote(string id, Note item);
-        IEnumerable<Note> GetAllNotes(User user);
+        void UpdateNote(string id, INote item);
+        IEnumerable<INote> GetAllNotes(User user);
         bool CheckForNote(string id);
     }
 }

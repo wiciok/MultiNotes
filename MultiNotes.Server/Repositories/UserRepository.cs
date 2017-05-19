@@ -1,11 +1,6 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MultiNotes.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
 
 namespace MultiNotes.Server.Repositories
 {
@@ -13,7 +8,7 @@ namespace MultiNotes.Server.Repositories
     {
         private IMongoCollection<User> _usersCollection;
 
-        public UserRepository(IMongoDatabase database) //dependency injection
+        public UserRepository(IMongoDatabase database)
         {
             _usersCollection = database.GetCollection<User>("Users");
         }

@@ -39,13 +39,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationRecord.cs" />
     <Compile Include="AuthenticationToken.cs" />
     <Compile Include="ConnectionApi.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Model\Note.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="NoteMethod.cs" />
     <Compile Include="UniqueId.cs" />
     <Compile Include="UserMethod.cs" />
@@ -77,6 +74,12 @@
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiNotes.Model\MultiNotes.Model.csproj">
+      <Project>{f6537de7-3208-4b5f-b39e-e1685aef6223}</Project>
+      <Name>MultiNotes.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
