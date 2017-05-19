@@ -13,14 +13,15 @@ using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
 
-using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+// May be needed some day
+// using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
         ParentActivity = typeof(MainActivity),
         ScreenOrientation = ScreenOrientation.Portrait,
-        Theme = "@style/AppTheme.NoActionBar")]
+        Theme = "@style/AppTheme.SignInActivity")]
     public sealed class SignInActivity : MultiNotesBaseActivity
     {
 
@@ -34,7 +35,6 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
             model = Authorization.Instance;
 

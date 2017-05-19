@@ -138,8 +138,14 @@ namespace MultiNotes.XAndroid
 
         private void RefreshNotesList()
         {
-            NoteAdapter adapter = notesListView.Adapter as NoteAdapter;
-            if (adapter != null)
+            // The following code works the same as:
+            // 
+            // NoteAdapter adapter = notesListView.Adapter as NoteAdapter;
+            // if (adapter != null)
+            // {
+            //      adapter.NotifyDataSetChanged();
+            // }
+            if (notesListView.Adapter is NoteAdapter adapter)
             {
                 adapter.NotifyDataSetChanged();
             }

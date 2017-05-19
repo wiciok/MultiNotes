@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-    <color name="toolbarTextColor">#FFFFFF</color>
-    <color name="toolbarBackgroundColor">#008800</color>
+    <color name="button_primary">#007700</color>
+    <color name="button_primary_background">#007700</color>
+    <color name="button_primary_text">#FFFFFF</color>
+    <color name="button_secondary">#CCCCCC</color>
+    <color name="button_secondary_background">#777777</color>
+    <color name="button_secondary_text">#000000</color>
 
-    <color name="color_primary">#3F51B5</color>
-    <color name="color_primary_dark">#303F9F</color>
-    <color name="color_accent">#FF4081</color>
+    <color name="style_primary">#3F51B5</color>
+    <color name="style_primary_dark">#303F9F</color>
+    <color name="style_accent">#FF4081</color>
 
     <color name="color_blue">#4F62C6</color>
     <color name="color_green">#007700</color>

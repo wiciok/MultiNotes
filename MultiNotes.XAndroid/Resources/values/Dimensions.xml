@@ -9,5 +9,7 @@
     <dimen name="margin_activity_horizontal">16dp</dimen>
     <dimen name="margin_activity_vertical">20dp</dimen>
     <dimen name="margin_small">16dp</dimen>
+    <dimen name="margin_medium">24dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
     
 </resources>
