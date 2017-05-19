@@ -34,15 +34,17 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_sign_in));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
             model = Authorization.Instance;
 
-            emailAddressEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_email_address);
-            passwordEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_password);
+            // Set up field components
+            emailAddressEditText = FindViewById<EditText>(Resource.Id.edit_text_email_address);
+            passwordEditText = FindViewById<EditText>(Resource.Id.edit_text_password);
 
-            Button signInButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_in);
-            Button signUpButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_up);
+            // Set up local variable components
+            Button signInButton = FindViewById<Button>(Resource.Id.button_sign_in);
+            Button signUpButton = FindViewById<Button>(Resource.Id.button_sign_up);
 
             signInButton.Click += SignInButtonOnClick;
             signUpButton.Click += SignUpButtonOnClick;

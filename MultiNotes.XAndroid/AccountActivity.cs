@@ -29,11 +29,12 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_account);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_account));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
-            Button changePasswordButton = FindViewById<Button>(Resource.Id.account_button_change_password);
-            Button signOutButton = FindViewById<Button>(Resource.Id.account_button_sign_out);
-            Button settingsButton = FindViewById<Button>(Resource.Id.account_button_settings);
+            // Set up local variable components
+            Button changePasswordButton = FindViewById<Button>(Resource.Id.button_change_password);
+            Button signOutButton = FindViewById<Button>(Resource.Id.button_sign_out);
+            Button settingsButton = FindViewById<Button>(Resource.Id.button_settings);
 
             EnableSupportToolbarHomeMenu();
 

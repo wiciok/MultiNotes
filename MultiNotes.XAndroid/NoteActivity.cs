@@ -37,9 +37,10 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_note);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_note));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
-            noteEditText = FindViewById<EditText>(Resource.Id.note_edit_text);
+            // Set up field components
+            noteEditText = FindViewById<EditText>(Resource.Id.edit_text);
 
             EnableSupportToolbarHomeMenu();
 

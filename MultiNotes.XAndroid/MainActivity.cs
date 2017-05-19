@@ -34,11 +34,13 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.activity_main);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_main));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
-            notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
+            // Set up field components
+            notesListView = FindViewById<ListView>(Resource.Id.list_view_notes);
 
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.main_fab);
+            // Set up local variable components
+            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
 
             notesListView.Adapter = new NotesAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
