@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCF0BA">
+    android:background="@color/style_sign_in_primary">
     <TextView
         android:id="@+id/text_view_sign_in_welcome"
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_password"
             android:layout_marginBottom="@dimen/margin_small"
-            android:inputType="textEmailAddress" />
+            android:inputType="textPassword" />
         <Button
             android:id="@+id/button_sign_in"
             android:layout_width="match_parent"

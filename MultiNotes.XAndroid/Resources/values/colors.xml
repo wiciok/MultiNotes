@@ -8,10 +8,23 @@
     <color name="button_secondary_background">#777777</color>
     <color name="button_secondary_text">#000000</color>
 
-    <color name="style_primary">#3F51B5</color>
-    <color name="style_primary_dark">#303F9F</color>
+    <color name="style_primary">#00A2E8</color>
+    <color name="style_primary_dark">#00A2E8</color>
+    <color name="style_accent">#FF0000</color>
+
+    <color name="style_sign_in_primary">#82C0FF</color>
+    <color name="style_sign_in_primary_dark">#82C0FF</color>
+    <color name="style_sign_in_accent">#FFFFFF</color>
+
+    <!-- Old color set, may be useful some day
+    <color name="style_primary">#FFBB00</color>
+    <color name="style_primary_dark">#F99F00</color>
     <color name="style_accent">#FF4081</color>
 
+    <color name="style_sign_in_primary">#FFBB00</color>
+    <color name="style_sign_in_primary_dark">#FFBB00</color>
+    <color name="style_sign_in_accent">#FF4081</color>
+    -->
     <color name="color_blue">#4F62C6</color>
     <color name="color_green">#007700</color>
     <color name="color_red">#FF0000</color>

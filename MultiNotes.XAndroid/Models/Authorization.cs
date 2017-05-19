@@ -36,7 +36,7 @@ namespace MultiNotes.XAndroid.Models
             }
         }
 
-
+        
 
         private bool signedIn;
 
@@ -46,38 +46,26 @@ namespace MultiNotes.XAndroid.Models
             signedIn = false;
         }
 
-
-        /**
-         * Implements IAuthorization.SignedIn { get; }
-         */
+        
         public bool SignedIn
         {
             get { return signedIn; }
         }
 
-
-        /**
-         * Implements IAuthorization.User { get; }
-         */
+        
         public User User
         {
             get { return null; }
         }
 
-
-        /**
-         * Implements IAuthorization.SignIn()
-         */
+        
         public bool SignIn(string username, string password)
         {
             signedIn = true;
             return signedIn;
         }
 
-
-        /**
-         * Implements IAuthorization.SignOut()
-         */
+        
         public void SignOut()
         {
             signedIn = false;

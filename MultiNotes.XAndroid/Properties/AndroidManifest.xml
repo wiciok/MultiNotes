@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="MultiNotes.XAndroid.MultiNotes.XAndroid" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
-	<uses-sdk android:targetSdkVersion="23" android:minSdkVersion="19" />
+	<uses-sdk android:targetSdkVersion="25" android:minSdkVersion="19" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="@string/app_name" android:icon="@drawable/multi_notes_icon" android:theme="@style/AppTheme" android:debuggable="false">
 		<activity android:name=".AccountActivity" android:theme="@style/AppTheme.NoActionBar" android:configChanges="orientation" android:screenOrientation="portrait" />
