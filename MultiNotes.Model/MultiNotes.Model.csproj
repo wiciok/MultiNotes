@@ -44,10 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationRecord.cs" />
-    <Compile Include="Model\INote.cs" />
-    <Compile Include="Model\Note.cs" />
-    <Compile Include="Model\NoteArchival.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="INote.cs" />
+    <Compile Include="Note.cs" />
+    <Compile Include="NoteArchival.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 
 
-namespace MultiNotes.Core
+namespace MultiNotes.Model
 {
     public class Note: INote
     {

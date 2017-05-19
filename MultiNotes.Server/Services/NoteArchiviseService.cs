@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MongoDB.Bson;
-using MultiNotes.Core;
+using MultiNotes.Model;
 using MultiNotes.Server.Repositories;
 
 namespace MultiNotes.Server

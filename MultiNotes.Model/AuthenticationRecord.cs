@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiNotes.Core
+namespace MultiNotes.Model
 {
     public class AuthenticationRecord
     {

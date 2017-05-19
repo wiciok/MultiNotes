@@ -1,5 +1,5 @@
-﻿using MultiNotes.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MultiNotes.Model;
 
 
 namespace MultiNotes.Server.Repositories

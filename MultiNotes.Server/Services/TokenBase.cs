@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using MultiNotes.Core;
+using MultiNotes.Model;
 
 namespace MultiNotes.Server.Models
 {
