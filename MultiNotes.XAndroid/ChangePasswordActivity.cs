@@ -31,13 +31,15 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_change_password);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_change_password));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
-            oldPasswordEditText = FindViewById<EditText>(Resource.Id.change_password_edit_text_old_password);
-            passwordEditText = FindViewById<EditText>(Resource.Id.change_password_edit_text_password);
-            repeatPasswordEditText = FindViewById<EditText>(Resource.Id.change_password_edit_text_repeat_password);
+            // Set up field components
+            oldPasswordEditText = FindViewById<EditText>(Resource.Id.edit_text_old_password);
+            passwordEditText = FindViewById<EditText>(Resource.Id.edit_text_password);
+            repeatPasswordEditText = FindViewById<EditText>(Resource.Id.edit_text_repeat_password);
 
-            Button changePasswordButton = FindViewById<Button>(Resource.Id.change_password_button_change_password);
+            // Set up local variable components
+            Button changePasswordButton = FindViewById<Button>(Resource.Id.button_change_password);
 
             EnableSupportToolbarHomeMenu();
 

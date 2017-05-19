@@ -20,11 +20,19 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name" />
         </android.support.design.widget.AppBarLayout>
-        <ListView
-            android:id="@+id/list_view_notes"
-            android:layout_height="wrap_content"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_below="@+id/app_bar" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar"
+            android:paddingTop="@dimen/margin_activity_vertical"
+            android:paddingLeft="@dimen/margin_activity_horizontal"
+            android:paddingRight="@dimen/margin_activity_horizontal"
+            android:paddingBottom="@dimen/margin_activity_vertical">
+            <ListView
+                android:id="@+id/list_view_notes"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </RelativeLayout>
     </RelativeLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

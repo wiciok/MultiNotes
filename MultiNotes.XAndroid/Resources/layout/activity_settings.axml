@@ -20,5 +20,14 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/settings_title" />
         </android.support.design.widget.AppBarLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar"
+            android:paddingTop="@dimen/margin_activity_vertical"
+            android:paddingLeft="@dimen/margin_activity_horizontal"
+            android:paddingRight="@dimen/margin_activity_horizontal"
+            android:paddingBottom="@dimen/margin_activity_vertical">
+        </RelativeLayout>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

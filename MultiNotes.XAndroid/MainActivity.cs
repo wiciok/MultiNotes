@@ -42,7 +42,7 @@ namespace MultiNotes.XAndroid
             // Set up local variable components
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
 
-            notesListView.Adapter = new NotesAdapter(this);
+            notesListView.Adapter = new NoteAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 
             model = new MainModel();
@@ -52,13 +52,13 @@ namespace MultiNotes.XAndroid
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
+            NoteAdapter adapter = notesListView.Adapter as NoteAdapter;
             if (adapter == null)
             {
                 return;
             }
 
-            NotesAdapter.INoteWrapper noteObject = adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
+            NoteAdapter.INoteWrapper noteObject = adapter.GetItem(e.Position) as NoteAdapter.INoteWrapper;
             if (noteObject == null)
             {
                 return;
@@ -138,7 +138,7 @@ namespace MultiNotes.XAndroid
 
         private void RefreshNotesList()
         {
-            NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
+            NoteAdapter adapter = notesListView.Adapter as NoteAdapter;
             if (adapter != null)
             {
                 adapter.NotifyDataSetChanged();
