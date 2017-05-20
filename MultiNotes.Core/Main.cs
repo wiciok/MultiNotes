@@ -59,6 +59,7 @@ namespace MultiNotes.Core
 
             test.testujemy();
             
+
             int aaaaa = 989;
             int bbb = 1; ;
             aaaaa = bbb;
