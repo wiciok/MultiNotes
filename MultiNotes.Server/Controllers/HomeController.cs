@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MultiNotes.Server.Controllers
 {
+    [LogHttpRequest]
     public class HomeController : Controller
     {
         public string Index()

@@ -10,6 +10,7 @@ using System.Web.Http.Description;
 namespace MultiNotes.Server
 {
     //class returning bsonId, used for creating new notes or users in client apps
+    [LogWebApiRequest]
     [RoutePrefix("api/id")]
     public class IdController : ApiController
     {
@@ -22,8 +23,9 @@ namespace MultiNotes.Server
                retVal = ObjectId.GenerateNewId().ToString();
             }
 
-            catch
+            catch(Exception e)
             {
+                WebApiApplication.GlobalLogger.Error(Request.ToString()+e.ToString());
                 HttpError err = new HttpError("Error while generating Id");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
