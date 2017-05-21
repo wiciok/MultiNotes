@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MultiNotes.Core;
 using MultiNotes.Server.Repositories;
 using System.Web.Http.Description;
+using MultiNotes.Model;
 using MultiNotes.Server.Models;
 
 namespace MultiNotes.Server.Controllers

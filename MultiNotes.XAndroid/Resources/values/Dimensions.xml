@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="default_margin_small">25px</dimen>
+    <dimen name="default_margin_medium">50px</dimen>
+    <dimen name="default_margin_large">100px</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    
+</resources>

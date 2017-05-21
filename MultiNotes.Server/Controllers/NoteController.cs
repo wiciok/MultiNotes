@@ -1,5 +1,4 @@
-﻿using MultiNotes.Core;
-using MultiNotes.Server.Repositories;
+﻿using MultiNotes.Server.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using MultiNotes.Server.Models;
 using System.Web.Http.Description;
+using MultiNotes.Model;
 
 namespace MultiNotes.Server
 {
@@ -30,7 +30,7 @@ namespace MultiNotes.Server
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    return Request.CreateResponse<IQueryable<Note>>(HttpStatusCode.OK, notesRepo.GetAllNotes(authService.currentUser).AsQueryable());
+                    return Request.CreateResponse<IQueryable<Note>>(HttpStatusCode.OK, (IQueryable<Note>)notesRepo.GetAllNotes(authService.currentUser).AsQueryable());
                 }
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
@@ -57,7 +57,7 @@ namespace MultiNotes.Server
                 if (notesRepo.CheckForNote(id) == false)
                     return Request.CreateResponse(HttpStatusCode.NotFound);
 
-                Note note = notesRepo.GetNote(id);
+                Note note = (Note)notesRepo.GetNote(id);
 
                 if (note.OwnerId == authService.currentUser.Id)
                     return Request.CreateResponse<Note>(HttpStatusCode.OK,note);
@@ -86,7 +86,12 @@ namespace MultiNotes.Server
                 if (notesRepo.CheckForNote(value.Id) == true)
                 {
                     if (authService.currentUser.Id == value.OwnerId)
+                    {
                         notesRepo.UpdateNote(value.Id, value);
+                        NoteArchiviseService.ArchiviseNote(value, NotesOperations.Update);
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                        
                     else
                         return Request.CreateResponse(HttpStatusCode.Forbidden);
                 }
@@ -116,10 +121,11 @@ namespace MultiNotes.Server
 
                 if (notesRepo.CheckForNote(id) == true)
                 {
-                    Note note = notesRepo.GetNote(id);
+                    Note note = (Note)notesRepo.GetNote(id);
                     if (authService.currentUser.Id == note.OwnerId)
                     {
                         notesRepo.RemoveNote(id);
+                        NoteArchiviseService.ArchiviseNote(note, NotesOperations.Delete);
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }      
                     else

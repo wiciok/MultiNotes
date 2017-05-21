@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using MultiNotes.Core;
 using MultiNotes.Server;
 using MultiNotes.Server.Models;
 using System.Web.Http.Description;
 using System.Net.Http;
+using MultiNotes.Model;
 
 namespace MultiNotes.Server.Controllers
 {

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+      android:id="@+id/main_menu_edit"
+      android:icon="@drawable/ic_action_content_create"
+      android:title="@string/menu_edit"
+      app:showAsAction="always" />
+    <item
+      android:id="@+id/main_menu_sync"
+      android:icon="@drawable/ic_action_content_sync"
+      android:title="@string/menu_sync"
+      app:showAsAction="always" />
+    <item
+      android:id="@+id/main_menu_account"
+      android:icon="@drawable/ic_action_content_account"
+      android:title="@string/menu_account"
+      app:showAsAction="always" />
+</menu>
