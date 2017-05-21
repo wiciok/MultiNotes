@@ -20,7 +20,6 @@ namespace MultiNotes.Windows.ViewModel
         {
             this.loginWindow = loginWindow;
         }
-
         private void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -29,17 +28,17 @@ namespace MultiNotes.Windows.ViewModel
 
         public void MakeLoginTask(string email, string password)
         {
-            Task.Factory.StartNew(() => Login(email, password).Wait());
+            Login(email, password);
         }
 
-        public async Task Login(string email, string password)
+        public async void Login(string email, string password)
         {
-            ConnectionApi.configure();
+            
             UserMethod methods = new UserMethod(ConnectionApi.httpClient);
 
             try
             {
-                await methods.login(email, password);
+                    await methods.login(email, password);
             }
             catch(Exception ex)
             {
