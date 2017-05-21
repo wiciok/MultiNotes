@@ -22,13 +22,12 @@ namespace MultiNotes.Windows.ViewModel
 
         public void MakeRegisterTask(string email, string password)
         {
-            Task testTask = new Task(() => Register(email, password).Wait());
-            testTask.Start();
+            Register(email, password);
         }
 
-        public async Task Register(string email, string password)
+        public async void Register(string email, string password)
         {
-            ConnectionApi.configure();
+            
             UserMethod methods = new UserMethod(ConnectionApi.httpClient);
 
             try
