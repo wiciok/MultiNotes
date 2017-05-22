@@ -10,27 +10,27 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace MultiNotes.XAndroid.Models
+using MultiNotes.XAndroid.ActivityModels.Base;
+using MultiNotes.XAndroid.Models;
+using MultiNotes.XAndroid.Models.Base;
+
+namespace MultiNotes.XAndroid.ActivityModels
 {
     public class AccountModel : IAccountModel
     {
 
-        private IAuthorization authorization;
+        private IAuthorizationEngine authEngine;
 
 
         public AccountModel()
         {
-            authorization = Models.Authorization.Instance;
+            authEngine = AuthorizationEngine.Instance;
         }
 
 
-        /**
-         * Implements IAccountModel.Authorization
-         */
-        public IAuthorization Authorization
+        public void SignOut()
         {
-            get { return authorization; }
+            authEngine.SignOut();
         }
-
     }
 }

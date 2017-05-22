@@ -10,16 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
-
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Models.Base
 {
-    public interface INotesRepository
+    public interface IRegistrationEngine
     {
 
-        List<Note> NotesList { get; }
-
-        void Reorder();
+        // TOTO: this interface and registration
 
     }
 }

@@ -11,8 +11,11 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.ActivityModels.Base;
+using MultiNotes.XAndroid.Models;
+using MultiNotes.XAndroid.Models.Base;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels
 {
     public class NoteModel : INoteModel
     {
@@ -27,52 +30,33 @@ namespace MultiNotes.XAndroid.Models
             this.noteContent = noteContent;
         }
 
-
-        /**
-         * Implements INoteModel.NoteId { get; }
-         */
-        public string NoteId
-        {
-            get { return noteId; }
-        }
-
-
-        /**
-         * Implements INoteModel.NoteContent { get; set; }
-         */
+        
+        public string NoteId { get { return noteId; } }
+        
         public string NoteContent
         {
             get { return noteContent; }
             set { noteContent = value; }
         }
 
-
-        /**
-         * Implements INoteModel.SaveChanges()
-         */
+        
         public void SaveChanges()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().Content = noteContent;
             notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().LastChangeTimestamp = DateTime.Now;
-            notesRepository.Reorder();
+            notesRepository.SortDescending();
         }
 
 
-        /**
-         * Implements INoteModel.DeleteNote()
-         */
         public void DeleteNote()
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Remove(notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault());
-            notesRepository.Reorder();
+            notesRepository.SortDescending();
         }
 
 
-        /**
-         * Implements INoteModel.AddNote()
-         */
         public void AddNote()
         {
             INotesRepository notesRepository = new NotesRepository();
@@ -82,7 +66,7 @@ namespace MultiNotes.XAndroid.Models
                 Content = noteContent,
                 LastChangeTimestamp = DateTime.Now
             });
-            notesRepository.Reorder();
+            notesRepository.SortDescending();
         }
 
     }

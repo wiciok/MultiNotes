@@ -10,20 +10,21 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
-
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels.Base
 {
-    public interface IAuthorization
+    public interface INoteModel
     {
 
-        bool SignedIn { get; }
+        string NoteId { get; }
 
-        User User { get; }
+        string NoteContent { get; set; }
 
-        bool SignIn(string username, string password);
 
-        void SignOut();
+        void SaveChanges();
+
+        void DeleteNote();
+
+        void AddNote();
 
     }
 }

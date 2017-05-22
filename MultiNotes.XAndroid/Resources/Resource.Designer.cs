@@ -2528,20 +2528,26 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f070084
 			public const int list_view_notes = 2131165316;
 			
-			// aapt resource value: 0x7f0700b3
-			public const int main_menu_account = 2131165363;
-			
-			// aapt resource value: 0x7f0700b1
-			public const int main_menu_edit = 2131165361;
-			
-			// aapt resource value: 0x7f0700b2
-			public const int main_menu_sync = 2131165362;
-			
 			// aapt resource value: 0x7f0700b0
 			public const int masked = 2131165360;
 			
 			// aapt resource value: 0x7f07009e
 			public const int media_actions = 2131165342;
+			
+			// aapt resource value: 0x7f0700b3
+			public const int menu_account = 2131165363;
+			
+			// aapt resource value: 0x7f0700b5
+			public const int menu_delete = 2131165365;
+			
+			// aapt resource value: 0x7f0700b1
+			public const int menu_edit = 2131165361;
+			
+			// aapt resource value: 0x7f0700b4
+			public const int menu_save = 2131165364;
+			
+			// aapt resource value: 0x7f0700b2
+			public const int menu_sync = 2131165362;
 			
 			// aapt resource value: 0x7f070022
 			public const int middle = 2131165218;
@@ -2563,12 +2569,6 @@ namespace MultiNotes.XAndroid
 			
 			// aapt resource value: 0x7f070010
 			public const int normal = 2131165200;
-			
-			// aapt resource value: 0x7f0700b5
-			public const int note_menu_delete = 2131165365;
-			
-			// aapt resource value: 0x7f0700b4
-			public const int note_menu_save = 2131165364;
 			
 			// aapt resource value: 0x7f0700a7
 			public const int notification_background = 2131165351;

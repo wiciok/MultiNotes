@@ -10,7 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Content.PM;
-using MultiNotes.XAndroid.Models;
+
+using MultiNotes.XAndroid.ActivityModels;
+using MultiNotes.XAndroid.ActivityModels.Base;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -66,7 +68,7 @@ namespace MultiNotes.XAndroid
         
         private void SignOutButtonOnClick(object sender, EventArgs e)
         {
-            model.Authorization.SignOut();
+            model.SignOut();
             Finish();
         }
 

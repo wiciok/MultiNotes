@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
+using MultiNotes.XAndroid.Models.Base;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -28,7 +29,7 @@ namespace MultiNotes.XAndroid
         private EditText emailAddressEditText;
         private EditText passwordEditText;
 
-        private IAuthorization model;
+        private IAuthorizationEngine model;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -36,7 +37,7 @@ namespace MultiNotes.XAndroid
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
 
-            model = Authorization.Instance;
+            model = AuthorizationEngine.Instance;
 
             // Set up field components
             emailAddressEditText = FindViewById<EditText>(Resource.Id.edit_text_email_address);
@@ -53,7 +54,7 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            if (model.SignIn(emailAddressEditText.Text, passwordEditText.Text))
+            if (model.SignIn(emailAddressEditText.Text.Trim(), passwordEditText.Text))
             {
                 Finish();
             }

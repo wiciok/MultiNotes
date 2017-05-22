@@ -97,19 +97,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountActivity.cs" />
-    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="ActivityModels\AccountModel.cs" />
+    <Compile Include="ActivityModels\Base\ISignInModel.cs" />
+    <Compile Include="ActivityModels\SignInModel.cs" />
     <Compile Include="ChangePasswordActivity.cs" />
+    <Compile Include="Models\UserHeader.cs" />
     <Compile Include="MultiNotesBaseActivity.cs" />
-    <Compile Include="Models\IAccountModel.cs" />
-    <Compile Include="Models\IMainModel.cs" />
-    <Compile Include="Models\INoteModel.cs" />
-    <Compile Include="Models\MainModel.cs" />
-    <Compile Include="Models\NoteModel.cs" />
-    <Compile Include="Models\Authorization.cs" />
+    <Compile Include="ActivityModels\Base\IAccountModel.cs" />
+    <Compile Include="ActivityModels\Base\IMainModel.cs" />
+    <Compile Include="ActivityModels\Base\INoteModel.cs" />
+    <Compile Include="ActivityModels\MainModel.cs" />
+    <Compile Include="ActivityModels\NoteModel.cs" />
+    <Compile Include="Models\AuthorizationEngine.cs" />
     <Compile Include="Models\Counter.cs" />
-    <Compile Include="Models\IAuthorization.cs" />
-    <Compile Include="Models\INotesRepository.cs" />
-    <Compile Include="Models\IRegistration.cs" />
+    <Compile Include="Models\Base\IAuthorizationEngine.cs" />
+    <Compile Include="Models\Base\INotesRepository.cs" />
+    <Compile Include="Models\Base\IRegistrationEngine.cs" />
     <Compile Include="NoteActivity.cs" />
     <Compile Include="Models\NotesBase.cs" />
     <Compile Include="Models\NotesRepository.cs" />
@@ -125,7 +128,6 @@
     <Compile Include="SignUpActivity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

@@ -14,9 +14,10 @@
 
     <color name="style_sign_in_primary">#82C0FF</color>
     <color name="style_sign_in_primary_dark">#82C0FF</color>
-    <color name="style_sign_in_accent">#FFFFFF</color>
+    <color name="style_sign_in_accent">#000000</color>
 
-    <!-- Old color set, may be useful some day
+    <!-- Old color set, may be useful some day -->
+    <!--
     <color name="style_primary">#FFBB00</color>
     <color name="style_primary_dark">#F99F00</color>
     <color name="style_accent">#FF4081</color>

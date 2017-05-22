@@ -10,12 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels.Base
 {
     public interface IAccountModel
     {
 
-        IAuthorization Authorization { get; }
+        void SignOut();
 
     }
 }

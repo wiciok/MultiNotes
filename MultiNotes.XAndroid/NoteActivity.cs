@@ -11,7 +11,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.Models;
+using MultiNotes.XAndroid.ActivityModels;
+using MultiNotes.XAndroid.ActivityModels.Base;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -61,10 +62,10 @@ namespace MultiNotes.XAndroid
         {
             switch (menuItem.ItemId)
             {
-                case Resource.Id.note_menu_save:
+                case Resource.Id.menu_save:
                     return MenuSaveOnClick();
 
-                case Resource.Id.note_menu_delete:
+                case Resource.Id.menu_delete:
                     return MenuDeleteOnClick();
 
                 default:

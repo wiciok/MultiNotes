@@ -13,6 +13,8 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.ActivityModels;
+using MultiNotes.XAndroid.ActivityModels.Base;
 using MultiNotes.XAndroid.Models;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -47,7 +49,7 @@ namespace MultiNotes.XAndroid
 
             model = new MainModel();
 
-            fab.Click += FloatinActionButtonOnClick;
+            fab.Click += FloatingActionButtonOnClick;
         }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -80,13 +82,13 @@ namespace MultiNotes.XAndroid
         {
             switch (menuItem.ItemId)
             {
-                case Resource.Id.main_menu_edit:
+                case Resource.Id.menu_edit:
                     return MenuEditOnClick();
 
-                case Resource.Id.main_menu_sync:
+                case Resource.Id.menu_sync:
                     return MenuSyncOnClick();
 
-                case Resource.Id.main_menu_account:
+                case Resource.Id.menu_account:
                     return MenuAccountOnClick();
 
                 default:
@@ -98,7 +100,7 @@ namespace MultiNotes.XAndroid
         protected override void OnResume()
         {
             base.OnResume();
-            if (!model.Authorization.SignedIn)
+            if (!model.SignedIn)
             {
                 StartActivity(typeof(SignInActivity));
             }
@@ -130,7 +132,7 @@ namespace MultiNotes.XAndroid
         }
 
 
-        private void FloatinActionButtonOnClick(object sender, EventArgs e)
+        private void FloatingActionButtonOnClick(object sender, EventArgs e)
         {
             StartNoteActivity();
         }

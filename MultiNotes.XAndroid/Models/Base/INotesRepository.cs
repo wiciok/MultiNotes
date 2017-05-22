@@ -12,21 +12,14 @@ using Android.Widget;
 
 using MultiNotes.Core;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Models.Base
 {
-    public interface INoteModel
+    public interface INotesRepository
     {
 
-        string NoteId { get; }
+        List<Note> NotesList { get; }
 
-        string NoteContent { get; set; }
-
-
-        void SaveChanges();
-
-        void DeleteNote();
-
-        void AddNote();
+        void SortDescending();
 
     }
 }
