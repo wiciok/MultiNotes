@@ -88,7 +88,6 @@ namespace MultiNotes.Server
                     if (authService.currentUser.Id == value.OwnerId)
                     {
                         notesRepo.UpdateNote(value.Id, value);
-                        NoteArchiviseService.ArchiviseNote(value, NotesOperations.Update);
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }
                         
@@ -125,7 +124,6 @@ namespace MultiNotes.Server
                     if (authService.currentUser.Id == note.OwnerId)
                     {
                         notesRepo.RemoveNote(id);
-                        NoteArchiviseService.ArchiviseNote(note, NotesOperations.Delete);
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }      
                     else

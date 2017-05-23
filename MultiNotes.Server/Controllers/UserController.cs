@@ -20,17 +20,17 @@ namespace MultiNotes.Server.Controllers
 
         //pobieranie danych uzytkownika np. po zalogowaniu w kliencie
         // GET api/user/32q2fdrsdfa/5
-        [Route("{token}/{login}")]
+        [Route("{token}/{email}")]
         [ResponseType(typeof(User))]
         [HttpGet]
-        public HttpResponseMessage Get(string token, string login)
+        public HttpResponseMessage Get(string token, string email)
         {
             try
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    if(authService.currentUser.Login==login)
-                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUserByLogin(login));
+                    if(authService.currentUser.EmailAddress==email)
+                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUserByEmail(email));
                     else
                         return Request.CreateResponse(HttpStatusCode.Forbidden); //probojemy pobrac dane innego uzytkownika niz my sami
                 }
@@ -55,7 +55,7 @@ namespace MultiNotes.Server.Controllers
         {
             try
             {
-                if (usersRepo.CheckForUser(user.Id) == false && usersRepo.CheckForUserByLogin(user.Login)==false)
+                if (usersRepo.CheckForUser(user.Id) == false && usersRepo.CheckForUserByEmail(user.EmailAddress)==false)
                     return Request.CreateResponse<User>(HttpStatusCode.Created, usersRepo.AddUser(user));
                 else
                 {
@@ -74,7 +74,6 @@ namespace MultiNotes.Server.Controllers
 
         // edycja istniejacego uzytkownika
         // PUT api/user/32q2fdrsdfa
-        //[Route("{token}/{value}")]
         [Route("{token}")]
         [ResponseType(typeof(User))]
         [HttpPut]
@@ -106,7 +105,6 @@ namespace MultiNotes.Server.Controllers
 
         // usuniecie istniejacego uzytkownika (siebie)
         // DELETE api/user/32q2fdrsdfa
-        //[Route("{token}/{value}")]
         [Route("{token}/{id_user}")]
         [ResponseType(typeof(User))]
         [HttpDelete]
