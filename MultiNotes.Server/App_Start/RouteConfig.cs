@@ -11,17 +11,18 @@ namespace MultiNotes.Server
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            //kolejność ma znaczenie! jeśli dodamy nową regułę, a będzie się ona łapać pod domyślną, to MUSI być ona wyżej, bo inaczej nie będzie działać!
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("ResetPassword", "ResetPassword/Reset/{token}", new { controller = "ResetPassword", action = "Reset", token = "undefinied" });
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional } //nie działa jak zamiast id wpiszemy token
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional } 
             );
 
-            routes.MapRoute("ResetPassword","ResetPassword/Reset/{id}", 
-                new { controller = "ResetPassword", action = "Reset", id = UrlParameter.Optional }
-            );
+
         }
     }
 }

@@ -16,9 +16,9 @@ namespace MultiNotes.Server.Controllers
             return HttpUtility.HtmlEncode("This is MultiNotes application API service. You have no buisness here.");
         }
 
-        public string Reset(string id)
+        [HttpGet]
+        public string Reset(string token)
         {
-            string token = id; //konieczne ze wzgledu na niepoprawne dzialanie routingu przy nazwie parametru token
             ViewBag.Title = "Password reset";
             if (string.IsNullOrEmpty(token))
             {
@@ -30,7 +30,7 @@ namespace MultiNotes.Server.Controllers
                 if ((retVal = PasswordResetService.Instance.ResetUserPassword(token)) == null)
                     return HttpUtility.HtmlEncode("Changing password error!");
                 else
-                    return HttpUtility.HtmlEncode("Password changed to: " + retVal + " .Please, save it, log in to application and change it manually!");
+                    return HttpUtility.HtmlEncode("Password changed to: " + retVal + " . Please, save it, log in to application and change it manually!");
             }       
         }
     }
