@@ -11,7 +11,6 @@ namespace MultiNotes.Server
     {
         string ConnectionString { get; }
         INoteRepository NotesRepository { get; }
-        INoteArchiveRepository NotesArchiveRepository { get; }
         IUserRepository UsersRepository { get; }
         IMongoDatabase Database { get; }
     }
@@ -27,7 +26,6 @@ namespace MultiNotes.Server
         public string ConnectionString { get { return connectionString; } }
 
         public INoteRepository NotesRepository { get; }
-        public INoteArchiveRepository NotesArchiveRepository { get; }
         public IUserRepository UsersRepository { get; }
         public IMongoDatabase Database { get; }
 
@@ -37,7 +35,6 @@ namespace MultiNotes.Server
             this.client = new MongoClient(ConnectionString);
             this.Database = client.GetDatabase("MultiNotes");
             this.NotesRepository = new NoteRepository(Database);
-            this.NotesArchiveRepository = new NoteArchiveRepository(Database);
             this.UsersRepository = new UserRepository(Database);
         }
 

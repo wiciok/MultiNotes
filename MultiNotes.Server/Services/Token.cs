@@ -1,5 +1,6 @@
 ﻿using System;
 using MultiNotes.Model;
+using MultiNotes.Server.Services;
 
 
 namespace MultiNotes.Server.Models
@@ -21,7 +22,7 @@ namespace MultiNotes.Server.Models
         {
             this.CreateTimestamp = DateTime.Now;
             this.User = user;
-            this.token = GenerateUniqueToken();
+            this.token = RandomTokenGenerator.GenerateUniqueToken();
         }
 
         public bool IsValid
@@ -33,16 +34,6 @@ namespace MultiNotes.Server.Models
                 else
                     return false;
             }
-        }
-
-        private static string GenerateUniqueToken()
-        {
-            Guid g = Guid.NewGuid();
-            string GuidString = Convert.ToBase64String(g.ToByteArray());
-            GuidString = GuidString.Replace("=", "");
-            GuidString = GuidString.Replace("+", "");
-            GuidString = GuidString.Replace("/", "");
-            return GuidString;
         }
     }
 }

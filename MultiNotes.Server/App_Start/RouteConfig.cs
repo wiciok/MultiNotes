@@ -16,7 +16,11 @@ namespace MultiNotes.Server
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional } //nie działa jak zamiast id wpiszemy token
+            );
+
+            routes.MapRoute("ResetPassword","ResetPassword/Reset/{id}", 
+                new { controller = "ResetPassword", action = "Reset", id = UrlParameter.Optional }
             );
         }
     }

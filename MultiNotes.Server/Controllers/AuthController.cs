@@ -20,10 +20,10 @@ namespace MultiNotes.Server.Controllers
         {
             User user;
 
-            if (unitOfWork.UsersRepository.CheckForUserByLogin(authData.Login) == false)
+            if (unitOfWork.UsersRepository.CheckForUserByEmail(authData.Email) == false)
                 return false;
             else
-                user = unitOfWork.UsersRepository.GetUserByLogin(authData.Login);
+                user = unitOfWork.UsersRepository.GetUserByEmail(authData.Email);
 
             if (authData.PasswordHash == user.PasswordHash)
                 return true;
@@ -41,7 +41,7 @@ namespace MultiNotes.Server.Controllers
             {
                 if (Authenticate(userAuthData)==true) //user istnieje, haslo sie zgadza
                 {
-                    User user = unitOfWork.UsersRepository.GetUserByLogin(userAuthData.Login);
+                    User user = unitOfWork.UsersRepository.GetUserByEmail(userAuthData.Email);
 
                     if(TokenBase.VerifyUserToken(user)==true) //jesli token juz istnieje  i jest ważny - zwracamy go
                     {

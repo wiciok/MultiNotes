@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationRecord.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="INote.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="User.cs" />

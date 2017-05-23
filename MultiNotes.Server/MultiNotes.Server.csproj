@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\ResetPasswordController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -177,6 +178,10 @@
     <Compile Include="Services\LogWebApiRequestAttribute.cs" />
     <Compile Include="Services\LogHttpRequest.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
+    <Compile Include="Services\MailingService.cs" />
+    <Compile Include="Services\PasswordResetService.cs" />
+    <Compile Include="Services\RandomTokenGenerator.cs" />
+    <Compile Include="Services\ServerAddressService.cs" />
     <Compile Include="Services\Token.cs" />
     <Compile Include="Services\TokenBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
