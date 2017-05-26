@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
 using System.IO;
@@ -15,7 +10,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
-    public class NoteMethod
+    public class NoteMethod: INoteMethod
     {
         private static HttpClient httpClient;
         private string path = "notes.txt";
@@ -24,7 +19,7 @@ namespace MultiNotes.Core
             httpClient = httpClient2;
         }
 
-        public  void AddNoteToFile(Note note)
+        public void AddNoteToFile(Note note)
         {
             if (!File.Exists(path))
             {
@@ -120,14 +115,6 @@ namespace MultiNotes.Core
                 throw new HttpResponseException(response.StatusCode);
                 //InternalServerError,Unauthorized,Forbidden,NotFound
             }         
-        }
-
-        public async void testujemy()
-        {
-            var a = GetAllNotesFromFile("5909a1977a48172c8049e25c");
-            var bb = GetNoteFromFile("5919f08d7a481747708d28db", "5909a1977a48172c8049e25c");
-            //DeleteNoteFromFile("591739a77a48173e1cc59b17");
-            int b = 99;
         }
 
         public List<Note> GetAllNotesFromFile(string userId)

@@ -6,12 +6,13 @@ using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
-    public class UserMethod
+    public class UserMethod: IUserMethod
     {
         private static HttpClient httpClient;
         private AuthenticationToken authenticationToken;
         public AuthenticationRecord Record { get; set; }
         public User user;
+        private string fileAuthenticationRecord = "user.txt";
         public UserMethod(HttpClient httpClient2)
         {
             httpClient = httpClient2;
@@ -21,8 +22,8 @@ namespace MultiNotes.Core
         }
         public void PreparedAuthenticationRecord()
         {
-            string[] lines = System.IO.File.ReadAllLines("plik.txt");
-            Record.Login = lines[0];
+            string[] lines = System.IO.File.ReadAllLines(fileAuthenticationRecord);
+            Record.Email = lines[0];
             Record.PasswordHash = lines[1];
         }
         public async Task register(string email, string password)
@@ -31,10 +32,7 @@ namespace MultiNotes.Core
 
             BsonId = await UniqueId.GetUniqueBsonId(httpClient);
             string passwordHash = Encryption.Sha256(password);
-            user = new User(BsonId, email,);
-            user.Id = BsonId;
-            user.Login = email;        
-            user.PasswordHash = passwordHash;
+            user = new User(BsonId, passwordHash,email);
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
             if (response.StatusCode == HttpStatusCode.Created)
@@ -58,7 +56,7 @@ namespace MultiNotes.Core
 
             //wypelnienie uzytkownika
             string token = await authenticationToken.PostAuthRecordAsync(Record);
-            user = await GetUserInfo(token, Record.Login);
+            user = await GetUserInfo(token, Record.Email);
         }
 
         public async Task<User> GetUserInfo(string token,string login)
@@ -72,7 +70,7 @@ namespace MultiNotes.Core
             else
             {
                 throw new HttpResponseException(response.StatusCode);
-                //Forbidden,Unauthorized,InternalServerError
+                //Forbidden,Unauthorized,InternalServerError,BadRequest- niepoprawny email
             }
             return user;
         }
@@ -80,14 +78,10 @@ namespace MultiNotes.Core
         public async Task DeleteAccount()
         {
             string token = await authenticationToken.PostAuthRecordAsync(Record);
-            var user = GetUserInfo(token, Record.Login);
+            var user = GetUserInfo(token, Record.Email);
             HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
 
-            if(response.StatusCode == HttpStatusCode.OK)
-            {
-                ;
-            }
-            else
+            if(response.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpResponseException(response.StatusCode);
                 //Forbidden,Unauthorized,InternalServerError
@@ -97,19 +91,14 @@ namespace MultiNotes.Core
         public async Task EditAccount()
         {
             string token = await authenticationToken.PostAuthRecordAsync(Record);
-            var user = GetUserInfo(token, Record.Login);
+            var user = GetUserInfo(token, Record.Email);
             HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/user/"+token, user);
 
-            if(response.StatusCode == HttpStatusCode.OK)
-            {
-
-            }
-            else
+            if(response.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpResponseException(response.StatusCode);
                 //Forbidden,Unauthorized,InternalServerError
             }
         }
-
     }
 }
