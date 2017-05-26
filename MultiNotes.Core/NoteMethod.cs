@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
 using System.IO;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
-    public class NoteMethod
+    public class NoteMethod: INoteMethod
     {
         private static HttpClient httpClient;
         private string path = "notes.txt";
@@ -24,20 +19,16 @@ namespace MultiNotes.Core
             httpClient = httpClient2;
         }
 
-        public  void AddNoteToFile(Note note)
+        public void AddNoteToFile(Note note)
         {
             if (!File.Exists(path))
             {
-                //var tmpList = new List<Note>();
-                //tmpList.Add(note);
-                var json = new JavaScriptSerializer().Serialize(note);
+                var json = JsonConvert.SerializeObject(note);
                 File.WriteAllText(path, json);
             }
             else
             {
-                //var tmpList = new List<Note>();
-                //.Add(note);
-                var json = new JavaScriptSerializer().Serialize(note);
+                var json = JsonConvert.SerializeObject(note);
                 File.AppendAllText(path, json);
             }
         }
@@ -140,7 +131,7 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 return listNotes.Where(a=>a.OwnerId== userId).ToList();
             }
@@ -165,7 +156,7 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 return listNotes.Where(a=>a.Id==id && a.OwnerId==userId).FirstOrDefault();
             }
@@ -189,14 +180,14 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add( JsonConvert.DeserializeObject<Note>(x));
                 }
                 Note toDelte = listNotes.Where(a => a.Id == id && a.OwnerId== userId).FirstOrDefault();
                 listNotes.Remove(toDelte);
                 File.WriteAllText(path, "");
                 foreach (var x in listNotes)
                 {
-                    var jsonNote = new JavaScriptSerializer().Serialize(x);
+                    var jsonNote = JsonConvert.SerializeObject(x);
                     File.AppendAllText(path, json);
                 }
             }
@@ -216,20 +207,18 @@ namespace MultiNotes.Core
                 tmpList.RemoveAt(tmpList.Count - 1);
                 foreach (var x in tmpList)
                 {
-                    listNotes.Add(new JavaScriptSerializer().Deserialize<Note>(x));
+                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 Note toDelete = listNotes.Where(a => a.Id == id && a.OwnerId==userId).FirstOrDefault();
                 listNotes.Remove(toDelete);
 
                 toDelete.Content = newNote.Content;
-                toDelete.LastChangeTimestamp = newNote.LastChangeTimestamp;
-
                 listNotes.Add(toDelete);
 
                 File.WriteAllText(path, "");
                 foreach (var x in listNotes)
                 {
-                    var jsonNote = new JavaScriptSerializer().Serialize(x);
+                    var jsonNote = JsonConvert.SerializeObject(x);
                     File.AppendAllText(path, json);
                 }
             }

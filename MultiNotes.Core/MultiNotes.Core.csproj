@@ -41,7 +41,8 @@
   <ItemGroup>
     <Compile Include="AuthenticationToken.cs" />
     <Compile Include="ConnectionApi.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="INoteMethod.cs" />
+    <Compile Include="IUserMethod.cs" />
     <Compile Include="NoteMethod.cs" />
     <Compile Include="UniqueId.cs" />
     <Compile Include="UserMethod.cs" />
