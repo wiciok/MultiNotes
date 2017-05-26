@@ -11,6 +11,7 @@ using System.Net;
 using System.Web.Http;
 using System.IO;
 using Newtonsoft.Json;
+using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
@@ -27,15 +28,11 @@ namespace MultiNotes.Core
         {
             if (!File.Exists(path))
             {
-                //var tmpList = new List<Note>();
-                //tmpList.Add(note);
                 var json = JsonConvert.SerializeObject(note);
                 File.WriteAllText(path, json);
             }
             else
             {
-                //var tmpList = new List<Note>();
-                //.Add(note);
                 var json = JsonConvert.SerializeObject(note);
                 File.AppendAllText(path, json);
             }
@@ -229,8 +226,6 @@ namespace MultiNotes.Core
                 listNotes.Remove(toDelete);
 
                 toDelete.Content = newNote.Content;
-                toDelete.LastChangeTimestamp = newNote.LastChangeTimestamp;
-
                 listNotes.Add(toDelete);
 
                 File.WriteAllText(path, "");

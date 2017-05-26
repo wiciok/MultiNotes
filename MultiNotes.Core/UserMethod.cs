@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
+using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
@@ -23,7 +17,7 @@ namespace MultiNotes.Core
             httpClient = httpClient2;
             authenticationToken = new AuthenticationToken(httpClient);
             Record = new AuthenticationRecord();
-            user = new User();
+            
         }
         public void PreparedAuthenticationRecord()
         {
@@ -37,6 +31,7 @@ namespace MultiNotes.Core
 
             BsonId = await UniqueId.GetUniqueBsonId(httpClient);
             string passwordHash = Encryption.Sha256(password);
+            user = new User(BsonId, email,);
             user.Id = BsonId;
             user.Login = email;        
             user.PasswordHash = passwordHash;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
+using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
