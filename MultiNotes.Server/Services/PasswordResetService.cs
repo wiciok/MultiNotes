@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using MultiNotes.Core;
 using MultiNotes.Model;
 
 namespace MultiNotes.Server.Services
@@ -14,11 +11,11 @@ namespace MultiNotes.Server.Services
     {
         public PasswordResetRecord(User user, string token)
         {
-            this.User = user;
-            this.Token = token;
+            User = user;
+            Token = token;
         }
-        public User User { get; private set; }
-        public string Token { get; private set; }
+        public User User { get; }
+        public string Token { get; }
     }
 
     public class PasswordResetService //singleton
@@ -31,17 +28,17 @@ namespace MultiNotes.Server.Services
         private static PasswordResetService _instance;
         public static PasswordResetService Instance => _instance ?? (_instance = new PasswordResetService());
 
-        public List<PasswordResetRecord> RecordList { get; private set; }
+        public List<PasswordResetRecord> RecordList { get; }
 
 
         public void SendEmailWithToken(string email)
         {
-            string token = RandomTokenGenerator.GenerateUniqueToken();
+            var token = RandomTokenGenerator.GenerateUniqueToken();
 
             IMailingService mailingService = new MailingService();
 
-            string serverAddress = ServerAddressService.ServerAddress;
-            string msg = "Twój link do resetu hasła to: <a href = 'http://" + serverAddress +
+            var serverAddress = ServerAddressService.ServerAddress;
+            var msg = "Twój link do resetu hasła to: <a href = 'http://" + serverAddress +
                 "/ResetPassword/Reset/" + token + "'>http://" + serverAddress + "/ResetPassword/Reset/" + token + "</a>";
 
             mailingService.SendEmail(msg, "MultiNotes - Password Reset", email);
@@ -55,7 +52,7 @@ namespace MultiNotes.Server.Services
                 return null;
 
             const int newPasswordLength = 20;
-            string newPassword = RandomTokenGenerator.GenerateRandomString(newPasswordLength);
+            var newPassword = RandomTokenGenerator.GenerateRandomString(newPasswordLength);
 
             record.User.PasswordHash = Encryption.Sha256(newPassword);
             UnitOfWork.Instance.UsersRepository.UpdateUser(record.User.Id, record.User);

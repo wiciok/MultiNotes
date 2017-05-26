@@ -1,39 +1,23 @@
 ﻿using System;
 using MultiNotes.Model;
-using MultiNotes.Server.Services;
 
-
-namespace MultiNotes.Server.Models
+namespace MultiNotes.Server.Services
 {
     class Token
     {
-        public static readonly int expireTime = 200; //todo: zmniejszyc to, na razie jest tyle dla wygody
+        public static readonly int ExpireTime = 200; //todo: zmniejszyc to, na razie jest tyle dla wygody
 
-        private DateTime CreateTimestamp;
+        private readonly DateTime _createTimestamp;
         public User User { get; }
-        private string token;
-
-        public string GetString
-        {
-            get { return token; }
-        }
+        public string GetString { get; }
 
         public Token(User user)
         {
-            this.CreateTimestamp = DateTime.Now;
-            this.User = user;
-            this.token = RandomTokenGenerator.GenerateUniqueToken();
+            _createTimestamp = DateTime.Now;
+            User = user;
+            GetString = RandomTokenGenerator.GenerateUniqueToken();
         }
 
-        public bool IsValid
-        {
-            get
-            {
-                if ((DateTime.Now - CreateTimestamp).Seconds <= expireTime)
-                    return true;
-                else
-                    return false;
-            }
-        }
+        public bool IsValid => (DateTime.Now - _createTimestamp).Seconds <= ExpireTime;
     }
 }
