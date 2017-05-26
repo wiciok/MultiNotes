@@ -59,10 +59,10 @@ namespace MultiNotes.Core
             user = await GetUserInfo(token, Record.Email);
         }
 
-        public async Task<User> GetUserInfo(string token,string login)
+        public async Task<User> GetUserInfo(string token,string email)
         {
             User user = null;
-            HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + login);
+            HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + email);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 user = await response.Content.ReadAsAsync<User>();
@@ -98,6 +98,20 @@ namespace MultiNotes.Core
             {
                 throw new HttpResponseException(response.StatusCode);
                 //Forbidden,Unauthorized,InternalServerError
+            }
+        }
+
+        public async Task RemindPassword(string email)
+        {
+            var method = new HttpMethod("PATCH");
+            var request = new HttpRequestMessage(method, "api/ResetPassword/"+email);
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = await httpClient.SendAsync(request);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new HttpResponseException(response.StatusCode);
+                //NotFound,InternalServerError
             }
         }
     }

@@ -1,8 +1,5 @@
 ﻿using MultiNotes.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MultiNotes.Core
@@ -19,6 +16,5 @@ namespace MultiNotes.Core
         Note GetNoteFromFile(string id, string userId);
         void DeleteNoteFromFile(string id, string userId);
         void UpdateNoteFromFile(string id, string userId, Note newNote);
-
     }
 }
