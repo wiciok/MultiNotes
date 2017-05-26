@@ -9,8 +9,8 @@ namespace MultiNotes.Core
     {
         public static async Task<string> GetUniqueBsonId(HttpClient httpClient)
         {
-            string product = null;
-            HttpResponseMessage response = await httpClient.GetAsync("api/id/");
+            string product;
+            var response = await httpClient.GetAsync("api/id/");
 
             if (response.StatusCode == HttpStatusCode.Created)
             {

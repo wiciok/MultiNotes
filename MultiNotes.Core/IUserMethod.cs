@@ -6,8 +6,8 @@ namespace MultiNotes.Core
     public interface IUserMethod
     {
         void PreparedAuthenticationRecord();
-        Task register(string email, string password);
-        Task login(string email, string password);
+        Task Register(string email, string password);
+        Task Login(string email, string password);
         Task<User> GetUserInfo(string token, string email);
         Task DeleteAccount();
         Task EditAccount();

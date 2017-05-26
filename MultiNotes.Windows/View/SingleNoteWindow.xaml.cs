@@ -6,27 +6,27 @@ namespace MultiNotes.Windows.View
     /// <summary>
     /// Interaction logic for SingleNoteWindow.xaml
     /// </summary>
-    public partial class SingleNoteWindow : Window
+    public partial class SingleNoteWindow
     {
         public SingleNoteWindow()
         {
             InitializeComponent();
 
             // Manually alter window height and width
-            this.SizeToContent = SizeToContent.Manual;
+            SizeToContent = SizeToContent.Manual;
 
             // Automatically resize height relative to content
-            this.SizeToContent = SizeToContent.Height;
+            SizeToContent = SizeToContent.Height;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

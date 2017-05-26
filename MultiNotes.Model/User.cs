@@ -7,14 +7,14 @@ namespace MultiNotes.Model
     {
         public User(string id, string passwordHash, string email)
         {
-            this.Id = id;
-            this.PasswordHash = passwordHash;
-            this.EmailAddress = email;
-            this.RegistrationTimestamp = DateTime.Now;
+            Id = id;
+            PasswordHash = passwordHash;
+            EmailAddress = email;
+            RegistrationTimestamp = DateTime.Now;
         }
 
         [BsonId]
-        public string Id { get; private set; }
+        public string Id { get; }
         public string EmailAddress { get; set; } //also login
         public string PasswordHash { get; set; }
         public DateTime RegistrationTimestamp { get; }

@@ -6,34 +6,34 @@ namespace MultiNotes.Windows.View
     /// <summary>
     /// Interaction logic for MultiNotesRegisterWindow.xaml
     /// </summary>
-    public partial class MultiNotesRegisterWindow : Window
+    public partial class MultiNotesRegisterWindow
     {
         public MultiNotesRegisterWindow()
         {
             InitializeComponent();
             // Manually alter window height and width
-            this.SizeToContent = SizeToContent.Manual;
+            SizeToContent = SizeToContent.Manual;
 
             // Automatically resize height relative to content
-            this.SizeToContent = SizeToContent.Height;
+            SizeToContent = SizeToContent.Height;
 
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
-            MultiNotesLoginWindow loginWindow = new MultiNotesLoginWindow();
-            RegisterViewModel registerViewModel = new RegisterViewModel();
+            var loginWindow = new MultiNotesLoginWindow();
+            var registerViewModel = new RegisterViewModel();
 
-            if (emailTextBox.Text == repeatEmailTextBox.Text)
+            if (EmailTextBox.Text == RepeatEmailTextBox.Text)
             {
-                if(passBox.Password == repeatPassBox.Password)
+                if(PassBox.Password == RepeatPassBox.Password)
                 {
-                    registerViewModel.MakeRegisterTask(emailTextBox.Text, passBox.Password);
+                    registerViewModel.MakeRegisterTask(EmailTextBox.Text, PassBox.Password);
                 }
             }
             
-            this.Close();
+            Close();
             loginWindow.Show();
         }
     }

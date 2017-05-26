@@ -7,35 +7,35 @@ namespace MultiNotes.Windows.View
     /// <summary>
     /// Interaction logic for MultiNotesLoginWindow.xaml
     /// </summary>
-    public partial class MultiNotesLoginWindow : Window
+    public partial class MultiNotesLoginWindow
     {
         public MultiNotesLoginWindow()
         {
             InitializeComponent();
-            ConnectionApi.configure();
+            ConnectionApi.Configure();
 
 
             // Manually alter window height and width
-            this.SizeToContent = SizeToContent.Manual;
+            SizeToContent = SizeToContent.Manual;
 
             // Automatically resize height relative to content
-            this.SizeToContent = SizeToContent.Height;
+            SizeToContent = SizeToContent.Height;
 
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            LoginViewModel loginViewModel = new LoginViewModel(this);
-            string email = this.emailTextBox.Text;
-            string password = this.passBox.Password;
+            var loginViewModel = new LoginViewModel(this);
+            var email = EmailTextBox.Text;
+            var password = PassBox.Password;
             loginViewModel.Login(email, password);
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
             MultiNotesRegisterWindow registerWindow = new MultiNotesRegisterWindow();
-            this.Close();
+            Close();
             registerWindow.Show();
         }
     }

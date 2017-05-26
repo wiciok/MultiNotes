@@ -8,15 +8,15 @@ namespace MultiNotes.Core
 {
     class AuthenticationToken
     {
-        private static HttpClient httpClient;
+        private static HttpClient _httpClient;
         public AuthenticationToken(HttpClient httpClient2)
         {
-            httpClient = httpClient2;
+            _httpClient = httpClient2;
         }
         public async Task<string> PostAuthRecordAsync(AuthenticationRecord authRecord) //zwraca token w postaci stringa
         {
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/auth", authRecord);
-            string token = null;
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/auth", authRecord);
+            string token;
             if (response.StatusCode== HttpStatusCode.OK)
             {
                 token= await response.Content.ReadAsAsync<string>();

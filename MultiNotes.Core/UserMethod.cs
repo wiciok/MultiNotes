@@ -8,33 +8,33 @@ namespace MultiNotes.Core
 {
     public class UserMethod: IUserMethod
     {
-        private static HttpClient httpClient;
-        private AuthenticationToken authenticationToken;
+        private static HttpClient _httpClient;
+        private readonly AuthenticationToken _authenticationToken;
+
         public AuthenticationRecord Record { get; set; }
-        public User user;
-        private string fileAuthenticationRecord = "user.txt";
+        public User User;
+        private const string FileAuthenticationRecord = "user.txt";
+
         public UserMethod(HttpClient httpClient2)
         {
-            httpClient = httpClient2;
-            authenticationToken = new AuthenticationToken(httpClient);
+            _httpClient = httpClient2;
+            _authenticationToken = new AuthenticationToken(_httpClient);
             Record = new AuthenticationRecord();
             
         }
         public void PreparedAuthenticationRecord()
         {
-            string[] lines = System.IO.File.ReadAllLines(fileAuthenticationRecord);
+            var lines = System.IO.File.ReadAllLines(FileAuthenticationRecord);
             Record.Email = lines[0];
             Record.PasswordHash = lines[1];
         }
-        public async Task register(string email, string password)
+        public async Task Register(string email, string password)
         {
-            string BsonId = null;
+            var bsonId = await UniqueId.GetUniqueBsonId(_httpClient);
+            var passwordHash = Encryption.Sha256(password);
+            User = new User(bsonId, passwordHash,email);
 
-            BsonId = await UniqueId.GetUniqueBsonId(httpClient);
-            string passwordHash = Encryption.Sha256(password);
-            user = new User(BsonId, passwordHash,email);
-
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/user", user);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/user", User);
             if (response.StatusCode == HttpStatusCode.Created)
             {
                 string[] lines = { email, passwordHash };
@@ -47,7 +47,7 @@ namespace MultiNotes.Core
                 //Conflict- loginow,InternalServerError
             }
         }
-        public async Task login(string email, string password)
+        public async Task Login(string email, string password)
         {
             //logowanie do pliku
             string[] lines = { email, Encryption.Sha256(password) };
@@ -55,14 +55,14 @@ namespace MultiNotes.Core
             PreparedAuthenticationRecord();
 
             //wypelnienie uzytkownika
-            string token = await authenticationToken.PostAuthRecordAsync(Record);
-            user = await GetUserInfo(token, Record.Email);
+            var token = await _authenticationToken.PostAuthRecordAsync(Record);
+            User = await GetUserInfo(token, Record.Email);
         }
 
         public async Task<User> GetUserInfo(string token,string email)
         {
-            User user = null;
-            HttpResponseMessage response = await httpClient.GetAsync("api/user/" + token + "/" + email);
+            User user;
+            var response = await _httpClient.GetAsync("api/user/" + token + "/" + email);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 user = await response.Content.ReadAsAsync<User>();
@@ -77,9 +77,9 @@ namespace MultiNotes.Core
 
         public async Task DeleteAccount()
         {
-            string token = await authenticationToken.PostAuthRecordAsync(Record);
+            var token = await _authenticationToken.PostAuthRecordAsync(Record);
             var user = GetUserInfo(token, Record.Email);
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
+            var response = await _httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
 
             if(response.StatusCode != HttpStatusCode.OK)
             {
@@ -90,9 +90,9 @@ namespace MultiNotes.Core
 
         public async Task EditAccount()
         {
-            string token = await authenticationToken.PostAuthRecordAsync(Record);
+            var token = await _authenticationToken.PostAuthRecordAsync(Record);
             var user = GetUserInfo(token, Record.Email);
-            HttpResponseMessage response = await httpClient.PutAsJsonAsync("api/user/"+token, user);
+            var response = await _httpClient.PutAsJsonAsync("api/user/"+token, user);
 
             if(response.StatusCode != HttpStatusCode.OK)
             {
@@ -105,8 +105,7 @@ namespace MultiNotes.Core
         {
             var method = new HttpMethod("PATCH");
             var request = new HttpRequestMessage(method, "api/ResetPassword/"+email);
-            HttpResponseMessage response = new HttpResponseMessage();
-            response = await httpClient.SendAsync(request);
+            var response = await _httpClient.SendAsync(request);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {

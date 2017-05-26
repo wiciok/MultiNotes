@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MultiNotes.Windows.View"
         mc:Ignorable="d"
         StateChanged="Window_StateChanged"
         Title="MultiNotes" Height="461.854" Width="663.015">
@@ -55,9 +54,9 @@
         <Label Grid.Row="6" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center">Menu</Label>
 
         <WrapPanel Grid.Row="7" Grid.Column="1" Margin="3" HorizontalAlignment="Center">
-            <Button Name="addNoteBtn" Content="Add note" Padding="3" Margin="3" MinWidth="90"></Button>
-            <Button Name="editNoteBtn" Content="Edit note" Padding="3" Margin="3" MinWidth="90"></Button>
-            <Button Name="deleteNoteBtn" Content="Delete note" Padding="3" Margin="3" MinWidth="90"></Button>
+            <Button Name="AddNoteBtn" Content="Add note" Padding="3" Margin="3" MinWidth="90"></Button>
+            <Button Name="EditNoteBtn" Content="Edit note" Padding="3" Margin="3" MinWidth="90"></Button>
+            <Button Name="DeleteNoteBtn" Content="Delete note" Padding="3" Margin="3" MinWidth="90"></Button>
         </WrapPanel>
 
         <ListView Grid.Row="1" Grid.Column="0" Grid.RowSpan="7" Margin="3">

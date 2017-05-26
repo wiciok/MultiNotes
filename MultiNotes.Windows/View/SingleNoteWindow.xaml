@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MultiNotes.Windows.View"
         mc:Ignorable="d"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -16,8 +15,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Label DockPanel.Dock="Left" Margin="0,0,0,3" Grid.Row="0">Date: 4.05.2017</Label>
-            <Button DockPanel.Dock="Left" Name="closeBtn" Content="X" Click="closeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+            <Label DockPanel.Dock="Left" Margin="0,0,0,3">Date: 4.05.2017</Label>
+            <Button DockPanel.Dock="Left" Name="CloseBtn" Content="X" Click="closeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
         </DockPanel>
 
         <Separator Margin="0,3,0,3" Grid.Row="1"/>

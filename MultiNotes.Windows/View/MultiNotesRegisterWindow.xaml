@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MultiNotes.Windows.View"
         mc:Ignorable="d"
         Title="MultiNotes - Sign up" Height="388.647" Width="300">
     <Grid>
@@ -21,23 +20,23 @@
             <Border Grid.Row="1" Background="LightYellow" BorderBrush="SteelBlue" BorderThickness="2,4,2,4" CornerRadius="2" Margin="6">
                 <StackPanel Orientation="Vertical" Margin="3">
                     <Label HorizontalAlignment="Center">E-mail:</Label>
-                    <TextBox Name="emailTextBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
+                    <TextBox Name="EmailTextBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
                     <Label HorizontalAlignment="Center">Repeat e-mail</Label>
-                    <TextBox Name="repeatEmailTextBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
+                    <TextBox Name="RepeatEmailTextBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
                 </StackPanel>
             </Border>
 
             <Border Grid.Row="2" Background="LightYellow" BorderBrush="SteelBlue" BorderThickness="2,4,2,4" CornerRadius="2" Margin="6">
-                <StackPanel Grid.Row="2" Orientation="Vertical" Margin="3">
+                <StackPanel Orientation="Vertical" Margin="3">
                     <Label HorizontalAlignment="Center">Password:</Label>
-                    <PasswordBox Name="passBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></PasswordBox>
+                    <PasswordBox Name="PassBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></PasswordBox>
                     <Label HorizontalAlignment="Center">Repeat password:</Label>
-                    <PasswordBox Name="repeatPassBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></PasswordBox>
+                    <PasswordBox Name="RepeatPassBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></PasswordBox>
                 </StackPanel>
             </Border>
 
             <StackPanel  Grid.Row="3" Margin="3">
-                <Button Name="registerBtn" Content="Sign up" VerticalAlignment="Center" HorizontalAlignment="Center"
+                <Button Name="RegisterBtn" Content="Sign up" VerticalAlignment="Center" HorizontalAlignment="Center"
                     MinWidth="100" MaxWidth="200" Margin="3" Padding="3" Click="registerBtn_Click"></Button>
             </StackPanel>
         </Grid>

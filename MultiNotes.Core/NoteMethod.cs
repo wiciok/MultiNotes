@@ -12,30 +12,31 @@ namespace MultiNotes.Core
 {
     public class NoteMethod: INoteMethod
     {
-        private static HttpClient httpClient;
-        private string path = "notes.txt";
+        private static HttpClient _httpClient;
+        private const string Path = "notes.txt";
+
         public NoteMethod(HttpClient httpClient2)
         {
-            httpClient = httpClient2;
+            _httpClient = httpClient2;
         }
 
         public void AddNoteToFile(Note note)
         {
-            if (!File.Exists(path))
+            if (!File.Exists(Path))
             {
                 var json = JsonConvert.SerializeObject(note);
-                File.WriteAllText(path, json);
+                File.WriteAllText(Path, json);
             }
             else
             {
                 var json = JsonConvert.SerializeObject(note);
-                File.AppendAllText(path, json);
+                File.AppendAllText(Path, json);
             }
         }
         public async void AddNoteToDatabase(Note note,string token)
         {
             //zapis notatki do bazy danych        
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/note/"+token, note);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/note/"+token, note);
             if (response.StatusCode != HttpStatusCode.Created)
             {
                 throw new HttpResponseException(response.StatusCode);
@@ -46,9 +47,9 @@ namespace MultiNotes.Core
         public async Task<IEnumerable<Note>> GetAllNotesFromDatabase(string token)
         {
             //pobranie wszystkich notatek danego uzytkownika      
-            IEnumerable<Note> allNotes = null;
+            IEnumerable<Note> allNotes;
 
-            HttpResponseMessage response = await httpClient.GetAsync("api/note/" + token);
+            HttpResponseMessage response = await _httpClient.GetAsync("api/note/" + token);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 allNotes = await response.Content.ReadAsAsync<IEnumerable<Note>>();
@@ -65,9 +66,9 @@ namespace MultiNotes.Core
         public async Task<Note> GetNoteByIdFromDatabase(string token,string id)
         {
             //pobranie wszystkich notatek danego uzytkownika      
-            Note newNote = null;
+            Note newNote;
     
-            HttpResponseMessage response = await httpClient.GetAsync("api/note/" + token+"/"+id);
+            HttpResponseMessage response = await _httpClient.GetAsync("api/note/" + token+"/"+id);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 newNote = await response.Content.ReadAsAsync<Note>();
@@ -82,7 +83,7 @@ namespace MultiNotes.Core
 
         public async Task<bool>  DeleteNoteByIdFromDatabase(string token, string id)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/note/" + token + "/" + id);
+            HttpResponseMessage response = await _httpClient.DeleteAsync("api/note/" + token + "/" + id);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 return true;
@@ -100,7 +101,7 @@ namespace MultiNotes.Core
 
         public async Task<bool> UpdateNoteByIdFromDatabase(string token, string id, Note newNote)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/note/" + token + "/" + id);
+            HttpResponseMessage response = await _httpClient.DeleteAsync("api/note/" + token + "/" + id);
             if (response.StatusCode == HttpStatusCode.OK)
             {                  
                 AddNoteToDatabase(newNote,token);
@@ -119,10 +120,10 @@ namespace MultiNotes.Core
 
         public List<Note> GetAllNotesFromFile(string userId)
         {
-            if (File.Exists(path))
+            if (File.Exists(Path))
             {
                 List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
+                string json = File.ReadAllText(Path);
                 List<string>tmpList = json.Split('}').ToList();
                 for (int i=0;i< tmpList.Count;++i)
                 {
@@ -144,10 +145,10 @@ namespace MultiNotes.Core
 
         public Note GetNoteFromFile(string id, string userId)
         {
-            if (File.Exists(path))
+            if (File.Exists(Path))
             {
                 List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
+                string json = File.ReadAllText(Path);
                 List<string> tmpList = json.Split('}').ToList();
                 for (int i = 0; i < tmpList.Count; ++i)
                 {
@@ -158,7 +159,7 @@ namespace MultiNotes.Core
                 {
                     listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
-                return listNotes.Where(a=>a.Id==id && a.OwnerId==userId).FirstOrDefault();
+                return listNotes.FirstOrDefault(a => a.Id==id && a.OwnerId==userId);
             }
             else
             {
@@ -168,12 +169,12 @@ namespace MultiNotes.Core
 
         public void DeleteNoteFromFile(string id, string userId)
         {
-            if (File.Exists(path))
+            if (File.Exists(Path))
             {
-                List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
-                List<string> tmpList = json.Split('}').ToList();
-                for (int i = 0; i < tmpList.Count; ++i)
+                var listNotes = new List<Note>();
+                string json = File.ReadAllText(Path);
+                var tmpList = json.Split('}').ToList();
+                for (var i = 0; i < tmpList.Count; ++i)
                 {
                     tmpList[i] += "}";
                 }
@@ -182,47 +183,42 @@ namespace MultiNotes.Core
                 {
                     listNotes.Add( JsonConvert.DeserializeObject<Note>(x));
                 }
-                Note toDelte = listNotes.Where(a => a.Id == id && a.OwnerId== userId).FirstOrDefault();
+                Note toDelte = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId== userId);
                 listNotes.Remove(toDelte);
-                File.WriteAllText(path, "");
+                File.WriteAllText(Path, "");
                 foreach (var x in listNotes)
                 {
-                    var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(path, json);
+                    JsonConvert.SerializeObject(x);
+                    File.AppendAllText(Path, json);
                 }
             }
         }
 
         public void UpdateNoteFromFile(string id,string  userId,Note newNote)
         {
-            if (File.Exists(path))
+            if (!File.Exists(Path))
+                return;
+
+            var json = File.ReadAllText(Path);
+            var tmpList = json.Split('}').ToList();
+            for (var i = 0; i < tmpList.Count; ++i)
             {
-                List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
-                List<string> tmpList = json.Split('}').ToList();
-                for (int i = 0; i < tmpList.Count; ++i)
-                {
-                    tmpList[i] += "}";
-                }
-                tmpList.RemoveAt(tmpList.Count - 1);
-                foreach (var x in tmpList)
-                {
-                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
-                }
-                Note toDelete = listNotes.Where(a => a.Id == id && a.OwnerId==userId).FirstOrDefault();
-                listNotes.Remove(toDelete);
+                tmpList[i] += "}";
+            }
+            tmpList.RemoveAt(tmpList.Count - 1);
+            var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+            var toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId==userId);
+            listNotes.Remove(toDelete);
 
-                toDelete.Content = newNote.Content;
-                listNotes.Add(toDelete);
+            toDelete.Content = newNote.Content;
+            listNotes.Add(toDelete);
 
-                File.WriteAllText(path, "");
-                foreach (var x in listNotes)
-                {
-                    var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(path, json);
-                }
+            File.WriteAllText(Path, "");
+            foreach (var x in listNotes)
+            {
+                JsonConvert.SerializeObject(x);
+                File.AppendAllText(Path, json);
             }
         }
-
     }
 }

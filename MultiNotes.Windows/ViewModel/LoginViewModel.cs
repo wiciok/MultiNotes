@@ -9,16 +9,15 @@ namespace MultiNotes.Windows.ViewModel
     public class LoginViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public MultiNotesLoginWindow loginWindow;
+        public MultiNotesLoginWindow LoginWindow;
 
         public LoginViewModel(MultiNotesLoginWindow loginWindow)
         {
-            this.loginWindow = loginWindow;
+            LoginWindow = loginWindow;
         }
         private void RaisePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void MakeLoginTask(string email, string password)
@@ -29,13 +28,13 @@ namespace MultiNotes.Windows.ViewModel
         public async void Login(string email, string password)
         {
             
-            UserMethod methods = new UserMethod(ConnectionApi.httpClient);
+            UserMethod methods = new UserMethod(ConnectionApi.HttpClient);
 
             try
             {
-                    await methods.login(email, password);
+                    await methods.Login(email, password);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 MessageBox.Show("Wrong username or password");
                 return;
@@ -44,7 +43,7 @@ namespace MultiNotes.Windows.ViewModel
             Application.Current.Dispatcher.Invoke(delegate
             {
                 MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
-                loginWindow.Close();
+                LoginWindow.Close();
                 mainWindow.Show();
             });
         }

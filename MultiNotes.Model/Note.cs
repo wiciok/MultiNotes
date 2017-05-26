@@ -1,27 +1,26 @@
 ﻿using System;
 using MongoDB.Bson.Serialization.Attributes;
 
-
 namespace MultiNotes.Model
 {
     public class Note: INote
     {
         public Note(string id, string ownerId, string content="")
         {
-            this.Id = id;
-            this.OwnerId = ownerId;
-            this.Content = content;
-            this.CreateTimestamp = DateTime.Now;
-            this.LastChangeTimestamp = DateTime.Now;
+            Id = id;
+            OwnerId = ownerId;
+            Content = content;
+            CreateTimestamp = DateTime.Now;
+            LastChangeTimestamp = DateTime.Now;
         }
 
         private void UpdateChangeTimestamp()
         {
-            this.LastChangeTimestamp = DateTime.Now;
+            LastChangeTimestamp = DateTime.Now;
         }
 
         [BsonId]
-        public string Id { get; private set; }
+        public string Id { get; }
         public string OwnerId { get; }
 
         private string _content;

@@ -8,24 +8,24 @@ namespace MultiNotes.Core
     public class ConnectionApi//singleton???
     {
 #if DEBUG_CONFIGURATION
-        private static int port = 63252;
-        private static string DBAddress = "http://localhost:";
+        private const int Port = 63252;
+        private const string DbAddress = "http://localhost:";
 #else
-        private static int port = 80;
-        private static string DBAddress = "http://217.61.4.233:8080/MultiNotes.Server/";
+        private const int Port = 80;
+        private const string DbAddress = "http://217.61.4.233:8080/MultiNotes.Server/";
 #endif
 
-        public static HttpClient httpClient = new HttpClient();  
-        private static bool configured = false;
-        public static void configure()
+        public static HttpClient HttpClient = new HttpClient();  
+        private static bool _configured;
+        public static void Configure()
         {
-            if (!configured)
-            {
-                httpClient.BaseAddress = new Uri(DBAddress + port);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                configured = true;
-            }
+            if (_configured)
+                return;
+
+            HttpClient.BaseAddress = new Uri(DbAddress + Port);
+            HttpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _configured = true;
         }
     }
 }
