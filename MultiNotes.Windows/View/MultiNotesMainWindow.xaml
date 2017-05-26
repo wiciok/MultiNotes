@@ -1,0 +1,163 @@
+﻿<Window x:Class="MultiNotes.Windows.View.MultiNotesMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiNotes.Windows.View"
+        mc:Ignorable="d"
+        StateChanged="Window_StateChanged"
+        Title="MultiNotes" Height="461.854" Width="663.015">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontWeight="Bold">My account</Label>
+                <Image Source="/Images/avatar.png" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Separator Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="3"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" FontWeight="Bold">Date:</Label>
+            <Label HorizontalAlignment="Center">3.05.2017</Label>
+        </StackPanel>
+
+        <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="3"/>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Margin="3">
+            <Label FontWeight="Bold">Note content:</Label>
+            <TextBlock TextWrapping="Wrap">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                In ullamcorper commodo lacus vitae lobortis.
+                Sed eu eros ac magna laoreet lacinia vel in diam. Vivamus vel iaculis sem.
+                Sed laoreet posuere molestie. Cras eu viverra nisl, id rutrum nisi.
+                Quisque vehicula orci ultricies enim pretium, ac dignissim diam finibus.
+            </TextBlock>
+        </StackPanel>
+
+        <Separator Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3"/>
+
+        <Label Grid.Row="6" Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center">Menu</Label>
+
+        <WrapPanel Grid.Row="7" Grid.Column="1" Margin="3" HorizontalAlignment="Center">
+            <Button Name="addNoteBtn" Content="Add note" Padding="3" Margin="3" MinWidth="90"></Button>
+            <Button Name="editNoteBtn" Content="Edit note" Padding="3" Margin="3" MinWidth="90"></Button>
+            <Button Name="deleteNoteBtn" Content="Delete note" Padding="3" Margin="3" MinWidth="90"></Button>
+        </WrapPanel>
+
+        <ListView Grid.Row="1" Grid.Column="0" Grid.RowSpan="7" Margin="3">
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+
+            <Border Background="Aqua" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                <StackPanel Margin="3" Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">Notatka 1</Label>
+                    <CheckBox VerticalAlignment="Center"></CheckBox>
+                </StackPanel>
+            </Border>
+        </ListView>
+    </Grid>
+</Window>
