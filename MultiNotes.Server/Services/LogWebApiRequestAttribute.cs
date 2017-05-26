@@ -1,24 +1,13 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+﻿using System.Web.Http.Filters;
+using NLog;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Services
 {
     public class LogWebApiRequestAttribute : ActionFilterAttribute
     {
-        public LogWebApiRequestAttribute() { }
-
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            LogManager.GetCurrentClassLogger().Info("\nRequest: \n" + actionExecutedContext.Request.ToString()+"\n\nResponse:\n "+actionExecutedContext.Response.ToString());
+            LogManager.GetCurrentClassLogger().Info("\nRequest: \n" + actionExecutedContext.Request+"\n\nResponse:\n "+actionExecutedContext.Response);
         }
     }
 }

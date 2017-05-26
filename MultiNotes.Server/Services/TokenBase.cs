@@ -3,49 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using MultiNotes.Model;
 
-namespace MultiNotes.Server.Models
+namespace MultiNotes.Server.Services
 {
     //singleton
-    static class TokenBase
+    internal static class TokenBase
     {
-        private static List<Token> tokenList;
-
-        private static List<Token> TokenList
-        {
-            get
-            {
-                if (tokenList == null)
-                    tokenList = new List<Token>();
-                return tokenList;
-            }
-        }
+        private static List<Token> _tokenList;
+        private static List<Token> TokenList => _tokenList ?? (_tokenList = new List<Token>());
 
         public static Token AddNewToken(User user)
         {
-            Token token = new Token(user);
+            var token = new Token(user);
             TokenList.Add(token);
             return token;
         }
 
-        private static bool TokenVerify(string token)             //checks if token exists and is valid, otherwise deletes token 
+        private static bool TokenVerify(string token)      //checks if token exists and is valid, otherwise deletes token 
         {
-            int retVal = TokenList.Count(g => g.GetString == token);
+            var retVal = TokenList.Count(g => g.GetString == token);
 
-            if (retVal == 0)
-                return false;
-            else if (retVal == 1)
+            switch (retVal)
             {
-                if(TokenList.Find(g => g.GetString == token).IsValid)
-                    return true;
-                else
-                {
-                    RemoveToken(token);
+                case 0:
                     return false;
-                }
-                
-            }     
-            else
-                throw new InvalidOperationException("Non-unique token exists!");
+                case 1:
+                    if(TokenList.Find(g => g.GetString == token).IsValid)
+                        return true;
+                    else
+                    {
+                        RemoveToken(token);
+                        return false;
+                    }
+                default:
+                    throw new InvalidOperationException("Non-unique token exists!");
+            }
         }
 
         public static bool VerifyToken(string token)
@@ -60,22 +51,12 @@ namespace MultiNotes.Server.Models
 
         public static Token GetToken(string token)
         {
-            if (VerifyToken(token) == true)
-            {
-                Token tmp=TokenList.Find(g => g.GetString == token);
-                return tmp;
-            }
-            return null;
+            return VerifyToken(token) == true ? TokenList.Find(g => g.GetString == token) : null;
         }
 
         public static Token GetToken(Token token)
         {
-            if (VerifyToken(token) == true)
-            {
-                Token tmp = TokenList.Find(g => g == token);
-                return tmp;
-            }
-            return null;
+            return VerifyToken(token) == true ? TokenList.Find(g => g == token) : null;
         }
 
 
@@ -84,17 +65,19 @@ namespace MultiNotes.Server.Models
             return TokenList.Find(g => g.User.Id == user.Id);
         }
 
-        //todo: troche to usprawnic bo namieszane jest
         public static bool VerifyUserToken(User user)
         {
             var retVal = TokenList.Count(g => g.User.Id == user.Id);
 
-            if (retVal == 0)
-                return false;
-            else if (retVal == 1)
-                return TokenVerify(tokenList.Find(g => g.User.Id == user.Id).GetString);
-            else
-                throw new InvalidOperationException("Too much tokens for one user exists!");
+            switch (retVal)
+            {
+                case 0:
+                    return false;
+                case 1:
+                    return TokenVerify(_tokenList.Find(g => g.User.Id == user.Id).GetString);
+                default:
+                    throw new InvalidOperationException("Too much tokens for one user exists!");
+            }
         }
 
         public static void RemoveToken(string token)

@@ -1,34 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Web.Http;
-using MultiNotes.Server;
-using MultiNotes.Server.Models;
 using System.Web.Http.Description;
 using System.Net.Http;
 using MultiNotes.Model;
+using MultiNotes.Server.Services;
 
 namespace MultiNotes.Server.Controllers
 {
     [LogWebApiRequest]
     public class AuthController : ApiController
     {
-        private IUnitOfWork unitOfWork = UnitOfWork.Instance;
+        private readonly IUnitOfWork _unitOfWork = UnitOfWork.Instance;
 
         private bool Authenticate(AuthenticationRecord authData)
         {
             User user;
 
-            if (unitOfWork.UsersRepository.CheckForUserByEmail(authData.Email) == false)
+            if (_unitOfWork.UsersRepository.CheckForUserByEmail(authData.Email) == false)
                 return false;
             else
-                user = unitOfWork.UsersRepository.GetUserByEmail(authData.Email);
+                user = _unitOfWork.UsersRepository.GetUserByEmail(authData.Email);
 
-            if (authData.PasswordHash == user.PasswordHash)
-                return true;
-            else
-                return false;
+            return authData.PasswordHash == user.PasswordHash;
         }
 
 
@@ -41,15 +35,15 @@ namespace MultiNotes.Server.Controllers
             {
                 if (Authenticate(userAuthData)==true) //user istnieje, haslo sie zgadza
                 {
-                    User user = unitOfWork.UsersRepository.GetUserByEmail(userAuthData.Email);
+                    var user = _unitOfWork.UsersRepository.GetUserByEmail(userAuthData.Email);
 
                     if(TokenBase.VerifyUserToken(user)==true) //jesli token juz istnieje  i jest ważny - zwracamy go
                     {
-                        Token token = TokenBase.GetUserToken(user);
-                            return Request.CreateResponse<string>(HttpStatusCode.OK, token.GetString);                            
+                        var token = TokenBase.GetUserToken(user);
+                            return Request.CreateResponse(HttpStatusCode.OK, token.GetString);                            
                     }
                     //token nie istnieje - tworzymy go i zwracamy
-                    return Request.CreateResponse<string>(HttpStatusCode.OK, TokenBase.AddNewToken(user).GetString);
+                    return Request.CreateResponse(HttpStatusCode.OK, TokenBase.AddNewToken(user).GetString);
                 }
                 else
                 {
@@ -57,7 +51,7 @@ namespace MultiNotes.Server.Controllers
                     return Request.CreateResponse(HttpStatusCode.Unauthorized, err);
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 HttpError err = new HttpError("Error while authentication");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);

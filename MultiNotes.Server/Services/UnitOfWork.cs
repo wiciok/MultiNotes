@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using MongoDB.Driver;
 using MultiNotes.Server.Repositories;
-using MongoDB.Driver;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Services
 {
-    interface IUnitOfWork
+    internal interface IUnitOfWork
     {
         string ConnectionString { get; }
         INoteRepository NotesRepository { get; }
@@ -17,13 +13,10 @@ namespace MultiNotes.Server
 
     //nie jest to moze do konca unit of work, ale przynajmniej przechowuje wszystkie repozytoria
     //singleton
-    class UnitOfWork : IUnitOfWork
+    internal class UnitOfWork : IUnitOfWork
     {
         private static UnitOfWork _instance;
-        private static readonly string connectionString = "mongodb://localhost:27017";
-        private MongoClient client;
-
-        public string ConnectionString { get { return connectionString; } }
+        public string ConnectionString => "mongodb://localhost:27017";
 
         public INoteRepository NotesRepository { get; }
         public IUserRepository UsersRepository { get; }
@@ -32,20 +25,12 @@ namespace MultiNotes.Server
 
         private UnitOfWork()
         {
-            this.client = new MongoClient(ConnectionString);
-            this.Database = client.GetDatabase("MultiNotes");
-            this.NotesRepository = new NoteRepository(Database);
-            this.UsersRepository = new UserRepository(Database);
+            MongoClient client = new MongoClient(ConnectionString);
+            Database = client.GetDatabase("MultiNotes");
+            NotesRepository = new NoteRepository(Database);
+            UsersRepository = new UserRepository(Database);
         }
 
-        public static IUnitOfWork Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new UnitOfWork();
-                return _instance;
-            }
-        }
+        public static IUnitOfWork Instance => _instance ?? (_instance = new UnitOfWork());
     }
 }
