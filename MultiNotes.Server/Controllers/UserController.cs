@@ -8,6 +8,7 @@ using MultiNotes.Server.Repositories;
 using System.Web.Http.Description;
 using MultiNotes.Model;
 using MultiNotes.Server.Models;
+using MultiNotes.Server.Services;
 
 namespace MultiNotes.Server.Controllers
 {
@@ -20,24 +21,24 @@ namespace MultiNotes.Server.Controllers
 
         //pobieranie danych uzytkownika np. po zalogowaniu w kliencie
         // GET api/user/32q2fdrsdfa/5
-        [Route("{token}/{login}")]
+        [Route("{token}/{email}")]
         [ResponseType(typeof(User))]
         [HttpGet]
-        public HttpResponseMessage Get(string token, string login)
+        public HttpResponseMessage Get(string token, string email)
         {
             try
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    if(authService.currentUser.Login==login)
-                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUserByLogin(login));
+                    if (authService.currentUser.EmailAddress == email)
+                        return Request.CreateResponse<User>(HttpStatusCode.OK, usersRepo.GetUserByEmail(email));
                     else
                         return Request.CreateResponse(HttpStatusCode.Forbidden); //probojemy pobrac dane innego uzytkownika niz my sami
                 }
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while getting user");
@@ -48,22 +49,36 @@ namespace MultiNotes.Server.Controllers
 
         //rejestracja nowego uzytkownika
         // POST api/user
-        //[Route("{user}")]
         [ResponseType(typeof(User))]
         [HttpPost]
         public HttpResponseMessage Post([FromBody]User user)
         {
             try
             {
-                if (usersRepo.CheckForUser(user.Id) == false && usersRepo.CheckForUserByLogin(user.Login)==false)
+                if (usersRepo.CheckForUser(user.Id) == false &&
+                    usersRepo.CheckForUserByEmail(user.EmailAddress) == false)
+                {
+                    //email validation
+                    try
+                    {
+                        var addr = new System.Net.Mail.MailAddress(user.EmailAddress);
+                    }
+                    catch
+                    {
+                        HttpError err = new HttpError("Bad email address format!");
+                        return Request.CreateResponse(HttpStatusCode.BadRequest, err);
+                    }
+
                     return Request.CreateResponse<User>(HttpStatusCode.Created, usersRepo.AddUser(user));
+                }
+                    
                 else
                 {
                     HttpError err = new HttpError("User already exists!");
                     return Request.CreateResponse(HttpStatusCode.Conflict, err);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while creating user");
@@ -74,7 +89,6 @@ namespace MultiNotes.Server.Controllers
 
         // edycja istniejacego uzytkownika
         // PUT api/user/32q2fdrsdfa
-        //[Route("{token}/{value}")]
         [Route("{token}")]
         [ResponseType(typeof(User))]
         [HttpPut]
@@ -84,7 +98,7 @@ namespace MultiNotes.Server.Controllers
             {
                 if (authService.CheckAuthorization(token) == true)
                 {
-                    if(authService.currentUser.Id!=value.Id)
+                    if (authService.currentUser.Id != value.Id)
                         return Request.CreateResponse(HttpStatusCode.Forbidden); //probojemy zmienic dane innego uzytkownika niz my sami
 
                     else
@@ -96,7 +110,7 @@ namespace MultiNotes.Server.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while editing user");
@@ -106,7 +120,6 @@ namespace MultiNotes.Server.Controllers
 
         // usuniecie istniejacego uzytkownika (siebie)
         // DELETE api/user/32q2fdrsdfa
-        //[Route("{token}/{value}")]
         [Route("{token}/{id_user}")]
         [ResponseType(typeof(User))]
         [HttpDelete]
@@ -130,10 +143,36 @@ namespace MultiNotes.Server.Controllers
                 else
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
                 HttpError err = new HttpError("Error while removing user");
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
+            }
+        }
+
+        //sends email with user password reset link
+        [Route("{email}")]
+        [ResponseType(typeof(User))]
+        [HttpPatch]
+        public HttpResponseMessage Patch([FromUri]string email)
+        {
+            try
+            {
+                if (usersRepo.CheckForUserByEmail(email))
+                {
+                    PasswordResetService.Instance.SendEmailWithToken(email);   
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+            }
+            catch (Exception e)
+            {
+                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
+                HttpError err = new HttpError("Error while sending user password reset link!");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
         }

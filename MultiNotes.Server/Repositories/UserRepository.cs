@@ -23,9 +23,9 @@ namespace MultiNotes.Server.Repositories
             return _usersCollection.Find(n => n.Id == id).Single<User>();
         }
 
-        public User GetUserByLogin(string login)
+        public User GetUserByEmail(string email)
         {
-            return _usersCollection.Find(n => n.Login == login).Single<User>();
+            return _usersCollection.Find(n => n.EmailAddress == email).Single<User>();
         }
 
         public bool CheckForUser(string id)
@@ -36,9 +36,9 @@ namespace MultiNotes.Server.Repositories
                 return true;
         }
 
-        public bool CheckForUserByLogin(string login)
+        public bool CheckForUserByEmail(string email)
         {
-            if (_usersCollection.Count(n => n.Login == login) == 0)
+            if (_usersCollection.Count(n => n.EmailAddress == email) == 0)
                 return false;
             else
                 return true;
