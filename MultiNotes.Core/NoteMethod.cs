@@ -182,13 +182,16 @@ namespace MultiNotes.Core
                 {
                     listNotes.Add( JsonConvert.DeserializeObject<Note>(x));
                 }
-                Note toDelte = listNotes.Where(a => a.Id == id && a.OwnerId== userId).FirstOrDefault();
-                listNotes.Remove(toDelte);
-                File.WriteAllText(path, "");
-                foreach (var x in listNotes)
+                Note toDelete = listNotes.Where(a => a.Id == id && a.OwnerId== userId).FirstOrDefault();
+                if(toDelete!=null)
                 {
-                    var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(path, json);
+                    listNotes.Remove(toDelete);
+                    File.WriteAllText(path, "");
+                    foreach (var x in listNotes)
+                    {
+                        var jsonNote = JsonConvert.SerializeObject(x);
+                        File.AppendAllText(path, json);
+                    }
                 }
             }
         }
@@ -210,16 +213,18 @@ namespace MultiNotes.Core
                     listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
                 }
                 Note toDelete = listNotes.Where(a => a.Id == id && a.OwnerId==userId).FirstOrDefault();
-                listNotes.Remove(toDelete);
-
-                toDelete.Content = newNote.Content;
-                listNotes.Add(toDelete);
-
-                File.WriteAllText(path, "");
-                foreach (var x in listNotes)
+                if (toDelete != null)
                 {
-                    var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(path, json);
+                    listNotes.Remove(toDelete);
+                    toDelete.Content = newNote.Content;
+                    listNotes.Add(toDelete);
+
+                    File.WriteAllText(path, "");
+                    foreach (var x in listNotes)
+                    {
+                        var jsonNote = JsonConvert.SerializeObject(x);
+                        File.AppendAllText(path, json);
+                    }
                 }
             }
         }
