@@ -11,14 +11,15 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.Models.Base;
 
 namespace MultiNotes.XAndroid.Models
 {
-    public class Authorization : IAuthorization
+    public class AuthorizationEngine : IAuthorizationEngine
     {
-        private static IAuthorization instance = null;
+        private static IAuthorizationEngine instance = null;
         private static object syncRoot = new object();
-        public static IAuthorization Instance
+        public static IAuthorizationEngine Instance
         {
             get
             {
@@ -28,7 +29,7 @@ namespace MultiNotes.XAndroid.Models
                     {
                         if (instance == null)
                         {
-                            instance = new Authorization();
+                            instance = new AuthorizationEngine();
                         }
                     }
                 }
@@ -37,47 +38,44 @@ namespace MultiNotes.XAndroid.Models
         }
 
 
-
+        // Non-static part starts here
+        
+        private UserHeader userHeader;
         private bool signedIn;
 
 
-        private Authorization()
+        private AuthorizationEngine()
         {
+            userHeader = UserHeader.Empty;
             signedIn = false;
         }
 
-
-        /**
-         * Implements IAuthorization.SignedIn { get; }
-         */
+        
         public bool SignedIn
         {
             get { return signedIn; }
         }
 
-
-        /**
-         * Implements IAuthorization.User { get; }
-         */
+        
         public User User
         {
             get { return null; }
         }
 
+        public UserHeader UserHeader
+        {
+            get { return userHeader; }
+        }
 
-        /**
-         * Implements IAuthorization.SignIn()
-         */
+        
         public bool SignIn(string username, string password)
         {
+            userHeader = new UserHeader("1", "example@multinotes.pl");
             signedIn = true;
             return signedIn;
         }
 
-
-        /**
-         * Implements IAuthorization.SignOut()
-         */
+        
         public void SignOut()
         {
             signedIn = false;

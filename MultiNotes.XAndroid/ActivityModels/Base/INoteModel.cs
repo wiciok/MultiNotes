@@ -10,9 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
-
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels.Base
 {
     public interface INoteModel
     {

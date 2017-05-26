@@ -10,16 +10,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.Models;
+using MultiNotes.Core;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Models.Base
 {
-    public interface IMainModel
+    public interface INotesRepository
     {
 
-        IAuthorization Authorization { get; }
+        List<Note> NotesList { get; }
 
-        INotesRepository NotesRepository { get; }
+        void SortDescending();
 
     }
 }

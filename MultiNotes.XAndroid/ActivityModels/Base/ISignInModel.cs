@@ -10,12 +10,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.ActivityModels.Base
 {
-    public interface IRegistration
+
+    public interface ISignInModel
     {
-
-        // TOTO: this interface and registration
-
+        bool SignIn(string username, string password);
     }
+
 }

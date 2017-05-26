@@ -4,37 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/app_bar_toolbar_note"
             android:theme="@style/AppTheme.AppBarOverlay">
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_note"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/colorPrimary"
-                app:title="@string/note_title"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/note_title" />
         </android.support.design.widget.AppBarLayout>
-        <EditText
-            android:inputType="textMultiLine"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/app_bar_toolbar_note"
-            android:layout_marginTop="@dimen/default_margin_small"
-            android:layout_marginLeft="@dimen/default_margin_small"
-            android:layout_marginRight="@dimen/default_margin_small"
-            android:layout_marginBottom="@dimen/default_margin_small"
-            android:background="@drawable/edit_text_border_small"
-            android:padding="@dimen/default_margin_small"
-            android:gravity="top|left"
-            android:scrollbars="vertical"
-            android:id="@+id/note_edit_text" />
-    </LinearLayout>
+            android:layout_below="@id/app_bar"
+            android:paddingTop="@dimen/margin_activity_vertical"
+            android:paddingLeft="@dimen/margin_activity_horizontal"
+            android:paddingRight="@dimen/margin_activity_horizontal"
+            android:paddingBottom="@dimen/margin_activity_vertical">
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_border_small"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/default_margin_small"
+                android:scrollbars="vertical" />
+        </RelativeLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

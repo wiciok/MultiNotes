@@ -13,6 +13,8 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.ActivityModels;
+using MultiNotes.XAndroid.ActivityModels.Base;
 using MultiNotes.XAndroid.Models;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -34,29 +36,31 @@ namespace MultiNotes.XAndroid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.activity_main);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_main));
+            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
-            notesListView = FindViewById<ListView>(Resource.Id.main_list_view_notes);
+            // Set up field components
+            notesListView = FindViewById<ListView>(Resource.Id.list_view_notes);
 
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.main_fab);
+            // Set up local variable components
+            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
 
-            notesListView.Adapter = new NotesAdapter(this);
+            notesListView.Adapter = new NoteAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 
             model = new MainModel();
 
-            fab.Click += FloatinActionButtonOnClick;
+            fab.Click += FloatingActionButtonOnClick;
         }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
+            NoteAdapter adapter = notesListView.Adapter as NoteAdapter;
             if (adapter == null)
             {
                 return;
             }
 
-            NotesAdapter.INoteWrapper noteObject = adapter.GetItem(e.Position) as NotesAdapter.INoteWrapper;
+            NoteAdapter.INoteWrapper noteObject = adapter.GetItem(e.Position) as NoteAdapter.INoteWrapper;
             if (noteObject == null)
             {
                 return;
@@ -78,13 +82,13 @@ namespace MultiNotes.XAndroid
         {
             switch (menuItem.ItemId)
             {
-                case Resource.Id.main_menu_edit:
+                case Resource.Id.menu_edit:
                     return MenuEditOnClick();
 
-                case Resource.Id.main_menu_sync:
+                case Resource.Id.menu_sync:
                     return MenuSyncOnClick();
 
-                case Resource.Id.main_menu_account:
+                case Resource.Id.menu_account:
                     return MenuAccountOnClick();
 
                 default:
@@ -96,7 +100,7 @@ namespace MultiNotes.XAndroid
         protected override void OnResume()
         {
             base.OnResume();
-            if (!model.Authorization.SignedIn)
+            if (!model.SignedIn)
             {
                 StartActivity(typeof(SignInActivity));
             }
@@ -128,7 +132,7 @@ namespace MultiNotes.XAndroid
         }
 
 
-        private void FloatinActionButtonOnClick(object sender, EventArgs e)
+        private void FloatingActionButtonOnClick(object sender, EventArgs e)
         {
             StartNoteActivity();
         }
@@ -136,8 +140,14 @@ namespace MultiNotes.XAndroid
 
         private void RefreshNotesList()
         {
-            NotesAdapter adapter = notesListView.Adapter as NotesAdapter;
-            if (adapter != null)
+            // The following code works the same as:
+            // 
+            // NoteAdapter adapter = notesListView.Adapter as NoteAdapter;
+            // if (adapter != null)
+            // {
+            //      adapter.NotifyDataSetChanged();
+            // }
+            if (notesListView.Adapter is NoteAdapter adapter)
             {
                 adapter.NotifyDataSetChanged();
             }

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.Models.Base;
 
 namespace MultiNotes.XAndroid.Models
 {
@@ -29,7 +30,7 @@ namespace MultiNotes.XAndroid.Models
         /**
          * Implements INotesRepository.Reorder()
          */
-        public void Reorder()
+        public void SortDescending()
         {
             NotesBase.Instance.Reorder();
         }

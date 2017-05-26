@@ -30,6 +30,7 @@
 
     <string name="settings_title">Ustawienia</string>
     <string name="sign_in_title">Logowanie</string>
+    <string name="sign_in_welcome">Witamy w MultiNotes</string>
     <string name="sign_up_title">Rejestracja</string>
     
     <string name="text_view_account_welcome">Konto użytkownika</string>

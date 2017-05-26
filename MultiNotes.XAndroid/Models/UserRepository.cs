@@ -14,16 +14,11 @@ using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid.Models
 {
-    public interface IAuthorization
+    public class UserRepository
     {
+        public User Get(string token)
+        {
 
-        bool SignedIn { get; }
-
-        User User { get; }
-
-        bool SignIn(string username, string password);
-
-        void SignOut();
-
+        }
     }
 }

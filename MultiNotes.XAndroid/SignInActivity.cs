@@ -12,37 +12,40 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.XAndroid.Models;
+using MultiNotes.XAndroid.Models.Base;
 
-using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+// May be needed some day
+// using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace MultiNotes.XAndroid
 {
     [Activity(MainLauncher = false,
         ParentActivity = typeof(MainActivity),
         ScreenOrientation = ScreenOrientation.Portrait,
-        Theme = "@style/AppTheme.NoActionBar")]
+        Theme = "@style/AppTheme.SignInActivity")]
     public sealed class SignInActivity : MultiNotesBaseActivity
     {
 
         private EditText emailAddressEditText;
         private EditText passwordEditText;
 
-        private IAuthorization model;
+        private IAuthorizationEngine model;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
-            SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar_sign_in));
 
-            model = Authorization.Instance;
+            model = AuthorizationEngine.Instance;
 
-            emailAddressEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_email_address);
-            passwordEditText = FindViewById<EditText>(Resource.Id.sign_in_edit_text_password);
+            // Set up field components
+            emailAddressEditText = FindViewById<EditText>(Resource.Id.edit_text_email_address);
+            passwordEditText = FindViewById<EditText>(Resource.Id.edit_text_password);
 
-            Button signInButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_in);
-            Button signUpButton = FindViewById<Button>(Resource.Id.sign_in_button_sign_up);
+            // Set up local variable components
+            Button signInButton = FindViewById<Button>(Resource.Id.button_sign_in);
+            Button signUpButton = FindViewById<Button>(Resource.Id.button_sign_up);
 
             signInButton.Click += SignInButtonOnClick;
             signUpButton.Click += SignUpButtonOnClick;
@@ -51,7 +54,7 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            if (model.SignIn(emailAddressEditText.Text, passwordEditText.Text))
+            if (model.SignIn(emailAddressEditText.Text.Trim(), passwordEditText.Text))
             {
                 Finish();
             }

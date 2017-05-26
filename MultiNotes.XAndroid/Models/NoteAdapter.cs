@@ -11,17 +11,18 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.XAndroid.Models.Base;
 
 namespace MultiNotes.XAndroid.Models
 {
-    public class NotesAdapter : BaseAdapter
+    public class NoteAdapter : BaseAdapter
     {
 
         private INotesRepository notesRepository;
         private Activity activity;
 
 
-        public NotesAdapter(Activity activity)
+        public NoteAdapter(Activity activity)
         {
             this.activity = activity;
             notesRepository = new NotesRepository();
@@ -62,11 +63,11 @@ namespace MultiNotes.XAndroid.Models
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.list_item_note, parent, false);
-            TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.note_title);
+            TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.title);
 
-            notesTitleTextView.Text =
-                notesRepository.NotesList[position].Content.Length > 20 ?
-                notesRepository.NotesList[position].Content.Substring(0, 20) : notesRepository.NotesList[position].Content;
+            notesTitleTextView.Text = notesRepository.NotesList[position].Content.Length > 20
+                ? notesRepository.NotesList[position].Content.Substring(0, 20) + " . . ." 
+                : notesRepository.NotesList[position].Content;
 
             return view;
         }
