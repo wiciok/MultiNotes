@@ -38,7 +38,13 @@ namespace MultiNotes.Core
         {
             var bsonId = await UniqueId.GetUniqueBsonId(_httpClient);
             var passwordHash = Encryption.Sha256(password);
-            User = new User(bsonId, passwordHash, email);
+            User = new User
+            {
+                Id = bsonId,
+                EmailAddress = email,
+                PasswordHash = passwordHash,
+                RegistrationTimestamp = DateTime.Now
+            };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/user", User);
             if (response.StatusCode == HttpStatusCode.Created)

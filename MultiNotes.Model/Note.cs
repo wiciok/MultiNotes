@@ -5,37 +5,12 @@ namespace MultiNotes.Model
 {
     public class Note: INote
     {
-        public Note(string id, string ownerId, string content="")
-        {
-            Id = id;
-            OwnerId = ownerId;
-            Content = content;
-            CreateTimestamp = DateTime.Now;
-            LastChangeTimestamp = DateTime.Now;
-        }
-
-        private void UpdateChangeTimestamp()
-        {
-            LastChangeTimestamp = DateTime.Now;
-        }
-
         [BsonId]
-        public string Id { get; }
-        public string OwnerId { get; }
-
-        private string _content;
-        public string Content
-        {
-            get => _content;
-            set
-            {
-                UpdateChangeTimestamp();
-                _content = value;
-            }            
-        }
-
-        public DateTime CreateTimestamp { get; }
-        public DateTime LastChangeTimestamp { get; private set; }
+        public string Id { get; set; }
+        public string OwnerId { get; set; }
+        public string Content { get; set; }      
+        public DateTime CreateTimestamp { get; set; }
+        public DateTime LastChangeTimestamp { get; set; }
 
         public override string ToString()
         {
