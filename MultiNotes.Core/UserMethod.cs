@@ -67,6 +67,8 @@ namespace MultiNotes.Core
 
         public async Task<User> GetUserInfo(string token, string email)
         {
+            email = Encryption.Base64Encode(email);
+
             User user;
             var response = await _httpClient.GetAsync("api/user/" + token + "/" + email);
             if (response.StatusCode == HttpStatusCode.OK)
@@ -109,6 +111,8 @@ namespace MultiNotes.Core
 
         public async Task RemindPassword(string email)
         {
+            email = Encryption.Base64Encode(email);
+
             var method = new HttpMethod("PATCH");
             var request = new HttpRequestMessage(method, "api/ResetPassword/" + email);
             var response = await _httpClient.SendAsync(request);

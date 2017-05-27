@@ -23,6 +23,7 @@ namespace MultiNotes.Server.Controllers
         [HttpGet]
         public HttpResponseMessage Get(string token, string email)
         {
+            email = Encryption.Base64Decode(email);
             try
             {
                 if (_authService.CheckAuthorization(token) == true)
@@ -153,6 +154,7 @@ namespace MultiNotes.Server.Controllers
         [HttpPatch]
         public HttpResponseMessage Patch([FromUri]string email)
         {
+            email = Encryption.Base64Decode(email);
             try
             {
                 if (UsersRepo.CheckForUserByEmail(email))
