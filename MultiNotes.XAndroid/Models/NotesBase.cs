@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Models
 {
@@ -41,29 +42,10 @@ namespace MultiNotes.XAndroid.Models
 
         private static void InitializeInstance()
         {
-            instance.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #1",
-                LastChangeTimestamp = DateTime.Now
-            });
-            instance.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #2",
-                LastChangeTimestamp = DateTime.Now
-            });
-            instance.NotesList.Add(new Note() {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #3",
-                LastChangeTimestamp = DateTime.Now
-            });
-            instance.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #4",
-                LastChangeTimestamp = DateTime.Now
-            });
+            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #1"));
+            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #2"));
+            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #3"));
+            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #4"));
         }
 
 

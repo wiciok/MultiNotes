@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Models
 {
@@ -26,7 +27,7 @@ namespace MultiNotes.XAndroid.Models
         private string emailAddress;
 
 
-        public UserHeader(User user) : this(user.Id, user.Login) { }
+        public UserHeader(User user) : this(user.Id, user.EmailAddress) { }
 
         public UserHeader(string id, string emailAddress)
         {

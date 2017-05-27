@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Core;
+using MultiNotes.Model;
 using MultiNotes.XAndroid.ActivityModels.Base;
 using MultiNotes.XAndroid.Models;
 using MultiNotes.XAndroid.Models.Base;
@@ -44,7 +45,6 @@ namespace MultiNotes.XAndroid.ActivityModels
         {
             INotesRepository notesRepository = new NotesRepository();
             notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().Content = noteContent;
-            notesRepository.NotesList.Where(x => x.Id == noteId).FirstOrDefault().LastChangeTimestamp = DateTime.Now;
             notesRepository.SortDescending();
         }
 
@@ -60,12 +60,7 @@ namespace MultiNotes.XAndroid.ActivityModels
         public void AddNote()
         {
             INotesRepository notesRepository = new NotesRepository();
-            notesRepository.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = noteContent,
-                LastChangeTimestamp = DateTime.Now
-            });
+            notesRepository.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", noteContent));
             notesRepository.SortDescending();
         }
 
