@@ -7,21 +7,26 @@ using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
-    public class UserMethod: IUserMethod
+    public class UserMethod : IUserMethod
     {
         private static HttpClient _httpClient;
         private readonly AuthenticationToken _authenticationToken;
 
         public AuthenticationRecord Record { get; set; }
         public User User;
-        private readonly string FileAuthenticationRecord = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "user.txt");
+        private readonly string FileAuthenticationRecord = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "user.dat");
 
         public UserMethod(HttpClient httpClient2)
         {
             _httpClient = httpClient2;
             _authenticationToken = new AuthenticationToken(_httpClient);
             Record = new AuthenticationRecord();
-            
+
+            string directoryName = System.IO.Path.GetDirectoryName(FileAuthenticationRecord);
+            if (!System.IO.Directory.Exists(directoryName))
+            {
+                System.IO.Directory.CreateDirectory(directoryName);
+            }
         }
         public void PreparedAuthenticationRecord()
         {
@@ -33,13 +38,13 @@ namespace MultiNotes.Core
         {
             var bsonId = await UniqueId.GetUniqueBsonId(_httpClient);
             var passwordHash = Encryption.Sha256(password);
-            User = new User(bsonId, passwordHash,email);
+            User = new User(bsonId, passwordHash, email);
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/user", User);
             if (response.StatusCode == HttpStatusCode.Created)
             {
                 string[] lines = { email, passwordHash };
-                System.IO.File.WriteAllLines("users.txt", lines);
+                System.IO.File.WriteAllLines(FileAuthenticationRecord, lines);
                 PreparedAuthenticationRecord();
             }
             else
@@ -52,7 +57,7 @@ namespace MultiNotes.Core
         {
             //logowanie do pliku
             string[] lines = { email, Encryption.Sha256(password) };
-            System.IO.File.WriteAllLines("plik.txt", lines);
+            System.IO.File.WriteAllLines(FileAuthenticationRecord, lines);
             PreparedAuthenticationRecord();
 
             //wypelnienie uzytkownika
@@ -60,7 +65,7 @@ namespace MultiNotes.Core
             User = await GetUserInfo(token, Record.Email);
         }
 
-        public async Task<User> GetUserInfo(string token,string email)
+        public async Task<User> GetUserInfo(string token, string email)
         {
             User user;
             var response = await _httpClient.GetAsync("api/user/" + token + "/" + email);
@@ -82,7 +87,7 @@ namespace MultiNotes.Core
             var user = GetUserInfo(token, Record.Email);
             var response = await _httpClient.DeleteAsync("api/user/" + token + "/" + user.Result.Id);
 
-            if(response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpResponseException(response.StatusCode);
                 //Forbidden,Unauthorized,InternalServerError
@@ -93,9 +98,9 @@ namespace MultiNotes.Core
         {
             var token = await _authenticationToken.PostAuthRecordAsync(Record);
             var user = GetUserInfo(token, Record.Email);
-            var response = await _httpClient.PutAsJsonAsync("api/user/"+token, user);
+            var response = await _httpClient.PutAsJsonAsync("api/user/" + token, user);
 
-            if(response.StatusCode != HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 throw new HttpResponseException(response.StatusCode);
                 //Forbidden,Unauthorized,InternalServerError
@@ -105,7 +110,7 @@ namespace MultiNotes.Core
         public async Task RemindPassword(string email)
         {
             var method = new HttpMethod("PATCH");
-            var request = new HttpRequestMessage(method, "api/ResetPassword/"+email);
+            var request = new HttpRequestMessage(method, "api/ResetPassword/" + email);
             var response = await _httpClient.SendAsync(request);
 
             if (response.StatusCode != HttpStatusCode.OK)
