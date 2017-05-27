@@ -63,7 +63,6 @@ namespace MultiNotes.Core
 
             return allNotes;
         }
-
         public async Task<Note> GetNoteByIdFromDatabase(string token,string id)
         {
             //pobranie wszystkich notatek danego uzytkownika      
