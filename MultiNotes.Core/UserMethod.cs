@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Http;
@@ -13,7 +14,7 @@ namespace MultiNotes.Core
 
         public AuthenticationRecord Record { get; set; }
         public User User;
-        private const string FileAuthenticationRecord = "user.txt";
+        private readonly string FileAuthenticationRecord = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "user.txt");
 
         public UserMethod(HttpClient httpClient2)
         {
