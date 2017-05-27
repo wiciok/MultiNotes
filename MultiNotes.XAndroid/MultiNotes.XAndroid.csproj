@@ -101,22 +101,22 @@
     <Compile Include="ActivityModels\Base\ISignInModel.cs" />
     <Compile Include="ActivityModels\SignInModel.cs" />
     <Compile Include="ChangePasswordActivity.cs" />
-    <Compile Include="Models\UserHeader.cs" />
+    <Compile Include="Model\UserHeader.cs" />
     <Compile Include="MultiNotesBaseActivity.cs" />
     <Compile Include="ActivityModels\Base\IAccountModel.cs" />
     <Compile Include="ActivityModels\Base\IMainModel.cs" />
     <Compile Include="ActivityModels\Base\INoteModel.cs" />
     <Compile Include="ActivityModels\MainModel.cs" />
     <Compile Include="ActivityModels\NoteModel.cs" />
-    <Compile Include="Models\AuthorizationEngine.cs" />
-    <Compile Include="Models\Counter.cs" />
-    <Compile Include="Models\Base\IAuthorizationEngine.cs" />
-    <Compile Include="Models\Base\INotesRepository.cs" />
-    <Compile Include="Models\Base\IRegistrationEngine.cs" />
+    <Compile Include="Model\AuthorizationEngine.cs" />
+    <Compile Include="Model\Counter.cs" />
+    <Compile Include="Model\Base\IAuthorizationEngine.cs" />
+    <Compile Include="Model\Base\INotesRepository.cs" />
+    <Compile Include="Model\Base\IRegistrationEngine.cs" />
     <Compile Include="NoteActivity.cs" />
-    <Compile Include="Models\NotesBase.cs" />
-    <Compile Include="Models\NotesRepository.cs" />
-    <Compile Include="Models\NoteAdapter.cs" />
+    <Compile Include="Model\NotesBase.cs" />
+    <Compile Include="Model\NotesRepository.cs" />
+    <Compile Include="Model\NoteAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\activity_sign_in.axml">
       <SubType>Designer</SubType>
@@ -227,6 +227,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_primary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

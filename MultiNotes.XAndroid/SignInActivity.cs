@@ -11,8 +11,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.Models;
-using MultiNotes.XAndroid.Models.Base;
+using MultiNotes.XAndroid.Model;
+using MultiNotes.XAndroid.Model.Base;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;

@@ -12,9 +12,9 @@ using Android.Widget;
 
 using MultiNotes.Core;
 using MultiNotes.Model;
-using MultiNotes.XAndroid.Models.Base;
+using MultiNotes.XAndroid.Model.Base;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Model
 {
     public class NoteAdapter : BaseAdapter
     {

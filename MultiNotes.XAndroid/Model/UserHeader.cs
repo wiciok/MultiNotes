@@ -13,7 +13,7 @@ using Android.Widget;
 using MultiNotes.Core;
 using MultiNotes.Model;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Model
 {
     public class UserHeader
     {

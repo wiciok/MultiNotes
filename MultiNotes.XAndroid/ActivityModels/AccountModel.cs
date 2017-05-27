@@ -11,8 +11,8 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.XAndroid.ActivityModels.Base;
-using MultiNotes.XAndroid.Models;
-using MultiNotes.XAndroid.Models.Base;
+using MultiNotes.XAndroid.Model;
+using MultiNotes.XAndroid.Model.Base;
 
 namespace MultiNotes.XAndroid.ActivityModels
 {
