@@ -33,6 +33,7 @@ namespace MultiNotes.Core
                 File.AppendAllText(Path, json);
             }
         }
+
         public async void AddNoteToDatabase(Note note,string token)
         {
             //zapis notatki do bazy danych        
