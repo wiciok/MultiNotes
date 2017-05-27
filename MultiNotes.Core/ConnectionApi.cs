@@ -20,7 +20,9 @@ namespace MultiNotes.Core
         public static void Configure()
         {
             if (_configured)
+            {
                 return;
+            }
 
             HttpClient.BaseAddress = new Uri(DbAddress + Port);
             HttpClient.DefaultRequestHeaders.Accept.Clear();

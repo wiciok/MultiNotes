@@ -9,32 +9,38 @@ namespace MultiNotes.Core
 {
     class AndroidNoteApi : INoteApi
     {
-        private string userId;
-        AndroidNoteApi(string userId)
+        private string _userId;
+        private AuthenticationRecord _authenticationRecord;
+        private INoteMethod _androidNoteMethod;
+
+        public AndroidNoteApi(AuthenticationRecord authenticationRecord, string userId)
         {
-            this.userId = userId;
+            this._authenticationRecord = authenticationRecord;
+            this._userId = userId;
+            _androidNoteMethod = new NoteMethod(ConnectionApi.HttpClient); // TODO Change to android api
         }
-        public void AddNote(Note note)
+
+        public async Task AddNoteAsync(Note note)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Note> GetNoteById(string id)
+        public async Task<Note> GetNoteByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Note>> GetAllNotes()
+        public async Task<IEnumerable<Note>> GetAllNotesAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteNoteById(string id)
+        public async Task DeleteNoteByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateNote(string id, Note newNote)
+        public async Task UpdateNoteAsync(string id, Note newNote)
         {
             throw new NotImplementedException();
         }
