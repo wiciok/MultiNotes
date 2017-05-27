@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Server", "MultiN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Server.Tests", "MultiNotes.Server.Tests\MultiNotes.Server.Tests.csproj", "{31871B75-AA78-47B3-B259-869F27873DBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiNotes.Core", "..\MultiNotes.Core\MultiNotes.Core\MultiNotes.Core.csproj", "{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiNotes.Core", "..\MultiNotes.Core\MultiNotes.Core\MultiNotes.Core.csproj", "{8964F6E3-8ED8-400C-8F67-222BC58074E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{31871B75-AA78-47B3-B259-869F27873DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31871B75-AA78-47B3-B259-869F27873DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31871B75-AA78-47B3-B259-869F27873DBB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB3D3E0F-D484-45D0-B16C-C26DFC54D053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8964F6E3-8ED8-400C-8F67-222BC58074E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8964F6E3-8ED8-400C-8F67-222BC58074E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8964F6E3-8ED8-400C-8F67-222BC58074E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8964F6E3-8ED8-400C-8F67-222BC58074E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

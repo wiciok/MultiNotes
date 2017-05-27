@@ -1,19 +1,14 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using MultiNotes.Core;
-using System;
+﻿using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+using MultiNotes.Model;
 
 namespace MultiNotes.Server.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private IMongoCollection<User> _usersCollection;
+        private readonly IMongoCollection<User> _usersCollection;
 
-        public UserRepository(IMongoDatabase database) //dependency injection
+        public UserRepository(IMongoDatabase database)
         {
             _usersCollection = database.GetCollection<User>("Users");
         }
@@ -28,25 +23,19 @@ namespace MultiNotes.Server.Repositories
             return _usersCollection.Find(n => n.Id == id).Single<User>();
         }
 
-        public User GetUserByLogin(string login)
+        public User GetUserByEmail(string email)
         {
-            return _usersCollection.Find(n => n.Login == login).Single<User>();
+            return _usersCollection.Find(n => n.EmailAddress == email).Single<User>();
         }
 
         public bool CheckForUser(string id)
         {
-            if (_usersCollection.Count(n => n.Id == id) == 0)
-                return false;
-            else
-                return true;
+            return _usersCollection.Count(n => n.Id == id) != 0;
         }
 
-        public bool CheckForUserByLogin(string login)
+        public bool CheckForUserByEmail(string email)
         {
-            if (_usersCollection.Count(n => n.Login == login) == 0)
-                return false;
-            else
-                return true;
+            return _usersCollection.Count(n => n.EmailAddress == email) != 0;
         }
 
         public User AddUser(User user)
@@ -56,7 +45,7 @@ namespace MultiNotes.Server.Repositories
 
         public void RemoveUser(string id)
         {
-            var result = _usersCollection.DeleteOne(n => n.Id == id); 
+            _usersCollection.DeleteOne(n => n.Id == id);
         }
 
         public void UpdateUser(string id, User user)

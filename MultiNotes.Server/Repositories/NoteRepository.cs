@@ -1,64 +1,52 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using MultiNotes.Core;
-using System;
+﻿using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using MultiNotes.Model;
 
 namespace MultiNotes.Server.Repositories
 {
-    //todo: poprzerabiac te metody jakby find nei zwracalo niczego, bo bedzie rzucony wyjatek!!
-
     public class NoteRepository : INoteRepository
     {
-        private IMongoCollection<Note> _notesCollection;
+        protected IMongoCollection<INote> NotesCollection;
 
-        public NoteRepository(IMongoDatabase database) //dependency injection
+        public NoteRepository(IMongoDatabase database, string collectionName="Notes")
         {
-            _notesCollection = database.GetCollection<Note>("Notes");
+            NotesCollection = database.GetCollection<INote>(collectionName);
         }
 
-        // TODO: przemyslec async / await.
-        public IEnumerable<Note> GetAllNotes()
+        public IEnumerable<INote> GetAllNotes()
         {
-            return _notesCollection.Find(n => true).ToList();
+            return NotesCollection.Find(n => true).ToList();
         }
 
-        public IEnumerable<Note> GetAllNotes(User user)
+        public IEnumerable<INote> GetAllNotes(User user)
         {
-            return _notesCollection.Find(n => n.OwnerId==user.Id).ToList();
+            return NotesCollection.Find(n => n.OwnerId==user.Id).ToList();
         }
 
-        public Note GetNote(string id)
+        public INote GetNote(string id)
         {
-            return _notesCollection.Find(n => n.Id == id).Single<Note>();
+            return NotesCollection.Find(n => n.Id == id).SingleOrDefault<INote>();
         }
 
-        public Note GetNote(string id, User user)
+        public INote AddNote(INote item)
         {
-            return _notesCollection.Find(n => n.Id == id).Single<Note>();
-        }
-
-        public Note AddNote(Note item)
-        {
-            _notesCollection.InsertOne(item);
+            NotesCollection.InsertOne(item);
             return item;
         }
 
         public void RemoveNote(string id)
         {
-            _notesCollection.DeleteOne(n => n.Id == id);
+            NotesCollection.DeleteOne(n => n.Id == id);
         }
 
-        public void UpdateNote(string id, Note item)
+        public void UpdateNote(string id, INote item)
         {
-            _notesCollection.FindOneAndReplace(b => b.Id == id, item);
+            NotesCollection.FindOneAndReplace(b => b.Id == id, item);
         }
 
         public bool CheckForNote(string id)
         {
-            if (_notesCollection.Count(n => n.Id == id) == 0)
+            if (NotesCollection.Count(n => n.Id == id) == 0)
                 return false;
             else
                 return true;

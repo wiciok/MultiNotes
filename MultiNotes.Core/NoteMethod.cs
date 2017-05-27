@@ -1,49 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using MultiNotes.Core;
 using System.Net;
 using System.Web.Http;
 using System.IO;
 using Newtonsoft.Json;
+using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
-    public class NoteMethod
+    public class NoteMethod: INoteMethod
     {
-        private static HttpClient httpClient;
-        private string path = "notes.txt";
+        private static HttpClient _httpClient;
+        private const string Path = "notes.txt";
+
         public NoteMethod(HttpClient httpClient2)
         {
-            httpClient = httpClient2;
+            _httpClient = httpClient2;
         }
 
-        public  void AddNoteToFile(Note note)
+        public void AddNoteToFile(Note note)
         {
-            if (!File.Exists(path))
+            if (!File.Exists(Path))
             {
-                //var tmpList = new List<Note>();
-                //tmpList.Add(note);
                 var json = JsonConvert.SerializeObject(note);
-                File.WriteAllText(path, json);
+                File.WriteAllText(Path, json);
             }
             else
             {
-                //var tmpList = new List<Note>();
-                //.Add(note);
                 var json = JsonConvert.SerializeObject(note);
-                File.AppendAllText(path, json);
+                File.AppendAllText(Path, json);
             }
         }
+
         public async void AddNoteToDatabase(Note note,string token)
         {
             //zapis notatki do bazy danych        
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/note/"+token, note);
+            var response = await _httpClient.PostAsJsonAsync("api/note/"+token, note);
             if (response.StatusCode != HttpStatusCode.Created)
             {
                 throw new HttpResponseException(response.StatusCode);
@@ -54,9 +48,9 @@ namespace MultiNotes.Core
         public async Task<IEnumerable<Note>> GetAllNotesFromDatabase(string token)
         {
             //pobranie wszystkich notatek danego uzytkownika      
-            IEnumerable<Note> allNotes = null;
+            IEnumerable<Note> allNotes;
 
-            HttpResponseMessage response = await httpClient.GetAsync("api/note/" + token);
+            var response = await _httpClient.GetAsync("api/note/" + token);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 allNotes = await response.Content.ReadAsAsync<IEnumerable<Note>>();
@@ -73,9 +67,9 @@ namespace MultiNotes.Core
         public async Task<Note> GetNoteByIdFromDatabase(string token,string id)
         {
             //pobranie wszystkich notatek danego uzytkownika      
-            Note newNote = null;
+            Note newNote;
     
-            HttpResponseMessage response = await httpClient.GetAsync("api/note/" + token+"/"+id);
+            var response = await _httpClient.GetAsync("api/note/" + token+"/"+id);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 newNote = await response.Content.ReadAsAsync<Note>();
@@ -90,157 +84,122 @@ namespace MultiNotes.Core
 
         public async Task<bool>  DeleteNoteByIdFromDatabase(string token, string id)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/note/" + token + "/" + id);
-            if (response.StatusCode == HttpStatusCode.OK)
+            var response = await _httpClient.DeleteAsync("api/note/" + token + "/" + id);
+            switch (response.StatusCode)
             {
-                return true;
-            }
-            else if(response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return false;
-            }
-            else
-            {
-                throw new HttpResponseException(response.StatusCode);
-                //InternalServerError,Unauthorized,Forbidden,NotFound
+                case HttpStatusCode.OK:
+                    return true;
+                case HttpStatusCode.NotFound:
+                    return false;
+                default:
+                    throw new HttpResponseException(response.StatusCode);
             }
         }
 
         public async Task<bool> UpdateNoteByIdFromDatabase(string token, string id, Note newNote)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync("api/note/" + token + "/" + id);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {                  
-                AddNoteToDatabase(newNote,token);
-                return true;
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
+            var response = await _httpClient.DeleteAsync("api/note/" + token + "/" + id);
+            switch (response.StatusCode)
             {
-                return false;
+                case HttpStatusCode.OK:
+                    AddNoteToDatabase(newNote,token);
+                    return true;
+                case HttpStatusCode.NotFound:
+                    return false;
+                default:
+                    throw new HttpResponseException(response.StatusCode);
             }
-            else
-            {
-                throw new HttpResponseException(response.StatusCode);
-                //InternalServerError,Unauthorized,Forbidden,NotFound
-            }         
-        }
-
-        public async void testujemy()
-        {
-            var a = GetAllNotesFromFile("5909a1977a48172c8049e25c");
-            var bb = GetNoteFromFile("5919f08d7a481747708d28db", "5909a1977a48172c8049e25c");
-            //DeleteNoteFromFile("591739a77a48173e1cc59b17");
-            int b = 99;
         }
 
         public List<Note> GetAllNotesFromFile(string userId)
         {
-            if (File.Exists(path))
+            if (File.Exists(Path))
             {
-                List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
-                List<string>tmpList = json.Split('}').ToList();
-                for (int i=0;i< tmpList.Count;++i)
+                var json = File.ReadAllText(Path);
+                var tmpList = json.Split('}').ToList();
+                for (var i=0;i< tmpList.Count;++i)
                 {
                     tmpList[i] += "}";
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
-                foreach (var x in tmpList)
-                {
-                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
-                }
+                var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
                 return listNotes.Where(a=>a.OwnerId== userId).ToList();
             }
             else
-            {
                 return null;
-            }
 
         }
 
         public Note GetNoteFromFile(string id, string userId)
         {
-            if (File.Exists(path))
+            if (File.Exists(Path))
             {
-                List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
-                List<string> tmpList = json.Split('}').ToList();
+                var json = File.ReadAllText(Path);
+                var tmpList = json.Split('}').ToList();
                 for (int i = 0; i < tmpList.Count; ++i)
                 {
                     tmpList[i] += "}";
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
-                foreach (var x in tmpList)
-                {
-                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
-                }
-                return listNotes.Where(a=>a.Id==id && a.OwnerId==userId).FirstOrDefault();
+                var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+                return listNotes.FirstOrDefault(a => a.Id==id && a.OwnerId==userId);
             }
             else
-            {
                 return null;
-            }
         }
 
         public void DeleteNoteFromFile(string id, string userId)
         {
-            if (File.Exists(path))
+            if (!File.Exists(Path))
+                return;
+
+            var json = File.ReadAllText(Path);
+            var tmpList = json.Split('}').ToList();
+            for (var i = 0; i < tmpList.Count; ++i)
             {
-                List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
-                List<string> tmpList = json.Split('}').ToList();
-                for (int i = 0; i < tmpList.Count; ++i)
-                {
-                    tmpList[i] += "}";
-                }
-                tmpList.RemoveAt(tmpList.Count - 1);
-                foreach (var x in tmpList)
-                {
-                    listNotes.Add( JsonConvert.DeserializeObject<Note>(x));
-                }
-                Note toDelte = listNotes.Where(a => a.Id == id && a.OwnerId== userId).FirstOrDefault();
-                listNotes.Remove(toDelte);
-                File.WriteAllText(path, "");
-                foreach (var x in listNotes)
-                {
-                    var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(path, json);
-                }
+                tmpList[i] += "}";
+            }
+            tmpList.RemoveAt(tmpList.Count - 1);
+            var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+            var toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId == userId);
+
+            if (toDelete == null)
+                return;
+            listNotes.Remove(toDelete);
+            File.WriteAllText(Path, "");
+            foreach (var x in listNotes)
+            {
+                var jsonNote = JsonConvert.SerializeObject(x);
+                File.AppendAllText(Path, json);
             }
         }
 
-        public void UpdateNoteFromFile(string id,string  userId,Note newNote)
+        public void UpdateNoteFromFile(string id,string userId,Note newNote)
         {
-            if (File.Exists(path))
+            if (!File.Exists(Path)) return;
+            var json = File.ReadAllText(Path);
+            var tmpList = json.Split('}').ToList();
+            for (var i = 0; i < tmpList.Count; ++i)
             {
-                List<Note> listNotes = new List<Note>();
-                string json = File.ReadAllText(path);
-                List<string> tmpList = json.Split('}').ToList();
-                for (int i = 0; i < tmpList.Count; ++i)
-                {
-                    tmpList[i] += "}";
-                }
-                tmpList.RemoveAt(tmpList.Count - 1);
-                foreach (var x in tmpList)
-                {
-                    listNotes.Add(JsonConvert.DeserializeObject<Note>(x));
-                }
-                Note toDelete = listNotes.Where(a => a.Id == id && a.OwnerId==userId).FirstOrDefault();
+                tmpList[i] += "}";
+            }
+            tmpList.RemoveAt(tmpList.Count - 1);
+            var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+            var toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId==userId);
+            if (toDelete == null)
+                return;
+            {
                 listNotes.Remove(toDelete);
-
                 toDelete.Content = newNote.Content;
-                toDelete.LastChangeTimestamp = newNote.LastChangeTimestamp;
-
                 listNotes.Add(toDelete);
 
-                File.WriteAllText(path, "");
+                File.WriteAllText(Path, "");
                 foreach (var x in listNotes)
                 {
                     var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(path, json);
+                    File.AppendAllText(Path, json);
                 }
             }
         }
-
     }
 }

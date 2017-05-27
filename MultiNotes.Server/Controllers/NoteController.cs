@@ -1,23 +1,22 @@
-﻿using MultiNotes.Core;
-using MultiNotes.Server.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MultiNotes.Server.Models;
 using System.Web.Http.Description;
+using MultiNotes.Model;
+using MultiNotes.Server.Repositories;
+using MultiNotes.Server.Services;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Controllers
 {
     [LogWebApiRequest]
     [RoutePrefix("api/note")]
     public class NoteController : ApiController
     {
-        private static readonly INoteRepository notesRepo = UnitOfWork.Instance.NotesRepository;
-        private static readonly IUserRepository usersRepo = UnitOfWork.Instance.UsersRepository;
-        private AuthorizationService authService = new AuthorizationService(usersRepo);
+        private static readonly INoteRepository NotesRepo = UnitOfWork.Instance.NotesRepository;
+        private static readonly IUserRepository UsersRepo = UnitOfWork.Instance.UsersRepository;
+        private readonly AuthorizationService _authService = new AuthorizationService(UsersRepo);
 
         // IQueryable zamiast IEnumerable - zwiększona wydajność.
         //GET /api/note/{token}
@@ -28,17 +27,14 @@ namespace MultiNotes.Server
         {
             try
             {
-                if (authService.CheckAuthorization(token) == true)
-                {
-                    return Request.CreateResponse<IQueryable<Note>>(HttpStatusCode.OK, notesRepo.GetAllNotes(authService.currentUser).AsQueryable());
-                }
-                else
-                    return Request.CreateResponse(HttpStatusCode.Unauthorized);
+                return _authService.CheckAuthorization(token) == true 
+                    ? Request.CreateResponse(HttpStatusCode.OK, (IQueryable<Note>)NotesRepo.GetAllNotes(_authService.CurrentUser).AsQueryable())
+                    : Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
             catch(Exception e)
             {
-                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
-                HttpError err = new HttpError("Error while getting all user's notes");
+                WebApiApplication.GlobalLogger.Error(Request + e.ToString());
+                var err = new HttpError("Error while getting all user's notes");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }           
         }
@@ -51,23 +47,22 @@ namespace MultiNotes.Server
         {
             try
             {
-                if (authService.CheckAuthorization(token) == false)
+                if (_authService.CheckAuthorization(token) == false)
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
 
-                if (notesRepo.CheckForNote(id) == false)
+                if (NotesRepo.CheckForNote(id) == false)
                     return Request.CreateResponse(HttpStatusCode.NotFound);
 
-                Note note = notesRepo.GetNote(id);
+                var note = (Note)NotesRepo.GetNote(id);
 
-                if (note.OwnerId == authService.currentUser.Id)
-                    return Request.CreateResponse<Note>(HttpStatusCode.OK,note);
-                else
-                    return Request.CreateResponse(HttpStatusCode.Forbidden);
+                return note.OwnerId == _authService.CurrentUser.Id
+                    ? Request.CreateResponse(HttpStatusCode.OK,note)
+                    : Request.CreateResponse(HttpStatusCode.Forbidden);
             }
             catch(Exception e)
             {
-                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
-                HttpError err = new HttpError("Error while getting specific note");
+                WebApiApplication.GlobalLogger.Error(Request + e.ToString());
+                var err = new HttpError("Error while getting specific note");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }           
         }
@@ -80,24 +75,28 @@ namespace MultiNotes.Server
         {
             try
             {
-                if (authService.CheckAuthorization(token) == false)
+                if (_authService.CheckAuthorization(token) == false)
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
 
-                if (notesRepo.CheckForNote(value.Id) == true)
+                if (NotesRepo.CheckForNote(value.Id) == true)
                 {
-                    if (authService.currentUser.Id == value.OwnerId)
-                        notesRepo.UpdateNote(value.Id, value);
+                    if (_authService.CurrentUser.Id == value.OwnerId)
+                    {
+                        NotesRepo.UpdateNote(value.Id, value);
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                        
                     else
                         return Request.CreateResponse(HttpStatusCode.Forbidden);
                 }
                 else
-                    notesRepo.AddNote(value);
+                    NotesRepo.AddNote(value);
 
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
             catch(Exception e)
             {
-                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
+                WebApiApplication.GlobalLogger.Error(Request + e.ToString());
                 HttpError err = new HttpError("Error while posting note");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
@@ -111,15 +110,15 @@ namespace MultiNotes.Server
         {
             try
             {
-                if (authService.CheckAuthorization(token) == false)
+                if (_authService.CheckAuthorization(token) == false)
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
 
-                if (notesRepo.CheckForNote(id) == true)
+                if (NotesRepo.CheckForNote(id) == true)
                 {
-                    Note note = notesRepo.GetNote(id);
-                    if (authService.currentUser.Id == note.OwnerId)
+                    var note = (Note)NotesRepo.GetNote(id);
+                    if (_authService.CurrentUser.Id == note.OwnerId)
                     {
-                        notesRepo.RemoveNote(id);
+                        NotesRepo.RemoveNote(id);
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }      
                     else
@@ -130,7 +129,7 @@ namespace MultiNotes.Server
             }
             catch(Exception e)
             {
-                WebApiApplication.GlobalLogger.Error(Request.ToString() + e.ToString());
+                WebApiApplication.GlobalLogger.Error(Request + e.ToString());
                 HttpError err = new HttpError("Error while deleting note");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }

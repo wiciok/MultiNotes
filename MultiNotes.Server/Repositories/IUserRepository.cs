@@ -1,9 +1,5 @@
-﻿using MultiNotes.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using MultiNotes.Model;
 
 
 namespace MultiNotes.Server.Repositories
@@ -12,11 +8,11 @@ namespace MultiNotes.Server.Repositories
     {
         IEnumerable<User> GetAllUsers();
         User GetUser(string id);
-        User GetUserByLogin(string login);
+        User GetUserByEmail(string email);
         User AddUser(User item);
         void RemoveUser(string id);
         void UpdateUser(string id, User item);
         bool CheckForUser(string id);
-        bool CheckForUserByLogin(string login);
+        bool CheckForUserByEmail(string email);
     }
 }

@@ -1,23 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#define DEBUG_CONFIGURATION
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using MultiNotes.Core;
+
 namespace MultiNotes.Core
 {
-    class ConnectionApi//singleton???
+    public class ConnectionApi//singleton???
     {
-        public static HttpClient httpClient = new HttpClient();
-        private static int port = 80;
-        public static void configure()
+#if DEBUG_CONFIGURATION
+        private const int Port = 63252;
+        private const string DbAddress = "http://localhost:";
+#else
+        private const int Port = 80;
+        private const string DbAddress = "http://217.61.4.233:8080/MultiNotes.Server/";
+#endif
+
+        public static HttpClient HttpClient = new HttpClient();  
+        private static bool _configured;
+        public static void Configure()
         {
-            httpClient.BaseAddress = new Uri("http://217.61.4.233:8080/MultiNotes.Server/");
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (_configured)
+                return;
+
+            HttpClient.BaseAddress = new Uri(DbAddress + Port);
+            HttpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _configured = true;
         }
     }
 }

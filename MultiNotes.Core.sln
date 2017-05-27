@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.XAndroid", "Mult
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.XAndroid.Test", "MultiNotes.XAndroid.Test\MultiNotes.XAndroid.Test.csproj", "{B15EE200-16C4-4BA9-8B61-5C2A6E2F1A48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Model", "MultiNotes.Model\MultiNotes.Model.csproj", "{F6537DE7-3208-4B5F-B39E-E1685AEF6223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.Windows", "MultiNotes.Windows\MultiNotes.Windows.csproj", "{1749264A-B9FE-49FC-897C-65E4099406E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{B15EE200-16C4-4BA9-8B61-5C2A6E2F1A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B15EE200-16C4-4BA9-8B61-5C2A6E2F1A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B15EE200-16C4-4BA9-8B61-5C2A6E2F1A48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6537DE7-3208-4B5F-B39E-E1685AEF6223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6537DE7-3208-4B5F-B39E-E1685AEF6223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6537DE7-3208-4B5F-B39E-E1685AEF6223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6537DE7-3208-4B5F-B39E-E1685AEF6223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1749264A-B9FE-49FC-897C-65E4099406E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1749264A-B9FE-49FC-897C-65E4099406E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1749264A-B9FE-49FC-897C-65E4099406E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1749264A-B9FE-49FC-897C-65E4099406E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

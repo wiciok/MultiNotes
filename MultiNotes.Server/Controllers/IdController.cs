@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web.Http;
-using MongoDB.Bson;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.Description;
+using MongoDB.Bson;
+using MultiNotes.Server.Services;
 
-namespace MultiNotes.Server
+namespace MultiNotes.Server.Controllers
 {
     //class returning bsonId, used for creating new notes or users in client apps
     [LogWebApiRequest]
@@ -25,12 +24,12 @@ namespace MultiNotes.Server
 
             catch(Exception e)
             {
-                WebApiApplication.GlobalLogger.Error(Request.ToString()+e.ToString());
+                WebApiApplication.GlobalLogger.Error(Request+e.ToString());
                 HttpError err = new HttpError("Error while generating Id");
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
             }
 
-            return Request.CreateResponse<string>(HttpStatusCode.Created, retVal);
+            return Request.CreateResponse(HttpStatusCode.Created, retVal);
         }  
     }
 }
