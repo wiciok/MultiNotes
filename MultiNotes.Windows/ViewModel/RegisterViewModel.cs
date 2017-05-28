@@ -104,7 +104,6 @@ namespace MultiNotes.Windows.ViewModel
                 MessageBox.Show(ex.Message);
             }
             MultiNotesLoginWindow LoginWindow = new MultiNotesLoginWindow();
-            Application.Current.MainWindow.Close();
             LoginWindow.Show();
             
         }
