@@ -22,7 +22,7 @@
                 <StackPanel Orientation="Vertical" Margin="3">
                     <Label HorizontalAlignment="Center">E-mail:</Label>
                     <TextBox Name="Email" Text ="{Binding Email}" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
-                    <Label HorizontalAlignment="Center">Repeat e-mail</Label>
+                    <Label HorizontalAlignment="Center">Repeat e-mail:</Label>
                     <TextBox Name="RepeatEmail" Text ="{Binding RepeatEmail}" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
                 </StackPanel>
             </Border>
