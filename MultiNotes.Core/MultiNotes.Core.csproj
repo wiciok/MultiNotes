@@ -39,13 +39,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidNoteApi.cs" />
     <Compile Include="AuthenticationToken.cs" />
     <Compile Include="ConnectionApi.cs" />
+    <Compile Include="INoteApi.cs" />
     <Compile Include="INoteMethod.cs" />
     <Compile Include="IUserMethod.cs" />
     <Compile Include="NoteMethod.cs" />
     <Compile Include="UniqueId.cs" />
     <Compile Include="UserMethod.cs" />
+    <Compile Include="Util\InternetConnection.cs" />
+    <Compile Include="NoteApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MongoDB.Bson, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
@@ -81,5 +85,6 @@
       <Name>MultiNotes.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
