@@ -21,9 +21,12 @@ namespace MultiNotes.XAndroid.Core
 {
     public class XUserMethod
     {
-        public string Id { get; private set; }
         public bool IsRegisterSuccessful { get; private set; }
         public string RegisterMessage { get; private set; }
+
+
+        public bool IsLoginSuccessful { get; private set; }
+        public string LoginMessage { get; private set; }
 
         public XUserMethod()
         {
@@ -32,43 +35,19 @@ namespace MultiNotes.XAndroid.Core
 
         public async Task Register(string username, string password)
         {
-            string bsonId = await new UniqueId().GetUniqueBsonId();
-            // Somehow we get a quoted string (ex. "a12...4ff", instead of a12...4ff)
-            bsonId = bsonId.Replace("\"", "");
+            IRegistration registration = new Registration();
+            await registration.Register(username, password);
+            IsRegisterSuccessful = registration.IsRegisterSuccessful;
+            RegisterMessage = registration.RegisterMessage;
+        }
 
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/user/";
 
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(apiUrl));
-            request.ContentType = "application/json";
-            request.Method = "POST";
-
-            User user = new User()
-            {
-                Id = bsonId,
-                EmailAddress = username,
-                PasswordHash = Encryption.Sha256(password),
-                RegistrationTimestamp = DateTime.Now
-            };
-
-            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                string json = JsonConvert.SerializeObject(user);
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-
-            try
-            {
-                HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
-                IsRegisterSuccessful = true;
-                RegisterMessage = new StreamReader(httpResponse.GetResponseStream()).ReadToEnd();
-            }
-            catch (WebException e)
-            {
-                IsRegisterSuccessful = false;
-                RegisterMessage = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
-            }
+        public async Task Login(string username, string password)
+        {
+            ILoginEngine loginEngine = new LoginEngine();
+            await loginEngine.Login(username, password);
+            IsLoginSuccessful = loginEngine.IsLoginSuccessful;
+            LoginMessage = loginEngine.LoginMessage;
         }
     }
 }
