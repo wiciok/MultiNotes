@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Android.App;
 using Android.Content;
@@ -14,7 +15,6 @@ using Android.Widget;
 using MultiNotes.XAndroid.Core;
 using MultiNotes.XAndroid.Model;
 using MultiNotes.XAndroid.Model.Base;
-using System.Threading;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;

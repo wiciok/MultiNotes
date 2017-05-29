@@ -6,13 +6,6 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
 // Disable warning: Async method lacks 'await' operators and will run synchronously
 #pragma warning disable CS1998 
 

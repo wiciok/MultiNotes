@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Android.App;
 using Android.Content;
@@ -11,10 +12,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using SupportToolbar = Android.Support.V7.Widget.Toolbar;
-using System.Threading.Tasks;
 using MultiNotes.XAndroid.Core;
-using System.Threading;
+
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace MultiNotes.XAndroid
 {
