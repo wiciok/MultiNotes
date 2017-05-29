@@ -31,15 +31,11 @@ namespace MultiNotes.XAndroid
         private EditText emailAddressEditText;
         private EditText passwordEditText;
 
-        private IAuthorizationEngine model;
-
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
-
-            model = AuthorizationEngine.Instance;
 
             // Set up field components
             emailAddressEditText = FindViewById<EditText>(Resource.Id.edit_text_email_address);
@@ -76,6 +72,14 @@ namespace MultiNotes.XAndroid
                             .SetTitle("Wiadomość")
                             .SetMessage("Logowanie zakończone powodzeniem")
                             .SetPositiveButton("OK", delegate { Finish(); })
+                            .Create().Show();
+                    }
+                    else
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Błąd")
+                            .SetMessage("Logowanie niedane")
+                            .SetPositiveButton("OK", delegate { })
                             .Create().Show();
                     }
                 });

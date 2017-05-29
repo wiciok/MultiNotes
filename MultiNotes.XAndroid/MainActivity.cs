@@ -13,8 +13,6 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Model;
-using MultiNotes.XAndroid.ActivityModels;
-using MultiNotes.XAndroid.ActivityModels.Base;
 using MultiNotes.XAndroid.Core;
 using MultiNotes.XAndroid.Model;
 

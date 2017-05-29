@@ -11,9 +11,6 @@ using Android.Views;
 using Android.Widget;
 using Android.Content.PM;
 
-using MultiNotes.XAndroid.ActivityModels;
-using MultiNotes.XAndroid.ActivityModels.Base;
-
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 using System.Threading;
 using MultiNotes.XAndroid.Core;
@@ -26,7 +23,7 @@ namespace MultiNotes.XAndroid
     public sealed class AccountActivity : MultiNotesBaseActivity
     {
 
-        private IAccountModel model;
+        //private IAccountModel model;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -36,17 +33,21 @@ namespace MultiNotes.XAndroid
             SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
             // Set up local variable components
+            TextView emailAddressTextView = FindViewById<TextView>(Resource.Id.text_view_user_email);
+
             Button changePasswordButton = FindViewById<Button>(Resource.Id.button_change_password);
             Button signOutButton = FindViewById<Button>(Resource.Id.button_sign_out);
             Button settingsButton = FindViewById<Button>(Resource.Id.button_settings);
 
             EnableSupportToolbarHomeMenu();
 
+            emailAddressTextView.Text = AuthorizationManager.Instance.User.EmailAddress;
+
             changePasswordButton.Click += ChangePasswordButtonOnClick;
             signOutButton.Click += SignOutButtonOnClick;
             settingsButton.Click += SettingsButtonOnClick;
 
-            model = new AccountModel();
+            //model = new AccountModel();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)

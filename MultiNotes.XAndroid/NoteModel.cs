@@ -11,13 +11,12 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Model;
-using MultiNotes.XAndroid.ActivityModels.Base;
 using MultiNotes.XAndroid.Model;
 using MultiNotes.XAndroid.Model.Base;
 
-namespace MultiNotes.XAndroid.ActivityModels
+namespace MultiNotes.XAndroid
 {
-    public class NoteModel : INoteModel
+    public class NoteModel
     {
 
         private string noteId;
@@ -30,16 +29,16 @@ namespace MultiNotes.XAndroid.ActivityModels
             this.noteContent = noteContent;
         }
 
-        
+
         public string NoteId { get { return noteId; } }
-        
+
         public string NoteContent
         {
             get { return noteContent; }
             set { noteContent = value; }
         }
 
-        
+
         public void SaveChanges()
         {
             INotesRepository notesRepository = new NotesRepository();

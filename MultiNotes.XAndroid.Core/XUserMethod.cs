@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-using System.Net;
-using System.Threading.Tasks;
-using System.Net.Http;
 using System.IO;
-using Newtonsoft.Json;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
 using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core
@@ -66,7 +58,6 @@ namespace MultiNotes.XAndroid.Core
                     );
                 }
             }
-
         }
 
 

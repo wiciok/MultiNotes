@@ -11,9 +11,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.ActivityModels;
-using MultiNotes.XAndroid.ActivityModels.Base;
-
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace MultiNotes.XAndroid
@@ -31,7 +28,7 @@ namespace MultiNotes.XAndroid
 
         private EditText noteEditText;
 
-        private INoteModel model;
+        private NoteModel model;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
