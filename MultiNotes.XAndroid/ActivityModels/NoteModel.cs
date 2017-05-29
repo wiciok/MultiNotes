@@ -60,7 +60,7 @@ namespace MultiNotes.XAndroid.ActivityModels
         public void AddNote()
         {
             INotesRepository notesRepository = new NotesRepository();
-            notesRepository.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", noteContent));
+            notesRepository.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = noteContent });
             notesRepository.SortDescending();
         }
 

@@ -42,10 +42,10 @@ namespace MultiNotes.XAndroid.Model
 
         private static void InitializeInstance()
         {
-            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #1"));
-            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #2"));
-            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #3"));
-            instance.NotesList.Add(new Note(Counter.Default.Next.ToString(), "", "Notatka #4"));
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #1" });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #2" });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #3" });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #4" });
         }
 
 

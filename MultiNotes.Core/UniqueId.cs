@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Net;
+using System;
 
 namespace MultiNotes.Core
 {
@@ -10,8 +11,15 @@ namespace MultiNotes.Core
         public static async Task<string> GetUniqueBsonId(HttpClient httpClient)
         {
             string product;
-            var response = await httpClient.GetAsync("api/id/");
-
+            HttpResponseMessage response;
+            try
+            {
+                response = httpClient.GetAsync("api/id/").Result;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
             if (response.StatusCode == HttpStatusCode.Created)
             {
                 product = await response.Content.ReadAsAsync<string>();

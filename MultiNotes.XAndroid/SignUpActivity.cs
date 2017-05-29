@@ -13,6 +13,8 @@ using Android.Widget;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 using MultiNotes.Core;
+using System.Threading.Tasks;
+using MultiNotes.XAndroid.Core;
 
 namespace MultiNotes.XAndroid
 {
@@ -36,7 +38,7 @@ namespace MultiNotes.XAndroid
             signUpButton.Click += SignUpButtonOnClick;
         }
 
-        private void SignUpButtonOnClick(object sender, EventArgs args)
+        private async void SignUpButtonOnClick(object sender, EventArgs args)
         {
             string username = FindViewById<EditText>(Resource.Id.edit_text_email_address).Text;
             string password = FindViewById<EditText>(Resource.Id.edit_text_password).Text;
@@ -72,12 +74,9 @@ namespace MultiNotes.XAndroid
                 return;
             }
 
-            IUserMethod userMethod = new UserMethod(ConnectionApi.HttpClient);
-            try
-            {
-                userMethod.Register(username, password);
-            }
-            catch (Exception e)
+            XUserMethod userMethod = new XUserMethod();
+            await userMethod.Register(username, password);
+            if (!userMethod.IsRegisterSuccessful)
             {
                 new AlertDialog.Builder(this)
                        .SetTitle("Błąd")
