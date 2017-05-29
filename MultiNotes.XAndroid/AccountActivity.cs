@@ -15,6 +15,8 @@ using MultiNotes.XAndroid.ActivityModels;
 using MultiNotes.XAndroid.ActivityModels.Base;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using System.Threading;
+using MultiNotes.XAndroid.Core;
 
 namespace MultiNotes.XAndroid
 {
@@ -68,8 +70,12 @@ namespace MultiNotes.XAndroid
         
         private void SignOutButtonOnClick(object sender, EventArgs e)
         {
-            model.SignOut();
-            Finish();
+            new Thread(new ThreadStart(async () =>
+            {
+                XUserMethod methods = new XUserMethod();
+                await methods.Logout();
+                RunOnUiThread(() => Finish());
+            })).Start();
         }
 
 

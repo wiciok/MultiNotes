@@ -50,14 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationToken.cs" />
+    <Compile Include="AuthorizationManager.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ILoginEngine.cs" />
     <Compile Include="IRegistration.cs" />
+    <Compile Include="IUserApi.cs" />
     <Compile Include="LoginEngine.cs" />
     <Compile Include="Registration.cs" />
     <Compile Include="UniqueId.cs" />
     <Compile Include="HttpResponseException.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserApi.cs" />
     <Compile Include="XUserMethod.cs" />
   </ItemGroup>
   <ItemGroup>

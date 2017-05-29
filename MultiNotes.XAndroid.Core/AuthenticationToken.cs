@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json;
 
 using MultiNotes.Model;
+using System.Net.Http;
 
 // Disable warning: Async method lacks 'await' operators and will run synchronously
 #pragma warning disable CS1998

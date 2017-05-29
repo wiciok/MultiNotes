@@ -4,12 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core
 {
@@ -17,6 +12,8 @@ namespace MultiNotes.XAndroid.Core
     {
         bool IsLoginSuccessful { get; }
         string LoginMessage { get; }
+        User User { get; }
+        string Token { get; }
 
         Task Login(string username, string password);
     }

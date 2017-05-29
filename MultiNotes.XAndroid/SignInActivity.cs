@@ -11,8 +11,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using MultiNotes.XAndroid.Core;
 using MultiNotes.XAndroid.Model;
 using MultiNotes.XAndroid.Model.Base;
+using System.Threading;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -52,20 +54,33 @@ namespace MultiNotes.XAndroid
         }
 
 
-        private async void SignInButtonOnClick(object sender, EventArgs e)
+        private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            if (await model.SignIn(emailAddressEditText.Text.Trim(), passwordEditText.Text))
+            new Thread(new ThreadStart(async () =>
             {
-                Finish();
-            }
-            else
-            {
-                new AlertDialog.Builder(this)
-                    .SetTitle(Resource.String.error)
-                    .SetMessage(Resource.String.sign_in_failed)
-                    .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
-                    .Create().Show();
-            }
+                XUserMethod methods = new XUserMethod();
+                ProgressDialog progress = null;
+
+                RunOnUiThread(() =>
+                {
+                    progress = ProgressDialog.Show(this, "Proszę czekać...", "Proszę czekać...", true, false);
+                });
+
+                await methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                RunOnUiThread(() =>
+                {
+                    progress.Hide();
+                    if (methods.IsLoginSuccessful)
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Wiadomość")
+                            .SetMessage("Logowanie zakończone powodzeniem")
+                            .SetPositiveButton("OK", delegate { Finish(); })
+                            .Create().Show();
+                    }
+                });
+            })).Start();
+            
         }
 
 

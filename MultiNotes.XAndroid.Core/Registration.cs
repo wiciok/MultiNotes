@@ -24,11 +24,23 @@ namespace MultiNotes.XAndroid.Core
         public bool IsRegisterSuccessful { get; private set; }
         public string RegisterMessage { get; private set; }
 
+        public Registration()
+        {
+            IsRegisterSuccessful = false;
+            RegisterMessage = "";
+        }
+
         public async Task Register(string username, string password)
         {
             string bsonId = await new UniqueId().GetUniqueBsonId();
             // Somehow we get a quoted string (ex. "a12...4ff", instead of a12...4ff)
             bsonId = bsonId.Replace("\"", "");
+            if (bsonId.Length == 0)
+            {
+                IsRegisterSuccessful = false;
+                RegisterMessage = "An exception occured while fetching unique bson id from sever.";
+                return;
+            }
 
             const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/user/";
 

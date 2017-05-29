@@ -40,10 +40,9 @@ namespace MultiNotes.XAndroid
 
         private void SignUpButtonOnClick(object sender, EventArgs args)
         {
-            XUserMethod userMethod = new XUserMethod();
-
             new Thread(new ThreadStart(async () =>
             {
+                XUserMethod userMethod = new XUserMethod();
                 ProgressDialog progress = null;
 
                 RunOnUiThread(() =>
@@ -84,27 +83,32 @@ namespace MultiNotes.XAndroid
                         .Show();
                     return;
                 }
-
+                
                 await userMethod.Register(username, password);
-                if (!userMethod.IsRegisterSuccessful)
-                {
-                    new AlertDialog.Builder(this)
-                           .SetTitle("Błąd")
-                           .SetMessage("Podczas rejestracji wystąpił nieoczekiwany błąd.")
-                           .SetPositiveButton("OK", delegate { })
-                           .Show();
-                }
-                RunOnUiThread(() =>
+                
+                RunOnUiThread(() => 
                 {
                     progress.Hide();
-                    new AlertDialog.Builder(this)
-                        .SetTitle("Rejestracja zakończona")
-                        .SetMessage("Rejestracja została zakończona!")
-                        .SetPositiveButton("OK", delegate { Finish(); })
-                        .SetCancelable(false)
-                        .Show();
-
+                    if (!userMethod.IsRegisterSuccessful)
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Błąd")
+                            .SetMessage("Podczas rejestracji wystąpił nieoczekiwany błąd.")
+                            .SetPositiveButton("OK", delegate { })
+                            .Show();
+                    }
+                    else
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Rejestracja zakończona")
+                            .SetMessage("Rejestracja została zakończona!")
+                            .SetPositiveButton("OK", delegate { Finish(); })
+                            .SetCancelable(false)
+                            .Show();
+                    }
                 });
+
+                
             })).Start();
             
         }
