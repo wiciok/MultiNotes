@@ -49,6 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationToken.cs" />
+    <Compile Include="ILoginEngine.cs" />
+    <Compile Include="IRegistration.cs" />
+    <Compile Include="LoginEngine.cs" />
     <Compile Include="Registration.cs" />
     <Compile Include="UniqueId.cs" />
     <Compile Include="HttpResponseException.cs" />

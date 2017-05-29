@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace MultiNotes.XAndroid.Core
 {
-    internal class LoginEngine : ILoginEngine
+    public class LoginEngine : ILoginEngine
     {
         public bool IsLoginSuccessful { get; private set; }
         public string LoginMessage { get; private set; }

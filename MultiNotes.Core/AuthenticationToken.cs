@@ -4,6 +4,9 @@ using System.Net;
 using System.Web.Http;
 using MultiNotes.Model;
 
+// Disable warning: Async method lacks 'await' operators and will run synchronously
+#pragma warning disable CS1998 
+
 namespace MultiNotes.Core
 {
     public class AuthenticationToken

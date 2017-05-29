@@ -19,7 +19,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core
 {
-    internal class Registration : IRegistration
+    public class Registration : IRegistration
     {
         public bool IsRegisterSuccessful { get; private set; }
         public string RegisterMessage { get; private set; }

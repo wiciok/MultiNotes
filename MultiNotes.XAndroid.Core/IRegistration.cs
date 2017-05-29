@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace MultiNotes.XAndroid.Core
 {
-    internal interface IRegistration
+    public interface IRegistration
     {
         bool IsRegisterSuccessful { get; }
         string RegisterMessage { get; }
