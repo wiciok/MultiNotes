@@ -12,7 +12,6 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
 using MultiNotes.Model;
 using MultiNotes.XAndroid.ActivityModels;
 using MultiNotes.XAndroid.ActivityModels.Base;
@@ -53,7 +52,7 @@ namespace MultiNotes.XAndroid
             fab.Click += FloatingActionButtonOnClick;
 
             // Set up all things we need from start
-            ConnectionApi.Configure();
+            // ConnectionApi.Configure();
         }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)

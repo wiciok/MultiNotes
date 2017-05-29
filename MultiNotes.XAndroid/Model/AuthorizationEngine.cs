@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
 using MultiNotes.Model;
 using MultiNotes.XAndroid.Model.Base;
 using System.Net.Http;
@@ -66,17 +65,18 @@ namespace MultiNotes.XAndroid.Model
         
         public async Task<bool> SignIn(string username, string password)
         {
-            UserMethod userMethods = new UserMethod(ConnectionApi.HttpClient);
-           
-            try
-            {
-                await userMethods.Login(username, password);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return signedIn;
+            //UserMethod userMethods = new UserMethod(ConnectionApi.HttpClient);
+
+            //try
+            //{
+            //    await userMethods.Login(username, password);
+            //}
+            //catch (Exception)
+            //{
+            //    return false;
+            //}
+            //return signedIn;
+            return false;
         }
 
         

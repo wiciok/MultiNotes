@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
 using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Model
