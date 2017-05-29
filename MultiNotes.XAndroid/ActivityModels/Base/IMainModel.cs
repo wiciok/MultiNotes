@@ -22,8 +22,6 @@ namespace MultiNotes.XAndroid.ActivityModels.Base
 
         User User { get; }
 
-        UserHeader UserHeader { get; }
-
         List<Note> NotesList { get; }
 
         bool SignedIn { get; }

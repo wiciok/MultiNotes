@@ -9,7 +9,7 @@ namespace MultiNotes.Core
     {
 #if DEBUG_CONFIGURATION
         private const int Port = 63252;
-        private const string DbAddress = "http://localhost:";
+        private const string DbAddress = "http://192.168.0.9:";
 #else
         private const int Port = 80;
         private const string DbAddress = "http://217.61.4.233:8080/MultiNotes.Server/";

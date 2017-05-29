@@ -3231,41 +3231,47 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f080032
 			public const int checkbox_accept_rules = 2131230770;
 			
-			// aapt resource value: 0x7f080035
-			public const int confirm_delete_note_text = 2131230773;
+			// aapt resource value: 0x7f080036
+			public const int confirm_delete_note_text = 2131230774;
 			
 			// aapt resource value: 0x7f080033
 			public const int confirm_dialog_no = 2131230771;
 			
 			// aapt resource value: 0x7f080034
-			public const int confirm_dialog_yes = 2131230772;
+			public const int confirm_dialog_ok = 2131230772;
 			
-			// aapt resource value: 0x7f080036
-			public const int confirm_note_not_saved = 2131230774;
+			// aapt resource value: 0x7f080035
+			public const int confirm_dialog_yes = 2131230773;
 			
 			// aapt resource value: 0x7f080037
-			public const int menu_account = 2131230775;
+			public const int confirm_note_not_saved = 2131230775;
 			
 			// aapt resource value: 0x7f080038
-			public const int menu_delete = 2131230776;
+			public const int error = 2131230776;
 			
 			// aapt resource value: 0x7f080039
-			public const int menu_edit = 2131230777;
+			public const int menu_account = 2131230777;
 			
 			// aapt resource value: 0x7f08003a
-			public const int menu_more = 2131230778;
+			public const int menu_delete = 2131230778;
 			
 			// aapt resource value: 0x7f08003b
-			public const int menu_preferences = 2131230779;
+			public const int menu_edit = 2131230779;
 			
 			// aapt resource value: 0x7f08003c
-			public const int menu_save = 2131230780;
+			public const int menu_more = 2131230780;
 			
 			// aapt resource value: 0x7f08003d
-			public const int menu_sync = 2131230781;
+			public const int menu_preferences = 2131230781;
 			
 			// aapt resource value: 0x7f08003e
-			public const int note_title = 2131230782;
+			public const int menu_save = 2131230782;
+			
+			// aapt resource value: 0x7f08003f
+			public const int menu_sync = 2131230783;
+			
+			// aapt resource value: 0x7f080040
+			public const int note_title = 2131230784;
 			
 			// aapt resource value: 0x7f080024
 			public const int password_toggle_content_description = 2131230756;
@@ -3285,41 +3291,44 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f080013
 			public const int search_menu_title = 2131230739;
 			
-			// aapt resource value: 0x7f08003f
-			public const int settings_title = 2131230783;
-			
-			// aapt resource value: 0x7f080040
-			public const int sign_in_title = 2131230784;
-			
 			// aapt resource value: 0x7f080041
-			public const int sign_in_welcome = 2131230785;
+			public const int settings_title = 2131230785;
 			
 			// aapt resource value: 0x7f080042
-			public const int sign_up_title = 2131230786;
+			public const int sign_in_failed = 2131230786;
+			
+			// aapt resource value: 0x7f080043
+			public const int sign_in_title = 2131230787;
+			
+			// aapt resource value: 0x7f080044
+			public const int sign_in_welcome = 2131230788;
+			
+			// aapt resource value: 0x7f080045
+			public const int sign_up_title = 2131230789;
 			
 			// aapt resource value: 0x7f080014
 			public const int status_bar_notification_info_overflow = 2131230740;
 			
-			// aapt resource value: 0x7f080043
-			public const int text_view_account_welcome = 2131230787;
-			
-			// aapt resource value: 0x7f080044
-			public const int text_view_email_address = 2131230788;
-			
-			// aapt resource value: 0x7f080045
-			public const int text_view_new_password = 2131230789;
-			
 			// aapt resource value: 0x7f080046
-			public const int text_view_old_password = 2131230790;
+			public const int text_view_account_welcome = 2131230790;
 			
 			// aapt resource value: 0x7f080047
-			public const int text_view_password = 2131230791;
+			public const int text_view_email_address = 2131230791;
 			
 			// aapt resource value: 0x7f080048
-			public const int text_view_repeat_password = 2131230792;
+			public const int text_view_new_password = 2131230792;
 			
 			// aapt resource value: 0x7f080049
-			public const int text_view_username = 2131230793;
+			public const int text_view_old_password = 2131230793;
+			
+			// aapt resource value: 0x7f08004a
+			public const int text_view_password = 2131230794;
+			
+			// aapt resource value: 0x7f08004b
+			public const int text_view_repeat_password = 2131230795;
+			
+			// aapt resource value: 0x7f08004c
+			public const int text_view_username = 2131230796;
 			
 			static String()
 			{

@@ -12,6 +12,7 @@ using Android.Widget;
 
 using MultiNotes.Core;
 using MultiNotes.Model;
+using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Model.Base
 {
@@ -22,9 +23,7 @@ namespace MultiNotes.XAndroid.Model.Base
 
         User User { get; }
 
-        UserHeader UserHeader { get; }
-
-        bool SignIn(string username, string password);
+        Task<bool> SignIn(string username, string password);
 
         void SignOut();
 

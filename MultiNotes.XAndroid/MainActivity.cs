@@ -51,6 +51,9 @@ namespace MultiNotes.XAndroid
             model = new MainModel();
 
             fab.Click += FloatingActionButtonOnClick;
+
+            // Set up all things we need from start
+            ConnectionApi.Configure();
         }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)

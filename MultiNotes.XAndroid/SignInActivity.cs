@@ -52,11 +52,19 @@ namespace MultiNotes.XAndroid
         }
 
 
-        private void SignInButtonOnClick(object sender, EventArgs e)
+        private async void SignInButtonOnClick(object sender, EventArgs e)
         {
-            if (model.SignIn(emailAddressEditText.Text.Trim(), passwordEditText.Text))
+            if (await model.SignIn(emailAddressEditText.Text.Trim(), passwordEditText.Text))
             {
                 Finish();
+            }
+            else
+            {
+                new AlertDialog.Builder(this)
+                    .SetTitle(Resource.String.error)
+                    .SetMessage(Resource.String.sign_in_failed)
+                    .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
+                    .Create().Show();
             }
         }
 

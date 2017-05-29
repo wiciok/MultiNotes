@@ -33,8 +33,6 @@ namespace MultiNotes.XAndroid.ActivityModels
 
         public User User { get { return authEngine.User; } }
 
-        public UserHeader UserHeader { get { return authEngine.UserHeader; } }
-
         public List<Note> NotesList { get { return repository.NotesList; } }
 
         public bool SignedIn { get { return authEngine.SignedIn; } }

@@ -6,7 +6,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.Core
 {
-    class AuthenticationToken
+    public class AuthenticationToken
     {
         private static HttpClient _httpClient;
         public AuthenticationToken(HttpClient httpClient2)

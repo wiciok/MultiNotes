@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using MultiNotes.Core;
 
 namespace MultiNotes.XAndroid
 {
@@ -29,7 +30,61 @@ namespace MultiNotes.XAndroid
             SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
             EnableSupportToolbarHomeMenu();
+
+            Button signUpButton = FindViewById<Button>(Resource.Id.button_sign_up);
+
+            signUpButton.Click += SignUpButtonOnClick;
         }
 
+        private void SignUpButtonOnClick(object sender, EventArgs args)
+        {
+            string username = FindViewById<EditText>(Resource.Id.edit_text_email_address).Text;
+            string password = FindViewById<EditText>(Resource.Id.edit_text_password).Text;
+            string passwordRetype = FindViewById<EditText>(Resource.Id.edit_text_repeat_password).Text;
+
+            if (username.Length == 0 || password.Length == 0)
+            {
+                new AlertDialog.Builder(this)
+                    .SetTitle("Błąd")
+                    .SetMessage("Proszę uzupełnić wszystkie pola.")
+                    .SetPositiveButton("OK", delegate { })
+                    .Show();
+                return;
+            }
+
+            if (password.Length < 6)
+            {
+                new AlertDialog.Builder(this)
+                    .SetTitle("Błąd")
+                    .SetMessage("Hasło jest za krótkie.")
+                    .SetPositiveButton("OK", delegate { })
+                    .Show();
+                return;
+            }
+
+            if (password != passwordRetype)
+            {
+                new AlertDialog.Builder(this)
+                    .SetTitle("Błąd")
+                    .SetMessage("Hasła się nie zgadzają.")
+                    .SetPositiveButton("OK", delegate { })
+                    .Show();
+                return;
+            }
+
+            IUserMethod userMethod = new UserMethod(ConnectionApi.HttpClient);
+            try
+            {
+                userMethod.Register(username, password);
+            }
+            catch (Exception e)
+            {
+                new AlertDialog.Builder(this)
+                       .SetTitle("Błąd")
+                       .SetMessage("Podczas rejestracji wystąpił nieoczekiwany błąd.")
+                       .SetPositiveButton("OK", delegate { })
+                       .Show();
+            }
+        }
     }
 }

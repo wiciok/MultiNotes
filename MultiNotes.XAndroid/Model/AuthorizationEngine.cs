@@ -13,6 +13,8 @@ using Android.Widget;
 using MultiNotes.Core;
 using MultiNotes.Model;
 using MultiNotes.XAndroid.Model.Base;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Model
 {
@@ -41,20 +43,18 @@ namespace MultiNotes.XAndroid.Model
 
         // Non-static part starts here
         
-        private UserHeader userHeader;
         private bool signedIn;
 
 
         private AuthorizationEngine()
         {
-            userHeader = UserHeader.Empty;
             signedIn = false;
         }
 
         
         public bool SignedIn
         {
-            get { return signedIn; }
+            get { return User != null; }
         }
 
         
@@ -63,16 +63,19 @@ namespace MultiNotes.XAndroid.Model
             get { return null; }
         }
 
-        public UserHeader UserHeader
-        {
-            get { return userHeader; }
-        }
-
         
-        public bool SignIn(string username, string password)
+        public async Task<bool> SignIn(string username, string password)
         {
-            userHeader = new UserHeader("1", "example@multinotes.pl");
-            signedIn = true;
+            UserMethod userMethods = new UserMethod(ConnectionApi.HttpClient);
+           
+            try
+            {
+                await userMethods.Login(username, password);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             return signedIn;
         }
 
