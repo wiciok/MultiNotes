@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class LocalNotesRepository : INoteRepository
+    public class LocalNoteRepository : INoteRepository
     {
         private static List<Note> NotesInFile = FetchAllNotes();
 

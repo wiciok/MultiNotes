@@ -56,9 +56,10 @@
     <Compile Include="IRegistration.cs" />
     <Compile Include="IUniqueIdService.cs" />
     <Compile Include="IUserApi.cs" />
-    <Compile Include="LocalNotesRepository.cs" />
+    <Compile Include="LocalNoteRepository.cs" />
     <Compile Include="LocalUniqueIdService.cs" />
     <Compile Include="LoginEngine.cs" />
+    <Compile Include="NoteSyncManager.cs" />
     <Compile Include="Registration.cs" />
     <Compile Include="RemoteNoteRepository.cs" />
     <Compile Include="UniqueIdService.cs" />

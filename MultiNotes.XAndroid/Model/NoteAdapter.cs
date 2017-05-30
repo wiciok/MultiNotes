@@ -48,7 +48,7 @@ namespace MultiNotes.XAndroid.Model
 
         private List<Note> GetNotesList()
         {
-            return new LocalNotesRepository().GetAllNotes()
+            return new LocalNoteRepository().GetAllNotes()
                 .OrderByDescending(g => g.LastChangeTimestamp).ToList();
         }
 

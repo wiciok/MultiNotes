@@ -28,7 +28,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public async Task Login(string username, string password, bool hashed)
+        public async Task Login(string username, string password, bool hashed = false)
         {
             AuthenticationToken tokenApi = new AuthenticationToken();
             string token = await tokenApi.GetAuthenticationToken(new AuthenticationRecord()

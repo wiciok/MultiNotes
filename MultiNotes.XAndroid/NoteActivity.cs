@@ -62,7 +62,7 @@ namespace MultiNotes.XAndroid
             //         LastChangeTimestamp = DateTime.Now,
             //         OwnerId = AuthorizationManager.Instance.User.Id
             //     };
-            note = new LocalNotesRepository().GetAllNotes()
+            note = new LocalNoteRepository().GetAllNotes()
                 .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
                 .FirstOrDefault()
                 ?? new Note()
@@ -149,12 +149,12 @@ namespace MultiNotes.XAndroid
             if (note.Id.Length != 0)
             {
                 note.Content = newContent;
-                new LocalNotesRepository().UpdateNote(note);
+                new LocalNoteRepository().UpdateNote(note);
             }
             else
             {
                 note.Content = newContent;
-                new LocalNotesRepository().AddNote(note);
+                new LocalNoteRepository().AddNote(note);
             }
             Finish();
             return true;
@@ -167,7 +167,7 @@ namespace MultiNotes.XAndroid
             {
                 ShowDeleteNoteAlert(delegate 
                 {
-                    new LocalNotesRepository().DeleteNote(note);
+                    new LocalNoteRepository().DeleteNote(note);
                     Finish();
                 });
             }

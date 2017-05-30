@@ -118,6 +118,7 @@ namespace MultiNotes.XAndroid
 
         private bool MenuSyncOnClick()
         {
+            new NoteSyncManager().Sync(new RemoteNoteRepository(), new LocalNoteRepository());
             RefreshNotesList();
             return true;
         }
