@@ -1,39 +1,90 @@
-﻿using MultiNotes.Core;
-using System;
+﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using MultiNotes.Core;
+using MultiNotes.Windows.Services;
+using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
 {
     public class RegisterViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChanged(string propertyName)
+        public RegisterViewModel(Action closeAction)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _closeAction = closeAction;
+            SignUpCmd = new CommandHandler(SignUp);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private readonly Action _closeAction;
+        public ICommand SignUpCmd { get; }
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+        private string _repeatEmail;
+        public string RepeatEmail
+        {
+            get => _repeatEmail;
+            set
+            {
+                _repeatEmail = value;
+                OnPropertyChanged(nameof(RepeatEmail));
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+
+        private void SignUp(object parameter)
+        {
+            string passwordInVm = null;
+            var passwordContainer = parameter as IHavePassword;
+            if (passwordContainer != null)
+            {
+                var secureString = passwordContainer.Password;
+                passwordInVm = PasswordService.ConvertToUnsecureString(secureString);
+            }
+
+            if (Email == RepeatEmail)
+                MakeRegisterTask(Email, passwordInVm);
+            else
+            {
+                MessageBox.Show("Adresy e-mail nie są takie same");
+            }
         }
 
         public void MakeRegisterTask(string email, string password)
         {
-            Task testTask = new Task(() => Register(email, password).Wait());
-            testTask.Start();
+            Register(email, password);
         }
 
-        public async Task Register(string email, string password)
+        public async void Register(string email, string password)
         {
             ConnectionApi.Configure();
-            UserMethod methods = new UserMethod(ConnectionApi.HttpClient);
+            var methods = new UserMethod(ConnectionApi.HttpClient);
 
             try
             {
                 await methods.Register(email, password);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            var loginWindow = new MultiNotesLoginWindow();
+            loginWindow.Show();
+            _closeAction.Invoke();
         }
     }
 }
