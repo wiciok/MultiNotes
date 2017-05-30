@@ -75,8 +75,13 @@ namespace MultiNotes.XAndroid.Core
             }
             catch (WebException e)
             {
-                string a = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
-                remoteNotes = new List<Note>();
+                if (e.Response is HttpWebResponse response)
+                {
+                    HttpStatusCode a = response.StatusCode;
+                }
+                // HttpWebResponse response = e.Response as HttpWebResponse;
+                // string a = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
+                // remoteNotes = new List<Note>();
             }
         }
 
