@@ -1,40 +1,31 @@
-﻿using MultiNotes.Windows.ViewModel;
-using System.Windows;
+﻿using System.Windows;
+using MultiNotes.Core;
+using MultiNotes.Windows.Services;
+using MultiNotes.Windows.ViewModel;
 
 namespace MultiNotes.Windows.View
 {
     /// <summary>
     /// Interaction logic for MultiNotesRegisterWindow.xaml
     /// </summary>
-    public partial class MultiNotesRegisterWindow
+    public partial class MultiNotesRegisterWindow: IHavePassword
     {
         public MultiNotesRegisterWindow()
         {
             InitializeComponent();
+            ConnectionApi.Configure();
+
+            DataContext = new RegisterViewModel(Close);
+
+
             // Manually alter window height and width
             SizeToContent = SizeToContent.Manual;
-
             // Automatically resize height relative to content
             SizeToContent = SizeToContent.Height;
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        private void registerBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var loginWindow = new MultiNotesLoginWindow();
-            var registerViewModel = new RegisterViewModel();
-
-            if (EmailTextBox.Text == RepeatEmailTextBox.Text)
-            {
-                if(PassBox.Password == RepeatPassBox.Password)
-                {
-                    registerViewModel.MakeRegisterTask(EmailTextBox.Text, PassBox.Password);
-                }
-            }
-            
-            Close();
-            loginWindow.Show();
-        }
+        public System.Security.SecureString Password => PassBox.SecurePassword;
     }
 }

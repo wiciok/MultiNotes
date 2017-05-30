@@ -67,8 +67,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\PasswordService.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\CommandHandler.cs" />
+    <Compile Include="ViewModel\SingleNoteWindowViewModel.cs" />
     <Compile Include="View\MultiNotesLoginWindow.xaml.cs">
       <DependentUpon>MultiNotesLoginWindow.xaml</DependentUpon>
     </Compile>
@@ -131,6 +135,10 @@
     <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
       <Project>{CBC99545-269C-4ACB-B81D-A9E40D82FE49}</Project>
       <Name>MultiNotes.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiNotes.Model\MultiNotes.Model.csproj">
+      <Project>{f6537de7-3208-4b5f-b39e-e1685aef6223}</Project>
+      <Name>MultiNotes.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
