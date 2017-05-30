@@ -70,9 +70,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\PasswordService.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\CommandHandler.cs" />
     <Compile Include="View\MultiNotesLoginWindow.xaml.cs">
       <DependentUpon>MultiNotesLoginWindow.xaml</DependentUpon>
     </Compile>
