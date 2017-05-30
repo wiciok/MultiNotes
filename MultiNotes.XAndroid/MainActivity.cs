@@ -12,10 +12,9 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
-using MultiNotes.XAndroid.ActivityModels;
-using MultiNotes.XAndroid.ActivityModels.Base;
-using MultiNotes.XAndroid.Models;
+using MultiNotes.Model;
+using MultiNotes.XAndroid.Core;
+using MultiNotes.XAndroid.Model;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -28,8 +27,6 @@ namespace MultiNotes.XAndroid
     {
 
         private ListView notesListView;
-
-        private IMainModel model;
 
 
         protected override void OnCreate(Bundle bundle)
@@ -47,9 +44,10 @@ namespace MultiNotes.XAndroid
             notesListView.Adapter = new NoteAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 
-            model = new MainModel();
-
             fab.Click += FloatingActionButtonOnClick;
+
+            // Set up all things we need from start
+            // ConnectionApi.Configure();
         }
 
         private void NotesListItemOnClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -100,7 +98,7 @@ namespace MultiNotes.XAndroid
         protected override void OnResume()
         {
             base.OnResume();
-            if (!model.SignedIn)
+            if (!AuthorizationManager.Instance.IsUserSigned)
             {
                 StartActivity(typeof(SignInActivity));
             }

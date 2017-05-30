@@ -10,10 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
-using MultiNotes.XAndroid.Models.Base;
+using MultiNotes.Model;
+using MultiNotes.XAndroid.Model.Base;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Model
 {
     public class NotesRepository : INotesRepository
     {

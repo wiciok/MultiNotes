@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Model
 {
     public class Counter
     {

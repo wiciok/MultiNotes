@@ -11,10 +11,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.ActivityModels;
-using MultiNotes.XAndroid.ActivityModels.Base;
+using MultiNotes.XAndroid.Core;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid
 {
@@ -31,7 +31,10 @@ namespace MultiNotes.XAndroid
 
         private EditText noteEditText;
 
-        private INoteModel model;
+        private Note note;
+
+        // private NoteModel model;
+        private XNoteMethod noteMethods;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -44,10 +47,34 @@ namespace MultiNotes.XAndroid
             noteEditText = FindViewById<EditText>(Resource.Id.edit_text);
 
             EnableSupportToolbarHomeMenu();
+            
+            noteMethods = new XNoteMethod();
 
-            model = new NoteModel(Intent.GetStringExtra(NOTE_ID), Intent.GetStringExtra(NOTE_CONTENT));
+            note = noteMethods
+                .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
+                .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
+                .FirstOrDefault()
+                ?? new Note()
+                {
+                    Id = "",
+                    Content = "",
+                    CreateTimestamp = DateTime.Now,
+                    LastChangeTimestamp = DateTime.Now,
+                    OwnerId = AuthorizationManager.Instance.User.Id
+                };
+
             noteEditText.Text = "";
-            noteEditText.Append(model.NoteContent);
+            noteEditText.Append(note?.Content ?? "");
+        }
+
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (note == null)
+            {
+                Finish();
+            }
         }
 
 
@@ -75,7 +102,7 @@ namespace MultiNotes.XAndroid
 
         public override void OnBackPressed()
         {
-            if (noteEditText.Text.Trim() != model.NoteContent)
+            if (noteEditText.Text.Trim() != note.Content)
             {
                 ShowNoteNotSavedAlert(delegate { base.OnBackPressed(); });
             }
@@ -87,7 +114,7 @@ namespace MultiNotes.XAndroid
 
         protected override bool MenuHomeOnClick()
         {
-            if (noteEditText.Text.Trim() != model.NoteContent)
+            if (noteEditText.Text.Trim() != note.Content)
             {
                 bool result = true;
                 ShowNoteNotSavedAlert(delegate { result = base.MenuHomeOnClick(); });
@@ -102,20 +129,31 @@ namespace MultiNotes.XAndroid
 
         private bool MenuSaveOnClick()
         {
-            model.NoteContent = noteEditText.Text.Trim();
-            if (model.NoteContent.Length == 0)
+            string newContent = noteEditText.Text.Trim();
+            if (newContent.Length == 0)
             {
                 Toast.MakeText(this, Resource.String.alert_note_empty, ToastLength.Short).Show();
                 return true;
             }
-            if (model.NoteId.Length != 0)
+            if (note.Id.Length != 0)
             {
-                model.SaveChanges();
+                note.OwnerId = AuthorizationManager.Instance.User.Id;
+                note.Content = newContent;
+                note.LastChangeTimestamp = DateTime.Now;
+                noteMethods.UpdateNoteFromFile(
+                    note.Id,
+                    AuthorizationManager.Instance.User.Id,
+                    note
+                );
             }
             else
             {
-                // If NoteId is not set, a new note has to be created
-                model.AddNote();
+                note.Id = DateTime.Now.Millisecond.ToString();
+                note.OwnerId = AuthorizationManager.Instance.User.Id;
+                note.Content = newContent;
+                note.CreateTimestamp = DateTime.Now;
+                note.LastChangeTimestamp = DateTime.Now;
+                noteMethods.AddNoteToFile(note);
             }
             Finish();
             return true;
@@ -124,9 +162,16 @@ namespace MultiNotes.XAndroid
 
         private bool MenuDeleteOnClick()
         {
-            if (model.NoteId.Length != 0)
+            if (note.Id.Length != 0)
             {
-                ShowDeleteNoteAlert(delegate { model.DeleteNote(); Finish(); });
+                ShowDeleteNoteAlert(delegate 
+                {
+                    noteMethods.DeleteNoteFromFile(
+                        note.Id, 
+                        AuthorizationManager.Instance.User.Id
+                    );
+                    Finish();
+                });
             }
             else
             {

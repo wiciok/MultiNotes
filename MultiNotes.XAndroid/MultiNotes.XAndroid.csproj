@@ -97,30 +97,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountActivity.cs" />
-    <Compile Include="ActivityModels\AccountModel.cs" />
-    <Compile Include="ActivityModels\Base\ISignInModel.cs" />
-    <Compile Include="ActivityModels\SignInModel.cs" />
     <Compile Include="ChangePasswordActivity.cs" />
-    <Compile Include="Models\UserHeader.cs" />
     <Compile Include="MultiNotesBaseActivity.cs" />
-    <Compile Include="ActivityModels\Base\IAccountModel.cs" />
-    <Compile Include="ActivityModels\Base\IMainModel.cs" />
-    <Compile Include="ActivityModels\Base\INoteModel.cs" />
-    <Compile Include="ActivityModels\MainModel.cs" />
-    <Compile Include="ActivityModels\NoteModel.cs" />
-    <Compile Include="Models\AuthorizationEngine.cs" />
-    <Compile Include="Models\Counter.cs" />
-    <Compile Include="Models\Base\IAuthorizationEngine.cs" />
-    <Compile Include="Models\Base\INotesRepository.cs" />
-    <Compile Include="Models\Base\IRegistrationEngine.cs" />
+    <Compile Include="Model\Counter.cs" />
+    <Compile Include="Model\Base\IAuthorizationEngine.cs" />
+    <Compile Include="Model\Base\INotesRepository.cs" />
+    <Compile Include="Model\Base\IRegistrationEngine.cs" />
     <Compile Include="NoteActivity.cs" />
-    <Compile Include="Models\NotesBase.cs" />
-    <Compile Include="Models\NotesRepository.cs" />
-    <Compile Include="Models\NoteAdapter.cs" />
+    <Compile Include="Model\NotesBase.cs" />
+    <Compile Include="Model\NotesRepository.cs" />
+    <Compile Include="Model\NoteAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\activity_sign_in.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <Compile Include="NoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="SettingsActivity.cs" />
@@ -128,6 +119,7 @@
     <Compile Include="SignUpActivity.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -195,9 +187,13 @@
     <AndroidResource Include="Resources\layout\list_item_note.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
-      <Project>{cbc99545-269c-4acb-b81d-a9e40d82fe49}</Project>
-      <Name>MultiNotes.Core</Name>
+    <ProjectReference Include="..\MultiNotes.Model\MultiNotes.Model.csproj">
+      <Project>{f6537de7-3208-4b5f-b39e-e1685aef6223}</Project>
+      <Name>MultiNotes.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiNotes.XAndroid.Core\MultiNotes.XAndroid.Core.csproj">
+      <Project>{94d517d8-872c-467b-9a36-8c32f4f7460e}</Project>
+      <Name>MultiNotes.XAndroid.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +220,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_primary.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

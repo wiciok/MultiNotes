@@ -10,9 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
+using MultiNotes.Model;
 
-namespace MultiNotes.XAndroid.Models
+namespace MultiNotes.XAndroid.Model
 {
     internal sealed class NotesBase
     {
@@ -41,29 +41,10 @@ namespace MultiNotes.XAndroid.Models
 
         private static void InitializeInstance()
         {
-            instance.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #1",
-                LastChangeTimestamp = DateTime.Now
-            });
-            instance.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #2",
-                LastChangeTimestamp = DateTime.Now
-            });
-            instance.NotesList.Add(new Note() {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #3",
-                LastChangeTimestamp = DateTime.Now
-            });
-            instance.NotesList.Add(new Note()
-            {
-                Id = Counter.Default.Next.ToString(),
-                Content = "Notatka #4",
-                LastChangeTimestamp = DateTime.Now
-            });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #1" });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #2" });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #3" });
+            instance.NotesList.Add(new Note() { Id = Counter.Default.Next.ToString(), OwnerId = "", Content = "Notatka #4" });
         }
 
 

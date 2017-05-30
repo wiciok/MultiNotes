@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Android.App;
 using Android.Content;
@@ -10,6 +11,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
+using MultiNotes.XAndroid.Core;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -29,7 +32,85 @@ namespace MultiNotes.XAndroid
             SetSupportActionBar(FindViewById<SupportToolbar>(Resource.Id.toolbar));
 
             EnableSupportToolbarHomeMenu();
+
+            Button signUpButton = FindViewById<Button>(Resource.Id.button_sign_up);
+
+            signUpButton.Click += SignUpButtonOnClick;
         }
 
+        private void SignUpButtonOnClick(object sender, EventArgs args)
+        {
+            new Thread(new ThreadStart(async () =>
+            {
+                XUserMethod userMethod = new XUserMethod();
+                ProgressDialog progress = null;
+
+                RunOnUiThread(() =>
+                {
+                    progress = ProgressDialog.Show(this, "Proszę czekać...", "Proszę czekać...", true, false);
+                });
+
+                string username = FindViewById<EditText>(Resource.Id.edit_text_email_address).Text;
+                string password = FindViewById<EditText>(Resource.Id.edit_text_password).Text;
+                string passwordRetype = FindViewById<EditText>(Resource.Id.edit_text_repeat_password).Text;
+
+                if (username.Length == 0 || password.Length == 0)
+                {
+                    new AlertDialog.Builder(this)
+                        .SetTitle("Błąd")
+                        .SetMessage("Proszę uzupełnić wszystkie pola.")
+                        .SetPositiveButton("OK", delegate { })
+                        .Show();
+                    return;
+                }
+
+                if (password.Length < 6)
+                {
+                    new AlertDialog.Builder(this)
+                        .SetTitle("Błąd")
+                        .SetMessage("Hasło jest za krótkie.")
+                        .SetPositiveButton("OK", delegate { })
+                        .Show();
+                    return;
+                }
+
+                if (password != passwordRetype)
+                {
+                    new AlertDialog.Builder(this)
+                        .SetTitle("Błąd")
+                        .SetMessage("Hasła się nie zgadzają.")
+                        .SetPositiveButton("OK", delegate { })
+                        .Show();
+                    return;
+                }
+                
+                await userMethod.Register(username, password);
+                
+                RunOnUiThread(() => 
+                {
+                    progress.Hide();
+                    if (!userMethod.IsRegisterSuccessful)
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Błąd")
+                            .SetMessage("Podczas rejestracji wystąpił nieoczekiwany błąd.")
+                            .SetPositiveButton("OK", delegate { })
+                            .Show();
+                    }
+                    else
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Rejestracja zakończona")
+                            .SetMessage("Rejestracja została zakończona!")
+                            .SetPositiveButton("OK", delegate { Finish(); })
+                            .SetCancelable(false)
+                            .Show();
+                    }
+                });
+
+                
+            })).Start();
+            
+        }
     }
 }

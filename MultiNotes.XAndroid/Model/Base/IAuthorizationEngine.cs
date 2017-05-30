@@ -10,9 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.Core;
+using MultiNotes.Model;
+using System.Threading.Tasks;
 
-namespace MultiNotes.XAndroid.Models.Base
+namespace MultiNotes.XAndroid.Model.Base
 {
     public interface IAuthorizationEngine
     {
@@ -21,9 +22,7 @@ namespace MultiNotes.XAndroid.Models.Base
 
         User User { get; }
 
-        UserHeader UserHeader { get; }
-
-        bool SignIn(string username, string password);
+        Task<bool> SignIn(string username, string password);
 
         void SignOut();
 

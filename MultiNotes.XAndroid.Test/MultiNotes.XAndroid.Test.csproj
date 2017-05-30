@@ -51,12 +51,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
-      <Project>{cbc99545-269c-4acb-b81d-a9e40d82fe49}</Project>
-      <Name>MultiNotes.Core</Name>
+    <ProjectReference Include="..\MultiNotes.XAndroid.Core\MultiNotes.XAndroid.Core.csproj">
+      <Project>{94d517d8-872c-467b-9a36-8c32f4f7460e}</Project>
+      <Name>MultiNotes.XAndroid.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\MultiNotes.XAndroid\MultiNotes.XAndroid.csproj">
       <Project>{c8651fee-052a-4918-bf73-74a1e4f5738d}</Project>

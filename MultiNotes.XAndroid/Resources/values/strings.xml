@@ -14,9 +14,12 @@
     <string name="change_password_title">Zmiana hasła</string>
     <string name="checkbox_accept_rules">Akceptuję regulamin usługi!</string>
     <string name="confirm_dialog_no">Nie</string>
+    <string name="confirm_dialog_ok">OK</string>
     <string name="confirm_dialog_yes">Tak</string>
     <string name="confirm_delete_note_text">Czy na pewno chcesz usunąć tą notatkę?</string>
     <string name="confirm_note_not_saved">Notatka nie została zapisana. Czy na pewno chcesz wyjść?</string>
+  
+    <string name="error">Błąd</string>
     
     <string name="menu_account">Konto</string>
     <string name="menu_delete">Usuń</string>
@@ -29,6 +32,7 @@
     <string name="note_title">Notatka</string>
 
     <string name="settings_title">Ustawienia</string>
+    <string name="sign_in_failed">Nie udało się zalogować</string>
     <string name="sign_in_title">Logowanie</string>
     <string name="sign_in_welcome">Witamy w MultiNotes</string>
     <string name="sign_up_title">Rejestracja</string>

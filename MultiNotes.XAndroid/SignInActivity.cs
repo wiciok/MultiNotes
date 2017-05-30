@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Android.App;
 using Android.Content;
@@ -11,8 +12,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using MultiNotes.XAndroid.Models;
-using MultiNotes.XAndroid.Models.Base;
+using MultiNotes.XAndroid.Core;
+using MultiNotes.XAndroid.Model;
+using MultiNotes.XAndroid.Model.Base;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -29,15 +31,11 @@ namespace MultiNotes.XAndroid
         private EditText emailAddressEditText;
         private EditText passwordEditText;
 
-        private IAuthorizationEngine model;
-
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in);
-
-            model = AuthorizationEngine.Instance;
 
             // Set up field components
             emailAddressEditText = FindViewById<EditText>(Resource.Id.edit_text_email_address);
@@ -54,10 +52,39 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            if (model.SignIn(emailAddressEditText.Text.Trim(), passwordEditText.Text))
+            new Thread(new ThreadStart(async () =>
             {
-                Finish();
-            }
+                XUserMethod methods = new XUserMethod();
+                ProgressDialog progress = null;
+
+                RunOnUiThread(() =>
+                {
+                    progress = ProgressDialog.Show(this, "Proszę czekać...", "Proszę czekać...", true, false);
+                });
+
+                await methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                RunOnUiThread(() =>
+                {
+                    progress.Hide();
+                    if (methods.IsLoginSuccessful)
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Wiadomość")
+                            .SetMessage("Logowanie zakończone powodzeniem")
+                            .SetPositiveButton("OK", delegate { Finish(); })
+                            .Create().Show();
+                    }
+                    else
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Błąd")
+                            .SetMessage("Logowanie niedane")
+                            .SetPositiveButton("OK", delegate { })
+                            .Create().Show();
+                    }
+                });
+            })).Start();
+            
         }
 
 
