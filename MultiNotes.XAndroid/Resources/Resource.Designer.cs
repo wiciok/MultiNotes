@@ -26,8 +26,6 @@ namespace MultiNotes.XAndroid
 		
 		public static void UpdateIdValues()
 		{
-			global::MultiNotes.XAndroid.Core.Resource.String.ApplicationName = global::MultiNotes.XAndroid.Resource.String.ApplicationName;
-			global::MultiNotes.XAndroid.Core.Resource.String.Hello = global::MultiNotes.XAndroid.Resource.String.Hello;
 		}
 		
 		public partial class Animation
@@ -3101,12 +3099,6 @@ namespace MultiNotes.XAndroid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f08002a
-			public const int ApplicationName = 2131230762;
-			
-			// aapt resource value: 0x7f080029
-			public const int Hello = 2131230761;
-			
 			// aapt resource value: 0x7f080000
 			public const int abc_action_bar_home_description = 2131230720;
 			
@@ -3200,14 +3192,14 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f080012
 			public const int abc_toolbar_collapse_description = 2131230738;
 			
+			// aapt resource value: 0x7f080029
+			public const int account_title = 2131230761;
+			
+			// aapt resource value: 0x7f08002a
+			public const int alert_note_empty = 2131230762;
+			
 			// aapt resource value: 0x7f08002b
-			public const int account_title = 2131230763;
-			
-			// aapt resource value: 0x7f08002c
-			public const int alert_note_empty = 2131230764;
-			
-			// aapt resource value: 0x7f08002d
-			public const int app_name = 2131230765;
+			public const int app_name = 2131230763;
 			
 			// aapt resource value: 0x7f080021
 			public const int appbar_scrolling_view_behavior = 2131230753;
@@ -3215,92 +3207,92 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f080022
 			public const int bottom_sheet_behavior = 2131230754;
 			
+			// aapt resource value: 0x7f08002c
+			public const int button_change_password = 2131230764;
+			
+			// aapt resource value: 0x7f08002d
+			public const int button_settings = 2131230765;
+			
 			// aapt resource value: 0x7f08002e
-			public const int button_change_password = 2131230766;
+			public const int button_sign_in = 2131230766;
 			
 			// aapt resource value: 0x7f08002f
-			public const int button_settings = 2131230767;
+			public const int button_sign_out = 2131230767;
 			
 			// aapt resource value: 0x7f080030
-			public const int button_sign_in = 2131230768;
+			public const int button_sign_up = 2131230768;
 			
 			// aapt resource value: 0x7f080031
-			public const int button_sign_out = 2131230769;
-			
-			// aapt resource value: 0x7f080032
-			public const int button_sign_up = 2131230770;
-			
-			// aapt resource value: 0x7f080033
-			public const int change_password_title = 2131230771;
+			public const int change_password_title = 2131230769;
 			
 			// aapt resource value: 0x7f080023
 			public const int character_counter_pattern = 2131230755;
 			
-			// aapt resource value: 0x7f080034
-			public const int checkbox_accept_rules = 2131230772;
-			
-			// aapt resource value: 0x7f080038
-			public const int confirm_delete_note_text = 2131230776;
-			
-			// aapt resource value: 0x7f080035
-			public const int confirm_dialog_no = 2131230773;
+			// aapt resource value: 0x7f080032
+			public const int checkbox_accept_rules = 2131230770;
 			
 			// aapt resource value: 0x7f080036
-			public const int confirm_dialog_ok = 2131230774;
+			public const int confirm_delete_note_text = 2131230774;
+			
+			// aapt resource value: 0x7f080033
+			public const int confirm_dialog_no = 2131230771;
+			
+			// aapt resource value: 0x7f080034
+			public const int confirm_dialog_ok = 2131230772;
+			
+			// aapt resource value: 0x7f080035
+			public const int confirm_dialog_yes = 2131230773;
 			
 			// aapt resource value: 0x7f080037
-			public const int confirm_dialog_yes = 2131230775;
+			public const int confirm_note_not_saved = 2131230775;
+			
+			// aapt resource value: 0x7f080038
+			public const int error = 2131230776;
 			
 			// aapt resource value: 0x7f080039
-			public const int confirm_note_not_saved = 2131230777;
+			public const int fill_all_fields = 2131230777;
 			
 			// aapt resource value: 0x7f08003a
-			public const int error = 2131230778;
+			public const int login_failed = 2131230778;
 			
 			// aapt resource value: 0x7f08003b
-			public const int fill_all_fields = 2131230779;
+			public const int login_successful = 2131230779;
 			
 			// aapt resource value: 0x7f08003c
-			public const int login_failed = 2131230780;
+			public const int menu_account = 2131230780;
 			
 			// aapt resource value: 0x7f08003d
-			public const int login_successful = 2131230781;
+			public const int menu_delete = 2131230781;
 			
 			// aapt resource value: 0x7f08003e
-			public const int menu_account = 2131230782;
+			public const int menu_edit = 2131230782;
 			
 			// aapt resource value: 0x7f08003f
-			public const int menu_delete = 2131230783;
+			public const int menu_more = 2131230783;
 			
 			// aapt resource value: 0x7f080040
-			public const int menu_edit = 2131230784;
+			public const int menu_preferences = 2131230784;
 			
 			// aapt resource value: 0x7f080041
-			public const int menu_more = 2131230785;
+			public const int menu_save = 2131230785;
 			
 			// aapt resource value: 0x7f080042
-			public const int menu_preferences = 2131230786;
+			public const int menu_sync = 2131230786;
 			
 			// aapt resource value: 0x7f080043
-			public const int menu_save = 2131230787;
+			public const int message = 2131230787;
 			
 			// aapt resource value: 0x7f080044
-			public const int menu_sync = 2131230788;
-			
-			// aapt resource value: 0x7f080045
-			public const int message = 2131230789;
-			
-			// aapt resource value: 0x7f080046
-			public const int note_title = 2131230790;
+			public const int note_title = 2131230788;
 			
 			// aapt resource value: 0x7f080024
 			public const int password_toggle_content_description = 2131230756;
 			
-			// aapt resource value: 0x7f080048
-			public const int password_too_short = 2131230792;
+			// aapt resource value: 0x7f080046
+			public const int password_too_short = 2131230790;
 			
-			// aapt resource value: 0x7f080047
-			public const int passwords_dont_match = 2131230791;
+			// aapt resource value: 0x7f080045
+			public const int passwords_dont_match = 2131230789;
 			
 			// aapt resource value: 0x7f080025
 			public const int path_password_eye = 2131230757;
@@ -3314,56 +3306,56 @@ namespace MultiNotes.XAndroid
 			// aapt resource value: 0x7f080028
 			public const int path_password_strike_through = 2131230760;
 			
+			// aapt resource value: 0x7f080047
+			public const int please_wait = 2131230791;
+			
+			// aapt resource value: 0x7f080048
+			public const int register_failed = 2131230792;
+			
 			// aapt resource value: 0x7f080049
-			public const int please_wait = 2131230793;
-			
-			// aapt resource value: 0x7f08004a
-			public const int register_failed = 2131230794;
-			
-			// aapt resource value: 0x7f08004b
-			public const int register_successful = 2131230795;
+			public const int register_successful = 2131230793;
 			
 			// aapt resource value: 0x7f080013
 			public const int search_menu_title = 2131230739;
 			
+			// aapt resource value: 0x7f08004a
+			public const int settings_title = 2131230794;
+			
+			// aapt resource value: 0x7f08004b
+			public const int sign_in_failed = 2131230795;
+			
 			// aapt resource value: 0x7f08004c
-			public const int settings_title = 2131230796;
+			public const int sign_in_title = 2131230796;
 			
 			// aapt resource value: 0x7f08004d
-			public const int sign_in_failed = 2131230797;
+			public const int sign_in_welcome = 2131230797;
 			
 			// aapt resource value: 0x7f08004e
-			public const int sign_in_title = 2131230798;
-			
-			// aapt resource value: 0x7f08004f
-			public const int sign_in_welcome = 2131230799;
-			
-			// aapt resource value: 0x7f080050
-			public const int sign_up_title = 2131230800;
+			public const int sign_up_title = 2131230798;
 			
 			// aapt resource value: 0x7f080014
 			public const int status_bar_notification_info_overflow = 2131230740;
 			
+			// aapt resource value: 0x7f08004f
+			public const int text_view_account_welcome = 2131230799;
+			
+			// aapt resource value: 0x7f080050
+			public const int text_view_email_address = 2131230800;
+			
 			// aapt resource value: 0x7f080051
-			public const int text_view_account_welcome = 2131230801;
+			public const int text_view_new_password = 2131230801;
 			
 			// aapt resource value: 0x7f080052
-			public const int text_view_email_address = 2131230802;
+			public const int text_view_old_password = 2131230802;
 			
 			// aapt resource value: 0x7f080053
-			public const int text_view_new_password = 2131230803;
+			public const int text_view_password = 2131230803;
 			
 			// aapt resource value: 0x7f080054
-			public const int text_view_old_password = 2131230804;
+			public const int text_view_repeat_password = 2131230804;
 			
 			// aapt resource value: 0x7f080055
-			public const int text_view_password = 2131230805;
-			
-			// aapt resource value: 0x7f080056
-			public const int text_view_repeat_password = 2131230806;
-			
-			// aapt resource value: 0x7f080057
-			public const int text_view_username = 2131230807;
+			public const int text_view_username = 2131230805;
 			
 			static String()
 			{
