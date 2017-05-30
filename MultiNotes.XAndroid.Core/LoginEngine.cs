@@ -28,13 +28,13 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public async Task Login(string username, string password)
+        public async Task Login(string username, string password, bool hashed)
         {
             AuthenticationToken tokenApi = new AuthenticationToken();
             string token = await tokenApi.GetAuthenticationToken(new AuthenticationRecord()
             {
                 Email = username,
-                PasswordHash = Encryption.Sha256(password)
+                PasswordHash = hashed ? password : Encryption.Sha256(password)
             });
             token = token.Replace("\"", "");
             if (token == "")

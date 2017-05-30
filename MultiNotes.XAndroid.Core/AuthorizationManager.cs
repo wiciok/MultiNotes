@@ -49,7 +49,7 @@ namespace MultiNotes.XAndroid.Core
         private User GetUser()
         {
             string[] data = GetFileData();
-            if (data.Length != 5)
+            if (data.Length != 4)
             {
                 return null;
             }
@@ -62,17 +62,9 @@ namespace MultiNotes.XAndroid.Core
             };
         }
 
-
-        public string Token { get { return GetToken(); } }
-
-        private string GetToken()
+        private async Task<bool> Verify()
         {
-            string[] data = GetFileData();
-            if (data.Length != 5)
-            {
-                return "";
-            }
-            return data[4];
+            return await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
         }
     }
 }

@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MultiNotes.XAndroid.Core\MultiNotes.XAndroid.Core.csproj">
+      <Project>{94d517d8-872c-467b-9a36-8c32f4f7460e}</Project>
+      <Name>MultiNotes.XAndroid.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MultiNotes.XAndroid\MultiNotes.XAndroid.csproj">
       <Project>{c8651fee-052a-4918-bf73-74a1e4f5738d}</Project>
       <Name>MultiNotes.XAndroid</Name>

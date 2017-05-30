@@ -49,8 +49,7 @@ namespace MultiNotes.XAndroid.Core
                             UserSigned.Id,
                             UserSigned.EmailAddress,
                             UserSigned.PasswordHash,
-                            UserSigned.RegistrationTimestamp.ToString(),
-                            token
+                            UserSigned.RegistrationTimestamp.ToString()
                         }
                     );
                 }
@@ -83,11 +82,18 @@ namespace MultiNotes.XAndroid.Core
                         UserSigned.Id,
                         UserSigned.EmailAddress,
                         UserSigned.PasswordHash,
-                        UserSigned.RegistrationTimestamp.ToString(),
-                        loginEngine.Token
+                        UserSigned.RegistrationTimestamp.ToString()
                     }
                 );
             }
+        }
+
+
+        public async Task<bool> Verify(string username, string password)
+        {
+            ILoginEngine loginEngine = new LoginEngine();
+            await loginEngine.Login(username, password, true);
+            return loginEngine.User != null;
         }
 
 
