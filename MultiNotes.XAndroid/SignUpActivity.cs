@@ -114,7 +114,6 @@ namespace MultiNotes.XAndroid
                     }
                 });
 
-                
             })).Start();
             
         }

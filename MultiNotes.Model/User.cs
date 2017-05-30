@@ -7,16 +7,16 @@ namespace MultiNotes.Model
     public class User
     {
 
-        [BsonId, JsonProperty(PropertyName = "Id")]
+        [BsonId] // , JsonProperty(PropertyName = "Id")]
         public string Id { get; set; }
 
-        [JsonProperty(PropertyName = "EmailAddress")]
+        // [JsonProperty(PropertyName = "EmailAddress")]
         public string EmailAddress { get; set; } //also login
 
-        [JsonProperty(PropertyName = "PasswordHash")]
+        // [JsonProperty(PropertyName = "PasswordHash")]
         public string PasswordHash { get; set; }
 
-        [JsonProperty(PropertyName = "RegistrationTimestamp")]
+        // [JsonProperty(PropertyName = "RegistrationTimestamp")]
         public DateTime RegistrationTimestamp { get; set; }
     }
 }

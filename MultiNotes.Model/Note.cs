@@ -6,19 +6,19 @@ namespace MultiNotes.Model
 {
     public class Note : INote
     {
-        [BsonId, JsonProperty(PropertyName = "Id")]
+        [BsonId] //, JsonProperty(PropertyName = "Id")]
         public string Id { get; set; }
 
-        [JsonProperty(PropertyName = "OwnerId")]
+        // [JsonProperty(PropertyName = "OwnerId")]
         public string OwnerId { get; set; }
 
-        [JsonProperty(PropertyName = "Content")]
+        // [JsonProperty(PropertyName = "Content")]
         public string Content { get; set; }
 
-        [JsonProperty(PropertyName = "CreateTimestamp")]
+        // [JsonProperty(PropertyName = "CreateTimestamp")]
         public DateTime CreateTimestamp { get; set; }
 
-        [JsonProperty(PropertyName = "LastChangeTimestamp")]
+        // [JsonProperty(PropertyName = "LastChangeTimestamp")]
         public DateTime LastChangeTimestamp { get; set; }
 
         public override string ToString()
