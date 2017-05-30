@@ -51,7 +51,9 @@ namespace MultiNotes.XAndroid.Model
             if (AuthorizationManager.Instance.IsUserSigned)
             {
                 return new XNoteMethod()
-                    .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id);
+                    .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
+                    .OrderByDescending(g => g.LastChangeTimestamp)
+                    .ToList();
             }
             else
             {

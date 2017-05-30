@@ -64,6 +64,7 @@ namespace MultiNotes.XAndroid.Core
 
             listNotes.Remove(toDelete);
             toDelete.Content = newNote.Content;
+            toDelete.LastChangeTimestamp = newNote.LastChangeTimestamp;
             listNotes.Add(toDelete);
 
             System.IO.File.WriteAllText(Constants.NotesFile, "");
