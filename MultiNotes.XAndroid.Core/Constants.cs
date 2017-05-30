@@ -9,6 +9,7 @@ namespace MultiNotes.XAndroid.Core
     {
         public static string AuthenticationRecordFile { get { return GetAuthRecordFile(); } }
         public static string NotesFile { get { return GetNotesFile(); } }
+        public static string LocalIdFile { get { return GetLocalIdFile(); } }
 
         private static string GetAuthRecordFile()
         {
@@ -25,6 +26,15 @@ namespace MultiNotes.XAndroid.Core
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
                 "MultiNotes",
                 "notes.dat"
+            );
+        }
+
+        private static string GetLocalIdFile()
+        {
+            return System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "MultiNotes",
+                "localid.dat"
             );
         }
 

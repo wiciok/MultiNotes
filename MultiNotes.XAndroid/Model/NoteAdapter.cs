@@ -48,17 +48,8 @@ namespace MultiNotes.XAndroid.Model
 
         private List<Note> GetNotesList()
         {
-            if (AuthorizationManager.Instance.IsUserSigned)
-            {
-                return new XNoteMethod()
-                    .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
-                    .OrderByDescending(g => g.LastChangeTimestamp)
-                    .ToList();
-            }
-            else
-            {
-                return new List<Note>();
-            }
+            return new LocalNotesRepository().GetAllNotes()
+                .OrderByDescending(g => g.LastChangeTimestamp).ToList();
         }
 
 

@@ -50,7 +50,6 @@
     </AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -187,6 +186,10 @@
     <AndroidResource Include="Resources\layout\list_item_note.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MultiNotes.Core\MultiNotes.Core.csproj">
+      <Project>{cbc99545-269c-4acb-b81d-a9e40d82fe49}</Project>
+      <Name>MultiNotes.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MultiNotes.Model\MultiNotes.Model.csproj">
       <Project>{f6537de7-3208-4b5f-b39e-e1685aef6223}</Project>
       <Name>MultiNotes.Model</Name>

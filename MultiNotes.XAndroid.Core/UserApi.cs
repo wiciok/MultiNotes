@@ -35,7 +35,7 @@ namespace MultiNotes.XAndroid.Core
                     }
                 }
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 return null;
             }

@@ -35,7 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -53,11 +52,16 @@
     <Compile Include="AuthorizationManager.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ILoginEngine.cs" />
+    <Compile Include="INoteRepository.cs" />
     <Compile Include="IRegistration.cs" />
+    <Compile Include="IUniqueIdService.cs" />
     <Compile Include="IUserApi.cs" />
+    <Compile Include="LocalNotesRepository.cs" />
+    <Compile Include="LocalUniqueIdService.cs" />
     <Compile Include="LoginEngine.cs" />
     <Compile Include="Registration.cs" />
-    <Compile Include="UniqueId.cs" />
+    <Compile Include="RemoteNoteRepository.cs" />
+    <Compile Include="UniqueIdService.cs" />
     <Compile Include="HttpResponseException.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,9 +11,18 @@ using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class UniqueId
+    public class UniqueIdService : IUniqueIdService
     {
-        public async Task<string> GetUniqueBsonId()
+        private static readonly object syncRoot = new object();
+        public string GetUniqueId()
+        {
+            lock (syncRoot)
+            {
+                return FetchUniqueIdFromApi();
+            }
+        }
+
+        private string FetchUniqueIdFromApi()
         {
             const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/id/";
 
@@ -23,7 +32,6 @@ namespace MultiNotes.XAndroid.Core
 
             try
             {
-
                 // Somehow this doesn't work
                 // using (WebResponse response = await request.GetResponseAsync())
                 using (WebResponse response = request.GetResponse())
@@ -34,7 +42,7 @@ namespace MultiNotes.XAndroid.Core
                     }
                 }
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 // TODO: do something!
                 return "";

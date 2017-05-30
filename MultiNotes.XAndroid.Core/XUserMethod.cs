@@ -97,7 +97,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public async Task Logout()
+        public void Logout()
         {
             System.IO.File.WriteAllLines(Constants.AuthenticationRecordFile, new string[] { "" });
         }

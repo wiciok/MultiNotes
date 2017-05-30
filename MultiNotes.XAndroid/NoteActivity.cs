@@ -34,7 +34,7 @@ namespace MultiNotes.XAndroid
         private Note note;
 
         // private NoteModel model;
-        private XNoteMethod noteMethods;
+        // private XNoteMethod noteMethods;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -48,10 +48,21 @@ namespace MultiNotes.XAndroid
 
             EnableSupportToolbarHomeMenu();
             
-            noteMethods = new XNoteMethod();
+            // noteMethods = new XNoteMethod();
 
-            note = noteMethods
-                .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
+            // note = noteMethods
+            //     .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
+            //     .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
+            //     .FirstOrDefault()
+            //     ?? new Note()
+            //     {
+            //         Id = "",
+            //         Content = "",
+            //         CreateTimestamp = DateTime.Now,
+            //         LastChangeTimestamp = DateTime.Now,
+            //         OwnerId = AuthorizationManager.Instance.User.Id
+            //     };
+            note = new LocalNotesRepository().GetAllNotes()
                 .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
                 .FirstOrDefault()
                 ?? new Note()
@@ -60,7 +71,7 @@ namespace MultiNotes.XAndroid
                     Content = "",
                     CreateTimestamp = DateTime.Now,
                     LastChangeTimestamp = DateTime.Now,
-                    OwnerId = AuthorizationManager.Instance.User.Id
+                    OwnerId = "-1"
                 };
 
             noteEditText.Text = "";
@@ -137,23 +148,13 @@ namespace MultiNotes.XAndroid
             }
             if (note.Id.Length != 0)
             {
-                note.OwnerId = AuthorizationManager.Instance.User.Id;
                 note.Content = newContent;
-                note.LastChangeTimestamp = DateTime.Now;
-                noteMethods.UpdateNoteFromFile(
-                    note.Id,
-                    AuthorizationManager.Instance.User.Id,
-                    note
-                );
+                new LocalNotesRepository().UpdateNote(note);
             }
             else
             {
-                note.Id = DateTime.Now.Millisecond.ToString();
-                note.OwnerId = AuthorizationManager.Instance.User.Id;
                 note.Content = newContent;
-                note.CreateTimestamp = DateTime.Now;
-                note.LastChangeTimestamp = DateTime.Now;
-                noteMethods.AddNoteToFile(note);
+                new LocalNotesRepository().AddNote(note);
             }
             Finish();
             return true;
@@ -166,10 +167,7 @@ namespace MultiNotes.XAndroid
             {
                 ShowDeleteNoteAlert(delegate 
                 {
-                    noteMethods.DeleteNoteFromFile(
-                        note.Id, 
-                        AuthorizationManager.Instance.User.Id
-                    );
+                    new LocalNotesRepository().DeleteNote(note);
                     Finish();
                 });
             }

@@ -20,6 +20,11 @@
     <string name="confirm_note_not_saved">Notatka nie została zapisana. Czy na pewno chcesz wyjść?</string>
   
     <string name="error">Błąd</string>
+  
+    <string name="fill_all_fields">Proszę uzupełnić wszystkie pola</string>
+  
+    <string name="login_failed">Logowanie nieudane</string>
+    <string name="login_successful">Logowanie zakończone powodzeniem</string>
     
     <string name="menu_account">Konto</string>
     <string name="menu_delete">Usuń</string>
@@ -29,7 +34,15 @@
     <string name="menu_save">Zapisz</string>
     <string name="menu_sync">Synchronizuj</string>
     
+    <string name="message">Wiadomość</string>
     <string name="note_title">Notatka</string>
+  
+    <string name="passwords_dont_match">Hasła się nie zgadzają</string>
+    <string name="password_too_short">Hasło jest za krótkie (minimum 6 znaków)</string>
+    <string name="please_wait">Proszę czekać...</string>
+  
+    <string name="register_failed">Rejestracja nieudana</string>
+    <string name="register_successful">Rejestracja zakończona powodzeniem</string>
 
     <string name="settings_title">Ustawienia</string>
     <string name="sign_in_failed">Nie udało się zalogować</string>

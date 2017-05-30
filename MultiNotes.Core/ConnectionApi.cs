@@ -1,4 +1,5 @@
 ﻿#define DEBUG_CONFIGURATION
+using ModernHttpClient;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -15,7 +16,7 @@ namespace MultiNotes.Core
         private const string DbAddress = "http://217.61.4.233:8080/MultiNotes.Server/";
 //#endif
 
-        public static HttpClient HttpClient = new HttpClient();  
+        public static HttpClient HttpClient = new HttpClient(new NativeMessageHandler());  
         private static bool _configured;
         public static void Configure()
         {
