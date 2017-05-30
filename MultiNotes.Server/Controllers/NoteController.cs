@@ -27,9 +27,12 @@ namespace MultiNotes.Server.Controllers
         {
             try
             {
-                return _authService.CheckAuthorization(token) == true 
-                    ? Request.CreateResponse(HttpStatusCode.OK, (IQueryable<Note>)NotesRepo.GetAllNotes(_authService.CurrentUser).AsQueryable())
-                    : Request.CreateResponse(HttpStatusCode.Unauthorized);
+                if (_authService.CheckAuthorization(token) == false)
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized);
+                if (NotesRepo.CheckForAnyNote(_authService.CurrentUser) == false)
+                    return Request.CreateResponse(HttpStatusCode.NoContent);
+                return Request.CreateResponse(HttpStatusCode.OK,
+                    (IQueryable<Note>) NotesRepo.GetAllNotes(_authService.CurrentUser).AsQueryable());
             }
             catch(Exception e)
             {
