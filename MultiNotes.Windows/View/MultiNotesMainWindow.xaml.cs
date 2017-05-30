@@ -17,11 +17,11 @@ namespace MultiNotes.Windows.View
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            if(WindowState == WindowState.Minimized)
+            /*if(WindowState == WindowState.Minimized)
             {
                 SingleNoteWindow note = new SingleNoteWindow();
                 note.Show();
-            }
+            }*/
         }
     }
 }

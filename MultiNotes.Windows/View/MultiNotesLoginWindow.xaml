@@ -1,4 +1,5 @@
 ﻿<Window x:Class="MultiNotes.Windows.View.MultiNotesLoginWindow"
+        x:Name="This"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,19 +19,19 @@
         <Border Grid.Row="2" Background="LightYellow" BorderBrush="SteelBlue" BorderThickness="2,4,2,4" CornerRadius="2" Margin="6">
             <StackPanel Orientation="Vertical" Margin="3">
                 <Label HorizontalAlignment="Center">E-mail:</Label>
-                <TextBox Name="EmailTextBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></TextBox>
+                <TextBox Name="EmailTextBox" HorizontalAlignment="Center" Text ="{Binding Email}" MinWidth="150" MaxWidth="300"></TextBox>
                 <Label HorizontalAlignment="Center">Password:</Label>
                 <PasswordBox Name="PassBox" HorizontalAlignment="Center" MinWidth="150" MaxWidth="300"></PasswordBox>
             </StackPanel>
         </Border>
 
         <StackPanel  Grid.Row="3" Margin="3">
-            <Button Name="LoginBtn" Content="Sign in" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    MinWidth="100" MaxWidth="200" Margin="3" Padding="3" Click="loginBtn_Click"></Button>
+            <Button Command="{Binding LogInCmd}" CommandParameter="{Binding ElementName=This}" Name="LoginBtn" Content="Sign in" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    MinWidth="100" MaxWidth="200" Margin="3" Padding="3"></Button>
             
             <Label HorizontalAlignment="Center">Don't have account?</Label>
-            <Button Name="RegisterBtn" Content="Sign up" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    MinWidth="100" MaxWidth="200" Margin="3" Padding="3" Click="registerBtn_Click"></Button>
+            <Button Command="{Binding SignUpCmd}" Name="RegisterBtn" Content="Sign up" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    MinWidth="100" MaxWidth="200" Margin="3" Padding="3"></Button>
         </StackPanel>
     </Grid>
 </Window>

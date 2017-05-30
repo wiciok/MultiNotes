@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:MultiNotes.Windows.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewModel:SingleNoteWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -15,15 +17,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel>
-            <Label DockPanel.Dock="Left" Margin="0,0,0,3">Date: 4.05.2017</Label>
-            <Button DockPanel.Dock="Left" Name="CloseBtn" Content="X" Click="closeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+            <Label DockPanel.Dock="Left" Margin="0,0,0,3" Content="{Binding DisplayedDate}"/>
+                <Button DockPanel.Dock="Left" Name="CloseBtn" Command="{Binding CloseNoteCmd}"  Content=" X " Click="closeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
         </DockPanel>
 
         <Separator Margin="0,3,0,3" Grid.Row="1"/>
-        <TextBlock Margin="0,3,0,0" Grid.Row="2" TextWrapping="Wrap">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    In ullamcorper commodo lacus vitae lobortis.
-                    Sed eu eros ac magna laoreet lacinia vel in diam. Vivamus vel iaculis sem.
-                    Sed laoreet posuere molestie. Cras eu viverra nisl, id rutrum nisi.
-                    Quisque vehicula orci ultricies enim pretium, ac dignissim diam finibus.</TextBlock>
+        <TextBox Margin="0,3,0,0" Grid.Row="2" TextWrapping="Wrap" BorderThickness="0" Text="{Binding Note.Content}"/>
     </Grid>
 </Window>

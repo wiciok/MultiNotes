@@ -1,23 +1,56 @@
 ﻿using System;
 using System.ComponentModel;
-using MultiNotes.Core;
 using System.Windows;
+using System.Windows.Input;
+using MultiNotes.Core;
+using MultiNotes.Windows.Services;
 using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public MultiNotesLoginWindow LoginWindow;
-
-        public LoginViewModel(MultiNotesLoginWindow loginWindow)
+        public LoginViewModel(Action closeAction)
         {
-            LoginWindow = loginWindow;
+            LogInCmd = new CommandHandler(LogIn);
+            SignUpCmd = new CommandHandler(x => Signup());
+            _closeAction = closeAction;
         }
-        private void RaisePropertyChanged(string propertyName)
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private readonly Action _closeAction;
+        public ICommand LogInCmd { get; }
+        public ICommand SignUpCmd { get; }
+
+        private string _email;
+        public string Email
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+
+        //Metod zczytująca hasło jako parametr i tranformjąca je z Secure stringa na tekst
+        private void LogIn(object parameter)
+        {
+            string passwordInVm = null;
+            var passwordContainer = parameter as IHavePassword;
+            if (passwordContainer != null)
+            {
+                var secureString = passwordContainer.Password;
+                passwordInVm = PasswordService.ConvertToUnsecureString(secureString);
+            }
+            Login(Email, passwordInVm);
+        }
+
+
+        protected virtual void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
         public void MakeLoginTask(string email, string password)
@@ -27,25 +60,28 @@ namespace MultiNotes.Windows.ViewModel
 
         public async void Login(string email, string password)
         {
-            
-            UserMethod methods = new UserMethod(ConnectionApi.HttpClient);
+            var methods = new UserMethod(ConnectionApi.HttpClient);
 
             try
             {
-                    await methods.Login(email, password);
+                await methods.Login(email, password);
             }
-            catch(Exception)
+            catch (Exception e)
             {
+                //todo: tak nie moze zostac, tu musi byc sensowna obsluga wyjatkow roznych typow
                 MessageBox.Show("Wrong username or password");
                 return;
             }
 
-            Application.Current.Dispatcher.Invoke(delegate
-            {
-                MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
-                LoginWindow.Close();
-                mainWindow.Show();
-            });
+            var mainWindow = new MultiNotesMainWindow();
+            mainWindow.Show();
+            _closeAction.Invoke();
+        }
+        public void Signup()
+        {
+            var registerWindow = new MultiNotesRegisterWindow();
+            registerWindow.Show();
+            _closeAction.Invoke();
         }
     }
 }
