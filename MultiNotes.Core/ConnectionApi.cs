@@ -7,13 +7,13 @@ namespace MultiNotes.Core
 {
     public class ConnectionApi//singleton???
     {
-//#if DEBUG_CONFIGURATION
- //       private const int Port = 63252;
-//        private const string DbAddress = "http://192.168.0.9:";
-//#else
+#if DEBUG_CONFIGURATION
+        private const int Port = 63252;
+        private const string DbAddress = "http://localhost:63252/";
+#else
         //private const int Port = 80;
         private const string DbAddress = "http://217.61.4.233:8080/MultiNotes.Server/";
-//#endif
+#endif
 
         public static HttpClient HttpClient = new HttpClient();  
         private static bool _configured;
