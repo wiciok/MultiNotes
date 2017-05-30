@@ -12,7 +12,7 @@ namespace MultiNotes.Windows.ViewModel
         public RegisterViewModel(Action closeAction)
         {
             _closeAction = closeAction;
-            SignUpCmd = new RelayCommand(SignUp);
+            SignUpCmd = new CommandHandler(SignUp);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -52,7 +52,7 @@ namespace MultiNotes.Windows.ViewModel
             if (passwordContainer != null)
             {
                 var secureString = passwordContainer.Password;
-                passwordInVm = RelayCommand.ConvertToUnsecureString(secureString);
+                passwordInVm = CommandHandler.ConvertToUnsecureString(secureString);
             }
 
             if (Email == RepeatEmail)

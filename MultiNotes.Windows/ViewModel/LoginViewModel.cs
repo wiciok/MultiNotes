@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using MultiNotes.Core;
+using MultiNotes.Windows.Services;
 using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
@@ -11,8 +12,8 @@ namespace MultiNotes.Windows.ViewModel
     {
         public LoginViewModel(Action closeAction)
         {
-            LogInCmd = new RelayCommand(LogIn);
-            SignUpCmd = new RelayCommand(pars => Signup());
+            LogInCmd = new CommandHandler(LogIn);
+            SignUpCmd = new CommandHandler(x => Signup());
             _closeAction = closeAction;
         }
 
@@ -41,7 +42,7 @@ namespace MultiNotes.Windows.ViewModel
             if (passwordContainer != null)
             {
                 var secureString = passwordContainer.Password;
-                passwordInVm = RelayCommand.ConvertToUnsecureString(secureString);
+                passwordInVm = PasswordService.ConvertToUnsecureString(secureString);
             }
             Login(Email, passwordInVm);
         }
