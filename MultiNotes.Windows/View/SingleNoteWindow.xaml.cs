@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using MultiNotes.Model;
+using MultiNotes.Windows.ViewModel;
 
 namespace MultiNotes.Windows.View
 {
@@ -8,9 +10,10 @@ namespace MultiNotes.Windows.View
     /// </summary>
     public partial class SingleNoteWindow
     {
-        public SingleNoteWindow()
+        public SingleNoteWindow(Note note)
         {
             InitializeComponent();
+            DataContext = new SingleNoteWindowViewModel(x => Close(), note);
 
             // Manually alter window height and width
             SizeToContent = SizeToContent.Manual;

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using MultiNotes.Core;
+using MultiNotes.Windows.Services;
 using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
@@ -52,7 +53,7 @@ namespace MultiNotes.Windows.ViewModel
             if (passwordContainer != null)
             {
                 var secureString = passwordContainer.Password;
-                passwordInVm = CommandHandler.ConvertToUnsecureString(secureString);
+                passwordInVm = PasswordService.ConvertToUnsecureString(secureString);
             }
 
             if (Email == RepeatEmail)
