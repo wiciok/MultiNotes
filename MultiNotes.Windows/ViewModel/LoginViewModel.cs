@@ -79,8 +79,8 @@ namespace MultiNotes.Windows.ViewModel
         public void Signup()
         {
             var registerWindow = new MultiNotesRegisterWindow();
-            Application.Current.MainWindow.Close();
             registerWindow.Show();
+            _closeAction.Invoke();
         }
     }
 }
