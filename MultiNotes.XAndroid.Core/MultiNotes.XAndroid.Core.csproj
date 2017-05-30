@@ -62,6 +62,7 @@
     <Compile Include="NoteSyncManager.cs" />
     <Compile Include="Registration.cs" />
     <Compile Include="RemoteNoteRepository.cs" />
+    <Compile Include="Setup.cs" />
     <Compile Include="UniqueIdService.cs" />
     <Compile Include="HttpResponseException.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

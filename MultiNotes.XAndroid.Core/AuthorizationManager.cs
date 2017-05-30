@@ -38,6 +38,10 @@ namespace MultiNotes.XAndroid.Core
 
         private string[] GetFileData()
         {
+            if (!System.IO.File.Exists(Constants.AuthenticationRecordFile))
+            {
+                System.IO.File.WriteAllText(Constants.AuthenticationRecordFile, "");
+            }
             return System.IO.File.ReadAllLines(Constants.AuthenticationRecordFile);
         }
 

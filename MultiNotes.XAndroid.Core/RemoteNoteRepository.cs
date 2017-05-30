@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -9,50 +12,70 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using MultiNotes.Model;
-using System.Net;
-using System.IO;
 
 using Newtonsoft.Json;
+
+using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core
 {
     public class RemoteNoteRepository : INoteRepository
     {
+        private List<Note> remoteNotes;
 
         public List<Note> GetAllNotes()
         {
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/note/{0}";
-            List<Note> notes;
+            LoadNotes();
+            return remoteNotes;
+        }
 
-            ILoginEngine loginEngine = new LoginEngine();
+
+        private async void LoadNotes()
+        {
+            string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
+
+            // ILoginEngine loginEngine = new LoginEngine();
             User signedUser = AuthorizationManager.Instance.User;
-            loginEngine.Login(signedUser.EmailAddress, signedUser.PasswordHash, true);
+            // loginEngine.Login(signedUser.EmailAddress, signedUser.PasswordHash, true);
+            // 
+            // if (loginEngine.Token == "" || loginEngine.User == null)
+            // {
+            //     return null;
+            // }
 
-            if (loginEngine.Token == "" || loginEngine.User == null)
+            AuthenticationToken tokenManager = new AuthenticationToken();
+            string token = await tokenManager.GetAuthenticationToken(new AuthenticationRecord()
             {
-                return null;
-            }
+                Email = signedUser.EmailAddress,
+                PasswordHash = signedUser.PasswordHash
+            });
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
-                .Create(new Uri(string.Format(apiUrl, loginEngine.Token)));
+                .Create(new Uri(string.Format(apiUrl, token)));
             request.ContentType = "application/json";
             request.Method = "GET";
 
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                using (Stream stream = response.GetResponseStream())
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    string json = new StreamReader(stream).ReadToEnd();
-                    List<string> tmpList = json.Split('}').ToList();
-                    for (int i = 0; i < tmpList.Count; ++i)
+                    using (Stream stream = response.GetResponseStream())
                     {
-                        tmpList[i] += "}";
+                        string json = new StreamReader(stream).ReadToEnd();
+                        List<string> tmpList = json.Split('}').ToList();
+                        for (int i = 0; i < tmpList.Count; ++i)
+                        {
+                            tmpList[i] += "}";
+                        }
+                        tmpList.RemoveAt(tmpList.Count - 1);
+                        remoteNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+                        remoteNotes = remoteNotes.Where(a => a.OwnerId == signedUser.Id).ToList();
                     }
-                    tmpList.RemoveAt(tmpList.Count - 1);
-                    notes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                    return notes.Where(a => a.OwnerId == signedUser.Id).ToList();
                 }
+            }
+            catch (WebException e)
+            {
+                remoteNotes = new List<Note>();
             }
         }
 

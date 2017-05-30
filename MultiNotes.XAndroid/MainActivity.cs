@@ -41,6 +41,9 @@ namespace MultiNotes.XAndroid
             // Set up local variable components
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
 
+            // Run setup for application - all directories etc.
+            Setup.Run();
+
             notesListView.Adapter = new NoteAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
 

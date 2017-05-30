@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -21,6 +22,8 @@ namespace MultiNotes.XAndroid.Model
 
         //private INotesRepository notesRepository;
         private Activity activity;
+        private int count;
+        private List<Note> notesList;
 
 
         public NoteAdapter(Activity activity)
@@ -32,23 +35,24 @@ namespace MultiNotes.XAndroid.Model
 
         public override int Count
         {
-            get { return GetNotesCount(); }//return notesRepository.NotesList.Count; }
+            get { GetNotesCount(); return count; }//return notesRepository.NotesList.Count; }
         }
 
-        private int GetNotesCount()
+        private void GetNotesCount()
         {
-            return GetNotesList().Count();
+            GetNotesList();
+            count = notesList.Count();
         }
 
 
         public virtual List<Note> NotesList
         {
-            get { return GetNotesList(); }
+            get { GetNotesList(); return notesList; }
         }
 
-        private List<Note> GetNotesList()
+        private async void GetNotesList()
         {
-            return new LocalNoteRepository().GetAllNotes()
+            notesList = new LocalNoteRepository().GetAllNotes()
                 .OrderByDescending(g => g.LastChangeTimestamp).ToList();
         }
 

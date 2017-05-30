@@ -19,7 +19,7 @@ namespace MultiNotes.XAndroid.Core
     {
         public async Task<string> GetAuthenticationToken(AuthenticationRecord record)
         {
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/auth/";
+            string apiUrl = Constants.ApiUrlBase + "api/auth/";
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(apiUrl));
             request.ContentType = "application/json";
@@ -41,7 +41,7 @@ namespace MultiNotes.XAndroid.Core
                 {
                     using (Stream stream = response.GetResponseStream())
                     {
-                        return new StreamReader(stream).ReadToEnd();
+                        return new StreamReader(stream).ReadToEnd().Replace("\"", "");
                     }
                 }
             }

@@ -16,7 +16,7 @@ namespace MultiNotes.XAndroid.Core
     {
         public async Task<User> GetUser(string token, string username)
         {
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/user/{0}/{1}";
+            string apiUrl = Constants.ApiUrlBase + "api/user/{0}/{1}";
 
             User user;
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest

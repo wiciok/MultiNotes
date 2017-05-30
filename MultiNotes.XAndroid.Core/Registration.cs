@@ -35,7 +35,7 @@ namespace MultiNotes.XAndroid.Core
                 return;
             }
 
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/user/";
+            string apiUrl = Constants.ApiUrlBase + "api/user/";
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(apiUrl));
             request.ContentType = "application/json";

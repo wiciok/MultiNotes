@@ -37,7 +37,7 @@ namespace MultiNotes.XAndroid
         // private XNoteMethod noteMethods;
 
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_note);

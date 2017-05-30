@@ -24,7 +24,7 @@ namespace MultiNotes.XAndroid.Core
 
         private string FetchUniqueIdFromApi()
         {
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/id/";
+            string apiUrl = Constants.ApiUrlBase + "api/id/";
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(apiUrl));
             request.ContentType = "application/json";
