@@ -1,88 +1,66 @@
 ﻿using System;
 using System.ComponentModel;
-using MultiNotes.Core;
 using System.Windows;
 using System.Windows.Input;
+using MultiNotes.Core;
 using MultiNotes.Windows.View;
-using System.Security;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace MultiNotes.Windows.ViewModel
 {
     public class RegisterViewModel : INotifyPropertyChanged
     {
-
-
-        public RegisterViewModel()
+        public RegisterViewModel(Action closeAction)
         {
-            SignUpCmd= new RelayCommand(this.SignUp);
-
+            _closeAction = closeAction;
+            SignUpCmd = new RelayCommand(SignUp);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public MultiNotesRegisterWindow LoginWindow;
-        public Action CloseAction { get; set; }
+        private readonly Action _closeAction;
+        public ICommand SignUpCmd { get; }
 
-        public ICommand SignUpCmd { get; set; }
-
-        private string _Email;
+        private string _email;
         public string Email
         {
-            get
-            {
-                return _Email;
-            }
+            get => _email;
             set
             {
-                _Email = value;
-                OnPropertyChanged("Email");
+                _email = value;
+                OnPropertyChanged(nameof(Email));
             }
         }
-        private string _RepeatEmail;
+        private string _repeatEmail;
         public string RepeatEmail
         {
-            get
-            {
-                return _RepeatEmail;
-            }
+            get => _repeatEmail;
             set
             {
-                _RepeatEmail = value;
-                OnPropertyChanged("RepeatEmail");
+                _repeatEmail = value;
+                OnPropertyChanged(nameof(RepeatEmail));
             }
         }
 
-        virtual protected void OnPropertyChanged(string propName)
+        protected virtual void OnPropertyChanged(string propName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
         private void SignUp(object parameter)
         {
-            string PasswordInVM = null;
+            string passwordInVm = null;
             var passwordContainer = parameter as IHavePassword;
             if (passwordContainer != null)
             {
                 var secureString = passwordContainer.Password;
-                PasswordInVM = RelayCommand.ConvertToUnsecureString(secureString);
+                passwordInVm = RelayCommand.ConvertToUnsecureString(secureString);
             }
 
             if (Email == RepeatEmail)
-            {
-                MakeRegisterTask(Email, PasswordInVM);
-            }
+                MakeRegisterTask(Email, passwordInVm);
             else
             {
                 MessageBox.Show("Adresy e-mail nie są takie same");
             }
-        }
-
-
-        private void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void MakeRegisterTask(string email, string password)
@@ -93,19 +71,19 @@ namespace MultiNotes.Windows.ViewModel
         public async void Register(string email, string password)
         {
             ConnectionApi.Configure();
-            UserMethod methods = new UserMethod(ConnectionApi.HttpClient);
+            var methods = new UserMethod(ConnectionApi.HttpClient);
 
             try
             {
                 await methods.Register(email, password);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            MultiNotesLoginWindow LoginWindow = new MultiNotesLoginWindow();
-            LoginWindow.Show();
-            
+            var loginWindow = new MultiNotesLoginWindow();
+            loginWindow.Show();
+            _closeAction.Invoke();
         }
     }
 }
