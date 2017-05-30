@@ -12,38 +12,57 @@ using Android.Widget;
 
 using MultiNotes.Model;
 using MultiNotes.XAndroid.Model.Base;
+using MultiNotes.XAndroid.Core;
 
 namespace MultiNotes.XAndroid.Model
 {
     public class NoteAdapter : BaseAdapter
     {
 
-        private INotesRepository notesRepository;
+        //private INotesRepository notesRepository;
         private Activity activity;
 
 
         public NoteAdapter(Activity activity)
         {
             this.activity = activity;
-            notesRepository = new NotesRepository();
+            //notesRepository = new NotesRepository();
         }
 
 
         public override int Count
         {
-            get { return notesRepository.NotesList.Count; }
+            get { return GetNotesCount(); }//return notesRepository.NotesList.Count; }
+        }
+
+        private int GetNotesCount()
+        {
+            return GetNotesList().Count();
         }
 
 
         public virtual List<Note> NotesList
         {
-            get { return notesRepository.NotesList; }
+            get { return GetNotesList(); }
+        }
+
+        private List<Note> GetNotesList()
+        {
+            if (AuthorizationManager.Instance.IsUserSigned)
+            {
+                return new XNoteMethod()
+                    .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id);
+            }
+            else
+            {
+                return new List<Note>();
+            }
         }
 
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return new NoteWrapper(notesRepository.NotesList[position]);
+            return new NoteWrapper(NotesList[position]);
         }
 
 
@@ -51,7 +70,7 @@ namespace MultiNotes.XAndroid.Model
         {
             try
             {
-                return long.Parse(notesRepository.NotesList[position].Id);
+                return long.Parse(NotesList[position].Id);
             }
             catch (FormatException)
             {
@@ -65,9 +84,9 @@ namespace MultiNotes.XAndroid.Model
             View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.list_item_note, parent, false);
             TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.title);
 
-            notesTitleTextView.Text = notesRepository.NotesList[position].Content.Length > 20
-                ? notesRepository.NotesList[position].Content.Substring(0, 20) + " . . ." 
-                : notesRepository.NotesList[position].Content;
+            notesTitleTextView.Text = NotesList[position].Content.Length > 20
+                ? NotesList[position].Content.Substring(0, 20) + " . . ." 
+                : NotesList[position].Content;
 
             return view;
         }
