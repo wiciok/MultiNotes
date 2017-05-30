@@ -1,6 +1,7 @@
 ﻿using MultiNotes.Windows.ViewModel;
 using System.Windows;
 using MultiNotes.Core;
+using MultiNotes.Windows.Services;
 
 namespace MultiNotes.Windows.View
 {
