@@ -59,7 +59,13 @@ namespace MultiNotes.XAndroid
 
                 RunOnUiThread(() =>
                 {
-                    progress = ProgressDialog.Show(this, "Proszę czekać...", "Proszę czekać...", true, false);
+                    progress = ProgressDialog.Show(
+                        this,
+                        Resources.GetString(Resource.String.please_wait),
+                        Resources.GetString(Resource.String.please_wait),
+                        true,
+                        false
+                    );
                 });
 
                 await methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
@@ -69,17 +75,17 @@ namespace MultiNotes.XAndroid
                     if (methods.IsLoginSuccessful)
                     {
                         new AlertDialog.Builder(this)
-                            .SetTitle("Wiadomość")
-                            .SetMessage("Logowanie zakończone powodzeniem")
-                            .SetPositiveButton("OK", delegate { Finish(); })
+                            .SetTitle(Resource.String.message)
+                            .SetMessage(Resource.String.login_successful)
+                            .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { Finish(); })
                             .Create().Show();
                     }
                     else
                     {
                         new AlertDialog.Builder(this)
-                            .SetTitle("Błąd")
-                            .SetMessage("Logowanie niedane")
-                            .SetPositiveButton("OK", delegate { })
+                            .SetTitle(Resource.String.error)
+                            .SetMessage(Resource.String.login_failed)
+                            .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
                             .Create().Show();
                     }
                 });

@@ -47,7 +47,13 @@ namespace MultiNotes.XAndroid
 
                 RunOnUiThread(() =>
                 {
-                    progress = ProgressDialog.Show(this, "Proszę czekać...", "Proszę czekać...", true, false);
+                    progress = ProgressDialog.Show(
+                        this,
+                        Resources.GetString(Resource.String.please_wait),
+                        Resources.GetString(Resource.String.please_wait),
+                        true, 
+                        false
+                    );
                 });
 
                 string username = FindViewById<EditText>(Resource.Id.edit_text_email_address).Text;
@@ -57,9 +63,9 @@ namespace MultiNotes.XAndroid
                 if (username.Length == 0 || password.Length == 0)
                 {
                     new AlertDialog.Builder(this)
-                        .SetTitle("Błąd")
-                        .SetMessage("Proszę uzupełnić wszystkie pola.")
-                        .SetPositiveButton("OK", delegate { })
+                        .SetTitle(Resource.String.error)
+                        .SetMessage(Resource.String.fill_all_fields)
+                        .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
                         .Show();
                     return;
                 }
@@ -67,9 +73,9 @@ namespace MultiNotes.XAndroid
                 if (password.Length < 6)
                 {
                     new AlertDialog.Builder(this)
-                        .SetTitle("Błąd")
-                        .SetMessage("Hasło jest za krótkie.")
-                        .SetPositiveButton("OK", delegate { })
+                        .SetTitle(Resource.String.error)
+                        .SetMessage(Resource.String.password_too_short)
+                        .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
                         .Show();
                     return;
                 }
@@ -77,9 +83,9 @@ namespace MultiNotes.XAndroid
                 if (password != passwordRetype)
                 {
                     new AlertDialog.Builder(this)
-                        .SetTitle("Błąd")
-                        .SetMessage("Hasła się nie zgadzają.")
-                        .SetPositiveButton("OK", delegate { })
+                        .SetTitle(Resource.String.error)
+                        .SetMessage(Resource.String.passwords_dont_match)
+                        .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
                         .Show();
                     return;
                 }
@@ -92,17 +98,17 @@ namespace MultiNotes.XAndroid
                     if (!userMethod.IsRegisterSuccessful)
                     {
                         new AlertDialog.Builder(this)
-                            .SetTitle("Błąd")
-                            .SetMessage("Podczas rejestracji wystąpił nieoczekiwany błąd.")
-                            .SetPositiveButton("OK", delegate { })
+                            .SetTitle(Resource.String.error)
+                            .SetMessage(Resource.String.register_failed)
+                            .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
                             .Show();
                     }
                     else
                     {
                         new AlertDialog.Builder(this)
-                            .SetTitle("Rejestracja zakończona")
-                            .SetMessage("Rejestracja została zakończona!")
-                            .SetPositiveButton("OK", delegate { Finish(); })
+                            .SetTitle(Resource.String.message)
+                            .SetMessage(Resource.String.register_successful)
+                            .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { Finish(); })
                             .SetCancelable(false)
                             .Show();
                     }

@@ -71,10 +71,10 @@ namespace MultiNotes.XAndroid
         
         private void SignOutButtonOnClick(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(async () =>
+            new Thread(new ThreadStart(() =>
             {
                 XUserMethod methods = new XUserMethod();
-                await methods.Logout();
+                methods.Logout();
                 RunOnUiThread(() => Finish());
             })).Start();
         }

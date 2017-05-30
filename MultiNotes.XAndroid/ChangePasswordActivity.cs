@@ -21,7 +21,7 @@ namespace MultiNotes.XAndroid
         Theme = "@style/AppTheme.NoActionBar")]
     public class ChangePasswordActivity : MultiNotesBaseActivity
     {
-        
+
         private EditText oldPasswordEditText;
         private EditText passwordEditText;
         private EditText repeatPasswordEditText;

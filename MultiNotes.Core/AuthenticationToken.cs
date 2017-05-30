@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Http;
 using MultiNotes.Model;
+using System;
+
+// Disable warning: Async method lacks 'await' operators and will run synchronously
+#pragma warning disable CS1998
 
 // Disable warning: Async method lacks 'await' operators and will run synchronously
 #pragma warning disable CS1998 
@@ -18,7 +22,15 @@ namespace MultiNotes.Core
         }
         public async Task<string> PostAuthRecordAsync(AuthenticationRecord authRecord) //zwraca token w postaci stringa
         {
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/auth", authRecord);
+            HttpResponseMessage response;
+            try
+            {
+                response = _httpClient.PostAsJsonAsync("api/auth", authRecord).Result;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
             string token;
             if (response.StatusCode== HttpStatusCode.OK)
             {

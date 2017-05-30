@@ -76,7 +76,7 @@ namespace MultiNotes.Core
             email = Encryption.Base64Encode(email);
 
             User user;
-            var response = await _httpClient.GetAsync("api/user/" + token + "/" + email);
+            var response = _httpClient.GetAsync("api/user/" + token + "/" + email).Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 user = await response.Content.ReadAsAsync<User>();
