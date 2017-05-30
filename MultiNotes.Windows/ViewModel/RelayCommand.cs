@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Security;
 using System.Runtime.InteropServices;
@@ -13,13 +8,36 @@ namespace MultiNotes.Windows.ViewModel
 {
     public interface IHavePassword
     {
-        System.Security.SecureString Password { get; }
+        SecureString Password { get; }
     }
-
-    
 
     public class RelayCommand : ICommand
     {
+        private readonly Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
+
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute=null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        [DebuggerStepThrough]
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
 
         //Odbezpieczanie hasła
         public static string ConvertToUnsecureString(SecureString securePassword)
@@ -29,7 +47,7 @@ namespace MultiNotes.Windows.ViewModel
                 return string.Empty;
             }
 
-            IntPtr unmanagedString = IntPtr.Zero;
+            var unmanagedString = IntPtr.Zero;
             try
             {
                 unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
@@ -40,49 +58,5 @@ namespace MultiNotes.Windows.ViewModel
                 Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
             }
         }
-
-        #region Fields
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
-        #endregion // Fields
-
-        #region Constructors
-
-        public RelayCommand(Action<object> execute)
-            : this(execute, null)
-        {
-        }
-
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
-        {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
-            _canExecute = canExecute;
-        }
-        #endregion // Constructors
-
-        #region ICommand Members
-
-        [DebuggerStepThrough]
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null ? true : _canExecute(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public void Execute(object parameter)
-        {
-
-            _execute(parameter);
-        }
-
-        #endregion // ICommand Members
     }
 }
