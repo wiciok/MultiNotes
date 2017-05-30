@@ -45,7 +45,7 @@ namespace MultiNotes.XAndroid.Core
                     }
                 }
             }
-            catch (WebException)
+            catch (WebException e)
             {
                 // TODO: do something!
                 return "";

@@ -36,24 +36,31 @@ namespace MultiNotes.XAndroid.Core
             await registration.Register(username, password);
             IsRegisterSuccessful = registration.IsRegisterSuccessful;
             RegisterMessage = registration.RegisterMessage;
-            string token = await RegisterAutologin(username, password);
-
-            if (token != "")
-            {
-                if (IsRegisterSuccessful)
-                {
-                    System.IO.File.WriteAllLines(
-                        Constants.AuthenticationRecordFile,
-                        new string[]
-                        {
-                            UserSigned.Id,
-                            UserSigned.EmailAddress,
-                            UserSigned.PasswordHash,
-                            UserSigned.RegistrationTimestamp.ToString()
-                        }
-                    );
-                }
-            }
+            // string token = await RegisterAutologin(username, password);
+            // 
+            // if (token != "")
+            // {
+            //     if (IsRegisterSuccessful)
+            //     {
+            //         try
+            //         {
+            //             System.IO.File.WriteAllLines(
+            //                 Constants.AuthenticationRecordFile,
+            //                 new string[]
+            //                 {
+            //                     UserSigned.Id,
+            //                     UserSigned.EmailAddress,
+            //                     UserSigned.PasswordHash,
+            //                     UserSigned.RegistrationTimestamp.ToString()
+            //                 }
+            //             );
+            //         }
+            //         catch (Exception e)
+            //         {
+            //             string a = e.Message;
+            //         }
+            //     }
+            // }
         }
 
 
@@ -75,16 +82,23 @@ namespace MultiNotes.XAndroid.Core
             UserSigned = loginEngine.User;
             if (IsLoginSuccessful)
             {
-                System.IO.File.WriteAllLines(
-                    Constants.AuthenticationRecordFile,
-                    new string[]
-                    {
+                try
+                {
+                    System.IO.File.WriteAllLines(
+                        Constants.AuthenticationRecordFile,
+                        new string[]
+                        {
                         UserSigned.Id,
                         UserSigned.EmailAddress,
                         UserSigned.PasswordHash,
                         UserSigned.RegistrationTimestamp.ToString()
-                    }
-                );
+                        }
+                    );
+                }
+                catch (Exception e)
+                {
+                    string a = e.Message;
+                }
             }
         }
 
