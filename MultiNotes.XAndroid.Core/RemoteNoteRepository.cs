@@ -75,6 +75,7 @@ namespace MultiNotes.XAndroid.Core
             }
             catch (WebException e)
             {
+                string a = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
                 remoteNotes = new List<Note>();
             }
         }
