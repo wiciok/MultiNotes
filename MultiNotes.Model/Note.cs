@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MultiNotes.Model
 {
-    public class Note : INote
+    public class Note
     {
         [BsonId]
         public string Id { get; set; }
