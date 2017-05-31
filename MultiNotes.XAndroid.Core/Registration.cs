@@ -25,6 +25,12 @@ namespace MultiNotes.XAndroid.Core
 
         public async Task Register(string username, string password)
         {
+            await Task.Run(() => { RegisterImpl(username, password); });
+        }
+
+
+        private void RegisterImpl(string username, string password)
+        {
             string bsonId = new UniqueIdService().GetUniqueId();
             // Somehow we get a quoted string (ex. "a12...4ff", instead of a12...4ff)
             bsonId = bsonId.Replace("\"", "");

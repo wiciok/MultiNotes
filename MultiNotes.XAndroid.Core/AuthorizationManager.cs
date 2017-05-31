@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using MultiNotes.Model;
 
@@ -66,9 +65,16 @@ namespace MultiNotes.XAndroid.Core
             };
         }
 
-        private async Task<bool> Verify()
+        private bool verificationUser;
+        public bool Verify()
         {
-            return await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
+            LoadVerificationUser();
+            return verificationUser;
+        }
+
+        private async void LoadVerificationUser()
+        {
+            verificationUser = await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
         }
     }
 }

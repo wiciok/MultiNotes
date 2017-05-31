@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 using MultiNotes.Model;
@@ -31,7 +30,7 @@ namespace MultiNotes.XAndroid.Core
         public async Task Login(string username, string password, bool hashed = false)
         {
             AuthenticationToken tokenApi = new AuthenticationToken();
-            string token = await tokenApi.GetAuthenticationToken(new AuthenticationRecord()
+            string token = tokenApi.GetAuthenticationToken(new AuthenticationRecord()
             {
                 Email = username,
                 PasswordHash = hashed ? password : Encryption.Sha256(password)

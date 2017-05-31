@@ -5,8 +5,8 @@ using System.Text;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public interface IUniqueIdService
+    public enum WebApiClientError
     {
-        string GetUniqueId();
+        InternetConnectionError
     }
 }

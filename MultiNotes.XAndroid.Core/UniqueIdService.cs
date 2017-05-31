@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 // Disable warning: Async method lacks 'await' operators and will run synchronously
 #pragma warning disable CS1998 

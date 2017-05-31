@@ -4,16 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using MultiNotes.Model;
 
@@ -75,10 +68,17 @@ namespace MultiNotes.XAndroid.Core
                     tmpList[i] += "}";
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
-                remoteNotes = tmpList
-                    .Select(JsonConvert.DeserializeObject<Note>)
-                    .Where(a => a.OwnerId == signedUser.Id)
-                    .ToList();
+                object notes = JsonConvert.DeserializeObject(json);
+                if (notes is JArray jArray)
+                {
+                    remoteNotes = jArray.ToObject<List<Note>>()
+                        .Where(g => g.OwnerId == signedUser.Id).ToList();
+                }
+                // remoteNotes = tmpList
+                //     .Select(JsonConvert.DeserializeObject<Note>)
+                //     .Where(a => a.OwnerId == signedUser.Id)
+                //     .ToList();
+
                 Success = true;
             }
             catch (WebException e)
@@ -97,11 +97,11 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        private async void LoadToken()
+        private void LoadToken()
         {
             User signedUser = AuthorizationManager.Instance.User;
             AuthenticationToken tokenManager = new AuthenticationToken();
-            token = await tokenManager.GetAuthenticationToken(new AuthenticationRecord()
+            token = tokenManager.GetAuthenticationToken(new AuthenticationRecord()
             {
                 Email = signedUser.EmailAddress,
                 PasswordHash = signedUser.PasswordHash
