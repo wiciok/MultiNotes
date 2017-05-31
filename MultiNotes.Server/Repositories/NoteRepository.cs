@@ -13,10 +13,16 @@ namespace MultiNotes.Server.Repositories
             NotesCollection = database.GetCollection<INote>(collectionName);
         }
 
-
-        public bool CheckForAnyNote(User user)
+        private bool CheckForAnyNote()
         {
-            return NotesCollection.Count(n => n.OwnerId == user.Id) != 0;
+            return NotesCollection.Count(n => true) != 0;
+        }
+
+        public bool CheckForAnyUserNote(User user)
+        {
+            if (CheckForAnyNote())
+                return NotesCollection.Count(n => n.OwnerId.Equals(user.Id)) != 0;
+            return false;
         }
 
         public IEnumerable<INote> GetAllNotes()

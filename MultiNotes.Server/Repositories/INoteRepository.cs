@@ -13,6 +13,6 @@ namespace MultiNotes.Server.Repositories
         void UpdateNote(string id, INote item);
         IEnumerable<INote> GetAllNotes(User user);
         bool CheckForNote(string id);
-        bool CheckForAnyNote(User user);
+        bool CheckForAnyUserNote(User user);
     }
 }

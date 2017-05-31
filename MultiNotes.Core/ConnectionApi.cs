@@ -1,4 +1,4 @@
-﻿#define DEBUG_CONFIGURATION
+﻿//#define DEBUG_CONFIGURATION
 using ModernHttpClient;
 using System;
 using System.Net.Http;
