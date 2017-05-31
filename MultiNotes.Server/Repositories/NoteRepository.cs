@@ -6,11 +6,11 @@ namespace MultiNotes.Server.Repositories
 {
     public class NoteRepository : INoteRepository
     {
-        protected IMongoCollection<INote> NotesCollection;
+        protected IMongoCollection<Note> NotesCollection;
 
         public NoteRepository(IMongoDatabase database, string collectionName="Notes")
         {
-            NotesCollection = database.GetCollection<INote>(collectionName);
+            NotesCollection = database.GetCollection<Note>(collectionName);
         }
 
         private bool CheckForAnyNote()
@@ -25,22 +25,22 @@ namespace MultiNotes.Server.Repositories
             return false;
         }
 
-        public IEnumerable<INote> GetAllNotes()
+        public IEnumerable<Note> GetAllNotes()
         {
             return NotesCollection.Find(n => true).ToList();
         }
 
-        public IEnumerable<INote> GetAllNotes(User user)
+        public IEnumerable<Note> GetAllNotes(User user)
         {
             return NotesCollection.Find(n => n.OwnerId==user.Id).ToList();
         }
 
-        public INote GetNote(string id)
+        public Note GetNote(string id)
         {
-            return NotesCollection.Find(n => n.Id == id).SingleOrDefault<INote>();
+            return NotesCollection.Find(n => n.Id == id).SingleOrDefault<Note>();
         }
 
-        public INote AddNote(INote item)
+        public Note AddNote(Note item)
         {
             NotesCollection.InsertOne(item);
             return item;
@@ -51,7 +51,7 @@ namespace MultiNotes.Server.Repositories
             NotesCollection.DeleteOne(n => n.Id == id);
         }
 
-        public void UpdateNote(string id, INote item)
+        public void UpdateNote(string id, Note item)
         {
             NotesCollection.FindOneAndReplace(b => b.Id == id, item);
         }

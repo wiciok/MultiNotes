@@ -1,10 +1,9 @@
 ﻿using System;
 using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
 
 namespace MultiNotes.Model
 {
-    public class Note : INote
+    public class Note
     {
         [BsonId]
         public string Id { get; set; }
