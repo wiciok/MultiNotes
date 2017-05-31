@@ -58,7 +58,9 @@ namespace MultiNotes.Server.Repositories
 
         public bool CheckForNote(string id)
         {
-            return NotesCollection.Count(n => n.Id == id) != 0;
+            if(CheckForAnyNote())
+                return NotesCollection.Count(n => n.Id == id) != 0;
+            return false;
         }
     }
 }

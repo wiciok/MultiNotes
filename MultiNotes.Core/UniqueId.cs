@@ -6,7 +6,7 @@ using System;
 
 namespace MultiNotes.Core
 {
-    public class UniqueId
+    public static class UniqueId
     {
         public static async Task<string> GetUniqueBsonId(HttpClient httpClient)
         {
