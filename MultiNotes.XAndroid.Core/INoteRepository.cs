@@ -17,6 +17,8 @@ namespace MultiNotes.XAndroid.Core
 {
     public interface INoteRepository
     {
+        bool Success { get; }
+
         List<Note> GetAllNotes();
         void AddNote(Note note);
         void UpdateNote(Note note);

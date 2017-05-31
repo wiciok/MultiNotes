@@ -21,6 +21,14 @@ namespace MultiNotes.XAndroid.Core
         {
             List<Note> remoteList = remote.GetAllNotes();
             List<Note> localList = local.GetAllNotes();
+
+            remote.AddNote(new Note()
+            {
+                Content = "1",
+                CreateTimestamp = DateTime.Now,
+                LastChangeTimestamp = DateTime.Now
+            });
+            remoteList = remote.GetAllNotes();
         }
     }
 }

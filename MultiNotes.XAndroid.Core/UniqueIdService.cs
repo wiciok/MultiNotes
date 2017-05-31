@@ -38,7 +38,7 @@ namespace MultiNotes.XAndroid.Core
                 {
                     using (Stream stream = response.GetResponseStream())
                     {
-                        return new StreamReader(stream).ReadToEnd();
+                        return new StreamReader(stream).ReadToEnd().Replace("\"", "");
                     }
                 }
             }
