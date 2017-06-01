@@ -43,7 +43,7 @@ namespace MultiNotes.XAndroid.Core
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
                 return tmpList.Select(JsonConvert.DeserializeObject<Note>)
-                    .Where(a => a.OwnerId == new Authorization().User.Id).ToList();
+                    .Where(a => a.OwnerId == new Authorization().UserId).ToList();
             }
             return new List<Note>();
         }

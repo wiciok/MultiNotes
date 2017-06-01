@@ -105,20 +105,11 @@ namespace MultiNotes.XAndroid.Core
                 RegistrationTimestamp = DateTime.Parse(data[3])
             };
         }
+        
 
-
-        private bool userVerified;
-
-        public bool Verify()
+        public async Task<bool> Verify()
         {
-            LoadVerificationUser();
-            return userVerified;
-        }
-
-
-        private async void LoadVerificationUser()
-        {
-            userVerified = await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
+            return await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
         }
     }
 }

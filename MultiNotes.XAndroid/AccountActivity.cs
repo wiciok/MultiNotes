@@ -41,7 +41,7 @@ namespace MultiNotes.XAndroid
 
             EnableSupportToolbarHomeMenu();
 
-            emailAddressTextView.Text = new Authorization().User.EmailAddress;
+            emailAddressTextView.Text = new Authorization().UserEmailAddress;
 
             changePasswordButton.Click += ChangePasswordButtonOnClick;
             signOutButton.Click += SignOutButtonOnClick;

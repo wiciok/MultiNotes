@@ -10,13 +10,13 @@ using Newtonsoft.Json.Linq;
 
 using MultiNotes.Model;
 using MultiNotes.XAndroid.Core.Api;
+using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core
 {
     public class RemoteNoteRepository : INoteRepository
     {
         private List<Note> remoteNotes;
-        private string token;
 
 
         public RemoteNoteRepository()
@@ -37,13 +37,21 @@ namespace MultiNotes.XAndroid.Core
 
 
         /// <exception cref="WebApiClientException"></exception>
-        private void LoadNotes()
+        private async void LoadNotes()
         {
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
-            
-            User signedUser = new Authorization().User;
 
-            LoadToken();
+            string token;
+            try
+            {
+                token = await GetToken();
+            }
+            catch (UserNotSignedException e)
+            {
+                Success = false;
+                remoteNotes = new List<Note>();
+                return;
+            }
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token)));
@@ -73,7 +81,7 @@ namespace MultiNotes.XAndroid.Core
                 if (notes is JArray jArray)
                 {
                     remoteNotes = jArray.ToObject<List<Note>>()
-                        .Where(g => g.OwnerId == signedUser.Id).ToList();
+                        .Where(g => g.OwnerId == new Authorization().UserId).ToList();
                 }
                 // remoteNotes = tmpList
                 //     .Select(JsonConvert.DeserializeObject<Note>)
@@ -94,24 +102,39 @@ namespace MultiNotes.XAndroid.Core
         }
 
         /// <exception cref="WebApiClientException"></exception>
-        private async void LoadToken()
+        /// <exception cref="UserNotSignedException"></exception>
+        private async Task<string> GetToken()
         {
-            User signedUser = new Authorization().User;
+            Authorization auth = new Authorization();
             AuthTokenApi tokenManager = new AuthTokenApi();
 
-            // This method throws WebApiClientException
-            token = await tokenManager.GetAuthToken(new AuthenticationRecord()
+            if (auth.IsUserSigned)
             {
-                Email = signedUser.EmailAddress,
-                PasswordHash = signedUser.PasswordHash
+                throw new UserNotSignedException();
+            }
+
+            // This method throws WebApiClientException
+            return await tokenManager.GetAuthToken(new AuthenticationRecord()
+            {
+                Email = auth.UserEmailAddress,
+                PasswordHash = auth.UserPasswordHash
             });
         }
 
 
         /// <exception cref="WebApiClientException"></exception>
-        public void AddNote(Note note)
+        public async void AddNote(Note note)
         {
-            LoadToken();
+            string token;
+            try
+            {
+                token = await GetToken();
+            }
+            catch (UserNotSignedException e)
+            {
+                Success = false;
+                return;
+            }
 
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest

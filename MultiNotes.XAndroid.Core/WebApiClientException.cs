@@ -6,6 +6,7 @@ using System.Text;
 
 namespace MultiNotes.XAndroid.Core
 {
+    [Serializable]
     public class WebApiClientException : Exception
     {
         public WebApiClientError Error { get; private set; }
