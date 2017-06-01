@@ -6,31 +6,29 @@ using System.Threading.Tasks;
 
 using MultiNotes.Model;
 
-// Disable warning: Async method lacks 'await' operators and will run synchronously
-#pragma warning disable CS1998
-
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public class LoginEngine : ILoginEngine
+    public class LoginApi : ILoginApi
     {
-        public bool IsLoginSuccessful { get { return User != null; } }
-        public string LoginMessage { get; private set; }
+        public bool Success { get { return User != null; } }
+        public string Message { get; private set; }
         public User User { get; private set; }
         public string Token { get; private set; }
 
 
-        public LoginEngine()
+        public LoginApi()
         {
-            LoginMessage = "";
+            Message = "";
             User = null;
             Token = "";
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         public async Task Login(string username, string password, bool hashed = false)
         {
-            AuthenticationToken tokenApi = new AuthenticationToken();
-            string token = tokenApi.GetAuthenticationToken(new AuthenticationRecord()
+            AuthTokenApi tokenApi = new AuthTokenApi();
+            string token = await tokenApi.GetAuthToken(new AuthenticationRecord()
             {
                 Email = username,
                 PasswordHash = hashed ? password : Encryption.Sha256(password)
@@ -39,14 +37,14 @@ namespace MultiNotes.XAndroid.Core
             if (token == "")
             {
                 User = null;
-                LoginMessage = "Username or password is incorrect.";
+                Message = "Username or password is incorrect.";
                 return;
             }
             Token = token;
             User = await new UserApi().GetUser(token, username);
             if (User == null)
             {
-                LoginMessage = "An unknown exception occured.";
+                Message = "An unknown exception occured.";
             }
         }
     }

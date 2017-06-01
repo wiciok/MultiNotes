@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using MultiNotes.Model;
+using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
@@ -32,7 +33,7 @@ namespace MultiNotes.XAndroid.Core
 
         public async Task Register(string username, string password)
         {
-            IRegistration registration = new Registration();
+            IRegisterApi registration = new RegisterApi();
             await registration.Register(username, password);
             IsRegisterSuccessful = registration.IsRegisterSuccessful;
             RegisterMessage = registration.RegisterMessage;
@@ -66,9 +67,9 @@ namespace MultiNotes.XAndroid.Core
 
         private async Task<string> RegisterAutologin(string username, string password)
         {
-            ILoginEngine loginEngine = new LoginEngine();
+            ILoginApi loginEngine = new LoginApi();
             await loginEngine.Login(username, password);
-            LoginMessage = loginEngine.LoginMessage;
+            LoginMessage = loginEngine.Message;
             UserSigned = loginEngine.User;
             return loginEngine.Token;
         }
@@ -76,9 +77,9 @@ namespace MultiNotes.XAndroid.Core
 
         public async Task Login(string username, string password)
         {
-            ILoginEngine loginEngine = new LoginEngine();
+            ILoginApi loginEngine = new LoginApi();
             await loginEngine.Login(username, password);
-            LoginMessage = loginEngine.LoginMessage;
+            LoginMessage = loginEngine.Message;
             UserSigned = loginEngine.User;
             if (IsLoginSuccessful)
             {
@@ -105,7 +106,7 @@ namespace MultiNotes.XAndroid.Core
 
         public async Task<bool> Verify(string username, string password)
         {
-            ILoginEngine loginEngine = new LoginEngine();
+            ILoginApi loginEngine = new LoginApi();
             await loginEngine.Login(username, password, true);
             return loginEngine.User != null;
         }
@@ -114,13 +115,13 @@ namespace MultiNotes.XAndroid.Core
         public void Logout()
         {
             System.IO.File.WriteAllLines(Constants.AuthenticationRecordFile, new string[] { "" });
+            new Authorization().ReloadUser();
         }
 
 
         public async Task<User> GetUser(string token, string username)
         {
-            IUserApi userApi = new UserApi();
-            return await userApi.GetUser(token, username);
+            return await new UserApi().GetUser(token, username);
         }
     }
 }

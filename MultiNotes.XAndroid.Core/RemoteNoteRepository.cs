@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using MultiNotes.Model;
+using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
@@ -25,9 +26,9 @@ namespace MultiNotes.XAndroid.Core
 
 
         public bool Success { get; private set; }
-        public HttpStatusCode HttpStatusCode { get; private set; }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         public List<Note> GetAllNotes()
         {
             LoadNotes();
@@ -35,11 +36,12 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         private void LoadNotes()
         {
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
             
-            User signedUser = AuthorizationManager.Instance.User;
+            User signedUser = new Authorization().User;
 
             LoadToken();
 
@@ -51,9 +53,8 @@ namespace MultiNotes.XAndroid.Core
             try
             {
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                HttpStatusCode = response.StatusCode;
 
-                if (HttpStatusCode == HttpStatusCode.NoContent)
+                if (response.StatusCode == HttpStatusCode.NoContent)
                 {
                     remoteNotes = new List<Note>();
                     Success = true;
@@ -83,25 +84,23 @@ namespace MultiNotes.XAndroid.Core
             }
             catch (WebException e)
             {
-                if (e.Response is HttpWebResponse response)
+                if (e.Status == WebExceptionStatus.ConnectFailure)
                 {
-                    HttpStatusCode = response.StatusCode;
-                }
-                else
-                {
-                    HttpStatusCode = 0;
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                 }
                 Success = false;
                 remoteNotes = null;
             }
         }
 
-
-        private void LoadToken()
+        /// <exception cref="WebApiClientException"></exception>
+        private async void LoadToken()
         {
-            User signedUser = AuthorizationManager.Instance.User;
-            AuthenticationToken tokenManager = new AuthenticationToken();
-            token = tokenManager.GetAuthenticationToken(new AuthenticationRecord()
+            User signedUser = new Authorization().User;
+            AuthTokenApi tokenManager = new AuthTokenApi();
+
+            // This method throws WebApiClientException
+            token = await tokenManager.GetAuthToken(new AuthenticationRecord()
             {
                 Email = signedUser.EmailAddress,
                 PasswordHash = signedUser.PasswordHash
@@ -109,9 +108,9 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         public void AddNote(Note note)
         {
-            PrepareNoteToAdd(ref note);
             LoadToken();
 
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
@@ -135,37 +134,11 @@ namespace MultiNotes.XAndroid.Core
             }
             catch (WebException e)
             {
+                if (e.Status == WebExceptionStatus.ConnectFailure)
+                {
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                }
                 Success = false;
-                if (e.Response is HttpWebResponse response)
-                {
-                    HttpStatusCode = response.StatusCode;
-                }
-                else
-                {
-                    HttpStatusCode = 0;
-                }
-            }
-        }
-
-
-        private void PrepareNoteToAdd(ref Note note)
-        {
-            if (note.OwnerId == null)
-            {
-                note.OwnerId = AuthorizationManager.Instance.User.Id;
-            }
-            if (note.Id == null)
-            {
-                note.Id = new UniqueIdService().GetUniqueId();
-            }
-            if (note.LastChangeTimestamp == null)
-            {
-                note.LastChangeTimestamp = DateTime.Now;
-            }
-            if (note.CreateTimestamp == null)
-            {
-                note.CreateTimestamp = DateTime.Now;
-                note.LastChangeTimestamp = DateTime.Now;
             }
         }
 
@@ -180,6 +153,5 @@ namespace MultiNotes.XAndroid.Core
         {
             throw new NotImplementedException();
         }
-
     }
 }

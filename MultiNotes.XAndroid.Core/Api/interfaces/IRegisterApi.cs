@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface IRegistration
+    public interface IRegisterApi
     {
         bool IsRegisterSuccessful { get; }
         string RegisterMessage { get; }

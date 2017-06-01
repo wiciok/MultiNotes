@@ -10,14 +10,14 @@ using Newtonsoft.Json;
 
 using MultiNotes.Model;
 
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public class Registration : IRegistration
+    public class RegisterApi : IRegisterApi
     {
         public bool IsRegisterSuccessful { get; private set; }
         public string RegisterMessage { get; private set; }
 
-        public Registration()
+        public RegisterApi()
         {
             IsRegisterSuccessful = false;
             RegisterMessage = "";
@@ -29,9 +29,9 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        private void RegisterImpl(string username, string password)
+        private async void RegisterImpl(string username, string password)
         {
-            string bsonId = new UniqueIdService().GetUniqueId();
+            string bsonId = await new UniqueIdApi().GetUniqueId();
             // Somehow we get a quoted string (ex. "a12...4ff", instead of a12...4ff)
             bsonId = bsonId.Replace("\"", "");
             if (bsonId.Length == 0)

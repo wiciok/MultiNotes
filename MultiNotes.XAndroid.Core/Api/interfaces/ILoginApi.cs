@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 using MultiNotes.Model;
 
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface ILoginEngine
+    public interface ILoginApi
     {
-        bool IsLoginSuccessful { get; }
-        string LoginMessage { get; }
+        bool Success { get; }
+        string Message { get; }
         User User { get; }
         string Token { get; }
 

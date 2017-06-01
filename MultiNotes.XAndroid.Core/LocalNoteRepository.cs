@@ -6,6 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 
 using MultiNotes.Model;
+using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
@@ -41,8 +42,10 @@ namespace MultiNotes.XAndroid.Core
                     tmpList[i] += "}";
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
-                List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                return tmpList.Select(JsonConvert.DeserializeObject<Note>).Where(a => a.OwnerId == "-1").ToList();
+                // List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+
+                return tmpList.Select(JsonConvert.DeserializeObject<Note>)
+                    .Where(a => a.OwnerId == new Authorization().User.Id).ToList();
             }
 
             return new List<Note>();
@@ -55,9 +58,13 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public void AddNote(Note note)
+        public async void AddNote(Note note)
         {
-            PrepareNoteToAdd(ref note);
+            note.Id = await new UniqueIdApi().GetUniqueId();
+            note.CreateTimestamp = DateTime.Now;
+            note.LastChangeTimestamp = DateTime.Now;
+            note.OwnerId = new Authorization().User.Id;
+
             if (!System.IO.File.Exists(Constants.NotesFile))
             {
                 string json = JsonConvert.SerializeObject(note);
@@ -70,15 +77,6 @@ namespace MultiNotes.XAndroid.Core
                 ResaveAllNotes(notesList);
             }
             Success = true;
-        }
-
-
-        private void PrepareNoteToAdd(ref Note note)
-        {
-            note.Id = new LocalUniqueIdService().GetUniqueId();
-            note.OwnerId = "-1";
-            note.CreateTimestamp = DateTime.Now;
-            note.LastChangeTimestamp = DateTime.Now;
         }
 
 
@@ -97,6 +95,9 @@ namespace MultiNotes.XAndroid.Core
 
         public void UpdateNote(Note note)
         {
+            note.CreateTimestamp = DateTime.Now;
+            note.LastChangeTimestamp = DateTime.Now;
+
             List<Note> notesList = GetAllNotes();
             Note noteInFile = notesList.Where(g => g.Id == note.Id).FirstOrDefault();
             noteInFile.Content = note.Content;

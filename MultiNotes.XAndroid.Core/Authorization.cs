@@ -4,34 +4,24 @@ using System.Linq;
 using System.Text;
 
 using MultiNotes.Model;
+using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class AuthorizationManager
+    public class Authorization
     {
-        private static readonly object syncRoot = new object();
-        private static AuthorizationManager instance = null;
+        public static readonly string GuestId = "-1";
+        private static User StaticUser = null;
 
-        public static AuthorizationManager Instance { get { return GetSingleton(); } }
-
-        private static AuthorizationManager GetSingleton()
+        public Authorization()
         {
-            if (instance == null)
+            if (StaticUser == null)
             {
-                lock (syncRoot)
+                lock (GuestId)
                 {
-                    if (instance == null)
-                    {
-                        instance = new AuthorizationManager();
-                    }
+                    ReloadUser();
                 }
             }
-            return instance;
-        }
-        
-
-        private AuthorizationManager()
-        {
         }
 
 
@@ -45,9 +35,26 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public User User { get { return GetUser(); } }
+        public string UserId { get { return User != null ? User.Id : GuestId ; } }
+
+
+        public User User { get { return StaticUser; } }
+
 
         public bool IsUserSigned { get { return User != null; } }
+
+
+        public void ReloadUser()
+        {
+            lock (GuestId)
+            {
+                if (StaticUser == null)
+                {
+                    StaticUser = GetUser();
+                }
+            }
+        }
+
 
         private User GetUser()
         {
@@ -64,17 +71,20 @@ namespace MultiNotes.XAndroid.Core
                 RegistrationTimestamp = DateTime.Parse(data[3])
             };
         }
+        
 
-        private bool verificationUser;
+        private bool userVerified;
+
         public bool Verify()
         {
             LoadVerificationUser();
-            return verificationUser;
+            return userVerified;
         }
+        
 
         private async void LoadVerificationUser()
         {
-            verificationUser = await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
+            userVerified = await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
         }
     }
 }

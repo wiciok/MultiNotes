@@ -8,38 +8,22 @@ using System.IO;
 using Newtonsoft.Json;
 
 using MultiNotes.Model;
+using System.Threading.Tasks;
 
-// Disable warning: Async method lacks 'await' operators and will run synchronously
-#pragma warning disable CS1998
-
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public class AuthenticationToken
+    public class AuthTokenApi : IAuthTokenApi
     {
-        private string token;
-        private bool networkConnectionError;
-
-        public AuthenticationToken()
+        /// <exception cref="WebApiClientException"></exception>
+        public async Task<string> GetAuthToken(AuthenticationRecord record)
         {
-            networkConnectionError = false;
-        }
-
-        
-        public string GetAuthenticationToken(AuthenticationRecord record)
-        {
-            LoadAuthenticationToken(record);
-            if (networkConnectionError)
-            {
-                throw new WebApiClientException(WebApiClientError.InternetConnectionError);
-            }
-            return token;
+            return await Task.Run(() => { return GetAsyncTaskImpl(record); });
         }
 
 
-        public async void LoadAuthenticationToken(AuthenticationRecord record)
+        private string GetAsyncTaskImpl(AuthenticationRecord record)
         {
             string apiUrl = Constants.ApiUrlBase + "api/auth/";
-            networkConnectionError = false;
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(apiUrl));
             request.ContentType = "application/json";
@@ -59,16 +43,16 @@ namespace MultiNotes.XAndroid.Core
 
                 Stream stream = response.GetResponseStream();
 
-                token = new StreamReader(stream).ReadToEnd().Replace("\"", "");
+                return new StreamReader(stream).ReadToEnd().Replace("\"", "");
             }
             catch (WebException e)
             {
                 if (e.Status == WebExceptionStatus.ConnectFailure)
                 {
-                    networkConnectionError = true;
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                 }
                 // TODO: do something!
-                token = "";
+                return "";
             }
         }
     }

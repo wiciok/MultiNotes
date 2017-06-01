@@ -48,25 +48,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationToken.cs" />
-    <Compile Include="AuthorizationManager.cs" />
+    <Compile Include="Api\AuthTokenApi.cs" />
+    <Compile Include="Api\interfaces\IAuthTokenApi.cs" />
+    <Compile Include="Authorization.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="ILoginEngine.cs" />
+    <Compile Include="Api\interfaces\ILoginApi.cs" />
     <Compile Include="INoteRepository.cs" />
-    <Compile Include="IRegistration.cs" />
-    <Compile Include="IUniqueIdService.cs" />
-    <Compile Include="IUserApi.cs" />
+    <Compile Include="Api\interfaces\IRegisterApi.cs" />
+    <Compile Include="Api\interfaces\IUniqueIdApi.cs" />
+    <Compile Include="Api\interfaces\IUserApi.cs" />
     <Compile Include="LocalNoteRepository.cs" />
-    <Compile Include="LocalUniqueIdService.cs" />
-    <Compile Include="LoginEngine.cs" />
+    <Compile Include="Api\LocalUniqueIdApi.cs" />
+    <Compile Include="Api\LoginApi.cs" />
     <Compile Include="NoteSyncManager.cs" />
-    <Compile Include="Registration.cs" />
+    <Compile Include="Api\RegisterApi.cs" />
     <Compile Include="RemoteNoteRepository.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="UniqueIdService.cs" />
+    <Compile Include="Api\UniqueIdApi.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserApi.cs" />
+    <Compile Include="Api\UserApi.cs" />
     <Compile Include="WebApiClientException.cs" />
     <Compile Include="WebApiError.cs" />
     <Compile Include="XNoteMethod.cs" />

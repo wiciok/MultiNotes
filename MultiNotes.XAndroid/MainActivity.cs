@@ -101,7 +101,7 @@ namespace MultiNotes.XAndroid
         protected override void OnResume()
         {
             base.OnResume();
-            if (!AuthorizationManager.Instance.IsUserSigned)
+            if (!new Authorization().IsUserSigned)
             {
                 StartActivity(typeof(SignInActivity));
             }

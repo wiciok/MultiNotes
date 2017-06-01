@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using MultiNotes.Model;
 
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
     public interface IUserApi
     {
