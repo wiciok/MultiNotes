@@ -11,6 +11,10 @@ namespace MultiNotes.XAndroid.Core
     public class Authorization
     {
         public static readonly string GuestId = "-1";
+        public static readonly string GuestEmailAddress = "guest@multinotes.pl";
+        public static readonly string GuestPasswordHash = "###";
+        public static DateTime GuestRegistrationTimestamp { get { return DateTime.Now; } }
+
         private static User StaticUser = null;
 
         public Authorization()
@@ -35,10 +39,40 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public string UserId { get { return User != null ? User.Id : GuestId ; } }
+        public string UserId
+        {
+            get
+            {
+                return User != null ? User.Id : GuestId;
+            }
+        }
+
+        public string UserEmailAddress
+        {
+            get
+            {
+                return User != null ? User.EmailAddress : GuestEmailAddress;
+            }
+        }
+
+        public string UserPasswordHash
+        {
+            get
+            {
+                return User != null ? User.PasswordHash : GuestPasswordHash;
+            }
+        }
+
+        public DateTime UserRegistrationTimestamp
+        {
+            get
+            {
+                return User != null ? User.RegistrationTimestamp : GuestRegistrationTimestamp;
+            }
+        }
 
 
-        public User User { get { return StaticUser; } }
+        private User User { get { return StaticUser; } }
 
 
         public bool IsUserSigned { get { return User != null; } }
@@ -71,7 +105,7 @@ namespace MultiNotes.XAndroid.Core
                 RegistrationTimestamp = DateTime.Parse(data[3])
             };
         }
-        
+
 
         private bool userVerified;
 
@@ -80,7 +114,7 @@ namespace MultiNotes.XAndroid.Core
             LoadVerificationUser();
             return userVerified;
         }
-        
+
 
         private async void LoadVerificationUser()
         {

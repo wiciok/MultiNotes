@@ -42,12 +42,9 @@ namespace MultiNotes.XAndroid.Core
                     tmpList[i] += "}";
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
-                // List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-
                 return tmpList.Select(JsonConvert.DeserializeObject<Note>)
                     .Where(a => a.OwnerId == new Authorization().User.Id).ToList();
             }
-
             return new List<Note>();
         }
 
@@ -63,7 +60,7 @@ namespace MultiNotes.XAndroid.Core
             note.Id = await new UniqueIdApi().GetUniqueId();
             note.CreateTimestamp = DateTime.Now;
             note.LastChangeTimestamp = DateTime.Now;
-            note.OwnerId = new Authorization().User.Id;
+            note.OwnerId = new Authorization().UserId;
 
             if (!System.IO.File.Exists(Constants.NotesFile))
             {
