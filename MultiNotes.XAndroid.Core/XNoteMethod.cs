@@ -12,6 +12,59 @@ namespace MultiNotes.XAndroid.Core
 {
     public class XNoteMethod
     {
+        public List<Note> GetAllLocalNotes()
+        {
+            return new LocalNoteRepository().GetAllNotes();
+        }
+
+        public void AddLocalNote(Note note)
+        {
+            new LocalNoteRepository().AddNote(note);
+        }
+
+        public void UpdateLocalNote(Note note)
+        {
+            new LocalNoteRepository().UpdateNote(note);
+        }
+
+        public void DeleteLocalNote(Note note)
+        {
+            new LocalNoteRepository().DeleteNote(note);
+        }
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public List<Note> GetAllRemoteNotes()
+        {
+            return new RemoteNoteRepository().GetAllNotes();
+        }
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void AddRemoteNote(Note note)
+        {
+            new RemoteNoteRepository().AddNote(note);
+        }
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void UpdateRemoteNote(Note note)
+        {
+            new RemoteNoteRepository().UpdateNote(note);
+        }
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void DeleteRemoteNote(Note note)
+        {
+            new RemoteNoteRepository().DeleteNote(note);
+        }
+    }
+
+    /*
+    
+    internal class XNoteMethod
+    {
         public List<Note> GetAllNotesFromFile(string userId)
         {
             if (System.IO.File.Exists(Constants.NotesFile))
@@ -107,4 +160,6 @@ namespace MultiNotes.XAndroid.Core
             }
         }
     }
+
+    */
 }

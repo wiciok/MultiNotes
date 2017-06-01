@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace MultiNotes.XAndroid.Core
 {
     [Serializable]
-    internal class UserNotSignedException : Exception
+    public class UserNotSignedException : Exception
     {
         public UserNotSignedException() : this("Trying to perform an operation that requires signed user.")
         {

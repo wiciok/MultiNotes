@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class RemoteNoteRepository : INoteRepository
+    public class RemoteNoteRepository// : INoteRepository
     {
         private List<Note> remoteNotes;
 
@@ -29,33 +29,34 @@ namespace MultiNotes.XAndroid.Core
 
 
         /// <exception cref="WebApiClientException"></exception>
-        public List<Note> GetAllNotes()
+        public List<Note> GetAllNotes(string token = null)
         {
-            LoadNotes();
+            LoadNotes(token);
             return remoteNotes;
         }
 
 
         /// <exception cref="WebApiClientException"></exception>
-        private async void LoadNotes()
+        private async void LoadNotes(string token = null)
         {
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
 
-            string token;
-            try
+            if (token == null)
             {
-                token = await GetToken();
-            }
-            catch (UserNotSignedException e)
-            {
-                Success = false;
-                remoteNotes = new List<Note>();
-                return;
+                try
+                {
+                    token = await GetToken();
+                }
+                catch (UserNotSignedException)
+                {
+                    Success = false;
+                    remoteNotes = new List<Note>();
+                    return;
+                }
             }
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token)));
-            request.ContentType = "application/json";
             request.Method = "GET";
 
             try
@@ -123,17 +124,20 @@ namespace MultiNotes.XAndroid.Core
 
 
         /// <exception cref="WebApiClientException"></exception>
-        public async void AddNote(Note note)
+        /// <exception cref="UserNotSignedException"></exception>
+        public async void AddNote(Note note, string token = null)
         {
-            string token;
-            try
+            if (token == null)
             {
-                token = await GetToken();
-            }
-            catch (UserNotSignedException e)
-            {
-                Success = false;
-                return;
+                try
+                {
+                    token = await GetToken();
+                }
+                catch (UserNotSignedException e)
+                {
+                    Success = false;
+                    throw e;
+                }
             }
 
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
@@ -166,15 +170,56 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public void UpdateNote(Note note)
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void UpdateNote(Note note, string token = null)
         {
-            throw new NotImplementedException();
+            // The sam api as AddNote
+            AddNote(note, token);
         }
 
 
-        public void DeleteNote(Note note)
+        public async void DeleteNote(Note note, string token = null)
         {
-            throw new NotImplementedException();
+            if (token == null)
+            {
+                try
+                {
+                    token = await GetToken();
+                }
+                catch (UserNotSignedException e)
+                {
+                    Success = false;
+                    throw e;
+                }
+            }
+
+            string apiUrl = Constants.ApiUrlBase + "api/note/{0}/{1}";
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest
+                .Create(new Uri(string.Format(apiUrl, token, note.Id)));
+            request.Method = "DELETE";
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = JsonConvert.SerializeObject(note);
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            try
+            {
+                HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
+                Success = true;
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ConnectFailure)
+                {
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                }
+                Success = false;
+            }
         }
     }
 }

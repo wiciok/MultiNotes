@@ -23,9 +23,6 @@ namespace MultiNotes.XAndroid
     public sealed class AccountActivity : MultiNotesBaseActivity
     {
 
-        //private IAccountModel model;
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -46,8 +43,6 @@ namespace MultiNotes.XAndroid
             changePasswordButton.Click += ChangePasswordButtonOnClick;
             signOutButton.Click += SignOutButtonOnClick;
             settingsButton.Click += SettingsButtonOnClick;
-
-            //model = new AccountModel();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)

@@ -39,44 +39,15 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public string UserId
-        {
-            get
-            {
-                return User != null ? User.Id : GuestId;
-            }
-        }
-
-        public string UserEmailAddress
-        {
-            get
-            {
-                return User != null ? User.EmailAddress : GuestEmailAddress;
-            }
-        }
-
-        public string UserPasswordHash
-        {
-            get
-            {
-                return User != null ? User.PasswordHash : GuestPasswordHash;
-            }
-        }
-
-        public DateTime UserRegistrationTimestamp
-        {
-            get
-            {
-                return User != null ? User.RegistrationTimestamp : GuestRegistrationTimestamp;
-            }
-        }
-
-
-        private User User { get { return StaticUser; } }
-
-
         public bool IsUserSigned { get { return User != null; } }
 
+        public string UserId { get { return User?.Id ?? GuestId; } }
+        public string UserEmailAddress { get { return User?.EmailAddress ?? GuestEmailAddress; } }
+        public string UserPasswordHash { get { return User?.PasswordHash ?? GuestPasswordHash; } }
+        public DateTime UserRegistrationTimestamp { get { return User?.RegistrationTimestamp ?? GuestRegistrationTimestamp; } }
+
+        public User User { get { return StaticUser; } }
+        
 
         public void ReloadUser()
         {
@@ -107,6 +78,7 @@ namespace MultiNotes.XAndroid.Core
         }
         
 
+        /// <exception cref="WebApiClientException"></exception>
         public async Task<bool> Verify()
         {
             return await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);

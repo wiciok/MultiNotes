@@ -31,6 +31,7 @@ namespace MultiNotes.XAndroid.Core
             }
         }
 
+        /// <exception cref="WebApiClientException"></exception>
         public async Task Register(string username, string password)
         {
             IRegisterApi registration = new RegisterApi();
@@ -65,6 +66,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         private async Task<string> RegisterAutologin(string username, string password)
         {
             ILoginApi loginEngine = new LoginApi();
@@ -75,6 +77,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         public async Task Login(string username, string password)
         {
             ILoginApi loginEngine = new LoginApi();
@@ -104,6 +107,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         public async Task<bool> Verify(string username, string password)
         {
             ILoginApi loginEngine = new LoginApi();
@@ -119,6 +123,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         public async Task<User> GetUser(string token, string username)
         {
             return await new UserApi().GetUser(token, username);

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public sealed class Constants
+    internal sealed class Constants
     {
         public static string AuthenticationRecordFile { get { return GetAuthRecordFile(); } }
         public static string NotesFile { get { return GetNotesFile(); } }
