@@ -14,13 +14,15 @@ namespace MultiNotes.XAndroid.Core.Api
 {
     public class AuthTokenApi : IAuthTokenApi
     {
+
         /// <exception cref="WebApiClientException"></exception>
-        public async Task<string> GetAuthToken(AuthenticationRecord record)
+        public string GetAuthToken(AuthenticationRecord record)
         {
-            return await Task.Run(() => { return GetAsyncTaskImpl(record); });
+            return GetAsyncTaskImpl(record);
         }
 
 
+        /// <exception cref="WebApiClientException"></exception>
         private string GetAsyncTaskImpl(AuthenticationRecord record)
         {
             string apiUrl = Constants.ApiUrlBase + "api/auth/";

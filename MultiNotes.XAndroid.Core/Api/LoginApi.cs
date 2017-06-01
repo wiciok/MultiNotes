@@ -25,10 +25,9 @@ namespace MultiNotes.XAndroid.Core.Api
 
 
         /// <exception cref="WebApiClientException"></exception>
-        public async Task Login(string username, string password, bool hashed = false)
+        public void Login(string username, string password, bool hashed = false)
         {
-            AuthTokenApi tokenApi = new AuthTokenApi();
-            string token = await tokenApi.GetAuthToken(new AuthenticationRecord()
+            string token = new AuthTokenApi().GetAuthToken(new AuthenticationRecord()
             {
                 Email = username,
                 PasswordHash = hashed ? password : Encryption.Sha256(password)
@@ -41,7 +40,7 @@ namespace MultiNotes.XAndroid.Core.Api
                 return;
             }
             Token = token;
-            User = await new UserApi().GetUser(token, username);
+            User = new UserApi().GetUser(token, username);
             if (User == null)
             {
                 Message = "An unknown exception occured.";

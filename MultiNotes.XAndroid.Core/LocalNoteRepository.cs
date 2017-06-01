@@ -43,7 +43,7 @@ namespace MultiNotes.XAndroid.Core
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
                 return tmpList.Select(JsonConvert.DeserializeObject<Note>)
-                    .Where(a => a.OwnerId == new Authorization().UserId).ToList();
+                    .Where(a => a.OwnerId == new Authorization().UserId && a.Id != "---").ToList();
             }
             return new List<Note>();
         }
@@ -55,9 +55,9 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        public async void AddNote(Note note)
+        public void AddNote(Note note)
         {
-            note.Id = await new UniqueIdApi().GetUniqueId();
+            note.Id = new LocalUniqueIdApi().GetUniqueId();
             note.CreateTimestamp = DateTime.Now;
             note.LastChangeTimestamp = DateTime.Now;
             note.OwnerId = new Authorization().UserId;
@@ -76,6 +76,15 @@ namespace MultiNotes.XAndroid.Core
             Success = true;
         }
 
+        public void AddAllNotes(List<Note> list)
+        {
+            ResaveAllNotes(list);
+        }
+
+        public void DeleteAllNotes()
+        {
+            System.IO.File.WriteAllText(Constants.NotesFile, "");
+        }
 
         private void ResaveAllNotes(List<Note> notesList)
         {
@@ -107,6 +116,7 @@ namespace MultiNotes.XAndroid.Core
         public void DeleteNote(Note note)
         {
             List<Note> notesList = GetAllNotes();
+            notesList.First(g => g.Id == note.Id).CreateTimestamp = DateTime.MinValue;
             notesList.RemoveAll(g => g.Id == note.Id);
             ResaveAllNotes(notesList);
             Success = true;

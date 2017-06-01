@@ -8,15 +8,13 @@ using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
-    internal class LocalUniqueIdService : IUniqueIdApi
+    internal class LocalUniqueIdApi : IUniqueIdApi
     {
-        public async Task<string> GetUniqueId()
+        public static readonly string LocalModifier = "::Local::";
+
+        public string GetUniqueId()
         {
-            return await Task.Run(() =>
-            {
-                return GetUniqueIdImpl();
-            });
-           
+            return GetUniqueIdImpl();
         }
 
         private string GetUniqueIdImpl()
@@ -38,7 +36,7 @@ namespace MultiNotes.XAndroid.Core
                 }
             }
             System.IO.File.WriteAllText(Constants.LocalIdFile, (++currentId).ToString());
-            return "::Local::" + currentId.ToString();
+            return LocalModifier + currentId.ToString();
         }
     }
 }

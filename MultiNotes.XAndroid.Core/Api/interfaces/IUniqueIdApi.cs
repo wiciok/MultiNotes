@@ -8,6 +8,6 @@ namespace MultiNotes.XAndroid.Core.Api
 {
     public interface IUniqueIdApi
     {
-        Task<string> GetUniqueId();
+        string GetUniqueId();
     }
 }

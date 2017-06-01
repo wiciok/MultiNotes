@@ -15,6 +15,6 @@ namespace MultiNotes.XAndroid.Core.Api
         User User { get; }
         string Token { get; }
 
-        Task Login(string username, string password, bool hashed = false);
+        void Login(string username, string password, bool hashed = false);
     }
 }

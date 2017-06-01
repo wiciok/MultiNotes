@@ -14,12 +14,9 @@ namespace MultiNotes.XAndroid.Core.Api
     public class UniqueIdApi : IUniqueIdApi
     {
         /// <exception cref="WebApiClientException"></exception>
-        public async Task<string> GetUniqueId()
+        public string GetUniqueId()
         {
-            return await Task.Run(() =>
-            {
-                return GetUniqueIdImpl();
-            });
+            return GetUniqueIdImpl();
         }
 
         /// <exception cref="WebApiClientException"></exception>

@@ -10,6 +10,6 @@ namespace MultiNotes.XAndroid.Core.Api
 {
     public interface IUserApi
     {
-        Task<User> GetUser(string token, string username);
+        User GetUser(string token, string username);
     }
 }

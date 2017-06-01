@@ -34,30 +34,30 @@ namespace MultiNotes.XAndroid.Core
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        public List<Note> GetAllRemoteNotes()
+        public List<Note> GetAllRemoteNotes(string token)
         {
-            return new RemoteNoteRepository().GetAllNotes();
+            return new RemoteNoteRepository().GetAllNotes(token);
         }
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        public void AddRemoteNote(Note note)
+        public void AddRemoteNote(Note note, string token)
         {
-            new RemoteNoteRepository().AddNote(note);
+            new RemoteNoteRepository().AddNote(note, token);
         }
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        public void UpdateRemoteNote(Note note)
+        public void UpdateRemoteNote(Note note, string token)
         {
-            new RemoteNoteRepository().UpdateNote(note);
+            new RemoteNoteRepository().UpdateNote(note, token);
         }
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        public void DeleteRemoteNote(Note note)
+        public void DeleteRemoteNote(Note note, string token)
         {
-            new RemoteNoteRepository().DeleteNote(note);
+            new RemoteNoteRepository().DeleteNote(note, token);
         }
     }
 

@@ -11,6 +11,6 @@ namespace MultiNotes.XAndroid.Core.Api
         bool IsRegisterSuccessful { get; }
         string RegisterMessage { get; }
 
-        Task Register(string username, string password);
+        void Register(string username, string password);
     }
 }

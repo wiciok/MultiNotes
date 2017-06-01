@@ -79,9 +79,9 @@ namespace MultiNotes.XAndroid.Core
         
 
         /// <exception cref="WebApiClientException"></exception>
-        public async Task<bool> Verify()
+        public bool Verify()
         {
-            return await new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
+            return new XUserMethod().Verify(User.EmailAddress, User.PasswordHash);
         }
     }
 }

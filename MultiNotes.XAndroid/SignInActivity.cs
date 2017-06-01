@@ -52,7 +52,7 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(async () =>
+            new Thread(new ThreadStart(() =>
             {
                 XUserMethod methods = new XUserMethod();
                 ProgressDialog progress = null;
@@ -68,7 +68,7 @@ namespace MultiNotes.XAndroid
                     );
                 });
 
-                await methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
                 RunOnUiThread(() =>
                 {
                     progress.Hide();

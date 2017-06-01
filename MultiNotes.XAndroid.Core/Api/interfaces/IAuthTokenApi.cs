@@ -10,6 +10,6 @@ namespace MultiNotes.XAndroid.Core.Api
 {
     public interface IAuthTokenApi
     {
-        Task<string> GetAuthToken(AuthenticationRecord record);
+        string GetAuthToken(AuthenticationRecord record);
     }
 }

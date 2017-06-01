@@ -14,9 +14,9 @@ namespace MultiNotes.XAndroid.Core.Api
     public class UserApi : IUserApi
     {
         /// <exception cref="WebApiClientException"></exception>
-        public async Task<User> GetUser(string token, string username)
+        public User GetUser(string token, string username)
         {
-            return await Task.Run(() => { return GetUserImpl(token, username); });
+            return GetUserImpl(token, username);
         }
 
 

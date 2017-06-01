@@ -29,7 +29,7 @@ namespace MultiNotes.XAndroid.Core
 
 
         /// <exception cref="WebApiClientException"></exception>
-        public List<Note> GetAllNotes(string token = null)
+        public List<Note> GetAllNotes(string token)
         {
             LoadNotes(token);
             return remoteNotes;
@@ -37,23 +37,9 @@ namespace MultiNotes.XAndroid.Core
 
 
         /// <exception cref="WebApiClientException"></exception>
-        private async void LoadNotes(string token = null)
+        private void LoadNotes(string token)
         {
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
-
-            if (token == null)
-            {
-                try
-                {
-                    token = await GetToken();
-                }
-                catch (UserNotSignedException)
-                {
-                    Success = false;
-                    remoteNotes = new List<Note>();
-                    return;
-                }
-            }
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token)));
@@ -104,7 +90,7 @@ namespace MultiNotes.XAndroid.Core
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        private async Task<string> GetToken()
+        private string GetToken()
         {
             Authorization auth = new Authorization();
             AuthTokenApi tokenManager = new AuthTokenApi();
@@ -115,7 +101,7 @@ namespace MultiNotes.XAndroid.Core
             }
 
             // This method throws WebApiClientException
-            return await tokenManager.GetAuthToken(new AuthenticationRecord()
+            return tokenManager.GetAuthToken(new AuthenticationRecord()
             {
                 Email = auth.UserEmailAddress,
                 PasswordHash = auth.UserPasswordHash
@@ -125,21 +111,8 @@ namespace MultiNotes.XAndroid.Core
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        public async void AddNote(Note note, string token = null)
+        public void AddNote(Note note, string token)
         {
-            if (token == null)
-            {
-                try
-                {
-                    token = await GetToken();
-                }
-                catch (UserNotSignedException e)
-                {
-                    Success = false;
-                    throw e;
-                }
-            }
-
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token)));
@@ -172,28 +145,15 @@ namespace MultiNotes.XAndroid.Core
 
         /// <exception cref="WebApiClientException"></exception>
         /// <exception cref="UserNotSignedException"></exception>
-        public void UpdateNote(Note note, string token = null)
+        public void UpdateNote(Note note, string token)
         {
             // The sam api as AddNote
             AddNote(note, token);
         }
 
 
-        public async void DeleteNote(Note note, string token = null)
+        public void DeleteNote(Note note, string token)
         {
-            if (token == null)
-            {
-                try
-                {
-                    token = await GetToken();
-                }
-                catch (UserNotSignedException e)
-                {
-                    Success = false;
-                    throw e;
-                }
-            }
-
             string apiUrl = Constants.ApiUrlBase + "api/note/{0}/{1}";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token, note.Id)));
