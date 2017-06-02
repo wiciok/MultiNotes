@@ -22,6 +22,10 @@ namespace MultiNotes.XAndroid.Core
             new LocalNoteRepository().AddNote(note);
         }
 
+        public void UpdateLocalNoteById(string noteId, Note note)
+        {
+        }
+
         public void UpdateLocalNote(Note note)
         {
             new LocalNoteRepository().UpdateNote(note);
@@ -44,6 +48,12 @@ namespace MultiNotes.XAndroid.Core
         public void AddRemoteNote(Note note, string token)
         {
             new RemoteNoteRepository().AddNote(note, token);
+        }
+
+
+        public void UpdateRemoteNoteById(string noteId, Note note, string token)
+        {
+
         }
 
         /// <exception cref="WebApiClientException"></exception>

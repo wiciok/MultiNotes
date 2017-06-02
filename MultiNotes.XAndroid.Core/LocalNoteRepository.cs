@@ -57,11 +57,6 @@ namespace MultiNotes.XAndroid.Core
 
         public void AddNote(Note note)
         {
-            note.Id = new LocalUniqueIdApi().GetUniqueId();
-            note.CreateTimestamp = DateTime.Now;
-            note.LastChangeTimestamp = DateTime.Now;
-            note.OwnerId = new Authorization().UserId;
-
             if (!System.IO.File.Exists(Constants.NotesFile))
             {
                 string json = JsonConvert.SerializeObject(note);
@@ -70,8 +65,11 @@ namespace MultiNotes.XAndroid.Core
             else
             {
                 List<Note> notesList = GetAllNotes();
-                notesList.Add(note);
-                ResaveAllNotes(notesList);
+                if (notesList.Where(g => g.Id == note.Id).Count() == 0)
+                {
+                    notesList.Add(note);
+                    ResaveAllNotes(notesList);
+                }
             }
             Success = true;
         }

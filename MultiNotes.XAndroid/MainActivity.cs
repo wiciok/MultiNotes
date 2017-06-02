@@ -121,6 +121,15 @@ namespace MultiNotes.XAndroid
 
         private bool MenuSyncOnClick()
         {
+            try
+            {
+                new NoteSync().Sync();
+            }
+            catch (Exception e)
+            {
+
+            }
+
             RefreshNotesList();
             return true;
         }
@@ -139,16 +148,8 @@ namespace MultiNotes.XAndroid
         }
 
 
-        private async void RefreshNotesList()
+        private void RefreshNotesList()
         {
-            try
-            {
-                // new NoteSyncManager().Sync();
-            }
-            catch (Exception e)
-            {
-
-            }
             // The following code works the same as:
             // 
             // NoteAdapter adapter = notesListView.Adapter as NoteAdapter;

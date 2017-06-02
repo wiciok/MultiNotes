@@ -61,6 +61,7 @@
     <Compile Include="Api\LocalUniqueIdApi.cs" />
     <Compile Include="Api\LoginApi.cs" />
     <Compile Include="Api\RegisterApi.cs" />
+    <Compile Include="NoteSync.cs" />
     <Compile Include="RemoteNoteRepository.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Api\UniqueIdApi.cs" />

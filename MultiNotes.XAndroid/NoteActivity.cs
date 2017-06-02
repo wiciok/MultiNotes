@@ -153,6 +153,11 @@ namespace MultiNotes.XAndroid
             }
             else
             {
+                note.Id = new LocalUniqueIdApi().GetUniqueId();
+                note.CreateTimestamp = DateTime.Now;
+                note.LastChangeTimestamp = DateTime.Now;
+                note.OwnerId = new Authorization().UserId;
+
                 note.Content = newContent;
                 new LocalNoteRepository().AddNote(note);
             }

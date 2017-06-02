@@ -8,7 +8,7 @@ using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
-    internal class LocalUniqueIdApi : IUniqueIdApi
+    public class LocalUniqueIdApi : IUniqueIdApi
     {
         public static readonly string LocalModifier = "::Local::";
 

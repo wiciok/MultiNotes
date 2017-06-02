@@ -174,6 +174,13 @@ namespace MultiNotes.XAndroid.Core
             }
             catch (WebException e)
             {
+                if (e.Response is HttpWebResponse response)
+                {
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        // Do nothing
+                    }
+                }
                 if (e.Status == WebExceptionStatus.ConnectFailure)
                 {
                     throw new WebApiClientException(WebApiClientError.InternetConnectionError);

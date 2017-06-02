@@ -53,10 +53,7 @@ namespace MultiNotes.XAndroid.Core
         {
             lock (GuestId)
             {
-                if (StaticUser == null)
-                {
-                    StaticUser = GetUser();
-                }
+                StaticUser = GetUser();
             }
         }
 
