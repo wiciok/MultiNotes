@@ -17,7 +17,7 @@ namespace MultiNotes.Windows.ViewModel
         public MainWindowViewModel(Action closeAction)
         {
 
-            AddNoteCmd = new CommandHandler(AddNote);
+            AddNoteCmd = new CommandHandler(NewNote);
 
             _closeAction = closeAction;
             methods = new UserMethod(ConnectionApi.HttpClient);
