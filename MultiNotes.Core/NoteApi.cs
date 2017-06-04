@@ -5,7 +5,7 @@ using MultiNotes.Core.Util;
 
 namespace MultiNotes.Core
 {
-    class NoteApi : INoteApi
+    public class NoteApi : INoteApi
     {
         private readonly string _userId;
         private readonly AuthenticationRecord _authenticationRecord;

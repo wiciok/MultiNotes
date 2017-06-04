@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MultiNotes.Core;
+using MultiNotes.Windows.ViewModel;
+using System;
 using System.Windows;
 
 namespace MultiNotes.Windows.View
@@ -11,6 +13,9 @@ namespace MultiNotes.Windows.View
         public MultiNotesMainWindow()
         {
             InitializeComponent();
+            ConnectionApi.Configure();
+            var vm = new MainWindowViewModel(Close);
+            DataContext = vm;
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
