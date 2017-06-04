@@ -39,10 +39,12 @@ namespace MultiNotes.Core
         {
             //zapis notatki do bazy danych        
             var response = await _httpClient.PostAsJsonAsync("api/note/" + token, note);
-            if (response.StatusCode != HttpStatusCode.Created)
             {
-                //throw new HttpResponseException(response.StatusCode);
-                //unauthorized,Forbidden,InternalServerError
+                if (!(response.StatusCode.Equals(System.Net.HttpStatusCode.Created)))
+                {
+                    throw new HttpResponseException(response.StatusCode);
+                    //unauthorized,Forbidden,InternalServerError
+                }
             }
         }
 
