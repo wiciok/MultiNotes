@@ -52,6 +52,14 @@ namespace MultiNotes.Windows.ViewModel
             }
         }
 
+        public ObservableCollection<Note> Notes
+        {
+            get
+            {
+                return notes;
+            }
+        }
+
         public async void GetAllNotes()
         {
             getToken();
@@ -62,10 +70,8 @@ namespace MultiNotes.Windows.ViewModel
             {
                 IEnumerable<Note> tempNotes = await noteApi.GetAllNotesAsync();
                 notes = new ObservableCollection<Note>(tempNotes);
-                for(int i = 0; i < notes.Count; i++)
-                {
-                    MessageBox.Show(notes[i].Content + "\n");
-                }
+                for (int i = 0; i < notes.Count; i++)
+                    MessageBox.Show(notes[i].Content);
             }
             catch (Exception e)
             {
@@ -81,8 +87,8 @@ namespace MultiNotes.Windows.ViewModel
 
         public async void AddNote(string note)
         {
-            Note newNote = new Note();
-            newNote.Id = "124";
+            Note newNote = new Note();  
+            newNote.Id = await UniqueId.GetUniqueBsonId(ConnectionApi.HttpClient);
             newNote.OwnerId = user.Id;
             newNote.Content = note;
             newNote.CreateTimestamp = DateTime.Now;

@@ -40,7 +40,7 @@ namespace MultiNotes.Core
             //zapis notatki do bazy danych        
             var response = await _httpClient.PostAsJsonAsync("api/note/" + token, note);
             {
-                if (!(response.StatusCode.Equals(System.Net.HttpStatusCode.Created)))
+                if (!(response.StatusCode.Equals(System.Net.HttpStatusCode.Created)) && !(response.StatusCode.Equals(System.Net.HttpStatusCode.OK)))
                 {
                     throw new HttpResponseException(response.StatusCode);
                     //unauthorized,Forbidden,InternalServerError
