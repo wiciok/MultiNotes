@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MultiNotes.Windows.ViewModel
 {
@@ -15,6 +16,9 @@ namespace MultiNotes.Windows.ViewModel
     {
         public MainWindowViewModel(Action closeAction)
         {
+
+            AddNoteCmd = new CommandHandler(AddNote);
+
             _closeAction = closeAction;
             methods = new UserMethod(ConnectionApi.HttpClient);
 
@@ -24,6 +28,9 @@ namespace MultiNotes.Windows.ViewModel
             GetAllNotes();
 
         }
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly Action _closeAction;
         private readonly AuthenticationRecord _authenticationRecord;
@@ -31,6 +38,22 @@ namespace MultiNotes.Windows.ViewModel
         private ObservableCollection<Note> notes;
         private User user;
         UserMethod methods;
+        public ICommand AddNoteCmd { get; }
+
+
+        private string _note;
+        public string Note
+        {
+            get
+            {
+                return _note;
+            }
+            set
+            {
+                _note = value;
+                OnPropertyChanged(nameof(Note));
+            }
+        }
 
         public async void GetAllNotes()
         {
@@ -53,6 +76,17 @@ namespace MultiNotes.Windows.ViewModel
                 return;
             }
         }
+
+        private void NewNote(object parameter)
+        {
+            AddNote(Note);
+        }
+
+        public async void AddNote(string note)
+        {
+            MessageBox.Show(note);
+        }
+
 
 
 
