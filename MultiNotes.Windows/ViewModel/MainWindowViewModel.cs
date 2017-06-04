@@ -26,10 +26,7 @@ namespace MultiNotes.Windows.ViewModel
             _authenticationRecord = methods.Record;
             MessageBox.Show(_authenticationRecord.Email + " " + _authenticationRecord.PasswordHash);
             GetAllNotes();
-
         }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly Action _closeAction;
@@ -37,9 +34,9 @@ namespace MultiNotes.Windows.ViewModel
         private string token;
         private ObservableCollection<Note> notes;
         private User user;
+        private NoteApi noteApi;
         UserMethod methods;
         public ICommand AddNoteCmd { get; }
-
 
         private string _note;
         public string Note
@@ -60,7 +57,7 @@ namespace MultiNotes.Windows.ViewModel
             getToken();
             MessageBox.Show(token);
             user = await methods.GetUserInfo(token, _authenticationRecord.Email);
-            var noteApi = new NoteApi(_authenticationRecord, user.Id);
+            noteApi = new NoteApi(_authenticationRecord, user.Id);
             try
             {
                 IEnumerable<Note> tempNotes = await noteApi.GetAllNotesAsync();
@@ -84,11 +81,15 @@ namespace MultiNotes.Windows.ViewModel
 
         public async void AddNote(string note)
         {
-            MessageBox.Show(note);
+            Note newNote = new Note();
+            newNote.Id = "123";
+            newNote.OwnerId = user.Id;
+            newNote.Content = note;
+            newNote.CreateTimestamp = DateTime.Now;
+            newNote.LastChangeTimestamp = DateTime.Now;
+
+            await noteApi.AddNoteAsync(newNote);
         }
-
-
-
 
         private async void getToken()
         {

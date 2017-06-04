@@ -26,7 +26,7 @@
         <ListView HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.Column="0" Margin="3">
             <DockPanel Margin="3" LastChildFill="True">
                 <Button Command="{Binding AddNoteCmd}" DockPanel.Dock="Bottom" Width="100" Margin="5">Add New Note</Button>
-                <TextBox Name="NoteTextBox" Text ="{Binding Email}" DockPanel.Dock="Top" Margin="5" Height="60"></TextBox>
+                <TextBox Name="NoteTextBox" Text ="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60"></TextBox>
             </DockPanel>
             <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
                 <StackPanel Margin="3" Orientation="Horizontal">
