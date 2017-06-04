@@ -13,7 +13,10 @@ namespace MultiNotes.Windows.ViewModel
 
         public CommandHandler(Action<object> execute, Predicate<object> canExecute=null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            if (execute != null)
+                _execute = execute;
+            else
+                throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
@@ -24,8 +27,8 @@ namespace MultiNotes.Windows.ViewModel
 
         public event EventHandler CanExecuteChanged
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         public void Execute(object parameter)

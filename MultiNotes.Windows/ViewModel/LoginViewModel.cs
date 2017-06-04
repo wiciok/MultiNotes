@@ -26,7 +26,7 @@ namespace MultiNotes.Windows.ViewModel
         private string _email;
         public string Email
         {
-            get => _email;
+            get { return _email; }
             set
             {
                 _email = value;

@@ -82,7 +82,7 @@ namespace MultiNotes.Windows.ViewModel
         public async void AddNote(string note)
         {
             Note newNote = new Note();
-            newNote.Id = "123";
+            newNote.Id = "124";
             newNote.OwnerId = user.Id;
             newNote.Content = note;
             newNote.CreateTimestamp = DateTime.Now;

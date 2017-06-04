@@ -24,7 +24,9 @@ namespace MultiNotes.Core
 
             if (await InternetConnection.IsInternetConnectionAvailable())
             {
+                
                 string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
+                _noteMethod.AddNoteToDatabase(note, token);
                 IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
                 UpdateNoteDatabase(remoteNotes, localNotes, token);

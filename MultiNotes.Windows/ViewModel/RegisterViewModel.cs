@@ -23,7 +23,7 @@ namespace MultiNotes.Windows.ViewModel
         private string _email;
         public string Email
         {
-            get => _email;
+            get { return _email; }
             set
             {
                 _email = value;
@@ -33,7 +33,7 @@ namespace MultiNotes.Windows.ViewModel
         private string _repeatEmail;
         public string RepeatEmail
         {
-            get => _repeatEmail;
+            get { return _repeatEmail; }
             set
             {
                 _repeatEmail = value;

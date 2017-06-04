@@ -41,7 +41,7 @@ namespace MultiNotes.Core
             var response = await _httpClient.PostAsJsonAsync("api/note/" + token, note);
             if (response.StatusCode != HttpStatusCode.Created)
             {
-                throw new HttpResponseException(response.StatusCode);
+                //throw new HttpResponseException(response.StatusCode);
                 //unauthorized,Forbidden,InternalServerError
             }
         }
@@ -58,6 +58,11 @@ namespace MultiNotes.Core
             }
             else
             {
+                if(response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
+                {
+                    allNotes = new List<Note>();
+                }
+                else
                 throw new HttpResponseException(response.StatusCode);
                 //InternalServerError,Unauthorized
             }
