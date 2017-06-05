@@ -98,7 +98,8 @@ namespace MultiNotes.Windows.ViewModel
 
         private void DelNote(object parameter)
         {
-            //DeleteNote();
+            var id = parameter as string;
+            MessageBox.Show(id);
         }
 
         public async void AddNote(string note)
@@ -109,8 +110,6 @@ namespace MultiNotes.Windows.ViewModel
             newNote.Content = note;
             newNote.CreateTimestamp = DateTime.Now;
             newNote.LastChangeTimestamp = DateTime.Now;
-
-            MessageBox.Show(newNote.CreateTimestamp.ToString());
 
             await noteApi.AddNoteAsync(newNote);
             MessageBox.Show("Note added successfully!");
