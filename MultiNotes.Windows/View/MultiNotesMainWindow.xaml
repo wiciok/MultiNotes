@@ -17,13 +17,16 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="3">
+        <DockPanel Grid.Row="0" Margin="3">
+            <Button Command="{Binding RefreshNotesCmd}" DockPanel.Dock="Left" BorderThickness="0">
+                <Image Source="/Images/refresh.jpg" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
+            </Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label FontWeight="Bold">My account</Label>
                 <Image Source="/Images/avatar.png" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
             </StackPanel>
-        </StackPanel>
-        
+        </DockPanel>
+
         <DockPanel Grid.Row="1" Margin="3" LastChildFill="True">
             <Button Command="{Binding AddNoteCmd}" DockPanel.Dock="Bottom" Width="100" Margin="5">Add New Note</Button>
             <TextBox Name="NoteTextBox" Text="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60"></TextBox>
@@ -32,11 +35,12 @@
         <ListBox ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                        <StackPanel Margin="3" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="{Binding CreateTimestamp}"></TextBlock>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Content}"></TextBlock>
-                            <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+                    <Border Grid.Row="2" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                        <StackPanel Margin="6" Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Margin="3" Text="{Binding CreateTimestamp}"></TextBlock>
+                            <Separator Margin="3"/>
+                            <TextBlock Margin="3" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+                            <Button Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right">Delete</Button>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
