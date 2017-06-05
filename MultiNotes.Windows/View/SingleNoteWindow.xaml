@@ -21,6 +21,7 @@
                 <Button DockPanel.Dock="Left" Name="CloseBtn" Command="{Binding CloseNoteCmd}"  Content=" X " Click="closeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
         </DockPanel>
 
+        
         <Separator Margin="0,3,0,3" Grid.Row="1"/>
         <TextBox Margin="0,3,0,0" Grid.Row="2" TextWrapping="Wrap" BorderThickness="0" Text="{Binding Note.Content}"/>
     </Grid>
