@@ -8,8 +8,7 @@
         Title="MultiNotes" Height="658.925" Width="521.294" Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="229*"/>
-            <ColumnDefinition Width="286*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -56,15 +55,15 @@
             </TextBox>
         </DockPanel>
 
-        <ListBox ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3,3.4,3.2,2.6" Grid.ColumnSpan="2">
+        <ListBox x:Name="NotesList" ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Grid.Row="2" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                        <StackPanel Margin="6">
-                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" Margin="3" Text="{Binding CreateTimestamp}"></TextBlock>
+                        <StackPanel Margin="6" Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Margin="3" Text="{Binding CreateTimestamp}"></TextBlock>
                             <Separator Margin="3"/>
-                            <TextBlock Margin="3" VerticalAlignment="Center" Width="360" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
-                            <Button Margin="3" Command="{Binding DeleteNoteCmd}" CommandParameter="{Binding ElementName=Id}" VerticalAlignment="Center" HorizontalAlignment="Right">Delete</Button>
+                            <TextBlock Margin="3" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+                            <Button x:Name="delButton" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding Path=DataContext.DeleteNoteCmd, ElementName=NotesList}" CommandParameter="{Binding Id}">Delete</Button>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

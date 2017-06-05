@@ -1,5 +1,6 @@
 ﻿using MultiNotes.Core;
 using MultiNotes.Model;
+using MultiNotes.Windows.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +29,27 @@ namespace MultiNotes.Windows.ViewModel
             methods.PreparedAuthenticationRecord();
             _authenticationRecord = methods.Record;
             Notes = new ObservableCollection<Model.Note>();
-            GetAllNotes();
+            singleNoteWindows = new List<SingleNoteWindow>();
+            singleNotes = new List<Note>();
+            GetAllNotes(true);
+        }
+
+        private void ShowSingleNotes()
+        {
+            foreach(var note in Notes)
+            {
+                var window = new SingleNoteWindow(note);
+                window.Show();
+                singleNoteWindows.Add(window);
+            }
+        }
+
+        private void CloseSingleNotes()
+        {
+            foreach (var window in singleNoteWindows)
+            {
+                window.Close();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,6 +58,10 @@ namespace MultiNotes.Windows.ViewModel
         private string token;
         private User user;
         private NoteApi noteApi;
+
+        private List<Note> singleNotes;
+        private List<SingleNoteWindow> singleNoteWindows;
+
         UserMethod methods;
         public ICommand AddNoteCmd { get; }
         public ICommand DeleteNoteCmd { get; }
@@ -58,7 +83,7 @@ namespace MultiNotes.Windows.ViewModel
 
         public ObservableCollection<Note> Notes { get; set; }
 
-        public async void GetAllNotes()
+        public async void GetAllNotes(bool showSingleNotes)
         {
             getToken();
             user = await methods.GetUserInfo(token, _authenticationRecord.Email);
@@ -69,20 +94,28 @@ namespace MultiNotes.Windows.ViewModel
                 IEnumerable<Note> tempSortedNotes = tempNotes.OrderByDescending<Note, DateTime>(o => o.CreateTimestamp).ToList();
 
                 Notes.Clear();
-                foreach (var item in tempSortedNotes)
+                singleNotes.Clear();
+                foreach (var note in tempSortedNotes)
                 {
-                    Notes.Add(item);
+                    Notes.Add(note);
+                    singleNotes.Add(note);
                 }
 
-                foreach (var item in Notes)
+                foreach (var note in Notes)
                 {
-                    item.CreateTimestamp = item.CreateTimestamp.ToLocalTime();
-                    item.LastChangeTimestamp = item.LastChangeTimestamp.ToLocalTime();
+                    note.CreateTimestamp = note.CreateTimestamp.ToLocalTime();
+                    note.LastChangeTimestamp = note.LastChangeTimestamp.ToLocalTime();
+                    if(showSingleNotes == true)
+                    {
+                        var window = new SingleNoteWindow(note);
+                        window.Show();
+                        singleNoteWindows.Add(window);
+                    }
                 }              
             }
             catch (Exception e)
             {
-                MessageBox.Show("An error has occured. {0}", e.Message);
+                MessageBox.Show("An error has occured." + e.Message);
                 return;
             }
         }
@@ -94,13 +127,17 @@ namespace MultiNotes.Windows.ViewModel
 
         private void RefNotes(object parameter)
         {
-            GetAllNotes();
+            GetAllNotes(false);
+            CloseSingleNotes();
+            ShowSingleNotes();
         }
 
-        private void DelNote(object parameter)
+        private async void DelNote(object parameter)
         {
             var id = parameter as string;
-            MessageBox.Show(id);
+            await noteApi.DeleteNoteByIdAsync(id);
+
+            MessageBox.Show("Note deleted successfully. Refresh application.");
         }
 
         public async void AddNote(string note)
@@ -113,6 +150,8 @@ namespace MultiNotes.Windows.ViewModel
             newNote.LastChangeTimestamp = DateTime.Now;
 
             await noteApi.AddNoteAsync(newNote);
+
+            Notes.Add(newNote);
             MessageBox.Show("Note added successfully!");
         }
 
