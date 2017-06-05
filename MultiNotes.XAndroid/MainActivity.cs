@@ -17,6 +17,7 @@ using MultiNotes.XAndroid.Core;
 using MultiNotes.XAndroid.Model;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using System.Threading;
 
 namespace MultiNotes.XAndroid
 {
@@ -121,16 +122,50 @@ namespace MultiNotes.XAndroid
 
         private bool MenuSyncOnClick()
         {
-            try
+            new Thread(new ThreadStart(() =>
             {
-                new NoteSync().Sync();
-            }
-            catch (Exception e)
-            {
+                ProgressDialog progress = null;
+                WebApiClientError error = WebApiClientError.OK;
 
-            }
+                RunOnUiThread(() =>
+                {
+                    progress = ProgressDialog.Show(
+                        this,
+                        Resources.GetString(Resource.String.please_wait),
+                        Resources.GetString(Resource.String.please_wait),
+                        true,
+                        false
+                    );
+                });
 
-            RefreshNotesList();
+                try
+                {
+                    new NoteSync().Sync();
+                }
+                catch (WebApiClientException e)
+                {
+                    error = e.Error;
+                }
+
+                RunOnUiThread(() =>
+                {
+                    progress.Hide();
+                    if (error == WebApiClientError.InternetConnectionError)
+                    {
+                        RunOnUiThread(() =>
+                        {
+                            new AlertDialog.Builder(this)
+                               .SetTitle(Resource.String.error)
+                               .SetMessage(Resource.String.internet_connection_error)
+                               .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
+                               .Create().Show();
+                        });
+                    }
+                    RefreshNotesList();
+                });
+
+            })).Start();
+
             return true;
         }
 

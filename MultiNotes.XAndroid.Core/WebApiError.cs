@@ -7,6 +7,7 @@ namespace MultiNotes.XAndroid.Core
 {
     public enum WebApiClientError
     {
+        OK,
         InternetConnectionError,
         UnknownError
     }

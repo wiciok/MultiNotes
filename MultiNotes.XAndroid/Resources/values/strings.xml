@@ -22,7 +22,7 @@
     <string name="error">Błąd</string>
   
     <string name="fill_all_fields">Proszę uzupełnić wszystkie pola</string>
-  
+    <string name="internet_connection_error">Błąd połączenia z internetem</string>
     <string name="login_failed">Logowanie nieudane</string>
     <string name="login_successful">Logowanie zakończone powodzeniem</string>
     

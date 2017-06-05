@@ -9,6 +9,7 @@ namespace MultiNotes.XAndroid.Core
 {
     public class NoteSync
     {
+        /// <exception cref="WebApiClientException"></exception>
         public void Sync()
         {
             XNoteMethod noteMethod = new XNoteMethod();
