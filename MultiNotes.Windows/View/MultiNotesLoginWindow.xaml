@@ -26,7 +26,7 @@
         </Border>
 
         <StackPanel  Grid.Row="3" Margin="3">
-            <Button Command="{Binding LogInCmd}" CommandParameter="{Binding ElementName=This}" Name="LoginBtn" Content="Sign in" VerticalAlignment="Center" HorizontalAlignment="Center"
+            <Button Command="{Binding LogInCmd}" CommandParameter="{Binding ElementName=This}" Name="LoginBtn" Content="Sign in" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center"
                     MinWidth="100" MaxWidth="200" Margin="3" Padding="3"></Button>
             
             <Label HorizontalAlignment="Center">Don't have account?</Label>
