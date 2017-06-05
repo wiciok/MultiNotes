@@ -67,13 +67,15 @@ namespace MultiNotes.XAndroid.Core
             {
                 if (!ContainsNoteById(remoteNote.Id, localNotes))
                 {
+                    remoteNote.CreateTimestamp = remoteNote.CreateTimestamp.ToUniversalTime();
+                    remoteNote.LastChangeTimestamp = remoteNote.LastChangeTimestamp.ToUniversalTime();
                     noteMethod.AddLocalNote(remoteNote);
                 }
                 else
                 {
                     if (ContainsNoteById(remoteNote.Id, remoteNotes))
                     {
-                        if (remoteNotes.Where(g => g.Id == remoteNote.Id).First()
+                        if (localNotes.Where(g => g.Id == remoteNote.Id).First()
                             .LastChangeTimestamp < remoteNote.LastChangeTimestamp)
                         {
                             noteMethod.UpdateLocalNote(remoteNote);

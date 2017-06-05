@@ -14,6 +14,7 @@ using Android.Widget;
 using MultiNotes.Model;
 using MultiNotes.XAndroid.Model.Base;
 using MultiNotes.XAndroid.Core;
+using System.Globalization;
 
 namespace MultiNotes.XAndroid.Model
 {
@@ -81,9 +82,11 @@ namespace MultiNotes.XAndroid.Model
             View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.list_item_note, parent, false);
             TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.title);
 
-            notesTitleTextView.Text = NotesList[position].Content.Length > 20
-                ? NotesList[position].Content.Substring(0, 20) + " . . ." 
-                : NotesList[position].Content;
+            notesTitleTextView.Text = NotesList[position].Content;
+
+            // notesTitleTextView.Text = NotesList[position].Content.Length > 20
+            //     ? NotesList[position].Content.Substring(0, 20) + " . . ." 
+            //     : NotesList[position].Content;
 
             return view;
         }

@@ -43,7 +43,7 @@ namespace MultiNotes.XAndroid.Core
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
                 return tmpList.Select(JsonConvert.DeserializeObject<Note>)
-                    .Where(a => a.OwnerId == new Authorization().UserId && a.Id != "---").ToList();
+                    .Where(a => a.OwnerId == new Authorization().UserId).ToList();
             }
             return new List<Note>();
         }
@@ -86,6 +86,7 @@ namespace MultiNotes.XAndroid.Core
 
         private void ResaveAllNotes(List<Note> notesList)
         {
+            notesList = notesList.OrderByDescending(g => g.LastChangeTimestamp).ToList();
             System.IO.File.WriteAllText(Constants.NotesFile, "");
             foreach (Note x in notesList)
             {
@@ -99,13 +100,11 @@ namespace MultiNotes.XAndroid.Core
 
         public void UpdateNote(Note note)
         {
-            note.CreateTimestamp = DateTime.Now;
-            note.LastChangeTimestamp = DateTime.Now;
-
             List<Note> notesList = GetAllNotes();
             Note noteInFile = notesList.Where(g => g.Id == note.Id).FirstOrDefault();
+
+            noteInFile.LastChangeTimestamp = DateTime.Now.ToUniversalTime();
             noteInFile.Content = note.Content;
-            noteInFile.LastChangeTimestamp = DateTime.Now;
             ResaveAllNotes(notesList);
             Success = true;
         }
