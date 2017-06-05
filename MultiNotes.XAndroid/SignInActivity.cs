@@ -13,8 +13,6 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.XAndroid.Core;
-using MultiNotes.XAndroid.Model;
-using MultiNotes.XAndroid.Model.Base;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;

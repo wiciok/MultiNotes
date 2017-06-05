@@ -98,13 +98,7 @@
     <Compile Include="AccountActivity.cs" />
     <Compile Include="ChangePasswordActivity.cs" />
     <Compile Include="MultiNotesBaseActivity.cs" />
-    <Compile Include="Model\Counter.cs" />
-    <Compile Include="Model\Base\IAuthorizationEngine.cs" />
-    <Compile Include="Model\Base\INotesRepository.cs" />
-    <Compile Include="Model\Base\IRegistrationEngine.cs" />
     <Compile Include="NoteActivity.cs" />
-    <Compile Include="Model\NotesBase.cs" />
-    <Compile Include="Model\NotesRepository.cs" />
     <Compile Include="NoteAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\activity_sign_in.axml">
