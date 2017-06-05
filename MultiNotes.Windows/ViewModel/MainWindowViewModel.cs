@@ -19,13 +19,14 @@ namespace MultiNotes.Windows.ViewModel
 
             AddNoteCmd = new CommandHandler(NewNote);
             DeleteNoteCmd = new CommandHandler(DelNote);
+            RefreshNotesCmd = new CommandHandler(RefNotes);
 
             _closeAction = closeAction;
             methods = new UserMethod(ConnectionApi.HttpClient);
 
             methods.PreparedAuthenticationRecord();
             _authenticationRecord = methods.Record;
-            MessageBox.Show(_authenticationRecord.Email + " " + _authenticationRecord.PasswordHash);
+            Notes = new ObservableCollection<Model.Note>();
             GetAllNotes();
         }
 
@@ -38,6 +39,7 @@ namespace MultiNotes.Windows.ViewModel
         UserMethod methods;
         public ICommand AddNoteCmd { get; }
         public ICommand DeleteNoteCmd { get; }
+        public ICommand RefreshNotesCmd { get; }
 
         private string _note;
         public string Note
@@ -55,39 +57,27 @@ namespace MultiNotes.Windows.ViewModel
 
         public ObservableCollection<Note> Notes { get; set; }
 
-        //public ObservableCollection<Note> Notes
-        //{
-        //    get
-        //    {
-        //        return notes;
-        //    }
-        //    set
-        //    {
-        //        notes = value;
-        //        OnPropertyChanged(nameof(Notes));
-        //    }
-        //}
-
         public async void GetAllNotes()
         {
             getToken();
-            MessageBox.Show(token);
             user = await methods.GetUserInfo(token, _authenticationRecord.Email);
             noteApi = new NoteApi(_authenticationRecord, user.Id);
             try
             {
                 IEnumerable<Note> tempNotes = await noteApi.GetAllNotesAsync();
+                IEnumerable<Note> tempSortedNotes = tempNotes.OrderByDescending<Note, DateTime>(o => o.CreateTimestamp).ToList();
 
-                Notes = new ObservableCollection<Model.Note>();
-                foreach (var item in tempNotes)
+                Notes.Clear();
+                foreach (var item in tempSortedNotes)
                 {
                     Notes.Add(item);
                 }
 
                 foreach (var item in Notes)
                 {
-                    MessageBox.Show(item.Content);
-                }
+                    item.CreateTimestamp = item.CreateTimestamp.ToLocalTime();
+                    item.LastChangeTimestamp = item.LastChangeTimestamp.ToLocalTime();
+                }              
             }
             catch (Exception e)
             {
@@ -99,6 +89,11 @@ namespace MultiNotes.Windows.ViewModel
         private void NewNote(object parameter)
         {
             AddNote(Note);
+        }
+
+        private void RefNotes(object parameter)
+        {
+            GetAllNotes();
         }
 
         private void DelNote(object parameter)
@@ -115,7 +110,10 @@ namespace MultiNotes.Windows.ViewModel
             newNote.CreateTimestamp = DateTime.Now;
             newNote.LastChangeTimestamp = DateTime.Now;
 
+            MessageBox.Show(newNote.CreateTimestamp.ToString());
+
             await noteApi.AddNoteAsync(newNote);
+            MessageBox.Show("Note added successfully!");
         }
 
         private async void getToken()
