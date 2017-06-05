@@ -210,8 +210,11 @@ namespace MultiNotes.Core
 
         public void CleanLocalNotes()
         {
-            File.Delete(Path);
-            File.OpenWrite(Path);
+            if (File.Exists(Path))
+            {
+                File.Delete(Path);
+
+            }
         }
     }
 }
