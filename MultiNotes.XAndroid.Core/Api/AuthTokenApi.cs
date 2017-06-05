@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public class AuthTokenApi : IAuthTokenApi
+    internal class AuthTokenApi : IAuthTokenApi
     {
 
         /// <exception cref="WebApiClientException"></exception>

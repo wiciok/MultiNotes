@@ -12,7 +12,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public class RegisterApi : IRegisterApi
+    internal class RegisterApi : IRegisterApi
     {
         public bool IsRegisterSuccessful { get; private set; }
         public string RegisterMessage { get; private set; }

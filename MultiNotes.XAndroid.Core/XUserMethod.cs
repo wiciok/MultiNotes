@@ -38,31 +38,6 @@ namespace MultiNotes.XAndroid.Core
             registration.Register(username, password);
             IsRegisterSuccessful = registration.IsRegisterSuccessful;
             RegisterMessage = registration.RegisterMessage;
-            // string token = await RegisterAutologin(username, password);
-            // 
-            // if (token != "")
-            // {
-            //     if (IsRegisterSuccessful)
-            //     {
-            //         try
-            //         {
-            //             System.IO.File.WriteAllLines(
-            //                 Constants.AuthenticationRecordFile,
-            //                 new string[]
-            //                 {
-            //                     UserSigned.Id,
-            //                     UserSigned.EmailAddress,
-            //                     UserSigned.PasswordHash,
-            //                     UserSigned.RegistrationTimestamp.ToString()
-            //                 }
-            //             );
-            //         }
-            //         catch (Exception e)
-            //         {
-            //             string a = e.Message;
-            //         }
-            //     }
-            // }
         }
 
 

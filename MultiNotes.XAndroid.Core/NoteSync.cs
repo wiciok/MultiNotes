@@ -87,35 +87,6 @@ namespace MultiNotes.XAndroid.Core
                     }
                 }
             }
-
-            /*
-            foreach (var remoteNote in remoteNotes)
-            {
-                foreach (var localNote in localNotes)
-                {
-                    // Update notes that changed and the newer version is stored on server
-                    if (remoteNote.Id == localNote.Id && localNote.LastChangeTimestamp < remoteNote.LastChangeTimestamp)
-                    {
-                        noteMethod.UpdateLocalNote(remoteNote);
-                    }
-                    // Update notes that changed and the newer version is stored locally
-                    if (remoteNote.Id == localNote.Id && localNote.LastChangeTimestamp > remoteNote.LastChangeTimestamp)
-                    {
-                        noteMethod.UpdateRemoteNote(localNote, token);
-                    }
-                    // Update notes that exist only locally 
-                    if (!ContainsNoteById(remoteNote.Id, localNotes))
-                    {
-                        noteMethod.AddRemoteNote(remoteNote, token);
-                    }
-                    // Update notes that exist only on server
-                    if (!ContainsNoteById(localNote.Id, remoteNotes))
-                    {
-                        noteMethod.AddLocalNote(localNote);
-                    }
-                }
-            }
-            */
         }
 
         private bool ContainsNoteById(string noteId, IEnumerable<Note> notes)

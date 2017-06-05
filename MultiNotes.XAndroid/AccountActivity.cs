@@ -60,7 +60,12 @@ namespace MultiNotes.XAndroid
 
         private void ChangePasswordButtonOnClick(object sender, EventArgs e)
         {
-            StartActivity(typeof(ChangePasswordActivity));
+            // StartActivity(typeof(ChangePasswordActivity));
+            new AlertDialog.Builder(this)
+                .SetTitle("Uwaga")
+                .SetMessage("Moduł wciąż nie zaimplementowany!")
+                .SetPositiveButton("OK", delegate { })
+                .Show();
         }
 
         
@@ -77,7 +82,12 @@ namespace MultiNotes.XAndroid
 
         private void SettingsButtonOnClick(object sender, EventArgs e)
         {
-            StartActivity(typeof(SettingsActivity));
+            // StartActivity(typeof(SettingsActivity));
+            new AlertDialog.Builder(this)
+                .SetTitle("Uwaga")
+                .SetMessage("Moduł wciąż nie zaimplementowany!")
+                .SetPositiveButton("OK", delegate { })
+                .Show();
         }
 
     }

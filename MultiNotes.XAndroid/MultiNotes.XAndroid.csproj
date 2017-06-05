@@ -105,7 +105,7 @@
     <Compile Include="NoteActivity.cs" />
     <Compile Include="Model\NotesBase.cs" />
     <Compile Include="Model\NotesRepository.cs" />
-    <Compile Include="Model\NoteAdapter.cs" />
+    <Compile Include="NoteAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\activity_sign_in.axml">
       <SubType>Designer</SubType>

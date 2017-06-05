@@ -11,7 +11,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public class UserApi : IUserApi
+    internal class UserApi : IUserApi
     {
         /// <exception cref="WebApiClientException"></exception>
         public User GetUser(string token, string username)

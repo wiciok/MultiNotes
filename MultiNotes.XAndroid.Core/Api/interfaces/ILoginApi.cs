@@ -8,7 +8,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface ILoginApi
+    internal interface ILoginApi
     {
         bool Success { get; }
         string Message { get; }

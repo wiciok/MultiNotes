@@ -10,7 +10,7 @@ using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class LocalNoteRepository : INoteRepository
+    internal class LocalNoteRepository
     {
         private List<Note> NotesInFile;
         

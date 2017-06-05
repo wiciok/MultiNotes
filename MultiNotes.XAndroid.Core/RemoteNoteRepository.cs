@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class RemoteNoteRepository// : INoteRepository
+    internal class RemoteNoteRepository
     {
         private List<Note> remoteNotes;
 

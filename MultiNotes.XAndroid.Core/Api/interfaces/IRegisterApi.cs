@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface IRegisterApi
+    internal interface IRegisterApi
     {
         bool IsRegisterSuccessful { get; }
         string RegisterMessage { get; }

@@ -47,22 +47,8 @@ namespace MultiNotes.XAndroid
             noteEditText = FindViewById<EditText>(Resource.Id.edit_text);
 
             EnableSupportToolbarHomeMenu();
-            
-            // noteMethods = new XNoteMethod();
 
-            // note = noteMethods
-            //     .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
-            //     .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
-            //     .FirstOrDefault()
-            //     ?? new Note()
-            //     {
-            //         Id = "",
-            //         Content = "",
-            //         CreateTimestamp = DateTime.Now,
-            //         LastChangeTimestamp = DateTime.Now,
-            //         OwnerId = AuthorizationManager.Instance.User.Id
-            //     };
-            note = new LocalNoteRepository().GetAllNotes()
+            note = new XNoteMethod().GetAllLocalNotes()
                 .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
                 .FirstOrDefault()
                 ?? new Note()
@@ -149,7 +135,7 @@ namespace MultiNotes.XAndroid
             if (note.Id.Length != 0)
             {
                 note.Content = newContent;
-                new LocalNoteRepository().UpdateNote(note);
+                new XNoteMethod().UpdateLocalNote(note);
             }
             else
             {
@@ -173,7 +159,7 @@ namespace MultiNotes.XAndroid
             {
                 ShowDeleteNoteAlert(delegate 
                 {
-                    new LocalNoteRepository().DeleteNote(note);
+                    new XNoteMethod().DeleteLocalNote(note);
                     Finish();
                 });
             }

@@ -8,7 +8,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface IUserApi
+    internal interface IUserApi
     {
         User GetUser(string token, string username);
     }

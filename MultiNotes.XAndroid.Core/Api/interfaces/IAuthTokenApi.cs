@@ -8,7 +8,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface IAuthTokenApi
+    internal interface IAuthTokenApi
     {
         string GetAuthToken(AuthenticationRecord record);
     }

@@ -12,11 +12,10 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Model;
-using MultiNotes.XAndroid.Model.Base;
 using MultiNotes.XAndroid.Core;
 using System.Globalization;
 
-namespace MultiNotes.XAndroid.Model
+namespace MultiNotes.XAndroid
 {
     public class NoteAdapter : BaseAdapter
     {

@@ -53,7 +53,6 @@
     <Compile Include="Authorization.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Api\interfaces\ILoginApi.cs" />
-    <Compile Include="INoteRepository.cs" />
     <Compile Include="Api\interfaces\IRegisterApi.cs" />
     <Compile Include="Api\interfaces\IUniqueIdApi.cs" />
     <Compile Include="Api\interfaces\IUserApi.cs" />

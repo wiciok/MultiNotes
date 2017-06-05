@@ -8,7 +8,7 @@ using MultiNotes.Model;
 
 namespace MultiNotes.XAndroid.Core.Api
 {
-    public class LoginApi : ILoginApi
+    internal class LoginApi : ILoginApi
     {
         public bool Success { get { return User != null; } }
         public string Message { get; private set; }
