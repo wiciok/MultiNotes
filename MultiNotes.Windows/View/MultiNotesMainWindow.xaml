@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         StateChanged="Window_StateChanged"
-        Title="MultiNotes" Height="658.925" Width="521.294">
+        Title="MultiNotes" Height="658.925" Width="521.294" Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="229*"/>
+            <ColumnDefinition Width="286*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,7 +18,7 @@
         </Grid.RowDefinitions>
 
 
-        <DockPanel Grid.Row="0" Margin="3">
+        <DockPanel Grid.Row="0" Margin="3,3,3.2,3" Grid.ColumnSpan="2">
             <Button Command="{Binding RefreshNotesCmd}" DockPanel.Dock="Left" BorderThickness="0" Margin="5">
                 <Image Source="/Images/refresh.jpg" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
             </Button>
@@ -27,12 +28,12 @@
             </StackPanel>
         </DockPanel>
 
-        <DockPanel Grid.Row="1" Margin="3" LastChildFill="True">
+        <DockPanel Grid.Row="1" Margin="3,3,3.2,2.6" LastChildFill="True" Grid.ColumnSpan="2">
             <Button Command="{Binding AddNoteCmd}" DockPanel.Dock="Bottom" Width="100" Margin="5">Add New Note</Button>
             <TextBox Name="NoteTextBox" Text="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60"></TextBox>
         </DockPanel>
 
-        <ListBox ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
+        <ListBox ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3,3.4,3.2,2.6" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Grid.Row="2" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">

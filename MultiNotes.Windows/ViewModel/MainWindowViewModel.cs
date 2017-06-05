@@ -24,6 +24,7 @@ namespace MultiNotes.Windows.ViewModel
             _closeAction = closeAction;
             methods = new UserMethod(ConnectionApi.HttpClient);
 
+
             methods.PreparedAuthenticationRecord();
             _authenticationRecord = methods.Record;
             Notes = new ObservableCollection<Model.Note>();

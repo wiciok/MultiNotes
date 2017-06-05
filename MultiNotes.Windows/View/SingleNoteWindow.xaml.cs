@@ -14,6 +14,7 @@ namespace MultiNotes.Windows.View
         {
             InitializeComponent();
             DataContext = new SingleNoteWindowViewModel(x => Close(), note);
+            this.ShowInTaskbar = false;
 
             // Manually alter window height and width
             SizeToContent = SizeToContent.Manual;
