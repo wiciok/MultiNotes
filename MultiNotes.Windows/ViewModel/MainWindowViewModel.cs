@@ -151,7 +151,7 @@ namespace MultiNotes.Windows.ViewModel
 
             await noteApi.AddNoteAsync(newNote);
 
-            Notes.Add(newNote);
+            Notes.Insert(0, newNote);
             MessageBox.Show("Note added successfully!");
         }
 
