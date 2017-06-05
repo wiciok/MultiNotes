@@ -14,7 +14,7 @@ namespace MultiNotes.Core
     public class NoteMethod : INoteMethod
     {
         private static HttpClient _httpClient;
-        private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "notes.txt");
+        private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "notes.txt");
 
         public NoteMethod(HttpClient httpClient2)
         {
@@ -133,8 +133,7 @@ namespace MultiNotes.Core
                 return listNotes.Where(a => a.OwnerId == userId).ToList();
             }
             else
-                return null;
-
+                return new List<Note>();
         }
 
         public Note GetNoteFromFile(string id, string userId)

@@ -2,6 +2,7 @@
 using MultiNotes.Windows.ViewModel;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MultiNotes.Windows.View
 {

@@ -23,16 +23,16 @@
                 <Image Source="/Images/avatar.png" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
             </StackPanel>
         </StackPanel>
-        
+
         <DockPanel Grid.Row="1" Margin="3" LastChildFill="True">
             <Button Command="{Binding AddNoteCmd}" DockPanel.Dock="Bottom" Width="100" Margin="5">Add New Note</Button>
             <TextBox Name="NoteTextBox" Text="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60"></TextBox>
         </DockPanel>
-        
+
         <ListBox ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                    <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3" >
                         <StackPanel Margin="3" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="{Binding CreateTimestamp}"></TextBlock>
                             <TextBlock VerticalAlignment="Center" Text="{Binding Content}"></TextBlock>
