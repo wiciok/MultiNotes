@@ -91,6 +91,7 @@ namespace MultiNotes.Core
                     }
                 }
             }
+            _noteMethod.CleanLocalNotes();
         }
 
         private bool ContainsNoteById(string noteId, IEnumerable<Note> notes)

@@ -207,5 +207,11 @@ namespace MultiNotes.Core
                 }
             }
         }
+
+        public void CleanLocalNotes()
+        {
+            File.Delete(Path);
+            File.OpenWrite(Path);
+        }
     }
 }
