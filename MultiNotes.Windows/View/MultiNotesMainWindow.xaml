@@ -29,13 +29,13 @@
             <TextBox Name="NoteTextBox" Text="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60"></TextBox>
         </DockPanel>
         
-        <ListBox HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
+        <ListBox ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
                         <StackPanel Margin="3" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Path=CreateTimestamp}"></TextBlock>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Path=Content}"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding CreateTimestamp}"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Content}"></TextBlock>
                             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
                         </StackPanel>
                     </Border>

@@ -18,6 +18,7 @@ namespace MultiNotes.Windows.ViewModel
         {
 
             AddNoteCmd = new CommandHandler(NewNote);
+            DeleteNoteCmd = new CommandHandler(DelNote);
 
             _closeAction = closeAction;
             methods = new UserMethod(ConnectionApi.HttpClient);
@@ -32,11 +33,11 @@ namespace MultiNotes.Windows.ViewModel
         private readonly Action _closeAction;
         private readonly AuthenticationRecord _authenticationRecord;
         private string token;
-        private ObservableCollection<Note> notes;
         private User user;
         private NoteApi noteApi;
         UserMethod methods;
         public ICommand AddNoteCmd { get; }
+        public ICommand DeleteNoteCmd { get; }
 
         private string _note;
         public string Note
@@ -52,13 +53,20 @@ namespace MultiNotes.Windows.ViewModel
             }
         }
 
-        public ObservableCollection<Note> Notes
-        {
-            get
-            {
-                return notes;
-            }
-        }
+        public ObservableCollection<Note> Notes { get; set; }
+
+        //public ObservableCollection<Note> Notes
+        //{
+        //    get
+        //    {
+        //        return notes;
+        //    }
+        //    set
+        //    {
+        //        notes = value;
+        //        OnPropertyChanged(nameof(Notes));
+        //    }
+        //}
 
         public async void GetAllNotes()
         {
@@ -69,9 +77,17 @@ namespace MultiNotes.Windows.ViewModel
             try
             {
                 IEnumerable<Note> tempNotes = await noteApi.GetAllNotesAsync();
-                notes = new ObservableCollection<Note>(tempNotes);
-                for (int i = 0; i < notes.Count; i++)
-                    MessageBox.Show(notes[i].Content);
+
+                Notes = new ObservableCollection<Model.Note>();
+                foreach (var item in tempNotes)
+                {
+                    Notes.Add(item);
+                }
+
+                foreach (var item in Notes)
+                {
+                    MessageBox.Show(item.Content);
+                }
             }
             catch (Exception e)
             {
@@ -83,6 +99,11 @@ namespace MultiNotes.Windows.ViewModel
         private void NewNote(object parameter)
         {
             AddNote(Note);
+        }
+
+        private void DelNote(object parameter)
+        {
+            //DeleteNote();
         }
 
         public async void AddNote(string note)
