@@ -22,7 +22,7 @@
                 <Image Source="/Images/refresh.jpg" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
             </Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                <Label FontWeight="Bold">My account</Label>
+                <Label FontWeight="Bold" Content="{Binding LoggedUser.EmailAddress}"></Label>
                 <Image Source="/Images/avatar.png" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
             </StackPanel>
         </DockPanel>

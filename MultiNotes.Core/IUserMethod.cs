@@ -7,7 +7,7 @@ namespace MultiNotes.Core
     {
         void PreparedAuthenticationRecord();
         Task Register(string email, string password);
-        Task Login(string email, string password);
+        Task Login(string email, string password, bool isPasswordHashed);
         Task<User> GetUserInfo(string token, string email);
         Task DeleteAccount();
         Task EditAccount();

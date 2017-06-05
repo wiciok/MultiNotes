@@ -56,7 +56,7 @@ namespace MultiNotes.Windows.ViewModel
         private readonly Action _closeAction;
         private readonly AuthenticationRecord _authenticationRecord;
         private string token;
-        private User user;
+        public User LoggedUser { get; private set; }
         private NoteApi noteApi;
 
         private List<Note> singleNotes;
@@ -86,8 +86,8 @@ namespace MultiNotes.Windows.ViewModel
         public async void GetAllNotes(bool showSingleNotes)
         {
             getToken();
-            user = await methods.GetUserInfo(token, _authenticationRecord.Email);
-            noteApi = new NoteApi(_authenticationRecord, user.Id);
+            LoggedUser = await methods.GetUserInfo(token, _authenticationRecord.Email);
+            noteApi = new NoteApi(_authenticationRecord, LoggedUser.Id);
             try
             {
                 IEnumerable<Note> tempNotes = await noteApi.GetAllNotesAsync();
@@ -137,14 +137,21 @@ namespace MultiNotes.Windows.ViewModel
             var id = parameter as string;
             await noteApi.DeleteNoteByIdAsync(id);
 
-            MessageBox.Show("Note deleted successfully. Refresh application.");
+            var note = Notes.FirstOrDefault(s => s.Id == id);
+
+            if (note != null)
+            {
+                Notes.Remove(note);
+            }
+
+            //MessageBox.Show("Note deleted successfully. Refresh application.");
         }
 
         public async void AddNote(string note)
         {
             Note newNote = new Note();  
             newNote.Id = await UniqueId.GetUniqueBsonId(ConnectionApi.HttpClient);
-            newNote.OwnerId = user.Id;
+            newNote.OwnerId = LoggedUser.Id;
             newNote.Content = note;
             newNote.CreateTimestamp = DateTime.Now;
             newNote.LastChangeTimestamp = DateTime.Now;
@@ -152,7 +159,7 @@ namespace MultiNotes.Windows.ViewModel
             await noteApi.AddNoteAsync(newNote);
 
             Notes.Insert(0, newNote);
-            MessageBox.Show("Note added successfully!");
+            //MessageBox.Show("Note added successfully!");
         }
 
         private async void getToken()

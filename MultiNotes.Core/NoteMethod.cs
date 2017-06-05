@@ -35,7 +35,7 @@ namespace MultiNotes.Core
             }
         }
 
-        public async void AddNoteToDatabase(Note note, string token)
+        public async Task AddNoteToDatabase(Note note, string token)
         {
             //zapis notatki do bazy danych        
             var response = await _httpClient.PostAsJsonAsync("api/note/" + token, note);
@@ -185,6 +185,7 @@ namespace MultiNotes.Core
             if (!File.Exists(Path)) return;
             var json = File.ReadAllText(Path);
             var tmpList = json.Split('}').ToList();
+
             for (var i = 0; i < tmpList.Count; ++i)
             {
                 tmpList[i] += "}";

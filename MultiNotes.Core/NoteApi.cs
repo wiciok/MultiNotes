@@ -26,7 +26,7 @@ namespace MultiNotes.Core
             {
                 
                 string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
-                _noteMethod.AddNoteToDatabase(note, token);
+                await _noteMethod.AddNoteToDatabase(note, token);
                 IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
                 UpdateNoteDatabase(remoteNotes, localNotes, token);
@@ -91,7 +91,7 @@ namespace MultiNotes.Core
                     }
                 }
             }
-            _noteMethod.CleanLocalNotes();
+            //_noteMethod.CleanLocalNotes();
         }
 
         private bool ContainsNoteById(string noteId, IEnumerable<Note> notes)
@@ -116,6 +116,7 @@ namespace MultiNotes.Core
                 string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
                 IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
                 await _noteMethod.DeleteNoteByIdFromDatabase(token, id);
+                remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
                 UpdateNoteDatabase(remoteNotes, localNotes, token);
             }
