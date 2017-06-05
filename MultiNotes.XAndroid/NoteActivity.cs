@@ -144,7 +144,7 @@ namespace MultiNotes.XAndroid
 
 
                 SaveNote();
-
+                
                 try
                 {
                     new NoteSync().Sync();
