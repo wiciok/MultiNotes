@@ -24,6 +24,7 @@ namespace MultiNotes.XAndroid.Core
 
         public void UpdateLocalNoteById(string noteId, Note note)
         {
+            
         }
 
         public void UpdateLocalNote(Note note)
@@ -34,6 +35,11 @@ namespace MultiNotes.XAndroid.Core
         public void DeleteLocalNote(Note note)
         {
             new LocalNoteRepository().DeleteNote(note);
+        }
+
+        internal List<Note> FetchAllLocalNotes()
+        {
+            return new LocalNoteRepository().FetchAllNotes();
         }
 
         /// <exception cref="WebApiClientException"></exception>

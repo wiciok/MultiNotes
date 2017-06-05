@@ -22,12 +22,13 @@ namespace MultiNotes.XAndroid.Core
             );
 
             List<Note> remoteNotes = noteMethod.GetAllRemoteNotes(token);
-            List<Note> localNotes = noteMethod.GetAllLocalNotes();
+            List<Note> localNotes = noteMethod.FetchAllLocalNotes();
 
             foreach (Note localNote in localNotes)
             {
                 if (localNote.CreateTimestamp != DateTime.MinValue)
                 {
+                    // If note is saved only on local device and not on remote server
                     if (localNote.Id.Contains(LocalUniqueIdApi.LocalModifier))
                     {
                         noteMethod.DeleteLocalNote(localNote);
@@ -53,10 +54,14 @@ namespace MultiNotes.XAndroid.Core
                 }
                 else
                 {
+                    noteMethod.DeleteLocalNote(localNote);
                     noteMethod.DeleteRemoteNote(localNote, token);
                 }
             }
-
+            
+            remoteNotes = noteMethod.GetAllRemoteNotes(token);
+            localNotes = noteMethod.FetchAllLocalNotes();
+            
             foreach (Note remoteNote in remoteNotes)
             {
                 if (!ContainsNoteById(remoteNote.Id, localNotes))

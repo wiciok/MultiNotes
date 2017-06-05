@@ -179,13 +179,17 @@ namespace MultiNotes.XAndroid.Core
                     if (response.StatusCode == HttpStatusCode.NoContent)
                     {
                         // Do nothing
+                        Success = true;
                     }
                 }
-                if (e.Status == WebExceptionStatus.ConnectFailure)
+                else
                 {
-                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                    if (e.Status == WebExceptionStatus.ConnectFailure)
+                    {
+                        throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                    }
+                    Success = false;
                 }
-                Success = false;
             }
         }
     }

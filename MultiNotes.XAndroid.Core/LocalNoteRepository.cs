@@ -17,7 +17,7 @@ namespace MultiNotes.XAndroid.Core
 
         public LocalNoteRepository()
         {
-             NotesInFile = FetchAllNotes();
+            RestoreStaticNotesInFileField();
         }
 
 
@@ -31,7 +31,7 @@ namespace MultiNotes.XAndroid.Core
         }
 
 
-        private List<Note> FetchAllNotes()
+        public List<Note> FetchAllNotes()
         {
             if (System.IO.File.Exists(Constants.NotesFile))
             {
@@ -51,7 +51,7 @@ namespace MultiNotes.XAndroid.Core
 
         private void RestoreStaticNotesInFileField()
         {
-            NotesInFile = FetchAllNotes();
+            NotesInFile = FetchAllNotes().Where(g => DateTime.Compare(g.CreateTimestamp, DateTime.MinValue) > 0).ToList();
         }
 
 
@@ -114,8 +114,11 @@ namespace MultiNotes.XAndroid.Core
         public void DeleteNote(Note note)
         {
             List<Note> notesList = GetAllNotes();
-            notesList.First(g => g.Id == note.Id).CreateTimestamp = DateTime.MinValue;
-            notesList.RemoveAll(g => g.Id == note.Id);
+            foreach (Note n in notesList.Where(g => g.Id == note.Id))
+            {
+                n.CreateTimestamp = DateTime.MinValue;
+            }
+            // notesList.RemoveAll(g => g.Id == note.Id);
             ResaveAllNotes(notesList);
             Success = true;
         }
