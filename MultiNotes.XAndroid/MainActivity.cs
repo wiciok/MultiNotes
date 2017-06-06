@@ -97,6 +97,7 @@ namespace MultiNotes.XAndroid
             }
         }
 
+        private bool syncOnStartup = false;
 
         protected override void OnResume()
         {
@@ -107,6 +108,21 @@ namespace MultiNotes.XAndroid
             }
             else
             {
+                if (!syncOnStartup)
+                {
+                    if (Utility.IsNetworkAvailable(this) && new Authorization().IsUserSigned)
+                    {
+                        try
+                        {
+                            new NoteSync().Sync();
+                        }
+                        catch (WebApiClientException)
+                        {
+                            // Do nothing
+                        }
+                    }
+                    syncOnStartup = true;
+                }
                 RefreshNotesList();
             }
         }
@@ -137,13 +153,20 @@ namespace MultiNotes.XAndroid
                     );
                 });
 
-                try
+                if (Utility.IsNetworkAvailable(this))
                 {
-                    new NoteSync().Sync();
+                    try
+                    {
+                        new NoteSync().Sync();
+                    }
+                    catch (WebApiClientException e)
+                    {
+                        error = e.Error;
+                    }
                 }
-                catch (WebApiClientException e)
+                else
                 {
-                    error = e.Error;
+                    error = WebApiClientError.InternetConnectionError;
                 }
 
                 RunOnUiThread(() =>

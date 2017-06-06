@@ -62,11 +62,23 @@ namespace MultiNotes.XAndroid
                         Resources.GetString(Resource.String.please_wait),
                         Resources.GetString(Resource.String.please_wait),
                         true,
-                        false
+                        true, 
+                        delegate { Finish(); }
                     );
                 });
 
-                methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                if (Utility.IsNetworkAvailable(this))
+                {
+                    try
+                    {
+                        methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                    }
+                    catch (WebApiClientException)
+                    {
+                        // Do nothing
+                    }
+                }
+                
                 RunOnUiThread(() =>
                 {
                     progress.Hide();
