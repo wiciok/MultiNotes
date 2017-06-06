@@ -9,8 +9,8 @@
         AllowsTransparency="True"
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="SingleNoteWindow" Width="200" Height="218.637"
-        MinHeight="100">
+        Title="Note" Width="200" Height="218.637"
+        MinHeight="150">
 
     <Grid Margin="6">
         <Grid.RowDefinitions>

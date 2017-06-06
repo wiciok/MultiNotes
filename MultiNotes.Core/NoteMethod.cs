@@ -60,12 +60,12 @@ namespace MultiNotes.Core
             }
             else
             {
-                if(response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
+                if (response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
                 {
                     allNotes = new List<Note>();
                 }
                 else
-                throw new HttpResponseException(response.StatusCode);
+                    throw new HttpResponseException(response.StatusCode);
                 //InternalServerError,Unauthorized
             }
 
@@ -130,7 +130,15 @@ namespace MultiNotes.Core
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
                 var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                return listNotes.Where(a => a.OwnerId == userId).ToList();
+                List<Note> retrunNotes = listNotes.GroupBy(x => x.Id).Select(group => group.First()).ToList();
+
+                File.WriteAllText(Path, "");
+                foreach (var item in retrunNotes)
+                {
+                    var jsonNote = JsonConvert.SerializeObject(item);
+                    File.AppendAllText(Path, jsonNote);
+                }
+                return retrunNotes;
             }
             else
                 return new List<Note>();
@@ -176,7 +184,7 @@ namespace MultiNotes.Core
             foreach (var x in listNotes)
             {
                 var jsonNote = JsonConvert.SerializeObject(x);
-                File.AppendAllText(Path, json);
+                File.AppendAllText(Path, jsonNote);
             }
         }
 
@@ -194,18 +202,19 @@ namespace MultiNotes.Core
             var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
             var toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId == userId);
             if (toDelete == null)
-                return;
             {
-                listNotes.Remove(toDelete);
-                toDelete.Content = newNote.Content;
-                listNotes.Add(toDelete);
+                return;
+            }
 
-                File.WriteAllText(Path, "");
-                foreach (var x in listNotes)
-                {
-                    var jsonNote = JsonConvert.SerializeObject(x);
-                    File.AppendAllText(Path, json);
-                }
+            listNotes.Remove(toDelete);
+            toDelete.Content = newNote.Content;
+            listNotes.Add(toDelete);
+
+            File.WriteAllText(Path, "");
+            foreach (var item in listNotes)
+            {
+                var jsonNote = JsonConvert.SerializeObject(item);
+                File.AppendAllText(Path, jsonNote);
             }
         }
 
@@ -214,7 +223,6 @@ namespace MultiNotes.Core
             if (File.Exists(Path))
             {
                 File.Delete(Path);
-
             }
         }
     }
