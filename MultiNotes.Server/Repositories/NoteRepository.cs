@@ -51,6 +51,11 @@ namespace MultiNotes.Server.Repositories
             NotesCollection.DeleteOne(n => n.Id == id);
         }
 
+        public void RemoveAllUserNotes(string idUser)
+        {
+            NotesCollection.DeleteMany(x => x.OwnerId == idUser);
+        }
+
         public void UpdateNote(string id, Note item)
         {
             NotesCollection.FindOneAndReplace(b => b.Id == id, item);

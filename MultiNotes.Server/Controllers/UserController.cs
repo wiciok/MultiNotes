@@ -14,6 +14,7 @@ namespace MultiNotes.Server.Controllers
     public class UserController : ApiController
     {
         private static readonly IUserRepository UsersRepo = UnitOfWork.Instance.UsersRepository;
+        private static readonly INoteRepository NotesRepo = UnitOfWork.Instance.NotesRepository;
         private readonly AuthorizationService _authService = new AuthorizationService(UsersRepo);
 
         //pobieranie danych uzytkownika np. po zalogowaniu w kliencie
@@ -133,6 +134,7 @@ namespace MultiNotes.Server.Controllers
                     else
                     {
                         UsersRepo.RemoveUser(id_user);
+                        NotesRepo.RemoveAllUserNotes(id_user);
                         TokenBase.RemoveToken(token); //usunelismy sie = tracimy autentykację
                         return Request.CreateResponse(HttpStatusCode.OK);
                     }

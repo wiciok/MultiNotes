@@ -10,6 +10,7 @@ namespace MultiNotes.Server.Repositories
         Note GetNote(string id);
         Note AddNote(Note item);
         void RemoveNote(string id);
+        void RemoveAllUserNotes(string idUser);
         void UpdateNote(string id, Note item);
         IEnumerable<Note> GetAllNotes(User user);
         bool CheckForNote(string id);
