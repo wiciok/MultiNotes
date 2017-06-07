@@ -10,24 +10,85 @@
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="SingleNoteWindow" Width="200" Height="218.637"
-        MinHeight="100">
+        MinHeight="100"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Border Margin="10" BorderBrush="Black" Background="Gray" BorderThickness="1" CornerRadius="2" Opacity="1">
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.2"/>
+            </Border.Effect>
+        </Border>
+        <Grid Margin="10" Background="Cornsilk">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8*" />
+                <RowDefinition Height="177*"/>
+            </Grid.RowDefinitions>
 
-    <Grid Margin="6">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <DockPanel>
-            <Label DockPanel.Dock="Left" Margin="0,0,0,3" Content="{Binding DisplayedDate}"/>
-            <Button DockPanel.Dock="Right" Name="CloseBtn" Content=" X " Click="closeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
-            <Grid>
-                <Button DockPanel.Dock="Left" Visibility="{Binding IsEditButtonVisible}" Margin="0,0,10,0" Name="EditBtn" Command="{Binding EditNoteCmd}" Content="Edit" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
-                <Button DockPanel.Dock="Left" Visibility="{Binding IsSaveButtonVisible}" Margin="0,0,10,0" Name="SaveBtn" Command="{Binding SaveNoteCmd}" Content="Save" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
-            </Grid>
-        </DockPanel>
+            <DockPanel Margin="0,0,0,0" Grid.Row="0" Grid.RowSpan="2">
+                <Label 
+                    DockPanel.Dock="Left" 
+                    Margin="0,0,0,0" 
+                    Content="{Binding DisplayedDate}" 
+                    FontSize="10"/>
 
-        <Separator Margin="0,3,0,3" Grid.Row="1"/>
-        <TextBox  IsReadOnly="{Binding IsReadOnly}" Margin="0,3,0,0" Grid.Row="2" TextWrapping="Wrap" BorderThickness="0" Text="{Binding Note.Content}"/>
+                <Button 
+                    DockPanel.Dock="Right" 
+                    Name="CloseBtn"
+                    Content=" X "
+                    Click="closeBtn_Click" 
+                    HorizontalAlignment="Right" 
+                    BorderThickness="0"
+                    Background="Transparent" 
+                    Width="25" 
+                    Height="25" 
+                    Margin="0,0,0,0" 
+                    VerticalAlignment="Top"/>
+
+                <Button 
+                    DockPanel.Dock="Right" 
+                    Visibility="{Binding IsEditButtonVisible}" 
+                    Margin="0,0,0,0" 
+                    Name="EditBtn" 
+                    Command="{Binding EditNoteCmd}" 
+                    Content="Edit" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" 
+                    Background="Transparent" 
+                    BorderThickness="0" 
+                    Width="25" 
+                    Height="25" 
+                    FontSize="10"/>
+
+                <Button 
+                    DockPanel.Dock="Right" 
+                    Visibility="{Binding IsSaveButtonVisible}" 
+                    Margin="0,0,0,0" 
+                    Name="SaveBtn" 
+                    Command="{Binding SaveNoteCmd}" 
+                    Content="Save" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" 
+                    BorderThickness="0" 
+                    Width="25" 
+                    Height="25" 
+                    Background="Transparent"
+                    FontSize="10" Panel.ZIndex="1"/>
+            </DockPanel>
+
+            <Separator Margin="0,0,0,0" Grid.Row="1"/>
+
+            <TextBox  
+                IsReadOnly="{Binding IsReadOnly}" 
+                Margin="3,0,0,0" 
+                Grid.Row="2" 
+                TextWrapping="Wrap" 
+                BorderThickness="0" 
+                Text="{Binding Note.Content}" 
+                FontSize="14"
+                Background="Transparent"/>
+        </Grid>
     </Grid>
 </Window>

@@ -79,7 +79,7 @@ namespace MultiNotes.Windows.ViewModel
             user = await methods.GetUserInfo(token, _authenticationRecord.Email);
             noteApi = new NoteApi(_authenticationRecord, user.Id);
 
-            noteApi.UpdateNoteAsync(Note.Id, Note);
+            await noteApi.UpdateNoteAsync(Note.Id, Note);
 
             OnPropertyChanged(nameof(IsSaveButtonVisible));
             OnPropertyChanged(nameof(IsSaveButtonVisible));
