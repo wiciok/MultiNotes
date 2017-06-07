@@ -10,22 +10,28 @@ using Newtonsoft.Json;
 
 using MultiNotes.Model;
 
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public class Registration : IRegistration
+    internal class RegisterApi : IRegisterApi
     {
         public bool IsRegisterSuccessful { get; private set; }
         public string RegisterMessage { get; private set; }
 
-        public Registration()
+        public RegisterApi()
         {
             IsRegisterSuccessful = false;
             RegisterMessage = "";
         }
 
-        public async Task Register(string username, string password)
+        public void Register(string username, string password)
         {
-            string bsonId = new UniqueIdService().GetUniqueId();
+            RegisterImpl(username, password);
+        }
+
+
+        private void RegisterImpl(string username, string password)
+        {
+            string bsonId = new UniqueIdApi().GetUniqueId();
             // Somehow we get a quoted string (ex. "a12...4ff", instead of a12...4ff)
             bsonId = bsonId.Replace("\"", "");
             if (bsonId.Length == 0)
@@ -35,7 +41,7 @@ namespace MultiNotes.XAndroid.Core
                 return;
             }
 
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/user/";
+            string apiUrl = Constants.ApiUrlBase + "api/user/";
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(apiUrl));
             request.ContentType = "application/json";

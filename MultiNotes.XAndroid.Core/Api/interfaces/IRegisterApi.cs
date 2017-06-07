@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MultiNotes.XAndroid.Core
+namespace MultiNotes.XAndroid.Core.Api
 {
-    public interface IRegistration
+    internal interface IRegisterApi
     {
         bool IsRegisterSuccessful { get; }
         string RegisterMessage { get; }
 
-        Task Register(string username, string password);
+        void Register(string username, string password);
     }
 }

@@ -43,7 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>
@@ -98,14 +98,8 @@
     <Compile Include="AccountActivity.cs" />
     <Compile Include="ChangePasswordActivity.cs" />
     <Compile Include="MultiNotesBaseActivity.cs" />
-    <Compile Include="Model\Counter.cs" />
-    <Compile Include="Model\Base\IAuthorizationEngine.cs" />
-    <Compile Include="Model\Base\INotesRepository.cs" />
-    <Compile Include="Model\Base\IRegistrationEngine.cs" />
     <Compile Include="NoteActivity.cs" />
-    <Compile Include="Model\NotesBase.cs" />
-    <Compile Include="Model\NotesRepository.cs" />
-    <Compile Include="Model\NoteAdapter.cs" />
+    <Compile Include="NoteAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\layout\activity_sign_in.axml">
       <SubType>Designer</SubType>
@@ -116,6 +110,7 @@
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="SignInActivity.cs" />
     <Compile Include="SignUpActivity.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -186,6 +181,14 @@
     <AndroidResource Include="Resources\layout\list_item_note.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MultiNotes.Model\MultiNotes.Model.csproj">
+      <Project>{f6537de7-3208-4b5f-b39e-e1685aef6223}</Project>
+      <Name>MultiNotes.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiNotes.XAndroid.Core\MultiNotes.XAndroid.Core.csproj">
+      <Project>{94d517d8-872c-467b-9a36-8c32f4f7460e}</Project>
+      <Name>MultiNotes.XAndroid.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MultiNotes.Model\MultiNotes.Model.csproj">
       <Project>{f6537de7-3208-4b5f-b39e-e1685aef6223}</Project>
       <Name>MultiNotes.Model</Name>

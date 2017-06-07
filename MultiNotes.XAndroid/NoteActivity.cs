@@ -15,6 +15,7 @@ using MultiNotes.XAndroid.Core;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 using MultiNotes.Model;
+using System.Threading;
 
 namespace MultiNotes.XAndroid
 {
@@ -47,22 +48,8 @@ namespace MultiNotes.XAndroid
             noteEditText = FindViewById<EditText>(Resource.Id.edit_text);
 
             EnableSupportToolbarHomeMenu();
-            
-            // noteMethods = new XNoteMethod();
 
-            // note = noteMethods
-            //     .GetAllNotesFromFile(AuthorizationManager.Instance.User.Id)
-            //     .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
-            //     .FirstOrDefault()
-            //     ?? new Note()
-            //     {
-            //         Id = "",
-            //         Content = "",
-            //         CreateTimestamp = DateTime.Now,
-            //         LastChangeTimestamp = DateTime.Now,
-            //         OwnerId = AuthorizationManager.Instance.User.Id
-            //     };
-            note = new LocalNoteRepository().GetAllNotes()
+            note = new XNoteMethod().GetAllLocalNotes()
                 .Where(g => g.Id == Intent.GetStringExtra(NOTE_ID))
                 .FirstOrDefault()
                 ?? new Note()
@@ -140,40 +127,119 @@ namespace MultiNotes.XAndroid
 
         private bool MenuSaveOnClick()
         {
+            new Thread(new ThreadStart(() =>
+            {
+                ProgressDialog progress = null;
+
+                RunOnUiThread(() =>
+                {
+                    progress = ProgressDialog.Show(
+                        this,
+                        Resources.GetString(Resource.String.please_wait),
+                        Resources.GetString(Resource.String.please_wait),
+                        true,
+                        false
+                    );
+                });
+
+
+                SaveNote();
+
+                if (Utility.IsNetworkAvailable(this))
+                {
+                    try
+                    {
+                        new NoteSync().Sync();
+                    }
+                    catch (WebApiClientException)
+                    {
+                        // Do nothing
+                    }
+                }
+
+                RunOnUiThread(() =>
+                {
+                    progress.Hide();
+                    Finish();
+                });
+            })).Start();
+
+            return true;
+        }
+
+        private void SaveNote()
+        {
             string newContent = noteEditText.Text.Trim();
             if (newContent.Length == 0)
             {
-                Toast.MakeText(this, Resource.String.alert_note_empty, ToastLength.Short).Show();
-                return true;
+                RunOnUiThread(() => Toast.MakeText(
+                    this, 
+                    Resource.String.alert_note_empty, 
+                    ToastLength.Short
+                ).Show());
+                return;
             }
             if (note.Id.Length != 0)
             {
                 note.Content = newContent;
-                note.LastChangeTimestamp = DateTime.Now;
-                noteMethods.UpdateNoteFromFile(
-                    note.Id,
-                    AuthorizationManager.Instance.User.Id,
-                    note
-                );
+                new XNoteMethod().UpdateLocalNote(note);
             }
             else
             {
+                note.Id = new LocalUniqueIdApi().GetUniqueId();
+                // We operate on not-localized DataTime values
+                note.CreateTimestamp = DateTime.Now.ToUniversalTime();
+                note.LastChangeTimestamp = DateTime.Now.ToUniversalTime();
+                note.OwnerId = new Authorization().UserId;
+
                 note.Content = newContent;
-                new LocalNoteRepository().AddNote(note);
+                new XNoteMethod().AddLocalNote(note);
             }
-            Finish();
-            return true;
         }
+        
 
 
         private bool MenuDeleteOnClick()
         {
             if (note.Id.Length != 0)
             {
-                ShowDeleteNoteAlert(delegate 
+                ShowDeleteNoteAlert(delegate
                 {
-                    new LocalNoteRepository().DeleteNote(note);
-                    Finish();
+                    new Thread(new ThreadStart(() =>
+                    {
+                        ProgressDialog progress = null;
+
+                        RunOnUiThread(() =>
+                        {
+                            progress = ProgressDialog.Show(
+                                this,
+                                Resources.GetString(Resource.String.please_wait),
+                                Resources.GetString(Resource.String.please_wait),
+                                true,
+                                false
+                            );
+                        });
+
+                        new XNoteMethod().DeleteLocalNote(note);
+
+                        if (Utility.IsNetworkAvailable(this))
+                        {
+                            try
+                            {
+                                new NoteSync().Sync();
+                            }
+                            catch (WebApiClientException)
+                            {
+                                // Do nothing
+                            }
+                        }
+
+                        RunOnUiThread(() =>
+                        {
+                            progress.Hide();
+                            Finish();
+                        });
+                    })).Start();
                 });
             }
             else
@@ -187,6 +253,7 @@ namespace MultiNotes.XAndroid
                     Finish();
                 }
             }
+            
             return true;
         }
 

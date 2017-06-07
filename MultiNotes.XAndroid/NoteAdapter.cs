@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -11,16 +12,18 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.Model;
-using MultiNotes.XAndroid.Model.Base;
 using MultiNotes.XAndroid.Core;
+using System.Globalization;
 
-namespace MultiNotes.XAndroid.Model
+namespace MultiNotes.XAndroid
 {
     public class NoteAdapter : BaseAdapter
     {
 
         //private INotesRepository notesRepository;
         private Activity activity;
+        private int count;
+        private List<Note> notesList;
 
 
         public NoteAdapter(Activity activity)
@@ -32,23 +35,24 @@ namespace MultiNotes.XAndroid.Model
 
         public override int Count
         {
-            get { return GetNotesCount(); }//return notesRepository.NotesList.Count; }
+            get { GetNotesCount(); return count; }//return notesRepository.NotesList.Count; }
         }
 
-        private int GetNotesCount()
+        private void GetNotesCount()
         {
-            return GetNotesList().Count();
+            GetNotesList();
+            count = notesList.Count();
         }
 
 
         public virtual List<Note> NotesList
         {
-            get { return GetNotesList(); }
+            get { GetNotesList(); return notesList; }
         }
 
-        private List<Note> GetNotesList()
+        private void GetNotesList()
         {
-            return new LocalNoteRepository().GetAllNotes()
+            notesList = new XNoteMethod().GetAllLocalNotes()
                 .OrderByDescending(g => g.LastChangeTimestamp).ToList();
         }
 
@@ -77,9 +81,11 @@ namespace MultiNotes.XAndroid.Model
             View view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.list_item_note, parent, false);
             TextView notesTitleTextView = view.FindViewById<TextView>(Resource.Id.title);
 
-            notesTitleTextView.Text = NotesList[position].Content.Length > 20
-                ? NotesList[position].Content.Substring(0, 20) + " . . ." 
-                : NotesList[position].Content;
+            notesTitleTextView.Text = NotesList[position].Content;
+
+            // notesTitleTextView.Text = NotesList[position].Content.Length > 20
+            //     ? NotesList[position].Content.Substring(0, 20) + " . . ." 
+            //     : NotesList[position].Content;
 
             return view;
         }

@@ -14,9 +14,9 @@ using Android.Widget;
 
 using MultiNotes.Model;
 using MultiNotes.XAndroid.Core;
-using MultiNotes.XAndroid.Model;
 
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using System.Threading;
 
 namespace MultiNotes.XAndroid
 {
@@ -40,6 +40,9 @@ namespace MultiNotes.XAndroid
 
             // Set up local variable components
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+
+            // Run setup for application - all directories etc.
+            Setup.Run();
 
             notesListView.Adapter = new NoteAdapter(this);
             notesListView.ItemClick += NotesListItemOnClick;
@@ -94,16 +97,32 @@ namespace MultiNotes.XAndroid
             }
         }
 
+        private bool syncOnStartup = false;
 
         protected override void OnResume()
         {
             base.OnResume();
-            if (!AuthorizationManager.Instance.IsUserSigned)
+            if (!new Authorization().IsUserSigned)
             {
                 StartActivity(typeof(SignInActivity));
             }
             else
             {
+                if (!syncOnStartup)
+                {
+                    if (Utility.IsNetworkAvailable(this) && new Authorization().IsUserSigned)
+                    {
+                        try
+                        {
+                            new NoteSync().Sync();
+                        }
+                        catch (WebApiClientException)
+                        {
+                            // Do nothing
+                        }
+                    }
+                    syncOnStartup = true;
+                }
                 RefreshNotesList();
             }
         }
@@ -118,8 +137,57 @@ namespace MultiNotes.XAndroid
 
         private bool MenuSyncOnClick()
         {
-            new NoteSyncManager().Sync(new RemoteNoteRepository(), new LocalNoteRepository());
-            RefreshNotesList();
+            new Thread(new ThreadStart(() =>
+            {
+                ProgressDialog progress = null;
+                WebApiClientError error = WebApiClientError.OK;
+
+                RunOnUiThread(() =>
+                {
+                    progress = ProgressDialog.Show(
+                        this,
+                        Resources.GetString(Resource.String.please_wait),
+                        Resources.GetString(Resource.String.please_wait),
+                        true,
+                        false
+                    );
+                });
+
+                if (Utility.IsNetworkAvailable(this))
+                {
+                    try
+                    {
+                        new NoteSync().Sync();
+                    }
+                    catch (WebApiClientException e)
+                    {
+                        error = e.Error;
+                    }
+                }
+                else
+                {
+                    error = WebApiClientError.InternetConnectionError;
+                }
+
+                RunOnUiThread(() =>
+                {
+                    progress.Hide();
+                    if (error == WebApiClientError.InternetConnectionError)
+                    {
+                        RunOnUiThread(() =>
+                        {
+                            new AlertDialog.Builder(this)
+                               .SetTitle(Resource.String.error)
+                               .SetMessage(Resource.String.internet_connection_error)
+                               .SetPositiveButton(Resource.String.confirm_dialog_ok, delegate { })
+                               .Create().Show();
+                        });
+                    }
+                    RefreshNotesList();
+                });
+
+            })).Start();
+
             return true;
         }
 

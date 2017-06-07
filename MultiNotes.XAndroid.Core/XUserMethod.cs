@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using MultiNotes.Model;
+using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
@@ -30,69 +31,62 @@ namespace MultiNotes.XAndroid.Core
             }
         }
 
-        public async Task Register(string username, string password)
+        /// <exception cref="WebApiClientException"></exception>
+        public void Register(string username, string password)
         {
-            IRegistration registration = new Registration();
-            await registration.Register(username, password);
+            IRegisterApi registration = new RegisterApi();
+            registration.Register(username, password);
             IsRegisterSuccessful = registration.IsRegisterSuccessful;
             RegisterMessage = registration.RegisterMessage;
-            string token = await RegisterAutologin(username, password);
-
-            if (token != "")
-            {
-                if (IsRegisterSuccessful)
-                {
-                    System.IO.File.WriteAllLines(
-                        Constants.AuthenticationRecordFile,
-                        new string[]
-                        {
-                            UserSigned.Id,
-                            UserSigned.EmailAddress,
-                            UserSigned.PasswordHash,
-                            UserSigned.RegistrationTimestamp.ToString()
-                        }
-                    );
-                }
-            }
         }
 
 
-        private async Task<string> RegisterAutologin(string username, string password)
+        /// <exception cref="WebApiClientException"></exception>
+        private string RegisterAutologin(string username, string password)
         {
-            ILoginEngine loginEngine = new LoginEngine();
-            await loginEngine.Login(username, password);
-            LoginMessage = loginEngine.LoginMessage;
+            ILoginApi loginEngine = new LoginApi();
+            loginEngine.Login(username, password);
+            LoginMessage = loginEngine.Message;
             UserSigned = loginEngine.User;
             return loginEngine.Token;
         }
 
 
-        public async Task Login(string username, string password)
+        /// <exception cref="WebApiClientException"></exception>
+        public void Login(string username, string password)
         {
-            ILoginEngine loginEngine = new LoginEngine();
-            await loginEngine.Login(username, password);
-            LoginMessage = loginEngine.LoginMessage;
+            ILoginApi loginEngine = new LoginApi();
+            loginEngine.Login(username, password);
+            LoginMessage = loginEngine.Message;
             UserSigned = loginEngine.User;
             if (IsLoginSuccessful)
             {
-                System.IO.File.WriteAllLines(
-                    Constants.AuthenticationRecordFile,
-                    new string[]
-                    {
+                try
+                {
+                    System.IO.File.WriteAllLines(
+                        Constants.AuthenticationRecordFile,
+                        new string[]
+                        {
                         UserSigned.Id,
                         UserSigned.EmailAddress,
                         UserSigned.PasswordHash,
                         UserSigned.RegistrationTimestamp.ToString()
-                    }
-                );
+                        }
+                    );
+                }
+                catch (Exception e)
+                {
+                    string a = e.Message;
+                }
             }
         }
 
 
-        public async Task<bool> Verify(string username, string password)
+        /// <exception cref="WebApiClientException"></exception>
+        public bool Verify(string username, string password)
         {
-            ILoginEngine loginEngine = new LoginEngine();
-            await loginEngine.Login(username, password, true);
+            ILoginApi loginEngine = new LoginApi();
+            loginEngine.Login(username, password, true);
             return loginEngine.User != null;
         }
 
@@ -100,13 +94,14 @@ namespace MultiNotes.XAndroid.Core
         public void Logout()
         {
             System.IO.File.WriteAllLines(Constants.AuthenticationRecordFile, new string[] { "" });
+            new Authorization().ReloadUser();
         }
 
 
-        public async Task<User> GetUser(string token, string username)
+        /// <exception cref="WebApiClientException"></exception>
+        public User GetUser(string token, string username)
         {
-            IUserApi userApi = new UserApi();
-            return await userApi.GetUser(token, username);
+            return new UserApi().GetUser(token, username);
         }
     }
 }

@@ -13,8 +13,6 @@ using Android.Views;
 using Android.Widget;
 
 using MultiNotes.XAndroid.Core;
-using MultiNotes.XAndroid.Model;
-using MultiNotes.XAndroid.Model.Base;
 
 // May be needed some day
 // using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -52,7 +50,7 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(async () =>
+            new Thread(new ThreadStart(() =>
             {
                 XUserMethod methods = new XUserMethod();
                 ProgressDialog progress = null;
@@ -64,11 +62,23 @@ namespace MultiNotes.XAndroid
                         Resources.GetString(Resource.String.please_wait),
                         Resources.GetString(Resource.String.please_wait),
                         true,
-                        false
+                        true, 
+                        delegate { Finish(); }
                     );
                 });
 
-                await methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                if (Utility.IsNetworkAvailable(this))
+                {
+                    try
+                    {
+                        methods.Login(emailAddressEditText.Text.Trim(), passwordEditText.Text);
+                    }
+                    catch (WebApiClientException)
+                    {
+                        // Do nothing
+                    }
+                }
+                
                 RunOnUiThread(() =>
                 {
                     progress.Hide();

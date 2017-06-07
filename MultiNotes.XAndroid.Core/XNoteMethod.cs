@@ -12,99 +12,71 @@ namespace MultiNotes.XAndroid.Core
 {
     public class XNoteMethod
     {
-        public List<Note> GetAllNotesFromFile(string userId)
+        public List<Note> GetAllLocalNotes()
         {
-            if (System.IO.File.Exists(Constants.NotesFile))
-            {
-                string json = System.IO.File.ReadAllText(Constants.NotesFile);
-                List<string> tmpList = json.Split('}').ToList();
-                for (int i = 0; i < tmpList.Count; ++i)
-                {
-                    tmpList[i] += "}";
-                }
-                tmpList.RemoveAt(tmpList.Count - 1);
-                List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                return listNotes.Where(a => a.OwnerId == userId).ToList();
-            }
-
-            return new List<Note>();
+            return new LocalNoteRepository().GetAllNotes();
         }
 
 
-        public void AddNoteToFile(Note note)
+        public void AddLocalNote(Note note)
         {
-            string json = JsonConvert.SerializeObject(note);
-            if (!System.IO.File.Exists(Constants.NotesFile))
-            {
-                System.IO.File.WriteAllText(Constants.NotesFile, json);
-            }
-            else
-            {
-                System.IO.File.AppendAllText(Constants.NotesFile, json);
-            }
+            new LocalNoteRepository().AddNote(note);
         }
 
 
-        public void UpdateNoteFromFile(string id, string userId, Note newNote)
+        public void UpdateLocalNoteById(string noteId, Note note)
         {
-            if (!System.IO.File.Exists(Constants.NotesFile)) return;
-            string json = System.IO.File.ReadAllText(Constants.NotesFile);
-            List<string> tmpList = json.Split('}').ToList();
-            for (int i = 0; i < tmpList.Count; ++i)
-            {
-                tmpList[i] += "}";
-            }
-            tmpList.RemoveAt(tmpList.Count - 1);
-            List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-            Note toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId == userId);
-            if (toDelete == null)
-            {
-                return;
-            }
-
-            listNotes.Remove(toDelete);
-            toDelete.Content = newNote.Content;
-            toDelete.LastChangeTimestamp = newNote.LastChangeTimestamp;
-            listNotes.Add(toDelete);
-
-            System.IO.File.WriteAllText(Constants.NotesFile, "");
-            foreach (Note x in listNotes)
-            {
-                string jsonNote = JsonConvert.SerializeObject(x);
-                System.IO.File.AppendAllText(Constants.NotesFile, jsonNote);
-            }
+            
         }
 
 
-        public void DeleteNoteFromFile(string id, string userId)
+        public void UpdateLocalNote(Note note)
         {
-            if (!System.IO.File.Exists(Constants.NotesFile))
-            {
-                return;
-            }
+            new LocalNoteRepository().UpdateNote(note);
+        }
 
-            string json = System.IO.File.ReadAllText(Constants.NotesFile);
-            List<string> tmpList = json.Split('}').ToList();
-            for (int i = 0; i < tmpList.Count; ++i)
-            {
-                tmpList[i] += "}";
-            }
-            tmpList.RemoveAt(tmpList.Count - 1);
-            List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-            Note toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId == userId);
 
-            if (toDelete == null)
-            {
-                return;
-            }
+        public void DeleteLocalNote(Note note)
+        {
+            new LocalNoteRepository().DeleteNote(note);
+        }
 
-            listNotes.Remove(toDelete);
-            System.IO.File.WriteAllText(Constants.NotesFile, "");
-            foreach (Note x in listNotes)
-            {
-                string jsonNote = JsonConvert.SerializeObject(x);
-                System.IO.File.AppendAllText(Constants.NotesFile, jsonNote);
-            }
+
+        public List<Note> FetchAllLocalNotes()
+        {
+            return new LocalNoteRepository().FetchAllNotes();
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public List<Note> GetAllRemoteNotes(string token)
+        {
+            return new RemoteNoteRepository().GetAllNotes(token);
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void AddRemoteNote(Note note, string token)
+        {
+            new RemoteNoteRepository().AddNote(note, token);
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void UpdateRemoteNote(Note note, string token)
+        {
+            new RemoteNoteRepository().UpdateNote(note, token);
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void DeleteRemoteNote(Note note, string token)
+        {
+            new RemoteNoteRepository().DeleteNote(note, token);
         }
     }
 }

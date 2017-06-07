@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+using Newtonsoft.Json;
 
 using MultiNotes.Model;
-using Newtonsoft.Json;
+using MultiNotes.XAndroid.Core.Api;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class LocalNoteRepository : INoteRepository
+    internal class LocalNoteRepository
     {
-        private static List<Note> NotesInFile = FetchAllNotes();
+        private List<Note> NotesInFile;
+        
+
+        public LocalNoteRepository()
+        {
+            RestoreStaticNotesInFileField();
+        }
+
+
+        public bool Success { get; private set; }
+
 
         public List<Note> GetAllNotes()
         {
+            Success = true;
             return new List<Note>(NotesInFile);
         }
 
-        private static List<Note> FetchAllNotes()
+
+        public List<Note> FetchAllNotes()
         {
             if (System.IO.File.Exists(Constants.NotesFile))
             {
@@ -35,22 +42,21 @@ namespace MultiNotes.XAndroid.Core
                     tmpList[i] += "}";
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
-                List<Note> listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                return listNotes.Where(a => a.OwnerId == "-1").ToList();
+                return tmpList.Select(JsonConvert.DeserializeObject<Note>)
+                    .Where(a => a.OwnerId == new Authorization().UserId).ToList();
             }
-
             return new List<Note>();
         }
 
-        private static void RestoreStaticNotesInFileField()
+
+        private void RestoreStaticNotesInFileField()
         {
-            NotesInFile = FetchAllNotes();
+            NotesInFile = FetchAllNotes().Where(g => DateTime.Compare(g.CreateTimestamp, DateTime.MinValue) > 0).ToList();
         }
 
 
         public void AddNote(Note note)
         {
-            PrepareNoteToAdd(ref note);
             if (!System.IO.File.Exists(Constants.NotesFile))
             {
                 string json = JsonConvert.SerializeObject(note);
@@ -59,21 +65,28 @@ namespace MultiNotes.XAndroid.Core
             else
             {
                 List<Note> notesList = GetAllNotes();
-                notesList.Add(note);
-                ResaveAllNotes(notesList);
+                if (notesList.Where(g => g.Id == note.Id).Count() == 0)
+                {
+                    notesList.Add(note);
+                    ResaveAllNotes(notesList);
+                }
             }
+            Success = true;
         }
 
-        private void PrepareNoteToAdd(ref Note note)
+        public void AddAllNotes(List<Note> list)
         {
-            note.Id = new LocalUniqueIdService().GetUniqueId();
-            note.OwnerId = "-1";
-            note.CreateTimestamp = DateTime.Now;
-            note.LastChangeTimestamp = DateTime.Now;
+            ResaveAllNotes(list);
+        }
+
+        public void DeleteAllNotes()
+        {
+            System.IO.File.WriteAllText(Constants.NotesFile, "");
         }
 
         private void ResaveAllNotes(List<Note> notesList)
         {
+            notesList = notesList.OrderByDescending(g => g.LastChangeTimestamp).ToList();
             System.IO.File.WriteAllText(Constants.NotesFile, "");
             foreach (Note x in notesList)
             {
@@ -81,6 +94,7 @@ namespace MultiNotes.XAndroid.Core
                 System.IO.File.AppendAllText(Constants.NotesFile, jsonNote);
             }
             RestoreStaticNotesInFileField();
+            Success = true;
         }
 
 
@@ -88,17 +102,24 @@ namespace MultiNotes.XAndroid.Core
         {
             List<Note> notesList = GetAllNotes();
             Note noteInFile = notesList.Where(g => g.Id == note.Id).FirstOrDefault();
+
+            noteInFile.LastChangeTimestamp = DateTime.Now.ToUniversalTime();
             noteInFile.Content = note.Content;
-            noteInFile.LastChangeTimestamp = DateTime.Now;
             ResaveAllNotes(notesList);
+            Success = true;
         }
 
 
         public void DeleteNote(Note note)
         {
             List<Note> notesList = GetAllNotes();
-            notesList.RemoveAll(g => g.Id == note.Id);
+            foreach (Note n in notesList.Where(g => g.Id == note.Id))
+            {
+                n.CreateTimestamp = DateTime.MinValue;
+            }
+            // notesList.RemoveAll(g => g.Id == note.Id);
             ResaveAllNotes(notesList);
+            Success = true;
         }
 
     }

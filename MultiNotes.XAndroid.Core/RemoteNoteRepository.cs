@@ -1,78 +1,196 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using MultiNotes.Model;
-using System.Net;
-using System.IO;
-
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using MultiNotes.Model;
+using MultiNotes.XAndroid.Core.Api;
+using System.Threading.Tasks;
 
 namespace MultiNotes.XAndroid.Core
 {
-    public class RemoteNoteRepository : INoteRepository
+    internal class RemoteNoteRepository
     {
+        private List<Note> remoteNotes;
 
-        public List<Note> GetAllNotes()
+
+        public RemoteNoteRepository()
         {
-            const string apiUrl = "http://217.61.4.233:8080/MultiNotes.Server/api/note/{0}";
-            List<Note> notes;
+            // LoadNotes();
+        }
 
-            ILoginEngine loginEngine = new LoginEngine();
-            User signedUser = AuthorizationManager.Instance.User;
-            loginEngine.Login(signedUser.EmailAddress, signedUser.PasswordHash, true);
 
-            if (loginEngine.Token == "" || loginEngine.User == null)
-            {
-                return null;
-            }
+        public bool Success { get; private set; }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        public List<Note> GetAllNotes(string token)
+        {
+            LoadNotes(token);
+            return remoteNotes;
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        private void LoadNotes(string token)
+        {
+            string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
-                .Create(new Uri(string.Format(apiUrl, loginEngine.Token)));
-            request.ContentType = "application/json";
+                .Create(new Uri(string.Format(apiUrl, token)));
             request.Method = "GET";
 
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                using (Stream stream = response.GetResponseStream())
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.NoContent)
                 {
-                    string json = new StreamReader(stream).ReadToEnd();
-                    List<string> tmpList = json.Split('}').ToList();
-                    for (int i = 0; i < tmpList.Count; ++i)
+                    remoteNotes = new List<Note>();
+                    Success = true;
+                    return;
+                }
+
+                Stream stream = response.GetResponseStream();
+                string json = new StreamReader(stream).ReadToEnd();
+                List<string> tmpList = json.Split('}').ToList();
+                for (int i = 0; i < tmpList.Count; ++i)
+                {
+                    tmpList[i] += "}";
+                }
+                tmpList.RemoveAt(tmpList.Count - 1);
+                object notes = JsonConvert.DeserializeObject(json);
+                if (notes is JArray jArray)
+                {
+                    remoteNotes = jArray.ToObject<List<Note>>()
+                        .Where(g => g.OwnerId == new Authorization().UserId).ToList();
+                }
+                // remoteNotes = tmpList
+                //     .Select(JsonConvert.DeserializeObject<Note>)
+                //     .Where(a => a.OwnerId == signedUser.Id)
+                //     .ToList();
+
+                Success = true;
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ConnectFailure)
+                {
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                }
+                Success = false;
+                remoteNotes = null;
+            }
+        }
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        private string GetToken()
+        {
+            Authorization auth = new Authorization();
+            AuthTokenApi tokenManager = new AuthTokenApi();
+
+            if (auth.IsUserSigned)
+            {
+                throw new UserNotSignedException();
+            }
+
+            // This method throws WebApiClientException
+            return tokenManager.GetAuthToken(new AuthenticationRecord()
+            {
+                Email = auth.UserEmailAddress,
+                PasswordHash = auth.UserPasswordHash
+            });
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void AddNote(Note note, string token)
+        {
+            string apiUrl = Constants.ApiUrlBase + "api/note/{0}";
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest
+                .Create(new Uri(string.Format(apiUrl, token)));
+            request.ContentType = "application/json";
+            request.Method = "POST";
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = JsonConvert.SerializeObject(note);
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            try
+            {
+                HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
+                Success = true;
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ConnectFailure)
+                {
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                }
+                Success = false;
+            }
+        }
+
+
+        /// <exception cref="WebApiClientException"></exception>
+        /// <exception cref="UserNotSignedException"></exception>
+        public void UpdateNote(Note note, string token)
+        {
+            // The sam api as AddNote
+            AddNote(note, token);
+        }
+
+
+        public void DeleteNote(Note note, string token)
+        {
+            string apiUrl = Constants.ApiUrlBase + "api/note/{0}/{1}";
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest
+                .Create(new Uri(string.Format(apiUrl, token, note.Id)));
+            request.Method = "DELETE";
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = JsonConvert.SerializeObject(note);
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            try
+            {
+                HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
+                Success = true;
+            }
+            catch (WebException e)
+            {
+                if (e.Response is HttpWebResponse response)
+                {
+                    if (response.StatusCode == HttpStatusCode.NoContent)
                     {
-                        tmpList[i] += "}";
+                        // Do nothing
+                        Success = true;
                     }
-                    tmpList.RemoveAt(tmpList.Count - 1);
-                    notes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                    return notes.Where(a => a.OwnerId == signedUser.Id).ToList();
+                }
+                else
+                {
+                    if (e.Status == WebExceptionStatus.ConnectFailure)
+                    {
+                        throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                    }
+                    Success = false;
                 }
             }
         }
-
-
-        public void AddNote(Note note)
-        {
-
-        }
-
-
-        public void UpdateNote(Note note)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void DeleteNote(Note note)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

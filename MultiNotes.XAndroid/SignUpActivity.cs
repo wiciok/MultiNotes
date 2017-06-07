@@ -40,7 +40,7 @@ namespace MultiNotes.XAndroid
 
         private void SignUpButtonOnClick(object sender, EventArgs args)
         {
-            new Thread(new ThreadStart(async () =>
+            new Thread(new ThreadStart(() =>
             {
                 XUserMethod userMethod = new XUserMethod();
                 ProgressDialog progress = null;
@@ -90,7 +90,7 @@ namespace MultiNotes.XAndroid
                     return;
                 }
                 
-                await userMethod.Register(username, password);
+                userMethod.Register(username, password);
                 
                 RunOnUiThread(() => 
                 {
@@ -114,7 +114,6 @@ namespace MultiNotes.XAndroid
                     }
                 });
 
-                
             })).Start();
             
         }

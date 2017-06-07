@@ -8,9 +8,6 @@ using System;
 // Disable warning: Async method lacks 'await' operators and will run synchronously
 #pragma warning disable CS1998
 
-// Disable warning: Async method lacks 'await' operators and will run synchronously
-#pragma warning disable CS1998 
-
 namespace MultiNotes.Core
 {
     public class AuthenticationToken

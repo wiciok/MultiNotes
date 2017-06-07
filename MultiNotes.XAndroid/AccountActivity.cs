@@ -23,9 +23,6 @@ namespace MultiNotes.XAndroid
     public sealed class AccountActivity : MultiNotesBaseActivity
     {
 
-        //private IAccountModel model;
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -41,13 +38,11 @@ namespace MultiNotes.XAndroid
 
             EnableSupportToolbarHomeMenu();
 
-            emailAddressTextView.Text = AuthorizationManager.Instance.User.EmailAddress;
+            emailAddressTextView.Text = new Authorization().UserEmailAddress;
 
             changePasswordButton.Click += ChangePasswordButtonOnClick;
             signOutButton.Click += SignOutButtonOnClick;
             settingsButton.Click += SettingsButtonOnClick;
-
-            //model = new AccountModel();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem menuItem)
@@ -65,7 +60,12 @@ namespace MultiNotes.XAndroid
 
         private void ChangePasswordButtonOnClick(object sender, EventArgs e)
         {
-            StartActivity(typeof(ChangePasswordActivity));
+            // StartActivity(typeof(ChangePasswordActivity));
+            new AlertDialog.Builder(this)
+                .SetTitle("Uwaga")
+                .SetMessage("Moduł wciąż nie zaimplementowany!")
+                .SetPositiveButton("OK", delegate { })
+                .Show();
         }
 
         
@@ -82,7 +82,12 @@ namespace MultiNotes.XAndroid
 
         private void SettingsButtonOnClick(object sender, EventArgs e)
         {
-            StartActivity(typeof(SettingsActivity));
+            // StartActivity(typeof(SettingsActivity));
+            new AlertDialog.Builder(this)
+                .SetTitle("Uwaga")
+                .SetMessage("Moduł wciąż nie zaimplementowany!")
+                .SetPositiveButton("OK", delegate { })
+                .Show();
         }
 
     }

@@ -16,7 +16,7 @@ namespace MultiNotes.Core
             {
                 response = httpClient.GetAsync("api/id/").Result;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
