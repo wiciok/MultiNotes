@@ -5,7 +5,7 @@ using MultiNotes.Core.Util;
 
 namespace MultiNotes.Core
 {
-    class NoteApi : INoteApi
+    public class NoteApi : INoteApi
     {
         private readonly string _userId;
         private readonly AuthenticationRecord _authenticationRecord;
@@ -24,7 +24,9 @@ namespace MultiNotes.Core
 
             if (await InternetConnection.IsInternetConnectionAvailable())
             {
+                
                 string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
+                await _noteMethod.AddNoteToDatabase(note, token);
                 IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
                 UpdateNoteDatabase(remoteNotes, localNotes, token);
@@ -89,6 +91,7 @@ namespace MultiNotes.Core
                     }
                 }
             }
+            //_noteMethod.CleanLocalNotes();
         }
 
         private bool ContainsNoteById(string noteId, IEnumerable<Note> notes)
@@ -113,6 +116,7 @@ namespace MultiNotes.Core
                 string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
                 IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
                 await _noteMethod.DeleteNoteByIdFromDatabase(token, id);
+                remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
                 UpdateNoteDatabase(remoteNotes, localNotes, token);
             }

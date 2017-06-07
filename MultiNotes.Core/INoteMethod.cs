@@ -7,7 +7,7 @@ namespace MultiNotes.Core
     public interface INoteMethod
     {
         void AddNoteToFile(Note note);
-        void AddNoteToDatabase(Note note, string token);
+        Task AddNoteToDatabase(Note note, string token);
         Task<IEnumerable<Note>> GetAllNotesFromDatabase(string token);
         Task<Note> GetNoteByIdFromDatabase(string token, string id);
         Task<bool> DeleteNoteByIdFromDatabase(string token, string id);
@@ -16,5 +16,6 @@ namespace MultiNotes.Core
         Note GetNoteFromFile(string id, string userId);
         void DeleteNoteFromFile(string id, string userId);
         void UpdateNoteFromFile(string id, string userId, Note newNote);
+        void CleanLocalNotes();
     }
 }

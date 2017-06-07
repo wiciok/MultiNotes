@@ -37,7 +37,7 @@
             </Border>
 
             <StackPanel  Grid.Row="3" Margin="3">
-                <Button Name="RegisterBtn" Command="{Binding SignUpCmd}" CommandParameter="{Binding ElementName=This}" Content="Sign up" VerticalAlignment="Center" HorizontalAlignment="Center"
+                <Button Name="RegisterBtn" Command="{Binding SignUpCmd}" CommandParameter="{Binding ElementName=This}" Content="Sign up" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center"
                     MinWidth="100" MaxWidth="200" Margin="3" Padding="3"></Button>
             </StackPanel>
         </Grid>

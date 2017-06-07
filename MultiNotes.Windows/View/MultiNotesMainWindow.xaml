@@ -5,126 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         StateChanged="Window_StateChanged"
-        Title="MultiNotes" Height="774.392" Width="438.474">
+        Title="MultiNotes" Height="658.925" Width="521.294" Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="3">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label FontWeight="Bold">My account</Label>
+        <DockPanel Grid.Row="0" Margin="3,3,3.2,3" Grid.ColumnSpan="2">
+            <Button Command="{Binding RefreshNotesCmd}" DockPanel.Dock="Left" BorderThickness="0" Margin="5">
+                <Image Source="/Images/refresh.jpg" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
+            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Label FontWeight="Bold" Content="{Binding LoggedUser.EmailAddress}"></Label>
                 <Image Source="/Images/avatar.png" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
             </StackPanel>
-        </StackPanel>
+        </DockPanel>
 
-        <Separator Grid.Row="1" Grid.Column="0" />
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="3" Orientation="Horizontal">
-            <Button>Add New Note</Button>
-        </StackPanel>
-        <Separator Grid.Row="3" />
+        <DockPanel Grid.Row="1" Margin="3,3,3.2,2.6" LastChildFill="True" Grid.ColumnSpan="2">
+            <Button Command="{Binding AddNoteCmd}" DockPanel.Dock="Bottom" Width="100" Margin="5">Add New Note</Button>
+            <TextBox Name="NoteTextBox" Text="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60">
+                <TextBox.Style>
+                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                        <Style.Resources>
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label Content="Add note here" Foreground="Gray" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </DockPanel>
 
-
-        <ListView HorizontalContentAlignment="Stretch" Grid.Row="4" Grid.Column="0" Margin="3">
-            <Border BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-
-            <Border  BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
-                <StackPanel Margin="3" Orientation="Horizontal">
-                    <Label VerticalAlignment="Center">Notatka 1</Label>
-                    <CheckBox VerticalAlignment="Center"></CheckBox>
-                </StackPanel>
-            </Border>
-        </ListView>
+        <ListBox x:Name="NotesList" ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Grid.Row="2" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
+                        <StackPanel Margin="6" Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Margin="3" Text="{Binding CreateTimestamp}"></TextBlock>
+                            <Separator Margin="3"/>
+                            <TextBlock Margin="3" VerticalAlignment="Center" TextWrapping="Wrap" Width="360" Text="{Binding Content}"></TextBlock>
+                            <Button x:Name="delButton" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding Path=DataContext.DeleteNoteCmd, ElementName=NotesList}" CommandParameter="{Binding Id}">Delete</Button>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

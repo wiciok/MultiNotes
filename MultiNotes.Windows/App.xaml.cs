@@ -1,6 +1,7 @@
 ﻿using System;
 using MultiNotes.Windows.View;
 using System.Windows;
+using MultiNotes.Core;
 using MultiNotes.Model;
 
 namespace MultiNotes.Windows
@@ -12,14 +13,28 @@ namespace MultiNotes.Windows
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MultiNotesLoginWindow loginWindow = new MultiNotesLoginWindow();
-            loginWindow.Show();
+            ConnectionApi.Configure();
 
-            //todo: usunąć to potem, teraz jest tylko w celach testowych
-            string loremIpsum =
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies diam id tellus ullamcorper, ac pulvinar mi venenatis. Quisque sed gravida purus. Etiam id tortor eros. Vivamus vel pretium mauris, id tincidunt lectus. Nullam a bibendum dolor. Phasellus iaculis arcu massa, nec egestas nibh efficitur eu. Pellentesque ornare ullamcorper sem sed sagittis. ";
-            SingleNoteWindow singleNoteWindow=new SingleNoteWindow(new Note {Content = loremIpsum, CreateTimestamp = DateTime.Now});
-            singleNoteWindow.Show();
+            MakeLoginTask();
+        }
+
+        public async void MakeLoginTask()
+        {
+            try
+            {
+                UserMethod methods = new UserMethod(ConnectionApi.HttpClient);
+                methods.PreparedAuthenticationRecord();
+
+                await methods.Login(methods.Record.Email, methods.Record.PasswordHash, true);
+
+                MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
+                mainWindow.Show();
+            }
+            catch (Exception e)
+            {
+                MultiNotesLoginWindow loginWindow = new MultiNotesLoginWindow();
+                loginWindow.Show();
+            }
         }
     }
 }

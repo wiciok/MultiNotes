@@ -14,7 +14,7 @@ namespace MultiNotes.Core
     public class NoteMethod : INoteMethod
     {
         private static HttpClient _httpClient;
-        private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "notes.txt");
+        private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "notes.txt");
 
         public NoteMethod(HttpClient httpClient2)
         {
@@ -35,14 +35,16 @@ namespace MultiNotes.Core
             }
         }
 
-        public async void AddNoteToDatabase(Note note, string token)
+        public async Task AddNoteToDatabase(Note note, string token)
         {
             //zapis notatki do bazy danych        
             var response = await _httpClient.PostAsJsonAsync("api/note/" + token, note);
-            if (response.StatusCode != HttpStatusCode.Created)
             {
-                throw new HttpResponseException(response.StatusCode);
-                //unauthorized,Forbidden,InternalServerError
+                if (!(response.StatusCode.Equals(System.Net.HttpStatusCode.Created)) && !(response.StatusCode.Equals(System.Net.HttpStatusCode.OK)))
+                {
+                    throw new HttpResponseException(response.StatusCode);
+                    //unauthorized,Forbidden,InternalServerError
+                }
             }
         }
 
@@ -58,6 +60,11 @@ namespace MultiNotes.Core
             }
             else
             {
+                if(response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
+                {
+                    allNotes = new List<Note>();
+                }
+                else
                 throw new HttpResponseException(response.StatusCode);
                 //InternalServerError,Unauthorized
             }
@@ -126,8 +133,7 @@ namespace MultiNotes.Core
                 return listNotes.Where(a => a.OwnerId == userId).ToList();
             }
             else
-                return null;
-
+                return new List<Note>();
         }
 
         public Note GetNoteFromFile(string id, string userId)
@@ -179,6 +185,7 @@ namespace MultiNotes.Core
             if (!File.Exists(Path)) return;
             var json = File.ReadAllText(Path);
             var tmpList = json.Split('}').ToList();
+
             for (var i = 0; i < tmpList.Count; ++i)
             {
                 tmpList[i] += "}";
@@ -199,6 +206,15 @@ namespace MultiNotes.Core
                     var jsonNote = JsonConvert.SerializeObject(x);
                     File.AppendAllText(Path, json);
                 }
+            }
+        }
+
+        public void CleanLocalNotes()
+        {
+            if (File.Exists(Path))
+            {
+                File.Delete(Path);
+
             }
         }
     }

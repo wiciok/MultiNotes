@@ -59,10 +59,18 @@ namespace MultiNotes.Core
                 //Conflict- loginow,InternalServerError
             }
         }
-        public async Task Login(string email, string password)
+        public async Task Login(string email, string password, bool isPasswordHashed = false)
         {
             //logowanie do pliku
-            string[] lines = { email, Encryption.Sha256(password) };
+            string[] lines;
+            if (isPasswordHashed)
+            {
+                lines = new[] { email, password };
+            }
+            else
+            {
+                lines = new[] { email, Encryption.Sha256(password) };
+            }
             System.IO.File.WriteAllLines(FileAuthenticationRecord, lines);
             PreparedAuthenticationRecord();
 

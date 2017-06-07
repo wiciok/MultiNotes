@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MultiNotes.Core;
@@ -26,7 +27,7 @@ namespace MultiNotes.Windows.ViewModel
         private string _email;
         public string Email
         {
-            get => _email;
+            get { return _email; }
             set
             {
                 _email = value;
@@ -53,29 +54,23 @@ namespace MultiNotes.Windows.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
-        public void MakeLoginTask(string email, string password)
-        {
-            Login(email, password);
-        }
-
-        public async void Login(string email, string password)
+        public async void Login(string email, string password, bool isPasswordHashed = false)
         {
             var methods = new UserMethod(ConnectionApi.HttpClient);
 
             try
             {
-                await methods.Login(email, password);
+                await methods.Login(email, password, isPasswordHashed);
+
+                MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
+                mainWindow.Show();
+                _closeAction.Invoke();
             }
             catch (Exception e)
             {
                 //todo: tak nie moze zostac, tu musi byc sensowna obsluga wyjatkow roznych typow
-                MessageBox.Show("Wrong username or password");
-                return;
+                MessageBox.Show("Dupas");
             }
-
-            var mainWindow = new MultiNotesMainWindow();
-            mainWindow.Show();
-            _closeAction.Invoke();
         }
         public void Signup()
         {
