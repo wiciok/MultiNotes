@@ -3,35 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:MultiNotes.Windows.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
-        StateChanged="Window_StateChanged"
-        Title="MultiNotes" Height="658.925" Width="521.294" Closing="Window_Closing">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        Title="MultiNotes" Height="517.926" Width="521.294" Closing="Window_Closing">
+    
+    <Grid Margin="0,0,0,2">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <DockPanel Grid.Row="0" 
+                   Margin="3,3,3.2,3" 
+                   Grid.ColumnSpan="2">
 
-        <DockPanel Grid.Row="0" Margin="3,3,3.2,3" Grid.ColumnSpan="2">
-            <Button Command="{Binding RefreshNotesCmd}" DockPanel.Dock="Left" BorderThickness="0" Margin="5">
-                <Image Source="/Images/refresh.jpg" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
+            <Button Command="{Binding RefreshNotesCmd}" 
+                    DockPanel.Dock="Left" 
+                    BorderThickness="0" 
+                    Margin="5">
+                <Image Source="/Images/refresh.jpg" 
+                       Width="30" 
+                       RenderOptions.BitmapScalingMode="Fant"/>
             </Button>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                <Label FontWeight="Bold" Content="{Binding LoggedUser.EmailAddress}"></Label>
-                <Image Source="/Images/avatar.png" Width="30" RenderOptions.BitmapScalingMode="Fant"/>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        Margin="5">
+                <Label FontWeight="Bold" 
+                       Content="{Binding LoggedUser.EmailAddress}"/>
+                <Image Source="/Images/avatar.png" 
+                       Width="30" 
+                       RenderOptions.BitmapScalingMode="Fant"/>
             </StackPanel>
         </DockPanel>
 
-        <DockPanel Grid.Row="1" Margin="3,3,3.2,2.6" LastChildFill="True" Grid.ColumnSpan="2">
-            <Button Command="{Binding AddNoteCmd}" DockPanel.Dock="Bottom" Width="100" Margin="5">Add New Note</Button>
-            <TextBox Name="NoteTextBox" Text="{Binding Note}" DockPanel.Dock="Top" Margin="5" Height="60">
+        <DockPanel Grid.Row="1" 
+                   Margin="3,3,3.2,2.6" 
+                   LastChildFill="True" 
+                   Grid.ColumnSpan="2">
+            <Button Command="{Binding AddNoteCmd}" 
+                    DockPanel.Dock="Bottom" 
+                    Width="100" 
+                    Margin="5">
+                Add New Note
+            </Button>
+            
+            <TextBox Name="NoteTextBox" 
+                     Text="{Binding Note}" 
+                     DockPanel.Dock="Top" 
+                     Margin="5" 
+                     Height="60">
+                
                 <TextBox.Style>
-                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style TargetType="TextBox" 
+                           xmlns:sys="clr-namespace:System;assembly=mscorlib">
                         <Style.Resources>
                             <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
                                 <VisualBrush.Visual>
@@ -55,15 +81,36 @@
             </TextBox>
         </DockPanel>
 
-        <ListBox x:Name="NotesList" ItemsSource="{Binding Notes}" HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="3">
+        <ListBox x:Name="NotesList" 
+                 ItemsSource="{Binding Notes}" 
+                 HorizontalContentAlignment="Stretch" 
+                 Grid.Row="2" 
+                 Grid.Column="0" 
+                 Margin="3,3,3,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Grid.Row="2" BorderThickness="2" BorderBrush="PaleVioletRed" Margin="0,0,0,3">
                         <StackPanel Margin="6" Orientation="Vertical">
-                            <TextBlock VerticalAlignment="Center" Margin="3" Text="{Binding CreateTimestamp}"></TextBlock>
+                            <TextBlock 
+                                VerticalAlignment="Center" 
+                                Margin="3" 
+                                Text="{Binding CreateTimestamp}"/>
                             <Separator Margin="3"/>
-                            <TextBlock Margin="3" VerticalAlignment="Center" TextWrapping="Wrap" Width="360" Text="{Binding Content}"></TextBlock>
-                            <Button x:Name="delButton" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding Path=DataContext.DeleteNoteCmd, ElementName=NotesList}" CommandParameter="{Binding Id}">Delete</Button>
+                            <TextBlock 
+                                Margin="3" 
+                                VerticalAlignment="Center" 
+                                TextWrapping="Wrap" 
+                                Width="360" 
+                                Text="{Binding Content}"/>
+                            <Button 
+                                x:Name="delButton" 
+                                Margin="3" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Right" 
+                                Command="{Binding Path=DataContext.DeleteNoteCmd, ElementName=NotesList}" 
+                                CommandParameter="{Binding Id}">
+                                Delete
+                            </Button>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

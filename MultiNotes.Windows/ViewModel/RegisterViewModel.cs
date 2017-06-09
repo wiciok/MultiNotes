@@ -16,7 +16,6 @@ namespace MultiNotes.Windows.ViewModel
             SignUpCmd = new CommandHandler(SignUp);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
         private readonly Action _closeAction;
         public ICommand SignUpCmd { get; }
 
@@ -40,6 +39,8 @@ namespace MultiNotes.Windows.ViewModel
                 OnPropertyChanged(nameof(RepeatEmail));
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propName)
         {

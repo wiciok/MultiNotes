@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MultiNotes.Core;
@@ -11,15 +10,6 @@ namespace MultiNotes.Windows.ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        public LoginViewModel(Action closeAction)
-        {
-            LogInCmd = new CommandHandler(LogIn);
-            SignUpCmd = new CommandHandler(x => Signup());
-            _closeAction = closeAction;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private readonly Action _closeAction;
         public ICommand LogInCmd { get; }
         public ICommand SignUpCmd { get; }
@@ -27,7 +17,7 @@ namespace MultiNotes.Windows.ViewModel
         private string _email;
         public string Email
         {
-            get { return _email; }
+            get => _email;
             set
             {
                 _email = value;
@@ -35,7 +25,41 @@ namespace MultiNotes.Windows.ViewModel
             }
         }
 
-        //Metod zczytująca hasło jako parametr i tranformjąca je z Secure stringa na tekst
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public LoginViewModel(Action closeAction)
+        {
+            LogInCmd = new CommandHandler(LogIn);
+            SignUpCmd = new CommandHandler(x => Signup());
+            _closeAction = closeAction;
+        }
+
+        public async void Login(string email, string password, bool isPasswordHashed = false)
+        {
+            var methods = new UserMethod(ConnectionApi.HttpClient);
+
+            try
+            {
+                await methods.Login(email, password, isPasswordHashed);
+
+                var mainWindow = new MultiNotesMainWindow();
+                mainWindow.Show();
+                _closeAction.Invoke();
+            }
+            catch (Exception e)
+            {
+                //todo: tak nie moze zostac, tu musi byc sensowna obsluga wyjatkow roznych typow
+                MessageBox.Show("Login Exception");
+            }
+        }
+        public void Signup()
+        {
+            var registerWindow = new MultiNotesRegisterWindow();
+            registerWindow.Show();
+            _closeAction.Invoke();
+        }
+
+
         private void LogIn(object parameter)
         {
             string passwordInVm = null;
@@ -48,35 +72,9 @@ namespace MultiNotes.Windows.ViewModel
             Login(Email, passwordInVm);
         }
 
-
         protected virtual void OnPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
-
-        public async void Login(string email, string password, bool isPasswordHashed = false)
-        {
-            var methods = new UserMethod(ConnectionApi.HttpClient);
-
-            try
-            {
-                await methods.Login(email, password, isPasswordHashed);
-
-                MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
-                mainWindow.Show();
-                _closeAction.Invoke();
-            }
-            catch (Exception e)
-            {
-                //todo: tak nie moze zostac, tu musi byc sensowna obsluga wyjatkow roznych typow
-                MessageBox.Show("Dupas");
-            }
-        }
-        public void Signup()
-        {
-            var registerWindow = new MultiNotesRegisterWindow();
-            registerWindow.Show();
-            _closeAction.Invoke();
         }
     }
 }

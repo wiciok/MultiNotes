@@ -1,47 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using MultiNotes.Core;
 using MultiNotes.Model;
-using MultiNotes.Windows.Annotations;
 
 namespace MultiNotes.Windows.ViewModel
 {
-    //todo: po zmianie notatki trzeba wywolac update z noteapi!!!
-
-    public class SingleNoteWindowViewModel : INotifyPropertyChanged
+    public sealed class SingleNoteWindowViewModel : INotifyPropertyChanged
     {
+        private User _user;
+        private NoteApi _noteApi;
+        private readonly UserMethod _methods;
+        private string _token;
+        private readonly AuthenticationRecord _authenticationRecord;
+        public string DisplayedDate { get; }
+
         public ICommand EditNoteCmd { get; }
         public ICommand SaveNoteCmd { get; }
         public Note Note { get; set; }
-        public string DisplayedDate => Note.CreateTimestamp.ToShortDateString(); //todo: mozna to zmienic czy cos
-
         public Visibility IsSaveButtonVisible { get; private set; }
         public Visibility IsEditButtonVisible { get; private set; }
-
         public bool IsReadOnly { get; private set; }
 
-        private User user;
-        private NoteApi noteApi;
-        UserMethod methods;
-        private string token;
-        private readonly AuthenticationRecord _authenticationRecord;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public SingleNoteWindowViewModel(Action<object> closeAction, Note note)
+        public SingleNoteWindowViewModel(Note note)
         {
-            methods = new UserMethod(ConnectionApi.HttpClient);
-
-            methods.PreparedAuthenticationRecord();
-            _authenticationRecord = methods.Record;
+            _methods = new UserMethod(ConnectionApi.HttpClient);
+            _methods.PreparedAuthenticationRecord();
+            _authenticationRecord = _methods.Record;
 
             Note = note;
+            DisplayedDate = Note.CreateTimestamp.ToShortDateString();
+
             EditNoteCmd = new CommandHandler(EditNote);
             SaveNoteCmd = new CommandHandler(SaveNote);
             IsSaveButtonVisible = Visibility.Hidden;
@@ -51,10 +42,8 @@ namespace MultiNotes.Windows.ViewModel
             OnPropertyChanged(nameof(IsSaveButtonVisible));
             OnPropertyChanged(nameof(IsEditButtonVisible));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propName)
+        
+        private void OnPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
@@ -68,18 +57,19 @@ namespace MultiNotes.Windows.ViewModel
             OnPropertyChanged(nameof(IsSaveButtonVisible));
             OnPropertyChanged(nameof(IsReadOnly));
         }
+
         private async void SaveNote(object obj)
         {
             IsReadOnly = true;
             IsSaveButtonVisible = Visibility.Hidden;
             IsEditButtonVisible = Visibility.Visible;
 
-            AuthenticationToken authToken = new AuthenticationToken(ConnectionApi.HttpClient);
-            token = await authToken.PostAuthRecordAsync(_authenticationRecord);
-            user = await methods.GetUserInfo(token, _authenticationRecord.Email);
-            noteApi = new NoteApi(_authenticationRecord, user.Id);
+            var authToken = new AuthenticationToken(ConnectionApi.HttpClient);
+            _token = await authToken.PostAuthRecordAsync(_authenticationRecord);
+            _user = await _methods.GetUserInfo(_token, _authenticationRecord.Email);
+            _noteApi = new NoteApi(_authenticationRecord, _user.Id);
 
-            noteApi.UpdateNoteAsync(Note.Id, Note);
+            await _noteApi.UpdateNoteAsync(Note.Id, Note);
 
             OnPropertyChanged(nameof(IsSaveButtonVisible));
             OnPropertyChanged(nameof(IsSaveButtonVisible));

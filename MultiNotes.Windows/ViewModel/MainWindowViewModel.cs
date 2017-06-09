@@ -1,79 +1,34 @@
-﻿using MultiNotes.Core;
-using MultiNotes.Model;
-using MultiNotes.Windows.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+
+using MultiNotes.Core;
+using MultiNotes.Model;
+using MultiNotes.Windows.Services;
+using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public MainWindowViewModel(Action closeAction)
-        {
+        private readonly List<SingleNoteWindow> _singleNoteWindows;
+        private NoteApi _noteApi;
 
-            AddNoteCmd = new CommandHandler(NewNote);
-            DeleteNoteCmd = new CommandHandler(DelNote);
-            RefreshNotesCmd = new CommandHandler(RefNotes);
-
-            _closeAction = closeAction;
-            methods = new UserMethod(ConnectionApi.HttpClient);
-
-
-            methods.PreparedAuthenticationRecord();
-            _authenticationRecord = methods.Record;
-            Notes = new ObservableCollection<Model.Note>();
-            singleNoteWindows = new List<SingleNoteWindow>();
-            singleNotes = new List<Note>();
-            GetAllNotes(true);
-        }
-
-        private void ShowSingleNotes()
-        {
-            foreach(var note in Notes)
-            {
-                var window = new SingleNoteWindow(note);
-                window.Show();
-                singleNoteWindows.Add(window);
-            }
-        }
-
-        private void CloseSingleNotes()
-        {
-            foreach (var window in singleNoteWindows)
-            {
-                window.Close();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private readonly Action _closeAction;
-        private readonly AuthenticationRecord _authenticationRecord;
-        private string token;
         public User LoggedUser { get; private set; }
-        private NoteApi noteApi;
-
-        private List<Note> singleNotes;
-        private List<SingleNoteWindow> singleNoteWindows;
-
-        UserMethod methods;
         public ICommand AddNoteCmd { get; }
         public ICommand DeleteNoteCmd { get; }
         public ICommand RefreshNotesCmd { get; }
+        public ObservableCollection<Note> Notes { get; set; }
 
         private string _note;
         public string Note
         {
-            get
-            {
-                return _note;
-            }
+            get => _note;
             set
             {
                 _note = value;
@@ -81,96 +36,162 @@ namespace MultiNotes.Windows.ViewModel
             }
         }
 
-        public ObservableCollection<Note> Notes { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public async void GetAllNotes(bool showSingleNotes)
+        public MainWindowViewModel()
         {
-            getToken();
-            LoggedUser = await methods.GetUserInfo(token, _authenticationRecord.Email);
-            noteApi = new NoteApi(_authenticationRecord, LoggedUser.Id);
+            AddNoteCmd = new CommandHandler(AddNote);
+            DeleteNoteCmd = new CommandHandler(DeleteNote);
+            RefreshNotesCmd = new CommandHandler(RefreshNotes);
+            var methods = new UserMethod(ConnectionApi.HttpClient);
+            Notes = new ObservableCollection<Note>();
+            _singleNoteWindows = new List<SingleNoteWindow>();
+            var authenticationRecord = methods.Record;
+
+            methods.PreparedAuthenticationRecord();
+
+            #pragma warning disable 4014 //await warning disable - it's ok as it is now, don't change it!
+            async void PrepareNotes()
+            {
+                var authToken = new AuthenticationToken(ConnectionApi.HttpClient);
+                var token = await authToken.PostAuthRecordAsync(authenticationRecord);
+
+                LoggedUser = await methods.GetUserInfo(token, authenticationRecord.Email);
+                _noteApi = new NoteApi(authenticationRecord, LoggedUser.Id);
+                await GetAllNotes();
+                ShowAllNotes();
+            }    
+            PrepareNotes();
+            #pragma warning restore 4014
+        }
+
+        private void ShowAllNotes()
+        {
+            foreach (var note in Notes)
+            {
+                note.CreateTimestamp = note.CreateTimestamp.ToLocalTime();
+                note.LastChangeTimestamp = note.LastChangeTimestamp.ToLocalTime();
+
+                var windowPref = NotesDisplayPreferences.Get(note.Id);
+
+                SingleNoteWindow window;
+                if (windowPref != null)
+                {
+                    window = new SingleNoteWindow(note)
+                    {
+                        MainGrid = { Background = windowPref.WindowColor },
+                        Height = windowPref.WindowHeight,
+                        Width = windowPref.WindowWidth,
+                        Top = windowPref.WindowPositionY,
+                        Left = windowPref.WindowPositionX
+                    };
+                }
+                else
+                {
+                    window = new SingleNoteWindow(note);
+                }
+                
+                window.Show();
+                window.SetBottom();
+                _singleNoteWindows.Add(window);
+            }
+        }
+
+        private void CloseAllNotes()
+        {
+            foreach (var window in _singleNoteWindows)
+            {
+                var windowPref = new NoteWindowPreferences()
+                {
+                    WindowColor = window.MainGrid.Background,
+                    IsDisplayed = true,     //na razie, dopóki nie ma zaimplementowanego wl/wyl
+                    WindowHeight = window.ActualHeight,
+                    WindowWidth = window.ActualWidth,
+                    WindowPositionX = window.Left,
+                    WindowPositionY = window.Top
+                };
+
+                NotesDisplayPreferences.Add(window.Id, windowPref);
+                
+                window.Close();
+            }
+            NotesDisplayPreferences.SaveToDisc();
+        }
+
+        public async Task GetAllNotes()
+        {
             try
             {
-                IEnumerable<Note> tempNotes = await noteApi.GetAllNotesAsync();
-                IEnumerable<Note> tempSortedNotes = tempNotes.OrderByDescending<Note, DateTime>(o => o.CreateTimestamp).ToList();
+                var tempNotes = await _noteApi.GetAllNotesAsync();
+                tempNotes = tempNotes.OrderByDescending(o => o.CreateTimestamp).ToList();
 
                 Notes.Clear();
-                singleNotes.Clear();
-                foreach (var note in tempSortedNotes)
+
+                foreach (var note in tempNotes)
                 {
                     Notes.Add(note);
-                    singleNotes.Add(note);
                 }
-
-                foreach (var note in Notes)
-                {
-                    note.CreateTimestamp = note.CreateTimestamp.ToLocalTime();
-                    note.LastChangeTimestamp = note.LastChangeTimestamp.ToLocalTime();
-                    if(showSingleNotes == true)
-                    {
-                        var window = new SingleNoteWindow(note);
-                        window.Show();
-                        singleNoteWindows.Add(window);
-                    }
-                }              
             }
             catch (Exception e)
             {
                 MessageBox.Show("An error has occured." + e.Message);
-                return;
             }
-        }
-
-        private void NewNote(object parameter)
-        {
-            AddNote(Note);
-        }
-
-        private void RefNotes(object parameter)
-        {
-            GetAllNotes(false);
-            CloseSingleNotes();
-            ShowSingleNotes();
-        }
-
-        private async void DelNote(object parameter)
-        {
-            var id = parameter as string;
-            await noteApi.DeleteNoteByIdAsync(id);
-
-            var note = Notes.FirstOrDefault(s => s.Id == id);
-
-            if (note != null)
-            {
-                Notes.Remove(note);
-            }
-
-            //MessageBox.Show("Note deleted successfully. Refresh application.");
-        }
-
-        public async void AddNote(string note)
-        {
-            Note newNote = new Note();  
-            newNote.Id = await UniqueId.GetUniqueBsonId(ConnectionApi.HttpClient);
-            newNote.OwnerId = LoggedUser.Id;
-            newNote.Content = note;
-            newNote.CreateTimestamp = DateTime.Now;
-            newNote.LastChangeTimestamp = DateTime.Now;
-
-            await noteApi.AddNoteAsync(newNote);
-
-            Notes.Insert(0, newNote);
-            //MessageBox.Show("Note added successfully!");
-        }
-
-        private async void getToken()
-        {
-            AuthenticationToken authToken = new AuthenticationToken(ConnectionApi.HttpClient);
-            token = await authToken.PostAuthRecordAsync(_authenticationRecord);
         }
 
         protected virtual void OnPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
-    }      
+
+        private async void AddNote(object notUsed)
+        {
+            await AddNote(Note);
+        }
+
+        public async Task AddNote(string note)
+        {
+            var newNote = new Note
+            {
+                Id = await UniqueId.GetUniqueBsonId(ConnectionApi.HttpClient),
+                OwnerId = LoggedUser.Id,
+                Content = note,
+                CreateTimestamp = DateTime.UtcNow,
+                LastChangeTimestamp = DateTime.UtcNow
+            };
+
+            await _noteApi.AddNoteAsync(newNote);
+            Notes.Insert(0, newNote);
+
+            RefreshNotes(new object());
+        }
+
+        private async void RefreshNotes(object notUsed)
+        {
+            await RefreshNotes();
+        }
+
+        private async Task RefreshNotes()
+        {
+            await GetAllNotes();
+            CloseAllNotes();
+            ShowAllNotes();
+        }
+
+        private async void DeleteNote(object parameter)
+        {
+            await DeleteNote(parameter, 0);
+            await RefreshNotes();
+        }
+
+        private async Task DeleteNote(object parameter, int notUsed)
+        {
+            var id = parameter as string;
+            await _noteApi.DeleteNoteByIdAsync(id);
+
+            var note = Notes.FirstOrDefault(s => s.Id == id);
+
+            if (note != null)
+                Notes.Remove(note);
+        }
+    }
 }
