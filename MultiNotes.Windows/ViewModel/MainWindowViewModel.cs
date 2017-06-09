@@ -67,6 +67,8 @@ namespace MultiNotes.Windows.ViewModel
         public ICommand DeleteNoteCmd { get; }
         public ICommand RefreshNotesCmd { get; }
 
+        private static object lockObject = new object();
+        private static bool ok;
         private string _note;
         public string Note
         {
@@ -153,13 +155,21 @@ namespace MultiNotes.Windows.ViewModel
             newNote.Id = await UniqueId.GetUniqueBsonId(ConnectionApi.HttpClient);
             newNote.OwnerId = LoggedUser.Id;
             newNote.Content = note;
-            newNote.CreateTimestamp = DateTime.Now;
-            newNote.LastChangeTimestamp = DateTime.Now;
+            newNote.CreateTimestamp = DateTime.UtcNow;
+            newNote.LastChangeTimestamp = DateTime.UtcNow;
+            ok = false;
+            //lock (newNote)
+            //{
+            //}
+            if (ok == false)
+            {
+                await noteApi.AddNoteAsync(newNote);
+                ok = true;
+            }
 
-            await noteApi.AddNoteAsync(newNote);
 
             Notes.Insert(0, newNote);
-            //MessageBox.Show("Note added successfully!");
+           // MessageBox.Show("Note added successfully!");
         }
 
         private async void getToken()

@@ -24,12 +24,12 @@ namespace MultiNotes.Core
 
             if (await InternetConnection.IsInternetConnectionAvailable())
             {
-                
+
                 string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
                 await _noteMethod.AddNoteToDatabase(note, token);
                 IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
-                UpdateNoteDatabase(remoteNotes, localNotes, token);
+                await UpdateNoteDatabase(remoteNotes, localNotes, token);
             }
         }
 
@@ -63,7 +63,7 @@ namespace MultiNotes.Core
             return localNotes;
         }
 
-        private void UpdateNoteDatabase(IEnumerable<Note> remoteNotes, IEnumerable<Note> localNotes, string token)
+        private async Task UpdateNoteDatabase(IEnumerable<Note> remoteNotes, IEnumerable<Note> localNotes, string token)
         {
             foreach (var remoteNote in remoteNotes)
             {
@@ -77,17 +77,17 @@ namespace MultiNotes.Core
                     // Update notes that changed and the newer version is stored locally
                     if (remoteNote.Id == localNote.Id && localNote.LastChangeTimestamp > remoteNote.LastChangeTimestamp)
                     {
-                        _noteMethod.UpdateNoteByIdFromDatabase(token, localNote.Id, localNote);
+                        await _noteMethod.UpdateNoteByIdFromDatabase(token, localNote.Id, localNote);
                     }
                     // Update notes that exist only locally 
                     if (!ContainsNoteById(remoteNote.Id, localNotes))
                     {
-                        _noteMethod.AddNoteToDatabase(remoteNote, token);
+                        _noteMethod.AddNoteToFile(localNote);
                     }
                     // Update notes that exist only on server
                     if (!ContainsNoteById(localNote.Id, remoteNotes))
                     {
-                        _noteMethod.AddNoteToFile(localNote);
+                        await _noteMethod.AddNoteToDatabase(remoteNote, token);
                     }
                 }
             }
@@ -98,7 +98,7 @@ namespace MultiNotes.Core
         {
             foreach (var note in notes)
             {
-                if (note.Id == noteId)
+                if (note.Id.Equals(noteId))
                 {
                     return true;
                 }

@@ -10,7 +10,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="SingleNoteWindow" Width="250" Height="200"
+        Title="Note" Width="250" Height="200"
         MinHeight="100"
         Background="Transparent"
         ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
