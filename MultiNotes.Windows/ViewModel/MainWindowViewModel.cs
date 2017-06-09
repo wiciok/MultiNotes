@@ -40,6 +40,7 @@ namespace MultiNotes.Windows.ViewModel
             {
                 var window = new SingleNoteWindow(note);
                 window.Show();
+                window.SetBottom();
                 singleNoteWindows.Add(window);
             }
         }

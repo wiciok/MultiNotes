@@ -12,8 +12,10 @@
         Title="Note" Width="250" Height="200"
         MinHeight="100"
         Background="Transparent"
-        ResizeMode="CanResize" SizeToContent="WidthAndHeight"
-        MinWidth="150">
+        ResizeMode="CanResize" 
+        SizeToContent="WidthAndHeight"
+        MinWidth="150"
+        LocationChanged="SingleNoteWindow_OnLocationChanged">
     <Grid>
         <Border Margin="10" BorderBrush="Black" Background="Gray" BorderThickness="1" Opacity="1">
             <Border.Effect>
