@@ -15,10 +15,10 @@
         Background="Transparent"
         ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
         MinWidth="150">
-    <Window.Resources>
+    <!--<Window.Resources>
         <system:String x:Key="ValueDic" x:>Test</system:String>
         <Class:DictionaryForXAML x:Key="RootDic" KeyType="System:String" ValueType="???"/>
-    </Window.Resources>
+    </Window.Resources>-->
     <!--<Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -101,7 +101,7 @@
                         Width="25"
                         Height="25"
                         Background="Transparent"
-                        FontSize="10" Panel.ZIndex="1">
+                        FontSize="10">
 
                         <Image Source="..\Images\unlock.png" Margin="3"/>
                     </Button>
