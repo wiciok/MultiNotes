@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:MultiNotes.Windows.ViewModel"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         d:DataContext="{d:DesignInstance Type=viewModel:SingleNoteWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         AllowsTransparency="True"
@@ -15,21 +14,6 @@
         Background="Transparent"
         ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
         MinWidth="150">
-    <!--<Window.Resources>
-        <system:String x:Key="ValueDic" x:>Test</system:String>
-        <Class:DictionaryForXAML x:Key="RootDic" KeyType="System:String" ValueType="???"/>
-    </Window.Resources>-->
-    <!--<Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary 
-                    Source="../Resources/ColorsDictionary.xaml">
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>-->
-    
-    
     <Grid>
         <Border Margin="10" BorderBrush="Black" Background="Gray" BorderThickness="1" Opacity="1">
             <Border.Effect>
@@ -56,23 +40,21 @@
                     HorizontalAlignment="Right">
                     
                     <Menu VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Center" Background="Transparent">
-                        <MenuItem>
+                        <MenuItem  Name="ColorMenu">
                             <MenuItem.Header>
                                 <StackPanel>
                                     <Image Source="..\Images\settings.png" Width="15"/>
                                 </StackPanel>
                             </MenuItem.Header>
-                            <MenuItem Height="31" Margin="0,0,-47.8,0" Click="MenuItem_OnClick" Name="Blue">
-                                <MenuItem.Header>
-                                    <Rectangle Fill="CornflowerBlue" Height="25" Stroke="Black" Width="150"/>
-                                </MenuItem.Header>
-                            </MenuItem>
-                            
+                           
+                           <!-- sample menu element, real ones are created in code-behind -->
+                           <!-- 
                             <MenuItem Height="31" Margin="0,0,-47.8,0" Click="MenuItem_OnClick" Name="Red">
                                 <MenuItem.Header>
                                     <Rectangle Fill="IndianRed" Height="25" Stroke="Black" Width="150"/>
                                 </MenuItem.Header>
                             </MenuItem>
+                            -->
                         </MenuItem>
                     </Menu>
 

@@ -5,17 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
+//todo: najlepiej byłoby zmienić to na słownik i wczytywać go z pliku xaml
+
 namespace MultiNotes.Windows.Util
 {
     public static class NoteColors
     {
-        public static Dictionary<string, System.Windows.Media.SolidColorBrush> colorsDictionary;
+        public static List<SolidColorBrush> ColorList;
 
         static NoteColors()
         {
-            colorsDictionary = new Dictionary<string, SolidColorBrush>(10);
-            colorsDictionary.Add("Red", Brushes.IndianRed);
-            colorsDictionary.Add("Blue", Brushes.CornflowerBlue);
+            ColorList = new List<SolidColorBrush>
+            {
+                Brushes.PaleVioletRed,
+                Brushes.LightSteelBlue,
+                Brushes.Cornsilk, 
+                Brushes.RosyBrown,
+                Brushes.LightSalmon,
+                Brushes.Azure,
+                Brushes.LightPink,
+                Brushes.LightGreen,
+                Brushes.LightGoldenrodYellow,
+                Brushes.HotPink
+            };
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Shapes;
 using MultiNotes.Model;
 using MultiNotes.Windows.Util;
 using MultiNotes.Windows.ViewModel;
@@ -24,6 +24,26 @@ namespace MultiNotes.Windows.View
 
             // Automatically resize height relative to content
             SizeToContent = SizeToContent.Height;
+
+            //dynamically create color menu elements
+            foreach (var el in NoteColors.ColorList)
+            {
+                var menuItemTmp = new MenuItem()
+                {
+                    Height = 31,
+                    Margin = new Thickness(0, 0, -47.8, 0),
+                    Header = new Rectangle()
+                    {
+                        Fill = el,
+                        Height = 25,
+                        Width = 150,
+                        Stroke = System.Windows.Media.Brushes.Black
+                    }
+                };
+                menuItemTmp.Click += MenuItem_OnClick;
+
+                ColorMenu.Items.Add(menuItemTmp);
+            }
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -38,9 +58,12 @@ namespace MultiNotes.Windows.View
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var menuItem = sender as MenuItem;
-            if(menuItem!=null && NoteColors.colorsDictionary[menuItem.Name]!=null)
-                this.MainGrid.Background = NoteColors.colorsDictionary[menuItem.Name];
+            if (sender is MenuItem menuItem)
+            {
+                var rectangle = menuItem.Header as Rectangle;
+                if (rectangle != null)
+                    MainGrid.Background = rectangle.Fill;
+            }
         }
     }
 }
