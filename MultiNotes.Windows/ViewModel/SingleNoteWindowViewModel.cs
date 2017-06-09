@@ -13,7 +13,7 @@ namespace MultiNotes.Windows.ViewModel
         private readonly UserMethod _methods;
         private string _token;
         private readonly AuthenticationRecord _authenticationRecord;
-        public string DisplayedDate;
+        public string DisplayedDate { get; }
 
         public ICommand EditNoteCmd { get; }
         public ICommand SaveNoteCmd { get; }
