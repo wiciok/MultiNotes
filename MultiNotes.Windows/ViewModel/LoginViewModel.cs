@@ -69,7 +69,7 @@ namespace MultiNotes.Windows.ViewModel
             catch (Exception e)
             {
                 //todo: tak nie moze zostac, tu musi byc sensowna obsluga wyjatkow roznych typow
-                MessageBox.Show("Dupas");
+                MessageBox.Show("Login Exception");
             }
         }
         public void Signup()

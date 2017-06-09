@@ -1,6 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using MultiNotes.Model;
+using MultiNotes.Windows.Util;
 using MultiNotes.Windows.ViewModel;
 
 namespace MultiNotes.Windows.View
@@ -31,6 +34,13 @@ namespace MultiNotes.Windows.View
         private void closeBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            if(menuItem!=null && NoteColors.colorsDictionary[menuItem.Name]!=null)
+                this.MainGrid.Background = NoteColors.colorsDictionary[menuItem.Name];
         }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\PasswordService.cs" />
     <Compile Include="Util\MinimizeToTray.cs" />
+    <Compile Include="Util\NoteColors.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
@@ -121,6 +122,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\ColorsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MultiNotesLoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +166,9 @@
     <Resource Include="Images\close.png" />
     <Resource Include="Images\lock.png" />
     <Resource Include="Images\unlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

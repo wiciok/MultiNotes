@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:MultiNotes.Windows.ViewModel"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         d:DataContext="{d:DesignInstance Type=viewModel:SingleNoteWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         AllowsTransparency="True"
@@ -14,75 +15,110 @@
         Background="Transparent"
         ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
         MinWidth="150">
+    <Window.Resources>
+        <system:String x:Key="ValueDic" x:>Test</system:String>
+        <Class:DictionaryForXAML x:Key="RootDic" KeyType="System:String" ValueType="???"/>
+    </Window.Resources>
+    <!--<Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="../Resources/ColorsDictionary.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>-->
+    
+    
     <Grid>
         <Border Margin="10" BorderBrush="Black" Background="Gray" BorderThickness="1" Opacity="1">
             <Border.Effect>
                 <DropShadowEffect Opacity="0.2" />
             </Border.Effect>
         </Border>
-        <Grid Margin="10" Background="Cornsilk">
+        <Grid Margin="10" Background="Cornsilk" Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <DockPanel Margin="0,0,0,0" Grid.Row="0" Grid.RowSpan="2">
+            <DockPanel Margin="0,0,0,0" Grid.Row="0">
                 <Label
                     DockPanel.Dock="Left"
                     Margin="0,0,0,0"
                     VerticalAlignment="Center"
                     Content="{Binding DisplayedDate}"
                     FontSize="10" />
-
-                <Button
+                <WrapPanel
                     DockPanel.Dock="Right"
-                    Name="CloseBtn"
-                    Click="closeBtn_Click"
-                    HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Background="Transparent"
-                    Width="25"
-                    Height="25"
-                    Margin="0,0,0,0">
+                    HorizontalAlignment="Right">
+                    
+                    <Menu VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Center" Background="Transparent">
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image Source="..\Images\settings.png" Width="15"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                            <MenuItem Height="31" Margin="0,0,-47.8,0" Click="MenuItem_OnClick" Name="Blue">
+                                <MenuItem.Header>
+                                    <Rectangle Fill="CornflowerBlue" Height="25" Stroke="Black" Width="150"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            
+                            <MenuItem Height="31" Margin="0,0,-47.8,0" Click="MenuItem_OnClick" Name="Red">
+                                <MenuItem.Header>
+                                    <Rectangle Fill="IndianRed" Height="25" Stroke="Black" Width="150"/>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
 
-                    <Image Source="..\Images\close.png" Margin="3"/>
-                </Button>
+                    <Button
+                        Visibility="{Binding IsEditButtonVisible}"
+                        Margin="0,0,0,0"
+                        Name="EditBtn"
+                        Command="{Binding EditNoteCmd}"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Width="25"
+                        Height="25"
+                        FontSize="10">
 
-                <Button
-                    DockPanel.Dock="Right"
-                    Visibility="{Binding IsEditButtonVisible}"
-                    Margin="0,0,0,0"
-                    Name="EditBtn"
-                    Command="{Binding EditNoteCmd}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Width="25"
-                    Height="25"
-                    FontSize="10">
+                        <Image Source="..\Images\lock.png" Margin="3"/>
+                    </Button>
 
-                    <Image Source="..\Images\lock.png" Margin="3"/>
-                </Button>
+                    <Button
+                        Visibility="{Binding IsSaveButtonVisible}"
+                        Margin="0,0,0,0"
+                        Name="SaveBtn"
+                        Command="{Binding SaveNoteCmd}"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Width="25"
+                        Height="25"
+                        Background="Transparent"
+                        FontSize="10" Panel.ZIndex="1">
 
-                <Button
-                    DockPanel.Dock="Right"
-                    Visibility="{Binding IsSaveButtonVisible}"
-                    Margin="0,0,0,0"
-                    Name="SaveBtn"
-                    Command="{Binding SaveNoteCmd}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Width="25"
-                    Height="25"
-                    Background="Transparent"
-                    FontSize="10" Panel.ZIndex="1">
+                        <Image Source="..\Images\unlock.png" Margin="3"/>
+                    </Button>
 
-                    <Image Source="..\Images\unlock.png" Margin="3"/>
-                </Button>
+                    <Button
+                        Name="CloseBtn"
+                        Click="closeBtn_Click"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Width="25"
+                        Height="25"
+                        Margin="0,0,0,0">
+
+                        <Image Source="..\Images\close.png" Margin="3"/>
+                    </Button>
+                </WrapPanel>
             </DockPanel>
 
             <Separator Margin="0,0,0,2" Grid.Row="1" />
@@ -99,6 +135,8 @@
                 Background="Transparent"
                 VerticalScrollBarVisibility="Auto"
                 AcceptsReturn="True" />
+
         </Grid>
+        <StackPanel HorizontalAlignment="Left" Height="100" Margin="356,29,-206.4,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
