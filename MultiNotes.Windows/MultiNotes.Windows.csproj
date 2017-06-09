@@ -104,6 +104,7 @@
     <Compile Include="Services\PasswordService.cs" />
     <Compile Include="Util\MinimizeToTray.cs" />
     <Compile Include="Util\NoteColors.cs" />
+    <Compile Include="Util\ShowDesktop.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />

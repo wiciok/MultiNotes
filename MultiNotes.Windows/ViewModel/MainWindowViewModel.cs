@@ -1,7 +1,4 @@
-﻿using MultiNotes.Core;
-using MultiNotes.Model;
-using MultiNotes.Windows.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,17 +6,20 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
+using MultiNotes.Core;
+using MultiNotes.Model;
+using MultiNotes.Windows.View;
+
+
 namespace MultiNotes.Windows.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly AuthenticationRecord _authenticationRecord;
         private readonly UserMethod _methods;
-        private readonly List<Note> _singleNotes;
         private readonly List<SingleNoteWindow> _singleNoteWindows;
         private string _token;
         private NoteApi _noteApi;
-        private static bool _ok;
 
         public User LoggedUser { get; private set; }
         public ICommand AddNoteCmd { get; }
@@ -45,14 +45,13 @@ namespace MultiNotes.Windows.ViewModel
         {
             AddNoteCmd = new CommandHandler(NewNote);
             DeleteNoteCmd = new CommandHandler(DelNote);
-            RefreshNotesCmd = new CommandHandler(RefNotes);
+            RefreshNotesCmd = new CommandHandler(RefreshNotes);
             _methods = new UserMethod(ConnectionApi.HttpClient);
-            _methods.PreparedAuthenticationRecord();
-            _authenticationRecord = _methods.Record;
             Notes = new ObservableCollection<Note>();
             _singleNoteWindows = new List<SingleNoteWindow>();
-            _singleNotes = new List<Note>();
+            _authenticationRecord = _methods.Record;
 
+            _methods.PreparedAuthenticationRecord();
             GetAllNotes(true);
         }
 
@@ -86,15 +85,9 @@ namespace MultiNotes.Windows.ViewModel
                 LastChangeTimestamp = DateTime.UtcNow
             };
 
-            _ok = false;
-
-            if (_ok == false)
-            {
-                await _noteApi.AddNoteAsync(newNote);
-                _ok = true;
-            }
-
+            await _noteApi.AddNoteAsync(newNote);
             Notes.Insert(0, newNote);
+
             // MessageBox.Show("Note added successfully!");
         }
 
@@ -110,12 +103,10 @@ namespace MultiNotes.Windows.ViewModel
                 var tempSortedNotes = tempNotes.OrderByDescending(o => o.CreateTimestamp).ToList();
 
                 Notes.Clear();
-                _singleNotes.Clear();
 
                 foreach (var note in tempSortedNotes)
                 {
                     Notes.Add(note);
-                    _singleNotes.Add(note);
                 }
 
                 foreach (var note in Notes)
@@ -146,7 +137,7 @@ namespace MultiNotes.Windows.ViewModel
             AddNote(Note);
         }
 
-        private void RefNotes(object parameter)
+        private void RefreshNotes(object notUsed)
         {
             GetAllNotes(false);
             CloseSingleNotes();
