@@ -17,12 +17,14 @@ namespace MultiNotes.Windows.View
     /// </summary>
     public partial class SingleNoteWindow
     {
+        public string Id;
         //private ShowDesktop showDesktop;
         public SingleNoteWindow(Note note)
         {
             InitializeComponent();
             DataContext = new SingleNoteWindowViewModel(note);
             this.ShowInTaskbar = false;
+            this.Id = note.Id;
 
             // Manually alter window height and width
             SizeToContent = SizeToContent.Manual;
@@ -67,6 +69,7 @@ namespace MultiNotes.Windows.View
                 if (rectangle != null)
                     MainGrid.Background = rectangle.Fill;
             }
+
         }
 
         //--------------------------custom grip code-------------------------------

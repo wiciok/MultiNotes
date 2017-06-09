@@ -9,6 +9,7 @@ using System.Windows.Input;
 
 using MultiNotes.Core;
 using MultiNotes.Model;
+using MultiNotes.Windows.Services;
 using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
@@ -71,7 +72,25 @@ namespace MultiNotes.Windows.ViewModel
                 note.CreateTimestamp = note.CreateTimestamp.ToLocalTime();
                 note.LastChangeTimestamp = note.LastChangeTimestamp.ToLocalTime();
 
-                var window = new SingleNoteWindow(note);
+                var windowPref = NotesDisplayPreferences.Get(note.Id);
+
+                SingleNoteWindow window;
+                if (windowPref != null)
+                {
+                    window = new SingleNoteWindow(note)
+                    {
+                        MainGrid = { Background = windowPref.WindowColor },
+                        Height = windowPref.WindowHeight,
+                        Width = windowPref.WindowWidth,
+                        Top = windowPref.WindowPositionY,
+                        Left = windowPref.WindowPositionX
+                    };
+                }
+                else
+                {
+                    window = new SingleNoteWindow(note);
+                }
+                
                 window.Show();
                 window.SetBottom();
                 _singleNoteWindows.Add(window);
@@ -82,8 +101,21 @@ namespace MultiNotes.Windows.ViewModel
         {
             foreach (var window in _singleNoteWindows)
             {
+                var windowPref = new NoteWindowPreferences()
+                {
+                    WindowColor = window.MainGrid.Background,
+                    IsDisplayed = true,     //na razie, dopóki nie ma zaimplementowanego wl/wyl
+                    WindowHeight = window.ActualHeight,
+                    WindowWidth = window.ActualWidth,
+                    WindowPositionX = window.Left,
+                    WindowPositionY = window.Top
+                };
+
+                NotesDisplayPreferences.Add(window.Id, windowPref);
+                
                 window.Close();
             }
+            NotesDisplayPreferences.SaveToDisc();
         }
 
         public async Task GetAllNotes()

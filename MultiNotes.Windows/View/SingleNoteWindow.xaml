@@ -15,7 +15,8 @@
         ResizeMode="CanResize" 
         SizeToContent="WidthAndHeight"
         MinWidth="150"
-        LocationChanged="SingleNoteWindow_OnLocationChanged">
+        LocationChanged="SingleNoteWindow_OnLocationChanged"
+        WindowStartupLocation="Manual">
     <Grid>
         <Border Margin="10" BorderBrush="Black" Background="Gray" BorderThickness="1" Opacity="1">
             <Border.Effect>

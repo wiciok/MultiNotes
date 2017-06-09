@@ -101,6 +101,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\NotesDisplayPreferences.cs" />
     <Compile Include="Services\PasswordService.cs" />
     <Compile Include="Util\MinimizeToTray.cs" />
     <Compile Include="Util\NoteColors.cs" />
