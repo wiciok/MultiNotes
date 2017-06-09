@@ -22,7 +22,7 @@ namespace MultiNotes.Windows.View
         public SingleNoteWindow(Note note)
         {
             InitializeComponent();
-            DataContext = new SingleNoteWindowViewModel(x => Close(), note);
+            DataContext = new SingleNoteWindowViewModel(note);
             this.ShowInTaskbar = false;
 
             // Manually alter window height and width
@@ -115,8 +115,8 @@ namespace MultiNotes.Windows.View
 
         private void SingleNoteWindow_OnLocationChanged(object sender, EventArgs e)
         {
-            //todo: przywrocic to
-            //SetBottom();
+            //gryzie sie z tym calym showdesktop
+            SetBottom();
         }
 
         //currently not used

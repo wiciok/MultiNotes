@@ -1,72 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using MouseEventHandler = System.Windows.Input.MouseEventHandler;
 
 namespace MultiNotes.Windows.Util
 {
-    /// <summary>
-    /// Class implementing support for "minimize to tray" functionality.
-    /// </summary>
     public static class MinimizeToTray
     {
-        /// <summary>
-        /// Enables "minimize to tray" behavior for the specified Window.
-        /// </summary>
-        /// <param name="window">Window to enable the behavior for.</param>
         public static void Enable(Window window)
         {
-            // No need to track this instance; its event handlers will keep it alive
             new MinimizeToTrayInstance(window);
         }
 
-        /// <summary>
-        /// Class implementing "minimize to tray" functionality for a Window instance.
-        /// </summary>
         private class MinimizeToTrayInstance
         {
-            private Window _window;
+            private readonly Window _window;
             private NotifyIcon _notifyIcon;
             private bool _balloonShown;
 
-            /// <summary>
-            /// Initializes a new instance of the MinimizeToTrayInstance class.
-            /// </summary>
-            /// <param name="window">Window instance to attach to.</param>
             public MinimizeToTrayInstance(Window window)
             {
                 Debug.Assert(window != null, "window parameter is null.");
                 _window = window;
-                _window.StateChanged += new EventHandler(HandleStateChanged);
+                _window.StateChanged += HandleStateChanged;
             }
 
-            /// <summary>
-            /// Handles the Window's StateChanged event.
-            /// </summary>
-            /// <param name="sender">Event source.</param>
-            /// <param name="e">Event arguments.</param>
             private void HandleStateChanged(object sender, EventArgs e)
             {
                 if (_notifyIcon == null)
                 {
                     // Initialize NotifyIcon instance "on demand"
-                    _notifyIcon = new NotifyIcon();
-                    _notifyIcon.Icon = Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location);
-                    _notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(HandleNotifyIconOrBalloonClicked);
-                    _notifyIcon.BalloonTipClicked += new EventHandler(HandleNotifyIconOrBalloonClicked);
+                    _notifyIcon = new NotifyIcon
+                    {
+                        Icon = Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location)
+                    };
+                    _notifyIcon.MouseClick += HandleNotifyIconOrBalloonClicked;
+                    _notifyIcon.BalloonTipClicked += HandleNotifyIconOrBalloonClicked;
                 }
                 // Update copy of Window Title in case it has changed
                 _notifyIcon.Text = _window.Title;
 
                 // Show/hide Window and NotifyIcon
-                var minimized = (_window.WindowState == WindowState.Minimized);
+                var minimized = _window.WindowState == WindowState.Minimized;
                 _window.ShowInTaskbar = !minimized;
                 _notifyIcon.Visible = minimized;
                 if (minimized && !_balloonShown)
@@ -77,11 +54,6 @@ namespace MultiNotes.Windows.Util
                 }
             }
 
-            /// <summary>
-            /// Handles a click on the notify icon or its balloon.
-            /// </summary>
-            /// <param name="sender">Event source.</param>
-            /// <param name="e">Event arguments.</param>
             private void HandleNotifyIconOrBalloonClicked(object sender, EventArgs e)
             {
                 // Restore the Window

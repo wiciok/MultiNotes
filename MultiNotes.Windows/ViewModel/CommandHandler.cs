@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Input;
-using System.Security;
-using System.Runtime.InteropServices;
 
 namespace MultiNotes.Windows.ViewModel
 {
@@ -27,8 +24,8 @@ namespace MultiNotes.Windows.ViewModel
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public void Execute(object parameter)

@@ -1,8 +1,6 @@
 ﻿using MultiNotes.Core;
 using MultiNotes.Windows.ViewModel;
-using System;
 using System.Windows;
-using System.Windows.Media;
 using MultiNotes.Windows.Util;
 
 namespace MultiNotes.Windows.View
@@ -16,7 +14,7 @@ namespace MultiNotes.Windows.View
         {
             InitializeComponent();
             ConnectionApi.Configure();
-            var vm = new MainWindowViewModel(Close);
+            var vm = new MainWindowViewModel();
             DataContext = vm;
 
             MinimizeToTray.Enable(this);
@@ -24,24 +22,15 @@ namespace MultiNotes.Windows.View
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            /*if(WindowState == WindowState.Minimized)
-            {
-                SingleNoteWindow note = new SingleNoteWindow();
-                note.Show();
-            }*/
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            string sMessageBoxText = "Are you sure you want to close MultiNotes?";
-            string sCaption = "Close";
+            const string sMessageBoxText = "Are you sure you want to close MultiNotes?";
+            const string sCaption = "Close";
 
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Question;
+            const MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+            const MessageBoxImage icnMessageBox = MessageBoxImage.Question;
 
-            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+            var rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
 
             switch (rsltMessageBox)
             {
