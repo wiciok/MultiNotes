@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MultiNotes.Model;
 using MultiNotes.Core.Util;
@@ -17,6 +18,7 @@ namespace MultiNotes.Core
             _userId = userId;
             _noteMethod = new NoteMethod(ConnectionApi.HttpClient);
         }
+
         public async Task AddNoteAsync(Note note)
         {
             _noteMethod.AddNoteToFile(note);
@@ -24,10 +26,9 @@ namespace MultiNotes.Core
 
             if (await InternetConnection.IsInternetConnectionAvailable())
             {
-
-                string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
+                var token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
                 await _noteMethod.AddNoteToDatabase(note, token);
-                IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
+                var remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
                 await UpdateNoteDatabase(remoteNotes, localNotes, token);
             }
@@ -37,13 +38,12 @@ namespace MultiNotes.Core
         {
             IEnumerable<Note> localNotes = _noteMethod.GetAllNotesFromFile(_userId);
 
-            if (await InternetConnection.IsInternetConnectionAvailable())
-            {
-                string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
-                IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
+            if (!await InternetConnection.IsInternetConnectionAvailable())
+                return _noteMethod.GetNoteFromFile(id, _userId);
+            var token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
+            var remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
-                UpdateNoteDatabase(remoteNotes, localNotes, token);
-            }
+            await UpdateNoteDatabase(remoteNotes, localNotes, token);
             return _noteMethod.GetNoteFromFile(id, _userId);
         }
 
@@ -51,16 +51,14 @@ namespace MultiNotes.Core
         {
             IEnumerable<Note> localNotes = _noteMethod.GetAllNotesFromFile(_userId);
 
-            if (await InternetConnection.IsInternetConnectionAvailable())
-            {
-                string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
-                IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
+            if (!await InternetConnection.IsInternetConnectionAvailable())
+                return localNotes;
+            var token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
+            var remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
-                UpdateNoteDatabase(remoteNotes, localNotes, token);
+            await UpdateNoteDatabase(remoteNotes, localNotes, token);
 
-                return remoteNotes;
-            }
-            return localNotes;
+            return remoteNotes;
         }
 
         private async Task UpdateNoteDatabase(IEnumerable<Note> remoteNotes, IEnumerable<Note> localNotes, string token)
@@ -94,16 +92,9 @@ namespace MultiNotes.Core
             //_noteMethod.CleanLocalNotes();
         }
 
-        private bool ContainsNoteById(string noteId, IEnumerable<Note> notes)
+        private static bool ContainsNoteById(string noteId, IEnumerable<Note> notes)
         {
-            foreach (var note in notes)
-            {
-                if (note.Id.Equals(noteId))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return notes.Any(note => note.Id.Equals(noteId));
         }
 
         public async Task DeleteNoteByIdAsync(string id)
@@ -113,12 +104,11 @@ namespace MultiNotes.Core
 
             if (await InternetConnection.IsInternetConnectionAvailable())
             {
-                string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
-                IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
+                var token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
                 await _noteMethod.DeleteNoteByIdFromDatabase(token, id);
-                remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
+                var remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
-                UpdateNoteDatabase(remoteNotes, localNotes, token);
+                await UpdateNoteDatabase(remoteNotes, localNotes, token);
             }
         }
 
@@ -130,10 +120,10 @@ namespace MultiNotes.Core
 
             if (await InternetConnection.IsInternetConnectionAvailable())
             {
-                string token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
-                IEnumerable<Note> remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
+                var token = await new AuthenticationToken(ConnectionApi.HttpClient).PostAuthRecordAsync(_authenticationRecord);
+                var remoteNotes = await _noteMethod.GetAllNotesFromDatabase(token);
 
-                UpdateNoteDatabase(remoteNotes, localNotes, token);
+                await UpdateNoteDatabase(remoteNotes, localNotes, token);
             }
         }
     }

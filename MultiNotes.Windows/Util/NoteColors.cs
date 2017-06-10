@@ -26,7 +26,8 @@ namespace MultiNotes.Windows.Util
                 Brushes.LightPink,
                 Brushes.LightGreen,
                 Brushes.LightGoldenrodYellow,
-                Brushes.HotPink
+                Brushes.HotPink,
+                new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF8C1A"))
             };
         }
     }
