@@ -50,7 +50,7 @@ namespace MultiNotes.XAndroid
 
         private void SignInButtonOnClick(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(() =>
+            Thread signInThread = new Thread(new ThreadStart(() =>
             {
                 XUserMethod methods = new XUserMethod();
                 ProgressDialog progress = null;
@@ -99,8 +99,8 @@ namespace MultiNotes.XAndroid
                             .Create().Show();
                     }
                 });
-            })).Start();
-            
+            }));
+            signInThread.Start();
         }
 
 
