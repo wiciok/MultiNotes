@@ -28,6 +28,8 @@ namespace MultiNotes.XAndroid.Core.Api
             request.ContentType = "application/json";
             request.Method = "GET";
 
+            request.Timeout = 5000;
+
             try
             {
                 // Somehow this doesn't work
@@ -38,7 +40,8 @@ namespace MultiNotes.XAndroid.Core.Api
             }
             catch (WebException e)
             {
-                if (e.Status == WebExceptionStatus.ConnectFailure)
+                if (e.Status == WebExceptionStatus.ConnectFailure
+                    || e.Status == WebExceptionStatus.Timeout)
                 {
                     throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                 }

@@ -55,22 +55,27 @@ namespace MultiNotes.XAndroid.Core.Api
                 RegistrationTimestamp = DateTime.Now
             };
 
-            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                string json = JsonConvert.SerializeObject(user);
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-
             try
             {
+                request.Timeout = 5000;
+                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(user);
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
                 HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
                 IsRegisterSuccessful = true;
                 RegisterMessage = new StreamReader(httpResponse.GetResponseStream()).ReadToEnd();
             }
             catch (WebException e)
             {
+                if (e.Status == WebExceptionStatus.ConnectFailure
+                    || e.Status == WebExceptionStatus.Timeout)
+                {
+                    throw new WebApiClientException(WebApiClientError.InternetConnectionError);
+                }
                 IsRegisterSuccessful = false;
                 RegisterMessage = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
             }

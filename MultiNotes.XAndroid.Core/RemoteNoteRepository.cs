@@ -44,6 +44,7 @@ namespace MultiNotes.XAndroid.Core
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token)));
             request.Method = "GET";
+            request.Timeout = 5000;
 
             try
             {
@@ -79,7 +80,8 @@ namespace MultiNotes.XAndroid.Core
             }
             catch (WebException e)
             {
-                if (e.Status == WebExceptionStatus.ConnectFailure)
+                if (e.Status == WebExceptionStatus.ConnectFailure
+                    || e.Status == WebExceptionStatus.Timeout)
                 {
                     throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                 }
@@ -119,22 +121,25 @@ namespace MultiNotes.XAndroid.Core
             request.ContentType = "application/json";
             request.Method = "POST";
 
-            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                string json = JsonConvert.SerializeObject(note);
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
+
+            request.Timeout = 5000;
 
             try
             {
+                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(note);
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
                 HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
                 Success = true;
             }
             catch (WebException e)
             {
-                if (e.Status == WebExceptionStatus.ConnectFailure)
+                if (e.Status == WebExceptionStatus.ConnectFailure
+                    || e.Status == WebExceptionStatus.Timeout)
                 {
                     throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                 }
@@ -158,17 +163,18 @@ namespace MultiNotes.XAndroid.Core
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest
                 .Create(new Uri(string.Format(apiUrl, token, note.Id)));
             request.Method = "DELETE";
+            request.Timeout = 5000;
 
-            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                string json = JsonConvert.SerializeObject(note);
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
 
             try
             {
+                using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(note);
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
                 HttpWebResponse httpResponse = (HttpWebResponse)request.GetResponse();
                 Success = true;
             }
@@ -184,7 +190,8 @@ namespace MultiNotes.XAndroid.Core
                 }
                 else
                 {
-                    if (e.Status == WebExceptionStatus.ConnectFailure)
+                    if (e.Status == WebExceptionStatus.ConnectFailure
+                        || e.Status == WebExceptionStatus.Timeout)
                     {
                         throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                     }

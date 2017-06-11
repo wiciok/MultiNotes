@@ -33,6 +33,8 @@ namespace MultiNotes.XAndroid.Core.Api
 
             try
             {
+                request.Timeout = 5000;
+
                 StreamWriter streamWriter = new StreamWriter(request.GetRequestStream());
                 string json = JsonConvert.SerializeObject(record);
                 streamWriter.Write(json);
@@ -49,7 +51,8 @@ namespace MultiNotes.XAndroid.Core.Api
             }
             catch (WebException e)
             {
-                if (e.Status == WebExceptionStatus.ConnectFailure)
+                if (e.Status == WebExceptionStatus.ConnectFailure
+                    || e.Status == WebExceptionStatus.Timeout)
                 {
                     throw new WebApiClientException(WebApiClientError.InternetConnectionError);
                 }
