@@ -9,11 +9,11 @@
     <color name="button_secondary_text">#000000</color>
 
     <color name="style_primary">#00A2E8</color>
-    <color name="style_primary_dark">#00A2E8</color>
+    <color name="style_primary_dark">#0091D7</color>
     <color name="style_accent">#FF0000</color>
 
     <color name="style_sign_in_primary">#82C0FF</color>
-    <color name="style_sign_in_primary_dark">#82C0FF</color>
+    <color name="style_sign_in_primary_dark">#71B0EE</color>
     <color name="style_sign_in_accent">#000000</color>
 
     <!-- Old color set, may be useful some day -->

@@ -57,18 +57,14 @@
             android:id="@+id/button_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_green"
             android:layout_below="@+id/edit_text_password"
             android:layout_marginBottom="@dimen/margin_small"
-            android:text="@string/button_sign_in"
-            android:textColor="@color/color_white" />
+            android:text="@string/button_sign_in" />
         <Button
             android:id="@+id/button_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_green"
             android:layout_below="@+id/button_sign_in"
-            android:text="@string/button_sign_up"
-            android:textColor="@color/color_white" />
+            android:text="@string/button_sign_up" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
