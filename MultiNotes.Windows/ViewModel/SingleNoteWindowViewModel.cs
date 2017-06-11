@@ -5,6 +5,7 @@ using System.Windows.Input;
 using MultiNotes.Core;
 using MultiNotes.Model;
 using MultiNotes.Windows.Services;
+using MultiNotes.Windows.Util;
 using MultiNotes.Windows.View;
 using Rectangle = System.Windows.Shapes.Rectangle;
 
@@ -52,6 +53,10 @@ namespace MultiNotes.Windows.ViewModel
 
             if (notePreferences != null)
             {
+                if (notePreferences.WindowColor == null)
+                {
+                    notePreferences.WindowColor = NoteColors.ColorList[0];
+                }
                 NoteWidth = notePreferences.WindowWidth;
                 NoteHeight = notePreferences.WindowHeight;
                 NotePositionX = notePreferences.WindowPositionX;
