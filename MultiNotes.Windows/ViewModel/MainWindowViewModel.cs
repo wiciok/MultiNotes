@@ -11,6 +11,7 @@ using System.Windows.Input;
 using MultiNotes.Core;
 using MultiNotes.Model;
 using MultiNotes.Windows.Services;
+using MultiNotes.Windows.Util;
 using MultiNotes.Windows.View;
 
 namespace MultiNotes.Windows.ViewModel
@@ -51,7 +52,7 @@ namespace MultiNotes.Windows.ViewModel
 
             methods.PreparedAuthenticationRecord();
 
-            #pragma warning disable 4014 //await warning disable - it's ok as it is now, don't change it!
+#pragma warning disable 4014 //await warning disable - it's ok as it is now, don't change it!
             async void PrepareNotes()
             {
                 var authToken = new AuthenticationToken(ConnectionApi.HttpClient);
@@ -61,9 +62,9 @@ namespace MultiNotes.Windows.ViewModel
                 _noteApi = new NoteApi(authenticationRecord, LoggedUser.Id);
                 await GetAllNotes();
                 ShowAllNotes();
-            }    
+            }
             PrepareNotes();
-            #pragma warning restore 4014
+#pragma warning restore 4014
         }
 
         private void ShowAllNotes()
@@ -76,25 +77,25 @@ namespace MultiNotes.Windows.ViewModel
                 var windowPref = NotesDisplayPreferences.Get(note.Id);
 
                 SingleNoteWindow window;
-                if (windowPref != null)
+                if (windowPref == null)
                 {
                     window = new SingleNoteWindow(note)
                     {
-                        MainGrid = { Background = windowPref.WindowColor },
-                        Height = windowPref.WindowHeight,
-                        Width = windowPref.WindowWidth,
-                        Top = windowPref.WindowPositionY,
-                        Left = windowPref.WindowPositionX
-                    };
+                        MainGrid = { Background = NoteColors.ColorList[0] }
+                    }; window.Show();
+                    window.SetBottom();
+                    _singleNoteWindows.Add(window);
                 }
-                else
+                else if (windowPref != null && windowPref.IsDisplayed == true)
                 {
-                    window = new SingleNoteWindow(note);
+                    window = new SingleNoteWindow(note)
+                    {
+                        MainGrid = { Background = windowPref.WindowColor }
+                    };
+                    window.Show();
+                    window.SetBottom();
+                    _singleNoteWindows.Add(window);
                 }
-                
-                window.Show();
-                window.SetBottom();
-                _singleNoteWindows.Add(window);
             }
         }
 
@@ -104,6 +105,7 @@ namespace MultiNotes.Windows.ViewModel
             {
                 window.Close();
             }
+            _singleNoteWindows.Clear();
         }
 
         public async Task GetAllNotes()

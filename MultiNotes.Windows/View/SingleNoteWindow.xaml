@@ -16,7 +16,7 @@
         Left="{Binding Path=NotePositionY, Mode=TwoWay}"
         MinHeight="100"
         Background="Transparent"
-        ResizeMode="CanResize" 
+        ResizeMode="CanResize"
         SizeToContent="WidthAndHeight"
         MinWidth="150"
         LocationChanged="SingleNoteWindow_OnLocationChanged"
@@ -55,7 +55,7 @@
                         <MenuItem  Name="ColorMenu">
                             <MenuItem.Header>
                                 <StackPanel>
-                                    <Image Source="..\Images\settings.png" Width="15"/>
+                                    <Image Source="..\Images\change-color.png" Width="15"/>
                                 </StackPanel>
                             </MenuItem.Header>
 
@@ -81,7 +81,7 @@
                             Width="25"
                             Height="25"
                             FontSize="10">
-                        
+
                         <Image Source="..\Images\lock.png" Margin="3"/>
                     </Button>
 
@@ -96,13 +96,14 @@
                             Height="25"
                             Background="Transparent"
                             FontSize="10">
-                        
+
                         <Image Source="..\Images\unlock.png" Margin="3"/>
                     </Button>
 
                     <Button
                         Name="CloseBtn"
-                        Click="closeBtn_Click"
+                        Command="{Binding CloseCmd}"
+                        CommandParameter="{Binding ElementName=NoteWindow}"
                         VerticalAlignment="Center"
                         BorderThickness="0"
                         Background="Transparent"
@@ -124,7 +125,7 @@
                 Grid.Row="2"
                 TextWrapping="Wrap"
                 BorderThickness="0"
-                Text="{Binding Note.Content}"
+                Text="{Binding Note.Content, UpdateSourceTrigger=PropertyChanged}"
                 FontSize="14"
                 Background="Transparent"
                 VerticalScrollBarVisibility="Auto"

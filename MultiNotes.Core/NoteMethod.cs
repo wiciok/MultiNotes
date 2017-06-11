@@ -199,7 +199,9 @@ namespace MultiNotes.Core
                 tmpList[i] += "}";
             }
             tmpList.RemoveAt(tmpList.Count - 1);
-            var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+            var tempNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
+            List<Note> listNotes = tempNotes.GroupBy(x => x.Id).Select(group => group.First()).ToList();
+
             var toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId == userId);
             if (toDelete == null)
             {

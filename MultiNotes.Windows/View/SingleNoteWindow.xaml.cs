@@ -30,7 +30,7 @@ namespace MultiNotes.Windows.View
             SizeToContent = SizeToContent.Manual;
 
             // Automatically resize height relative to content
-            SizeToContent = SizeToContent.Height;
+            //SizeToContent = SizeToContent.Height;
 
             SingleNoteWindowViewModel vm = this.DataContext as SingleNoteWindowViewModel;
             Closing += vm.OnWindowClosing;
@@ -57,11 +57,6 @@ namespace MultiNotes.Windows.View
 
             //currently not used
             //showDesktop.AddHook(this);
-        }
-
-        private void closeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
