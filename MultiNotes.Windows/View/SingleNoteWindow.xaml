@@ -9,7 +9,11 @@
         AllowsTransparency="True"
         WindowStyle="None"
         MouseLeftButtonDown="WindowDrag"
-        Title="Note" Width="250" Height="200"
+        Title="Note" 
+        Height="{Binding Path=NoteHeight, Mode=TwoWay}" 
+        Width="{Binding Path=NoteWidth, Mode=TwoWay}"
+        Top="{Binding Path=NotePositionX, Mode=TwoWay}"
+        Left="{Binding Path=NotePositionY, Mode=TwoWay}"
         MinHeight="100"
         Background="Transparent"
         ResizeMode="CanResize" 
@@ -46,7 +50,8 @@
                     <Menu VerticalAlignment="Center" 
                           Width="Auto" 
                           HorizontalAlignment="Center" 
-                          Background="Transparent">
+                          Background="Transparent"
+                          Margin="-80,0,0,0">
                         <MenuItem  Name="ColorMenu">
                             <MenuItem.Header>
                                 <StackPanel>
@@ -66,32 +71,32 @@
                     </Menu>
 
                     <Button
-                        Visibility="{Binding IsEditButtonVisible}"
-                        Margin="0,0,0,0"
-                        Name="EditBtn"
-                        Command="{Binding EditNoteCmd}"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Width="25"
-                        Height="25"
-                        FontSize="10">
-
+                            Visibility="{Binding IsEditButtonVisible}"
+                            Margin="-25,0,0,0"
+                            Name="EditBtn"
+                            Command="{Binding EditNoteCmd}"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Width="25"
+                            Height="25"
+                            FontSize="10">
+                        
                         <Image Source="..\Images\lock.png" Margin="3"/>
                     </Button>
 
                     <Button
-                        Visibility="{Binding IsSaveButtonVisible}"
-                        Margin="0,0,0,0"
-                        Name="SaveBtn"
-                        Command="{Binding SaveNoteCmd}"
-                        VerticalAlignment="Center"
-                        BorderThickness="0"
-                        Width="25"
-                        Height="25"
-                        Background="Transparent"
-                        FontSize="10">
-
+                            Visibility="{Binding IsSaveButtonVisible}"
+                            Margin="-25,0,0,0"
+                            Name="SaveBtn"
+                            Command="{Binding SaveNoteCmd}"
+                            VerticalAlignment="Center"
+                            BorderThickness="0"
+                            Width="25"
+                            Height="25"
+                            Background="Transparent"
+                            FontSize="10">
+                        
                         <Image Source="..\Images\unlock.png" Margin="3"/>
                     </Button>
 

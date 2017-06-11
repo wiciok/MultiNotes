@@ -32,6 +32,9 @@ namespace MultiNotes.Windows.View
             // Automatically resize height relative to content
             SizeToContent = SizeToContent.Height;
 
+            SingleNoteWindowViewModel vm = this.DataContext as SingleNoteWindowViewModel;
+            Closing += vm.OnWindowClosing;
+
             //dynamically create color menu elements
             foreach (var el in NoteColors.ColorList)
             {
@@ -69,7 +72,10 @@ namespace MultiNotes.Windows.View
                 if (rectangle != null)
                     MainGrid.Background = rectangle.Fill;
             }
-
+            // Used to update a color in viewmodel
+            SingleNoteWindowViewModel vm = this.DataContext as SingleNoteWindowViewModel;
+            if ((vm != null) && (vm.ChangeNoteColorCmd.CanExecute(null)))
+                vm.ChangeNoteColorCmd.Execute(sender as MenuItem);
         }
 
         //--------------------------custom grip code-------------------------------

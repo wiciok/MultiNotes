@@ -102,21 +102,8 @@ namespace MultiNotes.Windows.ViewModel
         {
             foreach (var window in _singleNoteWindows)
             {
-                var windowPref = new NoteWindowPreferences()
-                {
-                    WindowColor = window.MainGrid.Background,
-                    IsDisplayed = true,     //na razie, dopóki nie ma zaimplementowanego wl/wyl
-                    WindowHeight = window.ActualHeight,
-                    WindowWidth = window.ActualWidth,
-                    WindowPositionX = window.Left,
-                    WindowPositionY = window.Top
-                };
-
-                NotesDisplayPreferences.Add(window.Id, windowPref);
-                
                 window.Close();
             }
-            NotesDisplayPreferences.SaveToDisc();
         }
 
         public async Task GetAllNotes()
