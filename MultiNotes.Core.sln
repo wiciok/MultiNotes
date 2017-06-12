@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiNotes.XAndroid.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{07AC9FC7-55BC-4134-ADF6-8F5135F57336}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MultiNotes.Windows.Installer", "MultiNotes.Windows.Installer\MultiNotes.Windows.Installer.vdproj", "{AF81C98D-CB7C-497B-AEE0-BCFE94368AC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,8 @@ Global
 		{07AC9FC7-55BC-4134-ADF6-8F5135F57336}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07AC9FC7-55BC-4134-ADF6-8F5135F57336}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07AC9FC7-55BC-4134-ADF6-8F5135F57336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF81C98D-CB7C-497B-AEE0-BCFE94368AC7}.Debug|Any CPU.ActiveCfg = Debug
+		{AF81C98D-CB7C-497B-AEE0-BCFE94368AC7}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
