@@ -2,7 +2,7 @@
 using MultiNotes.Windows.View;
 using System.Windows;
 using MultiNotes.Core;
-using MultiNotes.Model;
+using MultiNotes.Core.Util;
 
 namespace MultiNotes.Windows
 {
@@ -22,17 +22,31 @@ namespace MultiNotes.Windows
         {
             try
             {
-                UserMethod methods = new UserMethod(ConnectionApi.HttpClient);
-                methods.PreparedAuthenticationRecord();
+                var methods = new UserMethod(ConnectionApi.HttpClient);
+                if (methods.PrepareAuthenticationRecord())
+                {
+                    MultiNotesMainWindow mainWindow;
+                    if (await InternetConnection.IsInternetConnectionAvailable()) //online
+                    {
+                        await methods.Login(methods.Record.Email, methods.Record.PasswordHash, true);
+                        mainWindow = new MultiNotesMainWindow(true);
+                    }
+                    else //offline
+                        mainWindow = new MultiNotesMainWindow(false);    
+                    
+                    mainWindow.Show();
+                }
+                else    //no saved user data in file, or incorrect email address
+                {
+                    var loginWindow = new MultiNotesLoginWindow();
+                    loginWindow.Show();
+                }
 
-                await methods.Login(methods.Record.Email, methods.Record.PasswordHash, true);
-
-                MultiNotesMainWindow mainWindow = new MultiNotesMainWindow();
-                mainWindow.Show();
             }
             catch (Exception e)
             {
-                MultiNotesLoginWindow loginWindow = new MultiNotesLoginWindow();
+                MessageBox.Show("Login failed!");
+                var loginWindow = new MultiNotesLoginWindow();
                 loginWindow.Show();
             }
         }

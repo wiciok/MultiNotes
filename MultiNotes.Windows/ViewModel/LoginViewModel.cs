@@ -42,7 +42,7 @@ namespace MultiNotes.Windows.ViewModel
             {
                 await methods.Login(email, password, isPasswordHashed);
 
-                var mainWindow = new MultiNotesMainWindow();
+                var mainWindow = new MultiNotesMainWindow(true);
                 mainWindow.Show();
                 _closeAction.Invoke();
             }

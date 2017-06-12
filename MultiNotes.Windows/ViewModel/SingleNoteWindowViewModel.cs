@@ -43,7 +43,7 @@ namespace MultiNotes.Windows.ViewModel
         public SingleNoteWindowViewModel(Note note)
         {
             _methods = new UserMethod(ConnectionApi.HttpClient);
-            _methods.PreparedAuthenticationRecord();
+            _methods.PrepareAuthenticationRecord();
             _authenticationRecord = _methods.Record;
 
             Note = note;

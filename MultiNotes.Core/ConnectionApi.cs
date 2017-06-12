@@ -28,6 +28,7 @@ namespace MultiNotes.Core
             HttpClient.BaseAddress = new Uri(DbAddress);// + Port);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpClient.Timeout=TimeSpan.FromSeconds(2);
             _configured = true;
         }
     }

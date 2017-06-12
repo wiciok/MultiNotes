@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web.Http;
 using MultiNotes.Model;
 
@@ -14,7 +16,7 @@ namespace MultiNotes.Core
 
         public AuthenticationRecord Record { get; set; }
         public User User;
-        private readonly string FileAuthenticationRecord = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "user.dat");
+        private readonly string _fileAuthenticationRecord = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "user.dat");
 
         public UserMethod(HttpClient httpClient2)
         {
@@ -22,18 +24,33 @@ namespace MultiNotes.Core
             _authenticationToken = new AuthenticationToken(_httpClient);
             Record = new AuthenticationRecord();
 
-            string directoryName = System.IO.Path.GetDirectoryName(FileAuthenticationRecord);
-            if (!System.IO.Directory.Exists(directoryName))
+            string directoryName = Path.GetDirectoryName(_fileAuthenticationRecord);
+            if (!Directory.Exists(directoryName))
             {
-                System.IO.Directory.CreateDirectory(directoryName);
+                Directory.CreateDirectory(directoryName);
             }
         }
-        public void PreparedAuthenticationRecord()
+        public bool PrepareAuthenticationRecord()
         {
-            var lines = System.IO.File.ReadAllLines(FileAuthenticationRecord);
+            if (!File.Exists(_fileAuthenticationRecord))
+                return false;
+
+            var lines = File.ReadAllLines(_fileAuthenticationRecord);
+            try
+            {
+                // ReSharper disable once ObjectCreationAsStatement
+                new MailAddress(lines[0]);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
             Record.Email = lines[0];
             Record.PasswordHash = lines[1];
+
+            return true;
         }
+
         public async Task Register(string email, string password)
         {
             var bsonId = await UniqueId.GetUniqueBsonId(_httpClient);
@@ -50,8 +67,8 @@ namespace MultiNotes.Core
             if (response.StatusCode == HttpStatusCode.Created)
             {
                 string[] lines = { email, passwordHash };
-                System.IO.File.WriteAllLines(FileAuthenticationRecord, lines);
-                PreparedAuthenticationRecord();
+                File.WriteAllLines(_fileAuthenticationRecord, lines);
+                PrepareAuthenticationRecord();
             }
             else
             {
@@ -62,17 +79,9 @@ namespace MultiNotes.Core
         public async Task Login(string email, string password, bool isPasswordHashed = false)
         {
             //logowanie do pliku
-            string[] lines;
-            if (isPasswordHashed)
-            {
-                lines = new[] { email, password };
-            }
-            else
-            {
-                lines = new[] { email, Encryption.Sha256(password) };
-            }
-            System.IO.File.WriteAllLines(FileAuthenticationRecord, lines);
-            PreparedAuthenticationRecord();
+            var lines = isPasswordHashed ? new[] { email, password } : new[] { email, Encryption.Sha256(password) };
+            File.WriteAllLines(_fileAuthenticationRecord, lines);
+            PrepareAuthenticationRecord();
 
             //wypelnienie uzytkownika
             var token = await _authenticationToken.PostAuthRecordAsync(Record);

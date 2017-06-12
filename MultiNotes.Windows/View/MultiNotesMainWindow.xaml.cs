@@ -11,11 +11,11 @@ namespace MultiNotes.Windows.View
     public partial class MultiNotesMainWindow
     {
         private readonly MainWindowViewModel _vm;
-        public MultiNotesMainWindow()
+        public MultiNotesMainWindow(bool isOnline)
         {
             InitializeComponent();
             ConnectionApi.Configure();
-            _vm = new MainWindowViewModel(Close);
+            _vm = new MainWindowViewModel(Close, isOnline);
             DataContext = _vm;
 
             MinimizeToTray.Enable(this);

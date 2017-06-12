@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using MultiNotes.Core;
+using MultiNotes.Core.Util;
 using MultiNotes.Model;
 using MultiNotes.Windows.Services;
 using MultiNotes.Windows.Util;
@@ -31,6 +32,19 @@ namespace MultiNotes.Windows.ViewModel
         public ICommand LogoutUserCmd { get; }
         public ObservableCollection<Note> Notes { get; set; }
 
+
+        private bool _isOnline;
+        public bool IsOnline
+        {
+            get => _isOnline;
+            set
+            {               
+                _isOnline = value;
+                OnPropertyChanged(nameof(ConnectionMode));
+            }
+        }
+        public string ConnectionMode => IsOnline ? "ONLINE" : "OFFLINE";
+
         private string _note;
         public string Note
         {
@@ -44,7 +58,7 @@ namespace MultiNotes.Windows.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainWindowViewModel(Action closeWindow)
+        public MainWindowViewModel(Action closeWindow, bool isOnline)
         {
             AddNoteCmd = new CommandHandler(AddNote);
             DeleteNoteCmd = new CommandHandler(DeleteNote);
@@ -54,9 +68,10 @@ namespace MultiNotes.Windows.ViewModel
             Notes = new ObservableCollection<Note>();
             _singleNoteWindows = new List<SingleNoteWindow>();
             _closeMainWindowAction = closeWindow;
+            IsOnline = isOnline;
             var authenticationRecord = methods.Record;
 
-            methods.PreparedAuthenticationRecord();
+            methods.PrepareAuthenticationRecord();
 
 #pragma warning disable 4014 //await warning disable - it's ok as it is now, don't change it!
             async void PrepareNotes()
@@ -64,8 +79,22 @@ namespace MultiNotes.Windows.ViewModel
                 var authToken = new AuthenticationToken(ConnectionApi.HttpClient);
                 var token = await authToken.PostAuthRecordAsync(authenticationRecord);
 
-                LoggedUser = await methods.GetUserInfo(token, authenticationRecord.Email);
+                if (IsOnline)
+                {
+                    LoggedUser = await methods.GetUserInfo(token, authenticationRecord.Email);
+                }
+                else //offline mode
+                {
+                    LoggedUser = new User()
+                    {
+                        Id = null,
+                        EmailAddress = methods.Record.Email,
+                        PasswordHash = methods.Record.PasswordHash,
+                        RegistrationTimestamp = DateTime.Now
+                    };
+                }
                 _noteApi = new NoteApi(authenticationRecord, LoggedUser.Id);
+
                 await GetAllNotes();
                 ShowAllNotes();
             }
@@ -100,7 +129,7 @@ namespace MultiNotes.Windows.ViewModel
 
                 case MessageBoxResult.No:
                     break;
-            }           
+            }
         }
 
 
@@ -124,7 +153,7 @@ namespace MultiNotes.Windows.ViewModel
                     window.SetBottom();
                     _singleNoteWindows.Add(window);
                 }
-                else if (windowPref != null && windowPref.IsDisplayed == true)
+                else if (windowPref.IsDisplayed)
                 {
                     window = new SingleNoteWindow(note)
                     {
@@ -200,6 +229,11 @@ namespace MultiNotes.Windows.ViewModel
 
         private async Task RefreshNotes()
         {
+            if (await InternetConnection.IsInternetConnectionAvailable())
+                IsOnline = true;
+            else
+                IsOnline = false;
+
             await GetAllNotes();
             CloseAllNotes();
             ShowAllNotes();
