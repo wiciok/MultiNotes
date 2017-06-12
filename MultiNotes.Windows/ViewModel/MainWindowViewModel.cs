@@ -20,8 +20,9 @@ namespace MultiNotes.Windows.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly List<SingleNoteWindow> _singleNoteWindows;
+        private readonly Action _closeMainWindowAction;
         private NoteApi _noteApi;
-        private Action _closeMainWindowAction;
+        public bool CloseFromLogoutFlag = false;
 
         public User LoggedUser { get; private set; }
         public ICommand AddNoteCmd { get; }
@@ -72,7 +73,7 @@ namespace MultiNotes.Windows.ViewModel
 #pragma warning restore 4014
         }
 
-        private void LogoutUser(object notUsed)
+        private async void LogoutUser(object notUsed)
         {
             const string sMessageBoxText = "Are you sure you want to logout? " +
                                            "It will remove all local notes. " +
@@ -87,11 +88,13 @@ namespace MultiNotes.Windows.ViewModel
             switch (rsltMessageBox)
             {
                 case MessageBoxResult.Yes:
-                    RefreshNotes(new object());
-                    //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "user.dat"));
-                    //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "notes.txt"));
+                    await RefreshNotes();
+                    File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "user.dat"));
+                    File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "notes.txt"));
                     var loginWindow = new MultiNotesLoginWindow();
                     loginWindow.Show();
+                    CloseFromLogoutFlag = true;
+                    CloseAllNotes();
                     _closeMainWindowAction.Invoke();
                     break;
 

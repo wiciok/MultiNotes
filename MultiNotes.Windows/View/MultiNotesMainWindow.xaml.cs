@@ -10,12 +10,13 @@ namespace MultiNotes.Windows.View
     /// </summary>
     public partial class MultiNotesMainWindow
     {
+        private readonly MainWindowViewModel _vm;
         public MultiNotesMainWindow()
         {
             InitializeComponent();
             ConnectionApi.Configure();
-            var vm = new MainWindowViewModel(Close);
-            DataContext = vm;
+            _vm = new MainWindowViewModel(Close);
+            DataContext = _vm;
 
             MinimizeToTray.Enable(this);
 
@@ -24,24 +25,30 @@ namespace MultiNotes.Windows.View
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            const string sMessageBoxText = "Are you sure you want to close MultiNotes?";
-            const string sCaption = "Close";
+            if (_vm.CloseFromLogoutFlag)
+                _vm.CloseFromLogoutFlag = false;
 
-            const MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-            const MessageBoxImage icnMessageBox = MessageBoxImage.Question;
-
-            var rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-            switch (rsltMessageBox)
+            else
             {
-                case MessageBoxResult.Yes:
-                    Application.Current.Shutdown();
-                    break;
+                const string sMessageBoxText = "Are you sure you want to close MultiNotes?";
+                const string sCaption = "Close";
 
-                case MessageBoxResult.No:
-                    e.Cancel = true;
-                    break;
-            }
+                const MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+                const MessageBoxImage icnMessageBox = MessageBoxImage.Question;
+
+                var rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+                switch (rsltMessageBox)
+                {
+                    case MessageBoxResult.Yes:
+                        Application.Current.Shutdown();
+                        break;
+
+                    case MessageBoxResult.No:
+                        e.Cancel = true;
+                        break;
+                }
+            }            
         }
     }
 }

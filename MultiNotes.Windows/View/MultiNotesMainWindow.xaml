@@ -6,8 +6,8 @@
         xmlns:viewModel="clr-namespace:MultiNotes.Windows.ViewModel"
         d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
-        Title="MultiNotes" Height="517.926" Width="521.294" >
-    <!--Closing="Window_Closing" -->
+        Title="MultiNotes" Height="517.926" Width="521.294" Closing="Window_Closing">
+    <!-- -->
     
     <Grid Margin="0,0,0,2">
         <Grid.RowDefinitions>
