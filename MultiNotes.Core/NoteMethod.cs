@@ -35,6 +35,12 @@ namespace MultiNotes.Core
             }
         }
 
+        public void AddAllNotesToFile(IEnumerable<Note> notes)
+        {
+            foreach(var el in notes)
+                AddNoteToFile(el);
+        }
+
         public async Task AddNoteToDatabase(Note note, string token)
         {
             //zapis notatki do bazy danych        
@@ -60,7 +66,7 @@ namespace MultiNotes.Core
             }
             else
             {
-                if (response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
+                if (response.StatusCode.Equals(HttpStatusCode.NoContent))
                 {
                     allNotes = new List<Note>();
                 }
@@ -109,7 +115,7 @@ namespace MultiNotes.Core
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
-                    AddNoteToDatabase(newNote, token);
+                    await AddNoteToDatabase(newNote, token);
                     return true;
                 case HttpStatusCode.NotFound:
                     return false;
@@ -130,7 +136,7 @@ namespace MultiNotes.Core
                 }
                 tmpList.RemoveAt(tmpList.Count - 1);
                 var listNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-                List<Note> retrunNotes = listNotes.GroupBy(x => x.Id).Select(group => group.First()).ToList();
+                var retrunNotes = listNotes.GroupBy(x => x.Id).Select(group => group.First()).ToList();
 
                 File.WriteAllText(Path, "");
                 foreach (var item in retrunNotes)
@@ -200,7 +206,7 @@ namespace MultiNotes.Core
             }
             tmpList.RemoveAt(tmpList.Count - 1);
             var tempNotes = tmpList.Select(JsonConvert.DeserializeObject<Note>).ToList();
-            List<Note> listNotes = tempNotes.GroupBy(x => x.Id).Select(group => group.First()).ToList();
+            var listNotes = tempNotes.GroupBy(x => x.Id).Select(group => group.First()).ToList();
 
             var toDelete = listNotes.FirstOrDefault(a => a.Id == id && a.OwnerId == userId);
             if (toDelete == null)
@@ -217,14 +223,6 @@ namespace MultiNotes.Core
             {
                 var jsonNote = JsonConvert.SerializeObject(item);
                 File.AppendAllText(Path, jsonNote);
-            }
-        }
-
-        public void CleanLocalNotes()
-        {
-            if (File.Exists(Path))
-            {
-                File.Delete(Path);
             }
         }
     }

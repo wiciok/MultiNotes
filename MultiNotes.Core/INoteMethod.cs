@@ -16,6 +16,6 @@ namespace MultiNotes.Core
         Note GetNoteFromFile(string id, string userId);
         void DeleteNoteFromFile(string id, string userId);
         void UpdateNoteFromFile(string id, string userId, Note newNote);
-        void CleanLocalNotes();
+        void AddAllNotesToFile(IEnumerable<Note> notes);
     }
 }
