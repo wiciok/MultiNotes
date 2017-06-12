@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,11 +21,13 @@ namespace MultiNotes.Windows.ViewModel
     {
         private readonly List<SingleNoteWindow> _singleNoteWindows;
         private NoteApi _noteApi;
+        private Action _closeMainWindowAction;
 
         public User LoggedUser { get; private set; }
         public ICommand AddNoteCmd { get; }
         public ICommand DeleteNoteCmd { get; }
         public ICommand RefreshNotesCmd { get; }
+        public ICommand LogoutUserCmd { get; }
         public ObservableCollection<Note> Notes { get; set; }
 
         private string _note;
@@ -40,14 +43,16 @@ namespace MultiNotes.Windows.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(Action closeWindow)
         {
             AddNoteCmd = new CommandHandler(AddNote);
             DeleteNoteCmd = new CommandHandler(DeleteNote);
             RefreshNotesCmd = new CommandHandler(RefreshNotes);
+            LogoutUserCmd = new CommandHandler(LogoutUser);
             var methods = new UserMethod(ConnectionApi.HttpClient);
             Notes = new ObservableCollection<Note>();
             _singleNoteWindows = new List<SingleNoteWindow>();
+            _closeMainWindowAction = closeWindow;
             var authenticationRecord = methods.Record;
 
             methods.PreparedAuthenticationRecord();
@@ -66,6 +71,36 @@ namespace MultiNotes.Windows.ViewModel
             PrepareNotes();
 #pragma warning restore 4014
         }
+
+        private void LogoutUser(object notUsed)
+        {
+            const string sMessageBoxText = "Are you sure you want to logout? " +
+                                           "It will remove all local notes. " +
+                                           "You can lose your data if there is no internet connection";
+            const string sCaption = "Logout";
+
+            const MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+            const MessageBoxImage icnMessageBox = MessageBoxImage.Question;
+
+            var rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+            switch (rsltMessageBox)
+            {
+                case MessageBoxResult.Yes:
+                    RefreshNotes(new object());
+                    //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "user.dat"));
+                    //File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MultiNotes", "notes.txt"));
+                    var loginWindow = new MultiNotesLoginWindow();
+                    loginWindow.Show();
+                    _closeMainWindowAction.Invoke();
+                    break;
+
+                case MessageBoxResult.No:
+                    break;
+            }           
+        }
+
+
 
         private void ShowAllNotes()
         {

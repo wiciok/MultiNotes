@@ -6,7 +6,8 @@
         xmlns:viewModel="clr-namespace:MultiNotes.Windows.ViewModel"
         d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
-        Title="MultiNotes" Height="517.926" Width="521.294" Closing="Window_Closing">
+        Title="MultiNotes" Height="517.926" Width="521.294" >
+    <!--Closing="Window_Closing" -->
     
     <Grid Margin="0,0,0,2">
         <Grid.RowDefinitions>
@@ -16,8 +17,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" 
-                   Margin="3,3,3.2,3" 
-                   Grid.ColumnSpan="2">
+                   Margin="2,3,4,3">
 
             <Button Command="{Binding RefreshNotesCmd}" 
                     DockPanel.Dock="Left" 
@@ -27,14 +27,38 @@
                        Width="30" 
                        RenderOptions.BitmapScalingMode="Fant"/>
             </Button>
+            
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Right" 
                         Margin="5">
-                <Label FontWeight="Bold" 
-                       Content="{Binding LoggedUser.EmailAddress}"/>
-                <Image Source="/Images/avatar.png" 
-                       Width="30" 
-                       RenderOptions.BitmapScalingMode="Fant"/>
+
+                <Menu VerticalAlignment="Center" 
+                      Width="Auto" 
+                      HorizontalAlignment="Center" 
+                      Background="Transparent"
+                      Margin="-80,0,0,0">
+                    <MenuItem  Name="ColorMenu" 
+                               Background="Transparent" 
+                               BorderThickness="0">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label FontWeight="Bold" 
+                                       Content="{Binding LoggedUser.EmailAddress}"/>
+                                <Image Source="/Images/avatar.png" 
+                                       Width="30" 
+                                       RenderOptions.BitmapScalingMode="Fant"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                        <MenuItem Height="31" Margin="0,0,-25,0" Name="Red" Command="{Binding LogoutUserCmd}">
+                            <MenuItem.Icon>
+                                <Image Source="../Images/logout.png"></Image>
+                            </MenuItem.Icon>
+                            <MenuItem.Header>
+                                Logout user
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
             </StackPanel>
         </DockPanel>
 

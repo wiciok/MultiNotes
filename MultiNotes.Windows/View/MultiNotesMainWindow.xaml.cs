@@ -14,7 +14,7 @@ namespace MultiNotes.Windows.View
         {
             InitializeComponent();
             ConnectionApi.Configure();
-            var vm = new MainWindowViewModel();
+            var vm = new MainWindowViewModel(Close);
             DataContext = vm;
 
             MinimizeToTray.Enable(this);

@@ -18,7 +18,7 @@
         Background="Transparent"
         ResizeMode="CanResize"
         SizeToContent="WidthAndHeight"
-        MinWidth="150"
+        MinWidth="170"
         LocationChanged="SingleNoteWindow_OnLocationChanged"
         WindowStartupLocation="Manual">
     <Grid>
