@@ -43,7 +43,6 @@ namespace MultiNotes.Server.Controllers
             }
         }
 
-
         //rejestracja nowego uzytkownika
         // POST api/user
         [ResponseType(typeof(User))]
