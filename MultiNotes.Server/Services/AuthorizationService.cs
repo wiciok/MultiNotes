@@ -15,7 +15,6 @@ namespace MultiNotes.Server.Services
 
         public bool CheckAuthorization(string token)
         {
-
             var tokenObj = TokenBase.GetToken(token);
             if (tokenObj == null)
                 return false;
